@@ -36,10 +36,8 @@ jobs:
         /usr/bin/bash -c /project/ISO-builder.sh
         /usr/bin/bash -c /project/IMG-builder.sh
     - name: Archive artifacts
-      run: |
-        /usr/bin/mv /project/artifacts/*.img bcld.img
       uses: actions/upload-artifact@v2
       with:
         name: vendorless-bcld
-        path: bcld.img
+        path: /project/artifacts/*.img
 
