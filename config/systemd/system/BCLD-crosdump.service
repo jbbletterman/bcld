@@ -1,0 +1,9 @@
+[Unit]
+Description=Service for Chromium dump file detection
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/crosdump_logger.sh
+
+[Install]
+WantedBy=multi-user.target

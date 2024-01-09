@@ -1,0 +1,12 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# This is a list of hotpluggable network interfaces.
+# They will be activated automatically by the hotplug subsystem.
+# auto eth1
+
+# iface eth1 inet dhcp

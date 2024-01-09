@@ -1,0 +1,3 @@
+deb ${UBUNTU_REPO} ${CODE_NAME} main restricted universe multiverse
+deb ${UBUNTU_REPO} ${CODE_NAME}-updates main restricted universe multiverse
+deb ${UBUNTU_REPO} ${CODE_NAME}-security main restricted universe multiverse

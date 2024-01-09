@@ -1,0 +1,37 @@
+! special
+*background: black
+*foreground: black
+*faceName: Ubuntu Mono
+*faceSize: 10
+
+! black
+*.color0:       #FFFFFF
+*.color8:       #FFFFFF
+
+! red
+*.color1:       #FFFFFF
+*.color9:       #FFFFFF
+
+! green
+*.color2:       #FFFFFF
+*.color10:      #FFFFFF
+
+! yellow
+*.color3:       #000000
+*.color11:      #000000
+
+! blue
+*.color4:       #000000
+*.color12:      #000000
+
+! magenta
+*.color5:       #FFFFFF
+*.color13:      #FFFFFF
+
+! cyan
+*.color6:       #FFFFFF
+*.color14:      #FFFFFF
+
+! white
+*.color7:       #FFFFFF
+*.color15:      #FFFFFF

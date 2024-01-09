@@ -1,0 +1,75 @@
+# Secondary Grub config.
+# This config works when running BCLD from the IMG-file.
+
+search --label 'BCLD-USB' --no-floppy --set=root --hint=hd0,gpt2
+
+# Modules
+insmod ntfs
+insmod video
+
+# Grub settings
+set gfxpayload="keep"
+set gfxmode="1280x1024x32"
+
+# VARs
+set ISO_FILE="/bcld.iso"
+set PLYMOUTH="quiet splash"
+
+set PARAMS="iso-scan/filename=$ISO_FILE boot=casper noprompt noeject toram apparmor=0 $PLYMOUTH"
+set PRIOMETERS="systemd.unit=graphical.target 5"
+
+set default=0
+set color_normal=light-gray/black
+set prompt=1
+set timeout=3
+
+echo
+
+# Include bcld.cfg if it exists.
+if [ -s /bcld.cfg ]; then
+    echo ' * BCLD config found!'
+    source /bcld.cfg
+fi
+
+# Check for bcld.log.
+if [ -f /bcld.log ]; then
+    echo ' * BCLD log file detected!'
+fi
+
+# Display PARAMS on screen. (DISABLED)
+#if [ -n ${bcldparameters} ]; then
+#    echo '   BCLD parameters:'
+#    echo "    ${bcldparameters}"
+#    echo
+#fi
+
+# Load ISO_FILE, kernel and RAMFS.
+loopback loop $ISO_FILE
+
+if [ -s (loop)/casper/vmlinuz ]; then
+    echo ' * Loading kernel...'
+    linux (loop)/casper/vmlinuz ${PARAMS} ${bcldparameters} ${PRIOMETERS} ---
+    echo '   - Kernel loaded!'
+else
+    echo '   - Kernel (vmlinuz) cannot be loaded.'
+    echo '   - The system will not be able to function.'
+    echo '   - Shutting down now...'
+    sleep --verbose 10
+    halt
+fi
+
+if [ -s (loop)/casper/initrd ]; then
+    echo ' * Loading file system...'
+    initrd (loop)/casper/initrd
+    echo '   - File system loaded!'
+else
+    echo '   - File system (initrd) cannot be loaded.' 
+    echo '   - The system will not be able to function.'
+    echo '   - Shutting down now...'
+    sleep --verbose 10
+    halt
+fi
+
+# Apply all settings.
+echo ' * Starting BCLD...'
+boot

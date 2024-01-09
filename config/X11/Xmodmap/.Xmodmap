@@ -1,0 +1,36 @@
+! Xmodmap config for disabling all F-keys
+! Disable F1
+keycode 67 = NoSymbol
+
+! Disable F2
+keycode 68 = NoSymbol
+
+! Disable F3
+keycode 69 = NoSymbol
+
+! Disable F4
+keycode 70 = NoSymbol
+
+! Allow F5 (refresh)
+! keycode 71 = NoSymbol
+
+! Disable F6
+keycode 72 = NoSymbol
+
+! Disable F7
+keycode 73 = NoSymbol
+
+! Disable F8
+keycode 74 = NoSymbol
+
+! Disable F9
+keycode 75 = NoSymbol
+
+! Disable F10
+keycode 76 = NoSymbol
+
+! Disable F11
+keycode 95 = NoSymbol
+
+! Disable F12
+keycode 96 = NoSymbol

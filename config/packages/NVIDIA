@@ -1,0 +1,7 @@
+linux-modules-nvidia-${NVIDIA_DRIVER}-${KERNEL_VERSION}
+linux-objects-nvidia-${NVIDIA_DRIVER}-${KERNEL_VERSION}
+linux-signatures-nvidia-${KERNEL_VERSION}
+nvidia-driver-${NVIDIA_DRIVER}
+nvidia-prime
+nvidia-settings
+nvidia-utils-${NVIDIA_DRIVER}

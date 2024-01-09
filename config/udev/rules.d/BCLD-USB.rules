@@ -1,0 +1,1 @@
+ACTION=="add",KERNEL=="sd*", SUBSYSTEMS=="usb", ATTRS{product}=="Mass Storage", TAG+="systemd", ENV{SYSTEMD_WANTS}="BCLD-USB.service"

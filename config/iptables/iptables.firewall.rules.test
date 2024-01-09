@@ -1,0 +1,66 @@
+*filter
+
+# Default Policies
+-P INPUT   DROP
+-P FORWARD DROP
+-P OUTPUT  DROP
+
+# Allow all and everything on localhost
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# DHCP
+-A INPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+-A INPUT -p udp --dport 546:547 --sport 546:547 -j ACCEPT
+
+# DNS
+-A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+
+# Multicast
+-A INPUT -m pkttype --pkt-type multicast -j ACCEPT
+-A FORWARD -m pkttype --pkt-type multicast -j ACCEPT
+-A OUTPUT -m pkttype --pkt-type multicast -j ACCEPT
+
+# mDNS
+-A INPUT -p udp -m udp --dport 5353 -j ACCEPT
+-A OUTPUT -p udp -m udp --sport 5353 -j ACCEPT
+
+# SSH
+-A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# X11 Forwarding
+-A INPUT -p tcp --dport 6010 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp --sport 6010 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# HTTP
+-A OUTPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+
+# HTTPS
+-A OUTPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+
+# Rsyslog
+-A OUTPUT -p tcp --dport 6514 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp --sport 6514 -m state --state ESTABLISHED -j ACCEPT
+
+# BCLD Debugging
+-A INPUT -p tcp --dport 2253 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp --sport 2253 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp --dport 12253 -m conntrack --ctstate NEW,ESTABLISHED
+-A OUTPUT -p tcp --sport 12253 -m conntrack --ctstate NEW,ESTABLISHED
+
+# Reject ICMPs instead of dropping them
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+
+# Drop invalid packets
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+
+# Deny all other traffic
+-A OUTPUT -j DROP
+-A INPUT -j DROP
+COMMIT

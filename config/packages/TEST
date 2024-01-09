@@ -1,0 +1,16 @@
+dosfstools
+efibootmgr
+inetutils-ping
+less
+lshw
+lsof
+mesa-utils
+mokutil
+openssh-server
+plymouth-x11
+shellcheck
+tcpdump
+tree
+ubuntu-drivers-common
+vim
+xserver-xorg-video-qxl

@@ -1,0 +1,11 @@
+[Unit]
+Description=Service for automounting BCLD-USB based on label
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/usb_logger.sh
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
