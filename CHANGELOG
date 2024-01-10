@@ -4,6 +4,7 @@
 ### January
 * `2024-01-10 12:39:20` : Vendorless BCLD released on GitHub
     - BATS modules readded
+    - Cleanup up [README.md](./README.md)
 * `2024-01-03 16:42:21` : 
     - Replaced `falkon` with `qutebrowser`
     - Unable to disable tabs, only downside

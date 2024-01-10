@@ -1,14 +1,14 @@
 e2caa447a472cd4b319fdb6d68f7093f  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 53712c37e5d406d6e2396d0133c63e0a  ./BCLD_FLOW.png
-8ab90135993907f1f75091def86ae23a  ./CHANGELOG
+9ea010ef176ba16c98a6d78d94ca5326  ./CHANGELOG
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 b6de47db9237d85e5261064ae6bdca7e  ./ISO-builder.sh
 b70ef6c6e2ba24acef78d533b2bca185  ./ISO_BUILDER_FLOW.png
 cc04d3c28306689fde5be96638e22f70  ./LICENSE
-85a984e37ffab80d43bba0b78ea8aa87  ./README.md
+6d822a26c73faaac87205d4c07c34b50  ./README.md
 77a9103c2abf925fda8dfe8ac8575bdb  ./RepoMan.sh
 5ee37144e15f8bf49e7f683935a27f15  ./bcld-logo.png
 ef446702fb62fe502fc67c370a5a11fa  ./config/BUILD.conf
@@ -22,7 +22,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
 96118326a47f2ce117c668bdf25c726d  ./config/bash/environment
-4ba863dda997c9f2b484bf3f8939a189  ./config/bcld/bcld.cfg
+751c3f326e9d9febc14ef0f884b61087  ./config/bcld/bcld.cfg
 1b98525005b32bb69b3ab90e213c6492  ./config/casper/casper.conf
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
