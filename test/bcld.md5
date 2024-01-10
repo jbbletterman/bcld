@@ -1,7 +1,7 @@
 e2caa447a472cd4b319fdb6d68f7093f  ./.gitignore
-147ac4da8b8caa51c52f9331cf6c558d  ./.gitmodules
+58e23c5fce0e6c6d81d8187896f85279  ./.gitmodules
 53712c37e5d406d6e2396d0133c63e0a  ./BCLD_FLOW.png
-4fadc49c1ee00d306877fa275fcad88f  ./CHANGELOG
+8ab90135993907f1f75091def86ae23a  ./CHANGELOG
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -11,7 +11,7 @@ cc04d3c28306689fde5be96638e22f70  ./LICENSE
 3a1fd8426eb6809e4fe0227d34e6b752  ./README.md
 77a9103c2abf925fda8dfe8ac8575bdb  ./RepoMan.sh
 5ee37144e15f8bf49e7f683935a27f15  ./bcld-logo.png
-97efb75ad463a24c0ac0a0c4c688a959  ./config/BUILD.conf
+ef446702fb62fe502fc67c370a5a11fa  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
