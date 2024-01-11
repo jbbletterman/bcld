@@ -2,6 +2,7 @@
 
 ## 2024
 ### January
+* `2024-01-11 13:48:04` : Expand HashGen to include `./.assets` and `./.github`
 * `2024-01-10 12:39:20` : Vendorless BCLD released on GitHub
     - BATS modules readded
     - Cleanup up [README.md](./README.md)
