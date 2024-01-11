@@ -1,4 +1,4 @@
-<img src="./bcld-logo.png" alt="logo" width="200"/>
+<img src="./assets/bcld-logo.png" alt="logo" width="200"/>
 
 # Introduction
 This is BCLD (Bootable Client Lockdown).
@@ -60,7 +60,7 @@ This repository consists of the following objects:
   8. `script` - This folder contains important scripts for BCLD.
   9. `tools` - This folder contains associated tools, such as `RepoMan`.
   10. `.gitignore` - This file contains a list of files and artifacts that must be excluded from the repository.
-  11. [BCLD_FLOW.png](./BCLD_FLOW.png) - Overview of the build process.
+  11. [BCLD_FLOW.png](./assets/BCLD_FLOW.png) - Overview of the build process.
   12. [CHANGELOG](./CHANGELOG) - Changelog.
   13. [IMG-builder.sh](./IMG-builder.sh) - This script is responsible for the generation of the IMG-file during the build process and can be used on its own (as long as there is a `./artifacts/bcld.iso`).
   14. [ISO-builder.sh](./ISO-builder.sh) - This script is responsible for the build process.
@@ -662,10 +662,10 @@ grub-mkstandalone \
 ```
 
 # BCLD Flow Chart
-<img src="./BCLD_FLOW.png" alt="chart" width="1080"/>
+<img src="./assets/BCLD_FLOW.png" alt="chart" width="1080"/>
 
 # ISO Builder Flow Chart
-<img src="./ISO_BUILDER_FLOW.png" alt="chart" width="1080"/>
+<img src="./assets/ISO_BUILDER_FLOW.png" alt="chart" width="1080"/>
 
 # Known Bugs
 
