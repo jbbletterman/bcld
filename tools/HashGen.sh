@@ -92,6 +92,8 @@ function generate_bcld_md5 () {
     add_dir_hash ./script
     add_dir_hash ./tools/bcld-repo-manager
     add_dir_hash .
+    add_file_hash ./test/BCLD-BATS.sh
+    add_file_hash ./test/bcld_test.sh
     add_file_hash ./image/ISO/isolinux/isolinux.bin
     add_file_hash ./image/ISO/isolinux/isolinux.cfg
     add_file_hash ./image/ISO/README.diskdefines

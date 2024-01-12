@@ -34,6 +34,8 @@ source ./config/BUILD.conf
 source ./script/echo_tools.sh
 source ./script/file_operations.sh
 
+TAG='SHELL-CHECK'
+
 list_header 'Starting BCLD ShellCheck'
 if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
     
@@ -46,16 +48,18 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
     
     list_item "ShellCheck Errors: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
     list_item "ShellCheck Warnings: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+    on_completion
     
 else
     last_item_fail 'ShellCheck could not be found!'
     on_failure
 fi
 
+TAG='BATS-TEST'
+
 # Use in working directory
 if [[ -f ./test/BCLD-BATS.sh ]]; then
 	
-	TAG='BATS-TEST'
 
 	if [[ -n ${BCLD_MODEL} ]]; then
 	

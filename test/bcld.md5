@@ -104,11 +104,12 @@ f954697a6f68e7c25e05e75310080794  ./script/startup.sh
 a12b5aa0f199e22b74a7cb400bb8ffbe  ./test/00_PRE-BUILD.bats
 a9438d8127755ce4b88d174b974bd8fa  ./test/01_PER-BUILD.bats
 a663e4ea0ffd0a9aff999f54d7a9a1d5  ./test/02_POST-BUILD.bats
+e959a8de10c429d8c11cfe5d64a5fe7e  ./test/BCLD-BATS.sh
 13fc6ce9dd7d8170534714cd7a3ccc01  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh
-1da595c04514c3e63f69a6bf8ed21485  ./tools/HashGen.sh
+9e24de909dee42e79d45e5a85a78ac76  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 0a430cdd84ba79567389d5440f23a3ba  ./tools/bcld-repo-manager/chrepoman.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
