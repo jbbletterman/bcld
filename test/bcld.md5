@@ -1,7 +1,7 @@
 d0bdcbc66c943f95d94094510a7225f8  ./.github/workflows/release.yml
 e2caa447a472cd4b319fdb6d68f7093f  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-6c03245fff4003312465074a6e55d13a  ./CHANGELOG
+1f0599dbc59150a1ee15d30676a85e76  ./CHANGELOG
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -99,7 +99,7 @@ df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 6016a0192dc8975287b1bdf97c846b7a  ./script/file_operations.sh
 6257ca5ef1f37f5a08322cc9a08e61b3  ./script/log_tools.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
-cbaa52192bfa76be9d6f2b401d1d1234  ./script/startup.sh
+f954697a6f68e7c25e05e75310080794  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 a12b5aa0f199e22b74a7cb400bb8ffbe  ./test/00_PRE-BUILD.bats
 a9438d8127755ce4b88d174b974bd8fa  ./test/01_PER-BUILD.bats

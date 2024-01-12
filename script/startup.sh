@@ -78,22 +78,6 @@ export BCLD_VERSION_STRING="$(/usr/bin/cat /VERSION)"
 # VARs
 TAG="RUN-LIVE"
 
-# pactl does not work inside a VM
-if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
-    # Give systems time to start Pulse Audio
-    list_header "Waiting for Pulse daemon to start"
-    last_item "Continue..."
-
-    # When started, we can now use Pulse Audio controls
-    export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
-
-    # SINKS found with pactl and output in JSON. Used throughout code
-    SINKS_JSON="$(/usr/bin/pactl --format json list sinks)" 
-fi
-
-# This is allowed to detect 0 sinks when running inside VM
-export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
-
 ## Paths
 CDROM="/dev/cdrom"
 DHCP_LEASE="/var/lib/dhcp/dhclient.leases"
@@ -110,8 +94,33 @@ PACTL_DEFAULT_VOL=125
 PACTL_DEFAULT_REC=100
 VENDORLESS_PARAM='c.url.start_pages'
 
+
+## PACTL scans sinks 20 times before it continues, each scan has a 1s sleep timer
+PACTL_SCANS='20'
 ## SCAN_TRIES before giving up on LAN, or shutting down after WLAN
 SCAN_TRIES='3'
+
+# pactl does not work inside a VM
+if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
+    # Give systems time to start Pulse Audio
+    list_header "Waiting for Pulse daemon to start"
+    print_item "Scanning soundcards (please wait)"
+    for scan in $(/usr/bin/seq 1 20); do
+        pactl get-default-sink | /usr/bin/grep -qv null && break
+        /usr/bin/printf "." && /usr/bin/sleep 1s
+    done
+    echo
+    last_item "Continue..."
+
+    # When started, we can now use Pulse Audio controls
+    export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
+
+    # SINKS found with pactl and output in JSON. Used throughout code
+    SINKS_JSON="$(/usr/bin/pactl --format json list sinks)" 
+fi
+
+# This is allowed to detect 0 sinks when running inside VM
+export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 
 # FUNCTIONS
 
