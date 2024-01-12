@@ -17,6 +17,7 @@ inetutils-ping
 libnss3-tools
 mtools
 parted
+shellcheck
 shim-signed
 squashfs-tools
 tar

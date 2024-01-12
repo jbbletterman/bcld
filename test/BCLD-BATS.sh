@@ -29,13 +29,31 @@
 set -e
 #set -x
 
-# Use in working directory
-if [[ -f ./test/BCLD-BATS.sh ]]; then 
+# Source external tools
+source ./config/BUILD.conf
+source ./script/echo_tools.sh
+source ./script/file_operations.sh
 
-	# Source external tools
-	source ./config/BUILD.conf
-	source ./script/echo_tools.sh
-	source ./script/file_operations.sh
+list_header 'Starting BCLD ShellCheck'
+if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
+    
+    SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
+    
+	# Make necessary directories
+	prep_dir "$(/usr/bin/dirname ${SHELL_REPORT})"
+    
+    /usr/bin/find . -type f -name "*.sh" -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
+    
+    list_item "ShellCheck Errors: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
+    list_item "ShellCheck Warnings: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+    
+else
+    last_item_fail 'ShellCheck could not be found!'
+    on_failure
+fi
+
+# Use in working directory
+if [[ -f ./test/BCLD-BATS.sh ]]; then
 	
 	TAG='BATS-TEST'
 
@@ -46,9 +64,7 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		BATS_SUCCESS='./artifacts/BATS-SUCCESS'
 		
 		list_header 'Starting BCLD Bash Automated Testing System'
-		# Make necessary directories
-		prep_dir ./artifacts
-		last_item 'External tools sourced...'
+
 
 		# Add title
 		list_header "# $(/usr/bin/basename ./test/00_PRE-BUILD.bats)" | /usr/bin/tee "${BATS_REPORT}"
@@ -79,8 +95,8 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		fi
 		
 	else
-		last_item 'Please set BCLD_MODEL'
-		exit 1
+		list_item_fail 'Please set BCLD_MODEL'
+		on_failure
 	fi
 	
 else
