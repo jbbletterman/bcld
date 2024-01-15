@@ -13,7 +13,7 @@ Below is an extensive manual of the product.
 # Index
 1. [System Requirements](#system-requirements)
 2. [Repository](#repository)
-3. [BCLD Vendors](#bcld-vendors)
+3. [BCLD Models](#bcld-models)
 4. [ISO-builder](#iso-builder)
 5. [IMG-builder](#img-builder)
 6. [Docker-builder](#docker-builder)
@@ -77,86 +77,13 @@ This repository consists of the following objects:
   2. `bats-support`
   3. `bats-assert`
 
-# BCLD Vendors
+# BCLD Models
 
 | **BCLD_MODEL** | **Explanation**                                                                                                                                                                                              |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Release**    | The BCLD Release images are provided with a kiosk mode that cannot be escaped.                                                                                                                             |
 | **Debug**      | Debug images have an exposed port for PixelHunter (Chromium Debugging). Kiosk mode is disabled.                                                                                                            |
 | **Test**       | Test images are not distributed and are intended for internal usage only. Additional firewall rules have been added to enable SSH and X11 forwarding for log offloading. The app won't boot automatically. |
-
-
-## WFT Certificate
-* The installation of the WFT certificate requires a _Network Security Services Database_ (NSSDB).
-* This NSSDB consists of a Certificate Store (`cert_.db`) and a Key Store (`key_.db`).
-* By default, the location of the NSSDB will be `${HOME}/.pki/nssdb`.
-* This database can be configured in `./config/nssdb` with `certutil`.
-* `certutil` is not suitable for importing keys.
-* Generating certificates and keys is done with `openssl`.
-* `pkcs12util` is used for managing keys within an NSSDB.
-* The NSSDB will be utilized by `./ISO-Builder.sh` and installed within BCLD.
-
-### certutil
-* All current certificates can be listed with `certutil -d sql:${NSSDB_HOME} -L`
-* All current keys can be listed with `certutil -d sql:${NSSDB_HOME} -K`
-* With a new certificate, trustargs must be added: `certutil -n BSB -t "u,u,u" -d sql:. ednssdb -i bsb.pem -A`
-* Old certificates must be removed from the database, because BCLD only expects one certificate (if there are multiple certificates, a certificate must be selected): `certutil -n BSB -d sql:${NSSDB_HOME} -D`
-* Keys must be removed separately from certificates: `certutil -n BSB -d sql:${NSSDB_HOME} -F`
-
-| Switch | Meaning                   |
-| ------ | ------------------------- |
-| -d     | Database                  |
-| -n     | Name                      |
-| -i     | PEM, CRT, p12 or pfx file |
-| -t     | `trustargs`               |
-| -A     | Add Certificate           |
-| -D     | Delete certificate        |
-| -F     | Delete key                |
-| -K     | List all keys             |
-| -L     | List all certificates     |
-| -N     | Create new database       |
-
-### Trust Args
-* When importing a certificate, `trustargs` must be configured.
-* There is a lot of choice and it is mainly scanning, the current combination is "u,u,u".
-
-| trustarg  | Meaning                |
-| --------- | ---------------------- |
-| -c        | Validity override      |
-| -C        | Trusted CA (implies c) |
-| -p        | Valid Peer             |
-| -P        | Trusted Peer           |
-| -T        | Special SSL Trust      |
-| -u        | User flag              |
-| -w        | Throw warning          |
-
-### openssl
-* To extract a public key from a PEM file, the private key is needed: `openssl pkcs12 -export -in bsb.pem -inkey bsb.key -name BSB -out bsb.p12`.
-* You can use `openssl` to inspect certificates: `openssl x509 -in config/nssdb/bsb.duo.nl_20220121.pem -text | pager`
-* With `openssl` you can also check for the validity of a certificate: `openssl x509 -enddate -noout -in bsb.pem`
-* Regardless of postfixes, all input and output files must be in PEM format.
-
-| Switch   | Meaning                               |
-| -------- | ------------------------------------- |
-| pkcs12   | PKCS12 toolkit for OpenSSL            |
-| x509     | x509 toolkit for OpenSSL              |
-| -export  | Create file instead of parsing        |
-| -in      | PEM file with certificates (and keys) |
-| -inkey   | Privatekey                            |
-| -name    | Shared Name                           |
-| -out     | PKCS12 key (PEM)                      |
-| -enddate | Certificate validity end date         |
-| -nout    | Show no output                        |
-
-### pkcs12util
-* Import keys with `pkcs12util`: `pk12util -i bsb.p12 -d sql:${NSSDB_HOME}`
-* Some keys have a password: `pk12util -i bsb.p12 -d sql:${NSSDB_HOME} -W password`
-
-| Switch | Meaning             |
-| ------ | ------------------- |
-| -i     | PKCS12 Key          |
-| -d     | Database            |
-| -W     | Password (optional) |
 
 # ISO-builder
 * This repo can be used on an Ubuntu build agent (VM).
