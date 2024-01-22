@@ -41,7 +41,6 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 	
 
 	if [[ -n ${BCLD_MODEL} ]]; then
-	
 
         BATS_TEST=./test/00_BCLD-BUILD.bats
 		BATS_BIN='./modules/bats-core/bin/bats'
@@ -51,15 +50,10 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		list_header 'Starting BCLD Bash Automated Testing System'
 
 
-		# Add title
-		list_header "# $(/usr/bin/basename ./test/01_PER-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
-		list_item 'This may take a while, a BCLD test build is running in the background...'
+		# BATS TEST
+		list_header "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_entry
-		("${BATS_BIN}" "${BATS_1}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
-		
-		list_header "# $(/usr/bin/basename ./test/02_POST-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
-		list_entry
-		("${BATS_BIN}" "${BATS_1}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
+		("${BATS_BIN}" "${BATS_TEST}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
 		
 		list_header 'Checking BCLD-BATS-TEST results...'
 		
