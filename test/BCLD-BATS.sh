@@ -71,10 +71,6 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 
 
 		# Add title
-		list_header "# $(/usr/bin/basename ./test/00_PRE-BUILD.bats)" | /usr/bin/tee "${BATS_REPORT}"
-		list_entry
-		${BATS_BIN} ./test/00_PRE-BUILD.bats | /usr/bin/tee --append "${BATS_REPORT}"
-		
 		list_header "# $(/usr/bin/basename ./test/01_PER-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_item 'This may take a while, a BCLD test build is running in the background...'
 		list_entry

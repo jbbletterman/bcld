@@ -1,5 +1,6 @@
 artifacts/
 bootstrap/
+cert/
 chroot/
 app/
 deb/
