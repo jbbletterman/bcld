@@ -57,12 +57,12 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		
 		list_header 'Checking BCLD-BATS-TEST results...'
 		
-		# Create fake artifact to trick Bamboo into failing if BATS fails
+		# Create fake artifact to trick CI/CD into failing if BATS fails
 		if [[ $(/usr/bin/grep -c 'not ok' "${BATS_REPORT}") -gt 0 ]]; then
 			list_item 'BCLD-BATS-TEST failed!'
 			last_item "Please review the contents of ${BATS_REPORT}"
 			exit 1
-		else
+		elif [[ -f "${BATS_REPORT}" ]]; then
 			/usr/bin/touch "${BATS_SUCCESS}"
 			list_item_pass "${0} completed successfully!"
 			last_item "${BATS_SUCCESS} generated..."
