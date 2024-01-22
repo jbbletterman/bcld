@@ -90,6 +90,26 @@ tag_check() {
 	assert_output --partial "${1} COMPLETE!"
 }
 
+## Function to run all tag checks
+tag_checks() {
+	/usr/bin/echo "A BCLD ${BCLD_MODEL}-build will now run in the background..."
+    run ./ISO-builder.sh
+    tag_check "ISO-INIT"
+    tag_check "ISO-PRECLEAN"
+    tag_check "ISO-PREP"
+    tag_check "ISO-BOOTSTRAP"
+    tag_check "ISO-PRECONF"
+    tag_check "ISO-CROS"
+    tag_check "ISO-MOUNT"
+    tag_check "ISO-CHROOT"
+    tag_check "ISO-POSTCONF"
+    tag_check "ISO-INITRAMFS"
+    tag_check "ISO-REPO"
+    tag_check "ISO-SQUASHFS"
+    tag_check "ISO-GRUB"
+    tag_check "ISO-GEN"
+}
+
 ## Function to check on generated artifacts
 art_check() {
 	if [[ ! -f "${1}" ]]; then
@@ -125,22 +145,7 @@ img_size () {
 
 ## Test if ISO Builder can execute
 @test 'TagCheck (building in background)...' {
-    /usr/bin/echo "A BCLD ${BCLD_MODEL}-build will now run in the background..."
-    run ./ISO-builder.sh && /usr/bin/echo 'Build finished!'
-    tag_check "ISO-INIT"
-    tag_check "ISO-PRECLEAN"
-    tag_check "ISO-PREP"
-    tag_check "ISO-BOOTSTRAP"
-    tag_check "ISO-PRECONF"
-    tag_check "ISO-CROS"
-    tag_check "ISO-MOUNT"
-    tag_check "ISO-CHROOT"
-    tag_check "ISO-POSTCONF"
-    tag_check "ISO-INITRAMFS"
-    tag_check "ISO-REPO"
-    tag_check "ISO-SQUASHFS"
-    tag_check "ISO-GRUB"
-    tag_check "ISO-GEN"
+    run tag_checks
 }
 
 ## Test if ISO Builder can execute
