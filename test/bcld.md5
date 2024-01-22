@@ -102,7 +102,7 @@ a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 f954697a6f68e7c25e05e75310080794  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 12639602403e2b250a46033098892ba1  ./test/00_BCLD-BUILD.bats
-cb56b8c360230b6b612dfa173152c82c  ./test/BCLD-BATS.sh
+c46f8bcb24591a53b748a874a0d453bf  ./test/BCLD-BATS.sh
 13fc6ce9dd7d8170534714cd7a3ccc01  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
