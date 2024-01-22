@@ -870,6 +870,7 @@ if [[ $(/usr/bin/find "${CERT_DIR}" -type f -name '*crt' | /usr/bin/wc -l) -gt 0
 
 	list_item "Copying NSSDBs..."
 	copy_directory "${CLIENT_NSSDB}" "${CHOME_DIR}"
+	/usr/bin/chown -Rv "${BCLD_USER}:${BCLD_USER}" "${CLIENT_NSSDB}"
 else
 	list_item_fail "No certificates found in ${CERT_DIR}. Skipping..."
 fi
