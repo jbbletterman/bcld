@@ -49,6 +49,8 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		
 		list_header 'Starting BCLD Bash Automated Testing System'
 
+        prep_dir "./artifacts"
+        /usr/bin/touch "${BATS_REPORT}"
 
 		# BATS TEST
 		list_header "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee "${BATS_REPORT}"
