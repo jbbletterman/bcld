@@ -48,6 +48,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
     
     list_item "ShellCheck Errors: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
     list_item "ShellCheck Warnings: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+    list_item "ShellCheck report: ${SHELL_REPORT}"
     on_completion
     
 else
@@ -63,6 +64,9 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 
 	if [[ -n ${BCLD_MODEL} ]]; then
 	
+
+        BATS_1=./test/01_PER-BUILD.bats
+        BATS_2=./test/02_POST-BUILD.bats
 		BATS_BIN='./modules/bats-core/bin/bats'
 		BATS_REPORT='./artifacts/BATS-REPORT.txt'
 		BATS_SUCCESS='./artifacts/BATS-SUCCESS'
@@ -74,11 +78,11 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		list_header "# $(/usr/bin/basename ./test/01_PER-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_item 'This may take a while, a BCLD test build is running in the background...'
 		list_entry
-		${BATS_BIN} ./test/01_PER-BUILD.bats | /usr/bin/tee --append "${BATS_REPORT}"
+		("${BATS_BIN}" "${BATS_1}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
 		
 		list_header "# $(/usr/bin/basename ./test/02_POST-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_entry
-		${BATS_BIN} ./test/02_POST-BUILD.bats | /usr/bin/tee --append "${BATS_REPORT}"
+		("${BATS_BIN}" "${BATS_1}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
 		
 		list_header 'Checking BCLD-BATS-TEST results...'
 		
