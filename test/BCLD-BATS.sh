@@ -53,7 +53,7 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		# BATS TEST
 		list_header "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_entry
-		("${BATS_BIN}" "${BATS_TEST}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
+		("${BATS_BIN}" "${BATS_TEST}" | /usr/bin/tee "${BATS_REPORT}") || on_failure
 		
 		list_header 'Checking BCLD-BATS-TEST results...'
 		

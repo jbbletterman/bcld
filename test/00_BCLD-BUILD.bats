@@ -142,8 +142,12 @@ img_size () {
     refute_output --partial 'SHELL-CHECK FAILED'
 }
 
+@test 'Preparing to build TEST image...' {
+
+}
+
 ## Test if ISO Builder can execute
-@test 'TagCheck (building in background)...' {
+@test 'TagCheck complete!' {
     run tag_checks
 }
 
