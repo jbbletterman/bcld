@@ -47,13 +47,13 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		BATS_REPORT='./artifacts/BATS-REPORT.txt'
 		BATS_SUCCESS='./artifacts/BATS-SUCCESS'
 		
-		list_header 'Starting BCLD Bash Automated Testing System'
 
         prep_dir "./artifacts"
         /usr/bin/touch "${BATS_REPORT}"
 
 		# BATS TEST
-		list_header "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee "${BATS_REPORT}"
+		list_header 'Starting BCLD Bash Automated Testing System' | /usr/bin/tee "${BATS_REPORT}"
+		list_item "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_entry
 		("${BATS_BIN}" "${BATS_TEST}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
 		
