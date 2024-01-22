@@ -55,6 +55,31 @@ tag_check() {
 	assert_output --partial "${1} COMPLETE!"
 }
 
+## Function to check on generated artifacts
+art_check() {
+	if [[ ! -f "${1}" ]]; then
+		/usr/bin/echo "FAILED: ${1} is missing!"
+	fi
+}
+
+## Function to check size on generated ISO file
+iso_size () {
+	ISO_SIZE="$(/usr/bin/du ./artifacts/bcld.iso | /usr/bin/awk ' { print $1 } ')"
+	
+	if [[ "${ISO_SIZE}" -lt 1000000 ]]; then
+		/usr/bin/echo 'FAILED: ISO is smaller than 1GB! Something went wrong...'
+	fi
+}
+
+## Function to check size on generated IMG file
+img_size () {
+	IMG_SIZE="$(/usr/bin/du ./artifacts/${BCLD_VERSION_FILE}.img | /usr/bin/awk ' { print $1 } ')"
+	
+	if [[ "${IMG_SIZE}" -lt 1000000 ]]; then
+		/usr/bin/echo 'FAILED: IMG is smaller than 1GB! Something went wrong...'
+	fi
+}
+
 # Tests
 ## Test if ISO Builder can execute
 @test 'TagCheck (building in background)...' {
@@ -86,4 +111,36 @@ tag_check() {
     tag_check "IMAGE-INIT"
     tag_check "IMAGE-GRUB"
     tag_check "IMAGE-BUILD"
+}
+
+## Test for checking if all artifacts are generated
+@test 'ArtChecker' {
+	run art_check ./artifacts/bcld.iso
+	run art_check ./artifacts/{BCLD_VERSION_FILE}.img
+	run art_check ./artifacts/bcld.cfg
+	run art_check ./artifacts/info
+	run art_check ./artifacts/PKGS_ALL
+	run art_check ./image/ISO/EFI/BOOT
+	run art_check ./image/ISO/EFI/BOOT/efi.img
+	run art_check ./image/ISO/EFI/BOOT/grub.cfg
+	run art_check ./image/ISO/EFI/BOOT/mmx64.efi
+	run art_check ./image/ISO/isolinux/bios.img
+	run art_check ./image/ISO/isolinux/grub.cfg
+	run art_check ./image/ISO/isolinux/core.img
+
+	refute_output --partial 'FAILED'
+}
+
+## Test for checking if ISO is bigger than 1GB
+@test 'ISOcheck' {
+	run iso_size
+
+	refute_output --partial 'FAILED'
+}
+
+## Test for checking if IMG is bigger than 1GB
+@test 'IMGcheck' {
+	run img_size
+
+	refute_output --partial 'FAILED'
 }

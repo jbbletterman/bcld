@@ -97,8 +97,7 @@ function generate_bcld_md5 () {
     add_file_hash ./image/ISO/isolinux/isolinux.cfg
     add_file_hash ./image/ISO/README.diskdefines
     add_file_hash ./test/bcld_test.sh
-    add_file_hash ./test/01_PER-BUILD.bats
-    add_file_hash ./test/02_POST-BUILD.bats
+    add_file_hash ./test/00_BCLD-BUILD.bats
     add_file_hash ./test/common-setup
     
     /usr/bin/cat "${BCLD_MD5}" | /usr/bin/sort -u -k 2 > "${BCLD_MD5}".1

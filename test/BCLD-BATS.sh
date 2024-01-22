@@ -41,15 +41,25 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
     
     SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
     
+    SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
+    SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+    
 	# Make necessary directories
 	prep_dir "$(/usr/bin/dirname ${SHELL_REPORT})"
     
     /usr/bin/find . -type f -name "*.sh" -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
     
-    list_item "ShellCheck Errors: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
-    list_item "ShellCheck Warnings: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+    list_item "ShellCheck Errors: ${SHELL_ERROR}"
+    list_item "ShellCheck Warnings: ${SHELL_WARN}"
     list_item "ShellCheck report: ${SHELL_REPORT}"
-    on_completion
+    
+    if [[ ${SHELL_ERROR} -gt 0 ]]; then
+        list_item_fail 'ShellCheck found errors!'
+        on_failure
+    else
+        on_completion    
+    fi
+    
     
 else
     last_item_fail 'ShellCheck could not be found!'
