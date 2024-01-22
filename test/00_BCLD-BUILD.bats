@@ -48,6 +48,40 @@ setup() {
 }
 
 # Functions
+shellcheck() {
+
+    list_header 'Starting BCLD ShellCheck'
+    if [[ -x /usr/bin/shellcheck ]] && [[ -x ./test/00_BCLD-BUILD.bats ]]; then
+        
+        SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
+        
+	    # Make necessary directories
+	    prep_dir "$(/usr/bin/dirname ${SHELL_REPORT})"
+        
+        /usr/bin/find . -type f -name "*.sh" -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
+        
+        SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
+        SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+        
+        list_item "ShellCheck Errors: ${SHELL_ERROR}"
+        list_item "ShellCheck Warnings: ${SHELL_WARN}"
+        list_item "ShellCheck report: ${SHELL_REPORT}"
+        
+        if [[ ${SHELL_ERROR} -gt 0 ]]; then
+            list_item_fail 'ShellCheck found errors!'
+            on_failure
+        else
+            on_completion    
+        fi
+        
+        
+    else
+        last_item_fail 'ShellCheck could not be found!'
+        on_failure
+    fi
+
+}
+
 ## Function to check if a stage has been succesful
 tag_check() {
 	
@@ -81,9 +115,15 @@ img_size () {
 }
 
 # Tests
+@test 'shellcheck'{
+    run shellcheck
+    refute_output --partial '(error)'
+    refute_output --partial 'ShellCheck found errors!'
+    refute_output --partial 'SHELL-CHECK FAILED'
+}
+
 ## Test if ISO Builder can execute
 @test 'TagCheck (building in background)...' {
-
     run ./ISO-builder.sh
     tag_check "ISO-INIT"
     tag_check "ISO-PRECLEAN"

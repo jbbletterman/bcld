@@ -34,38 +34,6 @@ source ./config/BUILD.conf
 source ./script/echo_tools.sh
 source ./script/file_operations.sh
 
-TAG='SHELL-CHECK'
-
-list_header 'Starting BCLD ShellCheck'
-if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
-    
-    SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
-    
-	# Make necessary directories
-	prep_dir "$(/usr/bin/dirname ${SHELL_REPORT})"
-    
-    /usr/bin/find . -type f -name "*.sh" -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
-    
-    SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
-    SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
-    
-    list_item "ShellCheck Errors: ${SHELL_ERROR}"
-    list_item "ShellCheck Warnings: ${SHELL_WARN}"
-    list_item "ShellCheck report: ${SHELL_REPORT}"
-    
-    if [[ ${SHELL_ERROR} -gt 0 ]]; then
-        list_item_fail 'ShellCheck found errors!'
-        on_failure
-    else
-        on_completion    
-    fi
-    
-    
-else
-    last_item_fail 'ShellCheck could not be found!'
-    on_failure
-fi
-
 TAG='BATS-TEST'
 
 # Use in working directory
@@ -75,8 +43,7 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 	if [[ -n ${BCLD_MODEL} ]]; then
 	
 
-        BATS_1=./test/01_PER-BUILD.bats
-        BATS_2=./test/02_POST-BUILD.bats
+        BATS_TEST=./test/00_BCLD-BUILD.bats
 		BATS_BIN='./modules/bats-core/bin/bats'
 		BATS_REPORT='./artifacts/BATS-REPORT.txt'
 		BATS_SUCCESS='./artifacts/BATS-SUCCESS'
