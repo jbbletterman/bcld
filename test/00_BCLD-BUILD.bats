@@ -124,7 +124,8 @@ img_size () {
 
 ## Test if ISO Builder can execute
 @test 'TagCheck (building in background)...' {
-    run ./ISO-builder.sh
+    /usr/bin/echo "A BCLD ${BCLD_MODEL}-build will now run in the background..."
+    run ./ISO-builder.sh && /usr/bin/echo 'Build finished!'
     tag_check "ISO-INIT"
     tag_check "ISO-PRECLEAN"
     tag_check "ISO-PREP"
