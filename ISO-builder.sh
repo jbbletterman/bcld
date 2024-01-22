@@ -197,7 +197,7 @@ function check_opt_envs () {
     check_opt_env 'BCLD_NVIDIA'
     check_opt_env 'BCLD_PKG_EXTRA'
     check_opt_env 'BCLD_TAG_EXTRA'
-    check_opt_env 'CLEAN_BOOTSTRAP'
+    check_opt_env 'KEEP_BOOTSTRAP'
     check_opt_env 'FACET_SECRET_1'
     check_opt_env 'FACET_SECRET_2'
     check_opt_env 'FACET_SECRET_3'
@@ -300,8 +300,10 @@ function copy_bootstrap () {
     copy_recursively "${BOOTSTRAP_DIR}" "${CHROOT_DIR}"
     
     # Cleanup ./bootstrap if configured
-	if [[ "${CLEAN_BOOTSTRAP}" == 'true' ]]; then
-		delete_dir "${BOOTSTRAP_DIR}" "CLEAN_BOOTSTRAP detected!"
+	if [[ "${KEEP_BOOTSTRAP}" == 'true' ]]; then
+	    list_item 'Using KEEP_BOOTSTRAP=true'
+	else
+		delete_dir "${BOOTSTRAP_DIR}" "Cleaning old bootstrap..."
 	fi
 
 }
