@@ -92,7 +92,6 @@ tag_check() {
 
 ## Function to run all tag checks
 tag_checks() {
-	/usr/bin/echo "A BCLD ${BCLD_MODEL}-build will now run in the background..."
     run ./ISO-builder.sh
     tag_check "ISO-INIT"
     tag_check "ISO-PRECLEAN"
