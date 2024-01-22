@@ -42,10 +42,10 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 
 	if [[ -n ${BCLD_MODEL} ]]; then
 
-        BATS_TEST=./test/00_BCLD-BUILD.bats
 		BATS_BIN='./modules/bats-core/bin/bats'
-		BATS_REPORT='./artifacts/BATS-REPORT.txt'
-		BATS_SUCCESS='./artifacts/BATS-SUCCESS'
+        BATS_TEST=./test/00_BCLD-BUILD.bats
+		BATS_REPORT='./test/BATS-REPORT.txt'
+		BATS_SUCCESS='./test/BATS-SUCCESS'
 		
 
 
