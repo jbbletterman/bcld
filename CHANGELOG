@@ -1,7 +1,9 @@
 # Release Information
 
 ## 2024
+
 ### January
+* `2024-01-22 16:05:02` : Removing `test/00_PRE-BUILD.bats` because tests are not portable
 * `2024-01-12 16:58:28` : Added `shellcheck` to `BUILD` packages and `./test/BCLD-BATS.sh`
 * `2024-01-12 14:27:53` : Added pactl scan before starting the app to detect hidden sinks
 * `2024-01-11 13:48:04` : Expand HashGen to include `./.assets` and `./.github`

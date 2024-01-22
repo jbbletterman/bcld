@@ -86,7 +86,6 @@ function generate_bcld_md5 () {
 
     add_rec_hash ./.github
     add_rec_hash ./assets
-    add_rec_hash ./cert
     add_rec_hash ./config
     add_rec_hash ./tools
     add_dir_hash ./script
