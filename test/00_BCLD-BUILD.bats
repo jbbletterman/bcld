@@ -115,7 +115,7 @@ img_size () {
 }
 
 # Tests
-@test 'shellcheck'{
+@test 'shellcheck' {
     run shellcheck
     refute_output --partial '(error)'
     refute_output --partial 'ShellCheck found errors!'

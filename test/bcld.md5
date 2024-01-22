@@ -101,7 +101,7 @@ df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 f954697a6f68e7c25e05e75310080794  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
-00ca7012d9ec679d38290ae13dd4e4db  ./test/00_BCLD-BUILD.bats
+0ff2aa13fbe711e968cf6b64d02b31f5  ./test/00_BCLD-BUILD.bats
 b2f892e0d57ad3cc8127d67cfb1ab8f8  ./test/BCLD-BATS.sh
 13fc6ce9dd7d8170534714cd7a3ccc01  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
