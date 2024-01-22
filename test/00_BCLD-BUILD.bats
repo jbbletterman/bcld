@@ -50,34 +50,35 @@ setup() {
 # Functions
 shellcheck() {
 
-    list_header 'Starting BCLD ShellCheck'
+    /usr/bin/echo 'Starting BCLD ShellCheck'
     if [[ -x /usr/bin/shellcheck ]] && [[ -x ./test/00_BCLD-BUILD.bats ]]; then
         
         SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
         
 	    # Make necessary directories
-	    prep_dir "$(/usr/bin/dirname ${SHELL_REPORT})"
+	    /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"
         
-        /usr/bin/find . -type f -name "*.sh" -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
+        /usr/bin/find . -type f \
+            -name "*.sh" \
+            -not -path "./chroot" \
+            -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
         
         SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
         SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
         
-        list_item "ShellCheck Errors: ${SHELL_ERROR}"
-        list_item "ShellCheck Warnings: ${SHELL_WARN}"
-        list_item "ShellCheck report: ${SHELL_REPORT}"
+        /usr/bin/echo "ShellCheck Errors: ${SHELL_ERROR}"
+        /usr/bin/echo "ShellCheck Warnings: ${SHELL_WARN}"
+        /usr/bin/echo "ShellCheck report: ${SHELL_REPORT}"
         
         if [[ ${SHELL_ERROR} -gt 0 ]]; then
-            list_item_fail 'ShellCheck found errors!'
-            on_failure
-        else
-            on_completion    
+            /usr/bin/echo 'ShellCheck found errors!'
+            exit 1    
         fi
         
         
     else
-        last_item_fail 'ShellCheck could not be found!'
-        on_failure
+        /usr/bin/echo 'ShellCheck could not be found!'
+        exit 1
     fi
 
 }
