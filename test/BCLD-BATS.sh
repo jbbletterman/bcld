@@ -51,7 +51,7 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 
 		# BATS TEST
         /usr/bin/touch "${BATS_REPORT}"
-        /usr/bin/mkdir ./artifacts
+        /usr/bin/mkdir -p ./artifacts
 		list_header 'Starting BCLD Bash Automated Testing System' | /usr/bin/tee "${BATS_REPORT}"
 		list_item "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_entry
