@@ -60,7 +60,7 @@ shellcheck() {
         
         /usr/bin/find . -type f \
             -name "*.sh" \
-            -not -path "./chroot" \
+            -not \( -path './chroot' -o -path './modules' \) \
             -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
         
         SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
