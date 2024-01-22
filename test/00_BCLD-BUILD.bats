@@ -51,9 +51,9 @@ setup() {
 shellcheck() {
 
     /usr/bin/echo 'Starting BCLD ShellCheck'
-    if [[ -x /usr/bin/shellcheck ]] && [[ -x ./test/00_BCLD-BUILD.bats ]]; then
+    if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
         
-        SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
+        SHELL_REPORT='./test/SHELL-REPORT.txt'
         
 	    # Make necessary directories
 	    /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"

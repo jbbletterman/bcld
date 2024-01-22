@@ -1,5 +1,5 @@
 d0bdcbc66c943f95d94094510a7225f8  ./.github/workflows/release.yml
-bc48c8ed5023b81a6bde232593e5ec47  ./.gitignore
+00d7c9f26e2eb5eec4e7f06140be6dea  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 ba437e2eac994399359648caac7c84c8  ./CHANGELOG
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
@@ -101,7 +101,7 @@ df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 f954697a6f68e7c25e05e75310080794  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
-0cc86477563941f71c42b61af662a21b  ./test/00_BCLD-BUILD.bats
+3f39f28103293da022ac6484b6575b67  ./test/00_BCLD-BUILD.bats
 b2f892e0d57ad3cc8127d67cfb1ab8f8  ./test/BCLD-BATS.sh
 13fc6ce9dd7d8170534714cd7a3ccc01  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
