@@ -34,27 +34,6 @@ source ./config/BUILD.conf
 source ./script/echo_tools.sh
 source ./script/file_operations.sh
 
-TAG='SHELL-CHECK'
-
-list_header 'Starting BCLD ShellCheck'
-if [[ -x /usr/bin/shellcheck ]] && [[ -x ./ISO-builder.sh ]]; then
-    
-    SHELL_REPORT='./artifacts/SHELL-REPORT.txt'
-    
-	# Make necessary directories
-	prep_dir "$(/usr/bin/dirname ${SHELL_REPORT})"
-    
-    /usr/bin/find . -type f -name "*.sh" -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
-    
-    list_item "ShellCheck Errors: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
-    list_item "ShellCheck Warnings: $(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
-    on_completion
-    
-else
-    last_item_fail 'ShellCheck could not be found!'
-    on_failure
-fi
-
 TAG='BATS-TEST'
 
 # Use in working directory
@@ -62,36 +41,36 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 	
 
 	if [[ -n ${BCLD_MODEL} ]]; then
-	
+
 		BATS_BIN='./modules/bats-core/bin/bats'
-		BATS_REPORT='./artifacts/BATS-REPORT.txt'
-		BATS_SUCCESS='./artifacts/BATS-SUCCESS'
+        BATS_TEST=./test/00_BCLD-BUILD.bats
+		BATS_REPORT='./test/BATS-REPORT.txt'
+		BATS_SUCCESS='./test/BATS-SUCCESS'
 		
-		list_header 'Starting BCLD Bash Automated Testing System'
 
 
-		# Add title
-		list_header "# $(/usr/bin/basename ./test/01_PER-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
-		list_item 'This may take a while, a BCLD test build is running in the background...'
-		list_entry
-		${BATS_BIN} ./test/01_PER-BUILD.bats | /usr/bin/tee --append "${BATS_REPORT}"
-		
-		list_header "# $(/usr/bin/basename ./test/02_POST-BUILD.bats)" | /usr/bin/tee --append "${BATS_REPORT}"
-		list_entry
-		${BATS_BIN} ./test/02_POST-BUILD.bats | /usr/bin/tee --append "${BATS_REPORT}"
+		# BATS TEST
+        /usr/bin/touch "${BATS_REPORT}"
+        /usr/bin/mkdir -p ./artifacts
+		list_header 'Starting BCLD Bash Automated Testing System' | /usr/bin/tee "${BATS_REPORT}"
+		list_item "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee --append "${BATS_REPORT}"
+		list_entry | /usr/bin/tee --append "${BATS_REPORT}"
+		("${BATS_BIN}" "${BATS_TEST}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
 		
 		list_header 'Checking BCLD-BATS-TEST results...'
 		
-		# Create fake artifact to trick Bamboo into failing if BATS fails
-		if [[ $(/usr/bin/grep -c 'not ok' "${BATS_REPORT}") -gt 0 ]]; then
-			list_item 'BCLD-BATS-TEST failed!'
-			last_item "Please review the contents of ${BATS_REPORT}"
-			exit 1
-		else
-			/usr/bin/touch "${BATS_SUCCESS}"
-			list_item_pass "${0} completed successfully!"
-			last_item "${BATS_SUCCESS} generated..."
-			exit
+		# Create fake artifact to trick CI/CD into failing if BATS fails
+		if [[ -f "${BATS_REPORT}" ]]; then
+			if [[ $(/usr/bin/grep -c 'not ok' "${BATS_REPORT}") -gt 0 ]]; then
+			    list_item 'BCLD-BATS-TEST failed!'
+			    last_item "Please review the contents of ${BATS_REPORT}"
+			    exit 1
+		    else
+			    /usr/bin/touch "${BATS_SUCCESS}"
+			    list_item_pass "${0} completed successfully!"
+			    last_item "${BATS_SUCCESS} generated..."
+			    exit
+		    fi
 		fi
 		
 	else

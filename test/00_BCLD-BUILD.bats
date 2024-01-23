@@ -37,23 +37,76 @@
 # permissions and limitations under the License.
 # 
 #
-# Post-build Bash tests
-# Check the built artifacts and if their sizes make sense.
+# Per-build Bash tests
+# Build a TEST image and check if all TAGs are being marked.
+# Check if Grub was installed on the image.
 #
-## Setup
+# Setup
 setup() {
 	load 'common-setup'
     _common_setup
 }
 
-
 # Functions
+shellcheck() {
 
-## Function to check if chroot was emptied after checking installed DEBs
-chroot_cleared() {
-	if [[ $(/usr/bin/find ./chroot -mindepth 1 | /usr/bin/wc -l) -gt 0 ]]; then
-		/usr/bin/echo 'FAILED: ./chroot is not empty!'
-	fi
+    /usr/bin/echo 'Starting BCLD ShellCheck'
+    if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
+        
+        SHELL_REPORT='./test/SHELL-REPORT.txt'
+        
+	    # Make necessary directories
+	    /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"
+        
+        /usr/bin/find . -type f \
+            -name "*.sh" \
+            -not \( -path './chroot' -o -path './modules' \) \
+            -exec shellcheck -S warning {} \; > "${SHELL_REPORT}"
+        
+        SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
+        SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
+        
+        /usr/bin/echo "ShellCheck Errors: ${SHELL_ERROR}"
+        /usr/bin/echo "ShellCheck Warnings: ${SHELL_WARN}"
+        /usr/bin/echo "ShellCheck report: ${SHELL_REPORT}"
+        
+        if [[ ${SHELL_ERROR} -gt 0 ]]; then
+            /usr/bin/echo 'ShellCheck found errors!'
+            exit 1    
+        fi
+        
+        
+    else
+        /usr/bin/echo 'ShellCheck could not be found!'
+        exit 1
+    fi
+
+}
+
+## Function to check if a stage has been succesful
+tag_check() {
+	
+    refute_output --partial "${1} FAILED!!!"
+	assert_output --partial "${1} COMPLETE!"
+}
+
+## Function to run all tag checks
+tag_checks() {
+    run ./ISO-builder.sh
+    tag_check "ISO-INIT"
+    tag_check "ISO-PRECLEAN"
+    tag_check "ISO-PREP"
+    tag_check "ISO-BOOTSTRAP"
+    tag_check "ISO-PRECONF"
+    tag_check "ISO-CROS"
+    tag_check "ISO-MOUNT"
+    tag_check "ISO-CHROOT"
+    tag_check "ISO-POSTCONF"
+    tag_check "ISO-INITRAMFS"
+    tag_check "ISO-REPO"
+    tag_check "ISO-SQUASHFS"
+    tag_check "ISO-GRUB"
+    tag_check "ISO-GEN"
 }
 
 ## Function to check on generated artifacts
@@ -81,8 +134,34 @@ img_size () {
 	fi
 }
 
-
 # Tests
+@test 'shellcheck' {
+    run shellcheck
+    refute_output --partial '(error)'
+    refute_output --partial 'ShellCheck found errors!'
+    refute_output --partial 'SHELL-CHECK FAILED'
+}
+
+@test 'Preparing to build TEST image...' {
+
+}
+
+## Test if ISO Builder can execute
+@test 'TagCheck complete!' {
+    run tag_checks
+}
+
+## Test if ISO Builder can execute
+@test 'GRUB Monitor' {
+	run ./IMG-builder.sh
+    refute_output --partial 'ISO-artifact missing!'
+    assert_output --partial 'Installation finished. No error reported.'
+    assert_output --partial "Added 'EFI'-label: EFI"
+    assert_output --partial "Added 'BCLD-USB'-label: BCLD-USB"
+    tag_check "IMAGE-INIT"
+    tag_check "IMAGE-GRUB"
+    tag_check "IMAGE-BUILD"
+}
 
 ## Test for checking if all artifacts are generated
 @test 'ArtChecker' {
@@ -115,9 +194,3 @@ img_size () {
 
 	refute_output --partial 'FAILED'
 }
-
-## Test for checking if chroot was emptied after checking installed DEBs
-#@test 'Chroot Cleared' {
-#	run chroot_cleared
-#	refute_output --partial 'FAILED'
-#}

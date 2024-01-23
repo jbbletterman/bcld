@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.5-0 BCLD (Fable)
+**BCLD Version**: 13.5-1 BCLD (Fable)
 
 **BCLD Kernel**: 6.2.0-37-generic
 
@@ -161,12 +161,12 @@ This repository consists of the following objects:
 | `BCLD_SECRET`         | ************                                                                                       | SSH password for TEST.                                                              |
 | `BCLD_TAG_EXTRA`      | r8168                                                                                              | Adds postfix to `BCLD_VERSION`.                                                     |
 | `BCLD_TERM`           | xterm-256color                                                                                     | BCLD terminal settings.                                                             |
-| `CLEAN_BOOTSTRAP`     | true, false                                                                                        | The build either cleans up the bootstrap, or re-uses it for the next build          |
 | `CODE_NAME`           | focal, bionic                                                                                      | Ubuntu Release Code Name                                                            |
 | `DEBIAN_FRONTEND`     | noninteractive                                                                                     | Use autonomous installers.                                                          |
 | `DEBIAN_PRIORITY`     | critical                                                                                           | Critical packages can be installed without interaction.                             |
 | `FAT_LABEL`           | BCLD-USB                                                                                           | BCLD disk label.                                                                    |
 | `HOME`                | /root                                                                                              | Path to ${HOME} on build machine.                                                   |
+| `KEEP_BOOTSTRAP`     | true, false                                                                                        | The build either keeps the bootstrap, or deletes it before the next build          |
 | `KERNEL_MINOR`        | 5.15                                                                                               | Minor kernel release.                                                               |
 | `KERNEL_MODEL`        | generic                                                                                            | Kernel model name.                                                                  |
 | `KERNEL_PATCH`        | 0-40                                                                                               | Kernel patch and release.                                                           |

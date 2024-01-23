@@ -29,6 +29,7 @@ image/ISO/md5sum.txt
 log/
 opt/
 test/BATS-REPORT.txt
+test/SHELL-REPORT.txt
 tmp/
 tools/ubcld-repo-manager/artifacts
 tools/ubcld-repo-manager/tmp
