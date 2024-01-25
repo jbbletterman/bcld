@@ -27,7 +27,7 @@ jobs:
     - name: Install Git on GitHub... Because that's a thing.
       run: |
         /usr/bin/apt-get update
-        /usr/bin/apt-get git
+        /usr/bin/apt-get install git
         /usr/bin/git clone https://github.com/bats-core/bats-core.git
     - name: Checkout local repository
       uses: actions/checkout@v2
