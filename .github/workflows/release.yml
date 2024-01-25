@@ -24,11 +24,18 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
-    - name: Checkout repository and submodules
+    - name: Checkout local repository
       uses: actions/checkout@v2
-      with:
-        submodules: recursive
-        fetch-depth: 0
+    - name: Manually downloading submodules...
+      run: |
+        /usr/bin/apt-get update
+        /usr/bin/apt-get install -y git
+        /usr/bin/mkdir -pv modules
+        cd modules || exit
+        /usr/bin/git clone https://github.com/bats-core/bats-core.git
+        /usr/bin/git clone https://github.com/bats-core/bats-support.git
+        /usr/bin/git clone https://github.com/bats-core/bats-assert.git
+        cd - || exit
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
@@ -37,9 +44,34 @@ jobs:
     - name: Run BCLD build script through BATS
       run: |
         /usr/bin/bash -c 'BCLD_MODEL=release ./test/BCLD-BATS.sh'
-    - name: Upload artifacts
+    - name: Upload ShellCheck report
       uses: actions/upload-artifact@v2
       with:
-        name: vendorless-bcld
+        name: BATS-REPORT
+        path: /project/test/SHELL-REPORT.txt
+    - name: Upload BATS-REPORT
+      uses: actions/upload-artifact@v2
+      with:
+        name: BATS-REPORT
+        path: /project/test/BATS-REPORT.txt
+    - name: Upload kernel image
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD Kernel
+        path: /project/artifacts/vmlinuz
+    - name: Upload BCLD Ramdisk
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-RAMFS
+        path: /project/artifacts/initrd
+    - name: Upload BCLD-ISO
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-ISO
+        path: /project/artifacts/bcld.iso
+    - name: Upload BCLD-IMG
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-IMG
         path: /project/artifacts/*.img
 
