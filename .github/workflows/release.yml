@@ -24,6 +24,10 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
+    - name: Set up Git
+      uses: actions/setup-git@v2
+      with:
+        version: '2.18.0'
     - name: Checkout repository and submodules
       uses: actions/checkout@v2
       with:
