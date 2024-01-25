@@ -20,6 +20,7 @@ fi
 # Paths
 LIST_DIR="${CONFIG_DIR}/packages"
 TMP_PKGS_DIR="${TMP_DIR}/packages"
+REPO_HUB="${TMP_DIR}/bcld_repo"
 
 ## Directories
 ART_DIR="${PROJECT_DIR}/artifacts"
@@ -27,8 +28,6 @@ CERT_DIR="${PROJECT_DIR}/cert"
 LOG_DIR="${PROJECT_DIR}/log"
 TMP_DIR="${PROJECT_DIR}/tmp"
 REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
-
-REPO_HUB="${REPOMAN_DIR}/bcld_repo"
 
 ## Package lists
 DEBUG="${LIST_DIR}/DEBUG"
@@ -467,6 +466,7 @@ while [[ ! $done ]]; do
         # Prepare ENVs
         prep_dir "${ART_DIR}" 
         prep_dir "${LOG_DIR}"
+        prep_dir "${REPO_HUB}"
         prep_dir "${TMP_PKGS_DIR}"
 
         # Repo functions
@@ -496,6 +496,7 @@ while [[ ! $done ]]; do
     o) 
         auto_repo_name
         prep_dir "${TMP_PKGS_DIR}"
+        prep_dir "${REPO_HUB}"
         prep_dir "${pkgs_dir}"
         dep_init
         scan_pkgs
