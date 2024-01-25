@@ -12,7 +12,7 @@ cc04d3c28306689fde5be96638e22f70  ./LICENSE
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-7f457fb544b9fb7daaf77b4c91218ee9  ./config/BUILD.conf
+821af9d467bb8bbef3e5b0949617765c  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -111,4 +111,4 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 0a430cdd84ba79567389d5440f23a3ba  ./tools/bcld-repo-manager/chrepoman.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-6fc5a4a07a48a399949748a23d010e79  ./tools/bcld-repo-manager/repository_manager.sh
+205fc4679fa3627abf190b7e5107266e  ./tools/bcld-repo-manager/repository_manager.sh

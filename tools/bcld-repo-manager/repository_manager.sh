@@ -19,14 +19,14 @@ fi
 
 # Paths
 LIST_DIR="${CONFIG_DIR}/packages"
-TMP_PKGS_DIR="${TMP_DIR}/packages"
-REPO_HUB="${TMP_DIR}/bcld_repo"
+
+TMP_PKGS_DIR="${TMPDIR}/packages"
+REPO_HUB="${TMPDIR}/bcld_repo"
 
 ## Directories
 ART_DIR="${PROJECT_DIR}/artifacts"
 CERT_DIR="${PROJECT_DIR}/cert"
 LOG_DIR="${PROJECT_DIR}/log"
-TMP_DIR="${PROJECT_DIR}/tmp"
 REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
 
 ## Package lists
@@ -39,7 +39,7 @@ VIRTUAL="${LIST_DIR}/VIRTUAL"
 ### Update kernel package list
 envsubst < "${KERNEL}" > "${CHKERNEL}"
 
-## Temporary files
+## Temporary files and folders
 ALL_PKGS="${TMP_PKGS_DIR}/PKGS"
 ALL_DEPS="${TMP_PKGS_DIR}/DEPS"
 ALL_DEPS_SORT="${TMP_PKGS_DIR}/DEPS_SORT"
@@ -292,8 +292,8 @@ function init_report () {
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
-    PKG_LIST="${TMP_DIR}/${repo_name}_PKGS_INFO"
-    PKG_LIST_SORT="${TMP_DIR}/${repo_name}_PKGS_INFO_SORT"
+    PKG_LIST="${TMPDIR}/${repo_name}_PKGS_INFO"
+    PKG_LIST_SORT="${TMPDIR}/${repo_name}_PKGS_INFO_SORT"
     PKG_REPORT="${ART_DIR}/${repo_name}_PKGS.md"
     
     if [[ -f ${PKG_LIST} ]];then
