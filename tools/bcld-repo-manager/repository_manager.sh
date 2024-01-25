@@ -2,7 +2,9 @@
 # BCLD Repo Manager
 # This script requires, `gettext-base`, `aptitude`, `dpkg-dev`, `tee`, `tar` and `gzip`
 #set -x
-#set -e Ergens tijdens APT installaties stuurt grub een exit als dit aanstaat...
+# Can also be ran with variables:
+#   - POINTER_TYPE: u,g,o,d,z,s,x,w,q
+#   - REPO_NAME: BCLD_CODE_NAME and BCLD_PATCH by default
 
 if [[ -f "$(pwd)"/RepoMan.sh ]]; then
     # Paths
@@ -63,17 +65,6 @@ APT_REPOMAN_LOG="${LOG_DIR}/APT_REPOMAN.log"
 PKGS_LOG="${LOG_DIR}/PKGS.log"
 REPOMAN_LOG="${LOG_DIR}/REPOSITORY_MANAGER.log"
 
-
-# Set repo_name ARG
-if [[ "${2}" ]]; then
-    repo_name="${2}"
-fi
-
-# Set force flag
-if [[ "${3}" ]]; then
-    download_now="${3}"
-fi
-
 ### Functions ###
 
 # Read pointer
@@ -93,7 +84,7 @@ function read_pointer () {
     /usr/bin/echo
     /usr/bin/echo "Then, press Enter."
     /usr/bin/echo
-    read -r pointer
+    read -r POINTER_TYPE
     /usr/bin/echo
     /usr/bin/echo
     clear
@@ -140,14 +131,14 @@ function check_repos () {
 
 # Automatically detect repo name if there is only 1
 function auto_repo_name () {
-    if [[ -z "${repo_name}" ]] \
+    if [[ -z "${REPO_NAME}" ]] \
         || [[ "${repo_num}" -eq 0 ]]; then
         /usr/bin/echo
         /usr/bin/echo "No repositories found!"
-    elif [[ -n "${repo_name}" ]] \
+    elif [[ -n "${REPO_NAME}" ]] \
         && [[ "${repo_num}" -eq 1 ]]; then
         /usr/bin/echo "A single repository was detected: (${repos})"
-        repo_name="${repos}"        
+        REPO_NAME="${repos}"        
     fi
 
     set_repo_name
@@ -155,13 +146,13 @@ function auto_repo_name () {
 
 # Set repo name if not set.  
 function set_repo_name () {
-    if [[ -z ${repo_name} ]]; then
-		repo_name="${BCLD_CODE_NAME^^}-${BCLD_PATCH}"
-		/usr/bin/echo "Setting repo name: ${repo_name}"
+    if [[ -z ${REPO_NAME} ]]; then
+		REPO_NAME="${BCLD_CODE_NAME^^}-${BCLD_PATCH}"
+		/usr/bin/echo "Setting repo name: ${REPO_NAME}"
 		/usr/bin/echo
     fi
 
-    repo_dir="${REPO_HUB}/${repo_name}"
+    repo_dir="${REPO_HUB}/${REPO_NAME}"
 
     pkgs_dir="${repo_dir}/pool/main"
     stable_dir="${repo_dir}/dists/stable"
@@ -169,15 +160,15 @@ function set_repo_name () {
 
 }
 
-# Zip everything inside REPO_HUB/repo_name
+# Zip everything inside REPO_HUB/REPO_NAME
 function zip_repo () {
-  zip_file="${repo_name}.tar.gz"
+  zip_file="${REPO_NAME}.tar.gz"
     /usr/bin/echo 
     /usr/bin/echo 
-    /usr/bin/echo "Zipping repository...: ${repo_name}"
+    /usr/bin/echo "Zipping repository...: ${REPO_NAME}"
     /usr/bin/echo 
     cd "${REPO_HUB}" || exit
-    tar -zcvf "${zip_file}" "${repo_name}"
+    tar -zcvf "${zip_file}" "${REPO_NAME}"
     mv "${zip_file}" "${ART_DIR}"
     /usr/bin/echo
     /usr/bin/echo "Repository saved to: $(readlink -e "${ART_DIR}/${zip_file}")"
@@ -237,16 +228,16 @@ function dep_init () {
 
 function download_now () {
     # Set download flag if not set
-    if [[ -z ${download_now} ]];then
+    if [[ -z ${DOWNLOAD_NOW} ]];then
         /usr/bin/echo
         /usr/bin/echo
-        /usr/bin/echo "Press YES to download listed PKGS and DEPS:"
+        /usr/bin/echo "Type 'YES' to download listed PKGS and DEPS:"
         /usr/bin/echo
-        read -r download_now
+        read -r DOWNLOAD_NOW
     fi
     
     # Download interactively or immediately
-    if [[ ${download_now} = 'YES' ]];then
+    if [[ ${DOWNLOAD_NOW} = 'YES' ]];then
         /usr/bin/echo
         /usr/bin/echo
         # /usr/bin/echo "Downloading PKGS. This may take a while..."
@@ -305,9 +296,9 @@ function init_report () {
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
-    PKG_LIST="${TMPDIR}/${repo_name}_PKGS_INFO"
-    PKG_LIST_SORT="${TMPDIR}/${repo_name}_PKGS_INFO_SORT"
-    PKG_REPORT="${ART_DIR}/${repo_name}_PKGS.md"
+    PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
+    PKG_LIST_SORT="${TMPDIR}/${REPO_NAME}_PKGS_INFO_SORT"
+    PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
     
     if [[ -f ${PKG_LIST} ]];then
         /usr/bin/rm -f "${PKG_LIST}"
@@ -394,7 +385,7 @@ function deploy_repo () {
     /usr/bin/echo "Deploying repo to ${WEB_DIR}..."
     /usr/bin/echo
     /usr/bin/echo
-    rsync -uahHAX --info=progress2 "${REPO_HUB}/${repo_name}" "${WEB_DIR}"
+    rsync -uahHAX --info=progress2 "${REPO_HUB}/${REPO_NAME}" "${WEB_DIR}"
 }
 
 # Clear all created repositories
@@ -482,14 +473,13 @@ while [[ ! $done ]]; do
     count_web_dir
 
     # Read pointer
-    if [[ ${1} ]]; then
-        pointer="${1}"
+    if [[ -n ${POINTER_TYPE} ]]; then
         done=true
     else
         read_pointer
     fi
 
-    case $pointer in
+    case $POINTER_TYPE in
 
     c)
         # Allow second parameter when using Repoman Create.

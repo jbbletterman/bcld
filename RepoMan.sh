@@ -21,9 +21,6 @@
 # Dockerized BCLD Repo Manager
 #
 # Runs [RepoMan](./tools/bcld-repo-manager/repository_manager.sh) inside Docker with mounts
-# Can also be ran with arguments:
-# 1: Pointer Type (u,g,o,d,z,s,x,w,q)
-# 2: Repository Name (BCLD_CODE_NAME and BCLD_PATCH by default)
 
 # VARs
 CONTAINER='RepoMan'
@@ -46,19 +43,19 @@ echo "Starting Docker..."
 # Detect arguments
 
 ## Selection
-if [[ ${1} ]]; then
+if [[ -n ${POINTER_TYPE} ]]; then
     echo "Arguments detected: "
-    echo "Type: ${1}"
+    echo "Pointer Type: ${POINTER_TYPE}"
 fi
 
 ## Repo Name
-if [[ ${2} ]]; then
-    echo "Name: ${2}"
+if [[ -n ${REPO_NAME} ]]; then
+    echo "Name: ${REPO_NAME}"
 fi
 
 ## Download immediately
-if [[ ${3} ]]; then
-    echo "Download immediately: ${3}"
+if [[ -n ${DOWNLOAD_NOW} ]]; then
+    echo "Download immediately: ${DOWNLOAD_NOW}"
 fi
 
 # Create Docker image or run existing one
@@ -72,9 +69,11 @@ else
 	echo "No Docker image found! Creating..."
 	/usr/bin/docker container run -ti \
 		--name "${CONTAINER}" \
+		-e POINTER_TYPE="${POINTER_TYPE}" \
+		-e REPO_NAME="${REPO_NAME}" \
+		-e DOWNLOAD_NOW="${DOWNLOAD_NOW}" \
 		-v "${project_dir}":/project:rw \
 		-v "${WEB_DIR}":"${WEB_DIR}":rw \
-		-v "${TMPDIR}":"${TMPDIR}":rw \
 		-w /project \
 		ubuntu:"${CODE_NAME}" bash -c "${REPOMAN} ${1} ${2} ${3}"
 fi
