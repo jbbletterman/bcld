@@ -51,7 +51,7 @@ jobs:
     - name: Upload ShellCheck report
       uses: actions/upload-artifact@v2
       with:
-        name: BATS-REPORT
+        name: SHELL-REPORT
         path: /project/test/SHELL-REPORT.txt
     - name: Upload BATS-REPORT
       uses: actions/upload-artifact@v2
@@ -62,7 +62,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: RepoMan
-        path: /project/artifacts/*_PKGS.md
+        path: /project/artifacts/*.md
     - name: Upload kernel image
       uses: actions/upload-artifact@v2
       with:
