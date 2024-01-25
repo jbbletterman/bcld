@@ -24,10 +24,11 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
-    - name: Checkout repository (include Git submodules)
+    - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
+    - name: Checkout submodules
+      run: |
+        /usr/bin/git submodule update --init --recursive
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
