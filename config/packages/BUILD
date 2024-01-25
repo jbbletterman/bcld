@@ -11,6 +11,7 @@ efibootmgr
 fdisk
 genisoimage
 gettext-base
+git
 grub-efi-amd64-signed
 grub-pc
 inetutils-ping
