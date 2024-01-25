@@ -24,23 +24,13 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
+    - name: Install Git on GitHub... Because that's a thing.
+      run: |
+        /usr/bin/apt-get update
+        /usr/bin/apt-get git
+        /usr/bin/git clone https://github.com/bats-core/bats-core.git
     - name: Checkout local repository
       uses: actions/checkout@v2
-    - name: Checkout BATS-CORE
-      uses: actions/checkout@v4
-      with:
-        repository: bats-core/bats-core.git
-        path: modules
-    - name: Checkout BATS-SUPPORT
-      uses: actions/checkout@v4
-      with:
-        repository: bats-core/bats-support.git
-        path: modules
-    - name: Checkout BATS-ASSERT
-      uses: actions/checkout@v4
-      with:
-        repository: bats-core/bats-assert.git
-        path: modules
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
