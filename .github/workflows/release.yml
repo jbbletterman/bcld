@@ -28,7 +28,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Checkout submodules
       run: |
-        /usr/bin/git submodule update --init --recursive
+        git submodule update --init --recursive
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
