@@ -74,6 +74,7 @@ else
 		--name "${CONTAINER}" \
 		-v "${project_dir}":/project:rw \
 		-v "${WEB_DIR}":"${WEB_DIR}":rw \
+		-w /project \ 
 		ubuntu:"${CODE_NAME}" bash -c "${REPOMAN} ${1} ${2} ${3}"
 fi
     
