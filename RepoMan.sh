@@ -20,14 +20,14 @@
 #
 # Dockerized BCLD Repo Manager
 #
-# Runs chrepoman.sh inside Docker with mounts
+# Runs [RepoMan](./tools/bcld-repo-manager/repository_manager.sh) inside Docker with mounts
 # Can also be ran with arguments:
 # 1: Pointer Type (u,g,o,d,z,s,x,w,q)
 # 2: Repository Name (BCLD_CODE_NAME and BCLD_PATCH by default)
 
 # VARs
 CONTAINER='RepoMan'
-CHREPOMAN='/project/tools/bcld-repo-manager/chrepoman.sh'
+REPOMAN='/project/tools/bcld-repo-manager/repository_manager.sh'
 
 # Check if script is executed in project directory
 # Also set critical variables.
@@ -66,7 +66,7 @@ if [[ $(/usr/bin/docker ps -a | /usr/bin/grep -c "${CONTAINER}") -gt 0 ]]; then
 	# Start Docker
 	echo "Starting local Docker image..."
 	/usr/bin/docker container start "${CONTAINER}"
-	/usr/bin/docker container exec -it "${CONTAINER}" "${CHREPOMAN}"
+	/usr/bin/docker container exec -it "${CONTAINER}" "${REPOMAN}"
 else
 	# Create Docker image
 	echo "No Docker image found! Creating..."
@@ -74,7 +74,7 @@ else
 		--name "${CONTAINER}" \
 		-v "${project_dir}":/project:rw \
 		-v "${WEB_DIR}":"${WEB_DIR}":rw \
-		ubuntu:"${CODE_NAME}" bash -c "${CHREPOMAN} ${1} ${2} ${3}"
+		ubuntu:"${CODE_NAME}" bash -c "${REPOMAN} ${1} ${2} ${3}"
 fi
     
 

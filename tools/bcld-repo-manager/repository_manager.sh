@@ -17,11 +17,24 @@ else
     exit
 fi
 
-# Paths
-LIST_DIR="${CONFIG_DIR}/packages"
+### ENVs ###
+# Do not ask for confirmations
+export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_PRIORITY=critical
 
-TMP_PKGS_DIR="${TMPDIR}/packages"
+### VARs ###
+BUILD_TOOLS="aptitude dpkg-dev tar gzip rsync"
+
+# Paths
+LOG_DIR="${PROJECT_DIR}/log"
+
+CHREPOMAN_LOG="${LOG_DIR}/CHREPOMAN.log"
+LIST_DIR="${CONFIG_DIR}/packages"
 REPO_HUB="${TMPDIR}/bcld_repo"
+REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
+REPOMAN_LOG="${LOG_DIR}/REPOSITORY_MANAGER.log"
+SOURCES="/etc/apt/sources.list"
+TMP_PKGS_DIR="${TMPDIR}/packages"
 
 ## Directories
 ART_DIR="${PROJECT_DIR}/artifacts"
@@ -432,6 +445,28 @@ function count_packages () {
 
 ### Repo Manager ###
 while [[ ! $done ]]; do
+   
+    # Always make LOG_DIR
+    /usr/bin/mkdir -pv "${LOG_DIR}"
+    
+    # Substitute sources template with BUILD ENVs
+    /usr/bin/echo
+    /usr/bin/echo "Substituting ${SOURCES}..."
+    /usr/bin/apt-get update &>> "${CHREPOMAN_LOG}"
+    /usr/bin/apt-get install -yq gettext-base &>>"${CHREPOMAN_LOG}"
+     /usr/bin/envsubst < "${CONFIG_DIR}/apt/sources.list" > "${SOURCES}"
+    
+    # Sync the new repository 
+    /usr/bin/echo "Syncing local meta..."
+    /usr/bin/apt-get clean
+    /usr/bin/apt-get update -y &>>"${CHREPOMAN_LOG}"
+    
+    # Check for installed build tools
+    /usr/bin/echo "Installing build tools for BCLD Repo Manager. Please wait..."
+    /usr/bin/echo ">>> ${BUILD_TOOLS}"
+    /usr/bin/echo
+    /usr/bin/apt-get install -yq ${BUILD_TOOLS} &>> "${CHREPOMAN_LOG}"
+    
     # Welcome message
     /usr/bin/echo
     /usr/bin/echo
