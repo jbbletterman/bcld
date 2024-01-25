@@ -23,7 +23,7 @@ export DEBIAN_FRONTEND=noninteractive
 export DEBIAN_PRIORITY=critical
 
 ### VARs ###
-BUILD_TOOLS="aptitude dpkg-dev tar gzip rsync"
+BUILD_TOOLS="aptitude dpkg-dev tar gzip rsync gettext-base"
 
 # Paths
 LOG_DIR="${PROJECT_DIR}/log"
