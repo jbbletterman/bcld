@@ -19,10 +19,12 @@
 # en de beperkingen van de licentie.
 #
 # Dockerized BCLD Repo Manager
+#
+# Runs [RepoMan](./tools/bcld-repo-manager/repository_manager.sh) inside Docker with mounts
 
 # VARs
 CONTAINER='RepoMan'
-CHREPOMAN='/project/tools/bcld-repo-manager/chrepoman.sh'
+REPOMAN='/project/tools/bcld-repo-manager/repository_manager.sh'
 
 # Check if script is executed in project directory
 # Also set critical variables.
@@ -35,29 +37,25 @@ else
     exit
 fi
 
-# Run Chrepoman inside Docker, mount BCLD Repo Manager and scripts
-# Can also be ran with arguments:
-# 1: Type
-# 2: Name
 echo
 echo "Starting Docker..."
 
 # Detect arguments
 
 ## Selection
-if [[ ${1} ]]; then
+if [[ -n ${POINTER_TYPE} ]]; then
     echo "Arguments detected: "
-    echo "Type: ${1}"
+    echo "Pointer Type: ${POINTER_TYPE}"
 fi
 
 ## Repo Name
-if [[ ${2} ]]; then
-    echo "Name: ${2}"
+if [[ -n ${REPO_NAME} ]]; then
+    echo "Name: ${REPO_NAME}"
 fi
 
 ## Download immediately
-if [[ ${3} ]]; then
-    echo "Download immediately: ${3}"
+if [[ -n ${DOWNLOAD_NOW} ]]; then
+    echo "Download immediately: ${DOWNLOAD_NOW}"
 fi
 
 # Create Docker image or run existing one
@@ -65,15 +63,19 @@ if [[ $(/usr/bin/docker ps -a | /usr/bin/grep -c "${CONTAINER}") -gt 0 ]]; then
 	# Start Docker
 	echo "Starting local Docker image..."
 	/usr/bin/docker container start "${CONTAINER}"
-	/usr/bin/docker container exec -it "${CONTAINER}" "${CHREPOMAN}"
+	/usr/bin/docker container exec -it "${CONTAINER}" "${REPOMAN}"
 else
 	# Create Docker image
 	echo "No Docker image found! Creating..."
 	/usr/bin/docker container run -ti \
 		--name "${CONTAINER}" \
+		-e POINTER_TYPE="${POINTER_TYPE}" \
+		-e REPO_NAME="${REPO_NAME}" \
+		-e DOWNLOAD_NOW="${DOWNLOAD_NOW}" \
 		-v "${project_dir}":/project:rw \
 		-v "${WEB_DIR}":"${WEB_DIR}":rw \
-		ubuntu:"${CODE_NAME}" bash -c "${CHREPOMAN} ${1} ${2} ${3}"
+		-w /project \
+		ubuntu:"${CODE_NAME}" bash -c "${REPOMAN} ${1} ${2} ${3}"
 fi
     
 

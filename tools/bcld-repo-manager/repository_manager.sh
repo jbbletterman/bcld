@@ -2,7 +2,9 @@
 # BCLD Repo Manager
 # This script requires, `gettext-base`, `aptitude`, `dpkg-dev`, `tee`, `tar` and `gzip`
 #set -x
-#set -e Ergens tijdens APT installaties stuurt grub een exit als dit aanstaat...
+# Can also be ran with variables:
+#   - POINTER_TYPE: u,g,o,d,z,s,x,w,q
+#   - REPO_NAME: BCLD_CODE_NAME and BCLD_PATCH by default
 
 if [[ -f "$(pwd)"/RepoMan.sh ]]; then
     # Paths
@@ -17,18 +19,30 @@ else
     exit
 fi
 
+### ENVs ###
+# Do not ask for confirmations
+export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_PRIORITY=critical
+
+### VARs ###
+BUILD_TOOLS="aptitude dpkg-dev tar gzip rsync gettext-base"
+
 # Paths
+LOG_DIR="${PROJECT_DIR}/log"
+
+CHREPOMAN_LOG="${LOG_DIR}/CHREPOMAN.log"
 LIST_DIR="${CONFIG_DIR}/packages"
-TMP_PKGS_DIR="${TMP_DIR}/packages"
+REPO_HUB="${TMPDIR}/bcld_repo"
+REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
+REPOMAN_LOG="${LOG_DIR}/REPOSITORY_MANAGER.log"
+SOURCES="/etc/apt/sources.list"
+TMP_PKGS_DIR="${TMPDIR}/packages"
 
 ## Directories
 ART_DIR="${PROJECT_DIR}/artifacts"
 CERT_DIR="${PROJECT_DIR}/cert"
 LOG_DIR="${PROJECT_DIR}/log"
-TMP_DIR="${PROJECT_DIR}/tmp"
 REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
-
-REPO_HUB="${REPOMAN_DIR}/bcld_repo"
 
 ## Package lists
 DEBUG="${LIST_DIR}/DEBUG"
@@ -37,10 +51,7 @@ KERNEL="${LIST_DIR}/KERNEL"
 REQUIRED="${LIST_DIR}/REQUIRED"
 VIRTUAL="${LIST_DIR}/VIRTUAL"
 
-### Update kernel package list
-envsubst < "${KERNEL}" > "${CHKERNEL}"
-
-## Temporary files
+## Temporary files and folders
 ALL_PKGS="${TMP_PKGS_DIR}/PKGS"
 ALL_DEPS="${TMP_PKGS_DIR}/DEPS"
 ALL_DEPS_SORT="${TMP_PKGS_DIR}/DEPS_SORT"
@@ -50,17 +61,6 @@ DEP_DOWNLOADS="${TMP_PKGS_DIR}/DOWNLOADS"
 APT_REPOMAN_LOG="${LOG_DIR}/APT_REPOMAN.log"
 PKGS_LOG="${LOG_DIR}/PKGS.log"
 REPOMAN_LOG="${LOG_DIR}/REPOSITORY_MANAGER.log"
-
-
-# Set repo_name ARG
-if [[ "${2}" ]]; then
-    repo_name="${2}"
-fi
-
-# Set force flag
-if [[ "${3}" ]]; then
-    download_now="${3}"
-fi
 
 ### Functions ###
 
@@ -81,7 +81,7 @@ function read_pointer () {
     /usr/bin/echo
     /usr/bin/echo "Then, press Enter."
     /usr/bin/echo
-    read -r pointer
+    read -r POINTER_TYPE
     /usr/bin/echo
     /usr/bin/echo
     clear
@@ -91,7 +91,7 @@ function read_pointer () {
 function prep_dir () {
     if [[ ! -d ${1} ]]; then
         /usr/bin/echo "Preparing directory: ${1}"
-        mkdir -pv "${1}" &>> "${REPOMAN_LOG}" || exit
+        /usr/bin/mkdir -pv "${1}" &>> "${REPOMAN_LOG}" || exit
         if [[ ${1} = "${pkgs_dir}" ]]; then
             /usr/bin/chown _apt "${pkgs_dir}"
         fi
@@ -104,6 +104,9 @@ function populate_pkg_lists () {
     if [[ -f "${ALL_PKGS}" ]];then
         /usr/bin/rm "${ALL_PKGS}"
     fi
+    
+    ### Update kernel package list
+    /usr/bin/envsubst < "${KERNEL}" > "${CHKERNEL}"
     
     /usr/bin/cat "${DEBUG}" > "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
     /usr/bin/cat "${CHKERNEL}" >> "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
@@ -128,14 +131,14 @@ function check_repos () {
 
 # Automatically detect repo name if there is only 1
 function auto_repo_name () {
-    if [[ -z "${repo_name}" ]] \
+    if [[ -z "${REPO_NAME}" ]] \
         || [[ "${repo_num}" -eq 0 ]]; then
         /usr/bin/echo
         /usr/bin/echo "No repositories found!"
-    elif [[ -n "${repo_name}" ]] \
+    elif [[ -n "${REPO_NAME}" ]] \
         && [[ "${repo_num}" -eq 1 ]]; then
         /usr/bin/echo "A single repository was detected: (${repos})"
-        repo_name="${repos}"        
+        REPO_NAME="${repos}"        
     fi
 
     set_repo_name
@@ -143,13 +146,13 @@ function auto_repo_name () {
 
 # Set repo name if not set.  
 function set_repo_name () {
-    if [[ -z ${repo_name} ]]; then
-		repo_name="${BCLD_CODE_NAME^^}-${BCLD_PATCH}"
-		/usr/bin/echo "Setting repo name: ${repo_name}"
+    if [[ -z ${REPO_NAME} ]]; then
+		REPO_NAME="${BCLD_CODE_NAME^^}-${BCLD_PATCH}"
+		/usr/bin/echo "Setting repo name: ${REPO_NAME}"
 		/usr/bin/echo
     fi
 
-    repo_dir="${REPO_HUB}/${repo_name}"
+    repo_dir="${REPO_HUB}/${REPO_NAME}"
 
     pkgs_dir="${repo_dir}/pool/main"
     stable_dir="${repo_dir}/dists/stable"
@@ -157,15 +160,15 @@ function set_repo_name () {
 
 }
 
-# Zip everything inside REPO_HUB/repo_name
+# Zip everything inside REPO_HUB/REPO_NAME
 function zip_repo () {
-  zip_file="${repo_name}.tar.gz"
+  zip_file="${REPO_NAME}.tar.gz"
     /usr/bin/echo 
     /usr/bin/echo 
-    /usr/bin/echo "Zipping repository...: ${repo_name}"
+    /usr/bin/echo "Zipping repository...: ${REPO_NAME}"
     /usr/bin/echo 
     cd "${REPO_HUB}" || exit
-    tar -zcvf "${zip_file}" "${repo_name}"
+    tar -zcvf "${zip_file}" "${REPO_NAME}"
     mv "${zip_file}" "${ART_DIR}"
     /usr/bin/echo
     /usr/bin/echo "Repository saved to: $(readlink -e "${ART_DIR}/${zip_file}")"
@@ -225,16 +228,16 @@ function dep_init () {
 
 function download_now () {
     # Set download flag if not set
-    if [[ -z ${download_now} ]];then
+    if [[ -z ${DOWNLOAD_NOW} ]];then
         /usr/bin/echo
         /usr/bin/echo
-        /usr/bin/echo "Press YES to download listed PKGS and DEPS:"
+        /usr/bin/echo "Type 'YES' to download listed PKGS and DEPS:"
         /usr/bin/echo
-        read -r download_now
+        read -r DOWNLOAD_NOW
     fi
     
     # Download interactively or immediately
-    if [[ ${download_now} = 'YES' ]];then
+    if [[ ${DOWNLOAD_NOW} = 'YES' ]];then
         /usr/bin/echo
         /usr/bin/echo
         # /usr/bin/echo "Downloading PKGS. This may take a while..."
@@ -293,9 +296,9 @@ function init_report () {
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
-    PKG_LIST="${TMP_DIR}/${repo_name}_PKGS_INFO"
-    PKG_LIST_SORT="${TMP_DIR}/${repo_name}_PKGS_INFO_SORT"
-    PKG_REPORT="${ART_DIR}/${repo_name}_PKGS.md"
+    PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
+    PKG_LIST_SORT="${TMPDIR}/${REPO_NAME}_PKGS_INFO_SORT"
+    PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
     
     if [[ -f ${PKG_LIST} ]];then
         /usr/bin/rm -f "${PKG_LIST}"
@@ -318,7 +321,7 @@ function scan_pkgs () {
         fi
         
         description=$(/usr/bin/apt-cache search "${PKG}" | head -1 | cut -d ' ' -f3-)
-        /usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t\t${description^}" >> "${PKG_LIST}"
+        /usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t\t\t\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
     done
     
@@ -382,7 +385,7 @@ function deploy_repo () {
     /usr/bin/echo "Deploying repo to ${WEB_DIR}..."
     /usr/bin/echo
     /usr/bin/echo
-    rsync -uahHAX --info=progress2 "${REPO_HUB}/${repo_name}" "${WEB_DIR}"
+    rsync -uahHAX --info=progress2 "${REPO_HUB}/${REPO_NAME}" "${WEB_DIR}"
 }
 
 # Clear all created repositories
@@ -433,6 +436,28 @@ function count_packages () {
 
 ### Repo Manager ###
 while [[ ! $done ]]; do
+   
+    # Always make LOG_DIR
+    /usr/bin/mkdir -pv "${LOG_DIR}"
+    
+    # Substitute sources template with BUILD ENVs
+    /usr/bin/echo
+    /usr/bin/echo "Substituting ${SOURCES}..."
+    /usr/bin/apt-get update &>> "${CHREPOMAN_LOG}"
+    /usr/bin/apt-get install -yq gettext-base &>>"${CHREPOMAN_LOG}"
+     /usr/bin/envsubst < "${CONFIG_DIR}/apt/sources.list" > "${SOURCES}"
+    
+    # Sync the new repository 
+    /usr/bin/echo "Syncing local meta..."
+    /usr/bin/apt-get clean
+    /usr/bin/apt-get update -y &>>"${CHREPOMAN_LOG}"
+    
+    # Check for installed build tools
+    /usr/bin/echo "Installing build tools for BCLD Repo Manager. Please wait..."
+    /usr/bin/echo ">>> ${BUILD_TOOLS}"
+    /usr/bin/echo
+    /usr/bin/apt-get install -yq ${BUILD_TOOLS} &>> "${CHREPOMAN_LOG}"
+    
     # Welcome message
     /usr/bin/echo
     /usr/bin/echo
@@ -448,14 +473,13 @@ while [[ ! $done ]]; do
     count_web_dir
 
     # Read pointer
-    if [[ ${1} ]]; then
-        pointer="${1}"
+    if [[ -n ${POINTER_TYPE} ]]; then
         done=true
     else
         read_pointer
     fi
 
-    case $pointer in
+    case $POINTER_TYPE in
 
     c)
         # Allow second parameter when using Repoman Create.
@@ -467,6 +491,7 @@ while [[ ! $done ]]; do
         # Prepare ENVs
         prep_dir "${ART_DIR}" 
         prep_dir "${LOG_DIR}"
+        prep_dir "${REPO_HUB}"
         prep_dir "${TMP_PKGS_DIR}"
 
         # Repo functions
@@ -496,6 +521,7 @@ while [[ ! $done ]]; do
     o) 
         auto_repo_name
         prep_dir "${TMP_PKGS_DIR}"
+        prep_dir "${REPO_HUB}"
         prep_dir "${pkgs_dir}"
         dep_init
         scan_pkgs

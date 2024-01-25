@@ -135,14 +135,14 @@ img_size () {
 }
 
 # Tests
-@test 'shellcheck' {
+@test 'ShellCheck' {
     run shellcheck
     refute_output --partial '(error)'
     refute_output --partial 'ShellCheck found errors!'
     refute_output --partial 'SHELL-CHECK FAILED'
 }
 
-@test 'Preparing to build TEST image...' {
+@test "Preparing to build ${BCLD_MODEL} image..." {
 
 }
 
@@ -177,6 +177,7 @@ img_size () {
 	run art_check ./image/ISO/isolinux/bios.img
 	run art_check ./image/ISO/isolinux/grub.cfg
 	run art_check ./image/ISO/isolinux/core.img
+	run art_check ./test/SHELL-REPORT.txt
 
 	refute_output --partial 'FAILED'
 }
