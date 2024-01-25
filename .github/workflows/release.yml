@@ -44,9 +44,34 @@ jobs:
     - name: Run BCLD build script through BATS
       run: |
         /usr/bin/bash -c 'BCLD_MODEL=release ./test/BCLD-BATS.sh'
-    - name: Upload artifacts
+    - name: Upload ShellCheck report
       uses: actions/upload-artifact@v2
       with:
-        name: vendorless-bcld
+        name: BATS-REPORT
+        path: /project/test/SHELL-REPORT.txt
+    - name: Upload BATS-REPORT
+      uses: actions/upload-artifact@v2
+      with:
+        name: BATS-REPORT
+        path: /project/test/BATS-REPORT.txt
+    - name: Upload kernel image
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD Kernel
+        path: /project/artifacts/vmlinuz
+    - name: Upload BCLD Ramdisk
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-RAMFS
+        path: /project/artifacts/initrd
+    - name: Upload BCLD-ISO
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-ISO
+        path: /project/artifacts/bcld.iso
+    - name: Upload BCLD-IMG
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-IMG
         path: /project/artifacts/*.img
 
