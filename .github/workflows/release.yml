@@ -54,6 +54,11 @@ jobs:
       with:
         name: BATS-REPORT
         path: /project/test/BATS-REPORT.txt
+    - name: Upload RepoMan package list
+      uses: actions/upload-artifact@v2
+      with:
+        name: RepoMan
+        path: /project/artifacts/*_PKGS.md
     - name: Upload kernel image
       uses: actions/upload-artifact@v2
       with:

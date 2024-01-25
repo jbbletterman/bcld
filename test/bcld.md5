@@ -1,4 +1,4 @@
-a6d5260a05e0d798adfb7c7667a258ea  ./.github/workflows/release.yml
+c27e7e66208cebbb5852a8f27331d6df  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 567dabd94331d73c871a600d1fd6209f  ./CHANGELOG
@@ -110,4 +110,4 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 06f98cfbd9bc8bf4a8da8e0c9b9b8519  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-447c8f97a97a03258e842fb80e7eafa6  ./tools/bcld-repo-manager/repository_manager.sh
+6b44c0662868bf030ef31e96e7dc7f77  ./tools/bcld-repo-manager/repository_manager.sh

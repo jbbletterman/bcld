@@ -321,7 +321,7 @@ function scan_pkgs () {
         fi
         
         description=$(/usr/bin/apt-cache search "${PKG}" | head -1 | cut -d ' ' -f3-)
-        /usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t\t${description^}" >> "${PKG_LIST}"
+        /usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t\t\t\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
     done
     
