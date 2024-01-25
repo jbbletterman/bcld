@@ -29,17 +29,17 @@ jobs:
     - name: Checkout BATS-CORE
       uses: actions/checkout@v4
       with:
-        repository: https://github.com/bats-core/bats-core.git
+        repository: bats-core/bats-core.git
         path: modules
     - name: Checkout BATS-SUPPORT
       uses: actions/checkout@v4
       with:
-        repository: https://github.com/bats-core/bats-support.git
+        repository: bats-core/bats-support.git
         path: modules
     - name: Checkout BATS-ASSERT
       uses: actions/checkout@v4
       with:
-        repository: https://github.com/bats-core/bats-assert.git
+        repository: bats-core/bats-assert.git
         path: modules
     - name: Install dependencies
       run: |
