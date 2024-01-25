@@ -26,14 +26,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Checkout submodules
-      run: |
-        git submodule update --init --recursive
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
+    - name: Checkout submodules
+      run: |
+        git submodule update --init --recursive
     - name: Run BCLD build script through BATS
       run: |
         /usr/bin/bash -c 'BCLD_MODEL=release ./test/BCLD-BATS.sh'
