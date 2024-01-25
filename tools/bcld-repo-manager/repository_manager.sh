@@ -91,7 +91,7 @@ function read_pointer () {
 function prep_dir () {
     if [[ ! -d ${1} ]]; then
         /usr/bin/echo "Preparing directory: ${1}"
-        mkdir -pv "${1}" &>> "${REPOMAN_LOG}" || exit
+        /usr/bin/mkdir -pv "${1}" &>> "${REPOMAN_LOG}" || exit
         if [[ ${1} = "${pkgs_dir}" ]]; then
             /usr/bin/chown _apt "${pkgs_dir}"
         fi

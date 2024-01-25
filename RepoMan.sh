@@ -19,6 +19,11 @@
 # en de beperkingen van de licentie.
 #
 # Dockerized BCLD Repo Manager
+#
+# Runs chrepoman.sh inside Docker with mounts
+# Can also be ran with arguments:
+# 1: Pointer Type (u,g,o,d,z,s,x,w,q)
+# 2: Repository Name (BCLD_CODE_NAME and BCLD_PATCH by default)
 
 # VARs
 CONTAINER='RepoMan'
@@ -35,10 +40,6 @@ else
     exit
 fi
 
-# Run Chrepoman inside Docker, mount BCLD Repo Manager and scripts
-# Can also be ran with arguments:
-# 1: Type
-# 2: Name
 echo
 echo "Starting Docker..."
 

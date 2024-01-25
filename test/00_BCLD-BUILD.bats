@@ -135,7 +135,7 @@ img_size () {
 }
 
 # Tests
-@test 'shellcheck' {
+@test 'ShellCheck' {
     run shellcheck
     refute_output --partial '(error)'
     refute_output --partial 'ShellCheck found errors!'
@@ -177,6 +177,7 @@ img_size () {
 	run art_check ./image/ISO/isolinux/bios.img
 	run art_check ./image/ISO/isolinux/grub.cfg
 	run art_check ./image/ISO/isolinux/core.img
+	run art_check ./test/SHELL-REPORT.txt
 
 	refute_output --partial 'FAILED'
 }

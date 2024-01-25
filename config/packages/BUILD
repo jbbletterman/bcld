@@ -1,4 +1,5 @@
 apt-utils
+aptitude
 bind9-dnsutils
 coreutils
 curl
@@ -14,10 +15,12 @@ gettext-base
 git
 grub-efi-amd64-signed
 grub-pc
+gzip
 inetutils-ping
 libnss3-tools
 mtools
 parted
+rsync
 shellcheck
 shim-signed
 squashfs-tools
