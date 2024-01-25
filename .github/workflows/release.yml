@@ -41,6 +41,9 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
+    - name: Run BCLD RepoMan to scan all packages before RELEASE
+      run: |
+        /usr/bin/bash -c 'POINTER_TYPE=o ./RepoMan'
     - name: Run BCLD build script through BATS
       run: |
         /usr/bin/bash -c 'BCLD_MODEL=release ./test/BCLD-BATS.sh'

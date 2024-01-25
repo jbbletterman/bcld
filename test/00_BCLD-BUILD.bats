@@ -142,7 +142,7 @@ img_size () {
     refute_output --partial 'SHELL-CHECK FAILED'
 }
 
-@test 'Preparing to build TEST image...' {
+@test "Preparing to build ${BCLD_MODEL} image..." {
 
 }
 
