@@ -51,9 +51,6 @@ KERNEL="${LIST_DIR}/KERNEL"
 REQUIRED="${LIST_DIR}/REQUIRED"
 VIRTUAL="${LIST_DIR}/VIRTUAL"
 
-### Update kernel package list
-envsubst < "${KERNEL}" > "${CHKERNEL}"
-
 ## Temporary files and folders
 ALL_PKGS="${TMP_PKGS_DIR}/PKGS"
 ALL_DEPS="${TMP_PKGS_DIR}/DEPS"
@@ -107,6 +104,9 @@ function populate_pkg_lists () {
     if [[ -f "${ALL_PKGS}" ]];then
         /usr/bin/rm "${ALL_PKGS}"
     fi
+    
+    ### Update kernel package list
+    /usr/bin/envsubst < "${KERNEL}" > "${CHKERNEL}"
     
     /usr/bin/cat "${DEBUG}" > "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
     /usr/bin/cat "${CHKERNEL}" >> "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
