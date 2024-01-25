@@ -24,14 +24,23 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
-    - name: Git Version
-      id: version
-      uses: codacy/git-version@2.18
-    - name: Checkout repository and submodules
+    - name: Checkout local repository
       uses: actions/checkout@v2
+    - name: Checkout BATS-CORE
+      uses: actions/checkout@v4
       with:
-        submodules: recursive
-        fetch-depth: 0
+        repository: https://github.com/bats-core/bats-core.git
+        path: modules
+    - name: Checkout BATS-SUPPORT
+      uses: actions/checkout@v4
+      with:
+        repository: https://github.com/bats-core/bats-support.git
+        path: modules
+    - name: Checkout BATS-ASSERT
+      uses: actions/checkout@v4
+      with:
+        repository: https://github.com/bats-core/bats-assert.git
+        path: modules
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
