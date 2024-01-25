@@ -76,7 +76,7 @@ else
 		-v "${WEB_DIR}":"${WEB_DIR}":rw \
 		-v "${TMPDIR}":"${TMPDIR}":rw \
 		-w /project \
-		ubuntu:"${CODE_NAME}" bash -c "${REPOMAN}" "${1}" "${2}" "${3}"
+		ubuntu:"${CODE_NAME}" bash -c "${REPOMAN} ${1} ${2} ${3}"
 fi
     
 
