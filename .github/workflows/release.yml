@@ -24,6 +24,8 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
+    - name: Checkout local repository
+      uses: actions/checkout@v2
     - name: Manually downloading submodules...
       run: |
         /usr/bin/apt-get update
@@ -34,8 +36,6 @@ jobs:
         /usr/bin/git clone https://github.com/bats-core/bats-support.git
         /usr/bin/git clone https://github.com/bats-core/bats-assert.git
         cd - || exit
-    - name: Checkout local repository
-      uses: actions/checkout@v2
     - name: Install dependencies
       run: |
         /usr/bin/apt-get update
