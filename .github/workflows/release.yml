@@ -24,11 +24,11 @@ jobs:
         - /var/docker.sock:/var/docker.sock:ro
         - ${{ github.workspace }}:/project:rw
     steps:
-    - name: Install Git on GitHub... Because that's a thing.
+    - name: Manually downloading submodules...
       run: |
         /usr/bin/apt-get update
         /usr/bin/apt-get install -y git
-        /usr/bin/mkdir -p modules
+        /usr/bin/mkdir -pv modules
         cd modules
         /usr/bin/git clone https://github.com/bats-core/bats-core.git
         /usr/bin/git clone https://github.com/bats-core/bats-support.git
