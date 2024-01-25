@@ -41,13 +41,12 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
-    - name: Run BCLD RepoMan to scan all packages before RELEASE
-      run: |
-        /usr/bin/mkdir -p artifacts
-        /usr/bin/bash -c 'POINTER_TYPE=o ./tools/bcld-repo-manager/repository_manager.sh'
     - name: Run BCLD build script through BATS
       run: |
         /usr/bin/bash -c 'BCLD_MODEL=release ./test/BCLD-BATS.sh'
+    - name: Run BCLD RepoMan to scan all packages after RELEASE
+      run: |
+        /usr/bin/bash -c 'POINTER_TYPE=o ./tools/bcld-repo-manager/repository_manager.sh'
     - name: Upload ShellCheck report
       uses: actions/upload-artifact@v2
       with:
