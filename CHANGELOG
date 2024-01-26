@@ -3,6 +3,7 @@
 ## 2024
 
 ### January
+* `2024-01-26 16:46:24` : RepoMan dependency check updates
 * `2024-01-26 13:38:45` : Kernel update `6.2.0-37` > `6.5.0-15`
 * `2024-01-25 14:21:40` : Added [RepoMan](./RepoMan.sh) dependencies to [BUILD packages](./config/packages/BUILD)
 * `2024-01-22 18:01:45` : BATS tests refactored into single file: `./test/00_BCLD-BUILD.bats`
