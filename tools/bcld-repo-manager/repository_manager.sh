@@ -320,8 +320,10 @@ function scan_pkgs () {
             status="REQ"
         fi
         
-        description=$(/usr/bin/apt-cache search "${PKG}" | head -1 | cut -d ' ' -f3-)
-        /usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t\t\t\t${description^}" >> "${PKG_LIST}"
+        description="$(/usr/bin/apt-cache search "${PKG}" | head -1 | cut -d ' ' -f3-)"
+        version="$(/usr/bin/apt-cache madison "${PKG}" | head -1 | cut -d '|' -f2)"
+        /usr/bin/printf "%-20s %-10s %-50s\n" " * (${EVERYTHING_COUNTER})" "${PKG} [${status}]:" "${version}" "${description^}" >> "${PKG_LIST}"
+        #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
     done
     
