@@ -295,7 +295,7 @@ function init_report () {
 
 # Function to add to package list
 function add_pkg_list (){
-    /usr/bin/echo "${1}" >> "${PKG_LIST}"
+    /usr/bin/echo -e "${1}" >> "${PKG_LIST}"
 }
 
 # Function to scan for information about all packages in ./config.
@@ -333,13 +333,13 @@ function scan_pkgs () {
         file_name="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Filename' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         maintainer="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Maintainer' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        add_pkg_list "  * (${EVERYTHING_COUNTER}) ${PKG}"
-        add_pkg_list "    ${status}:  ${description^}"
-        add_pkg_list "    Version: ${version}"
-        add_pkg_list "    Maintainer: ${maintainer}"
-        add_pkg_list "    Homepage: ${homepage}"
-        add_pkg_list "    Repository: ${file_name}"
-        add_pkg_list "    md5sum: ${hash}"
+        add_pkg_list "  * (${EVERYTHING_COUNTER})\t\t${PKG}"
+        add_pkg_list "    ${status}:\t\t${description^}"
+        add_pkg_list "    Version:\t\t${version}"
+        add_pkg_list "    Maintainer:\t${maintainer}"
+        add_pkg_list "    Homepage:\t${homepage}"
+        add_pkg_list "    Repository:\t${file_name}"
+        add_pkg_list "    md5sum:\t\t${hash}"
         add_pkg_list
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
