@@ -293,6 +293,11 @@ function init_report () {
     /usr/bin/echo "## TOTAL: ${EVERYTHING_TOTAL}" >> "${PKG_REPORT}"
 }
 
+# Function to add to package list
+function add_pkg_list (){
+    /usr/bin/echo -e "${1}" >> "${PKG_LIST}"
+}
+
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
@@ -315,14 +320,28 @@ function scan_pkgs () {
 
         /usr/bin/echo " └> (${EVERYTHING_COUNTER}/${EVERYTHING_TOTAL}) ${PKG}"
         if [[ -n "$(/usr/bin/apt-mark showauto "${PKG}")" ]]; then
-            status="DEP"
+            status="Dependency"
         else
-            status="REQ"
+            status="REQUIRED"
         fi
         
-        description="$(/usr/bin/apt-cache search "${PKG}" | head -1 | cut -d ' ' -f3-)"
-        version="$(/usr/bin/apt-cache madison "${PKG}" | head -1 | cut -d '|' -f2 | /usr/bin/awk '{$1=$1};1')"
-        /usr/bin/printf "%-60s %-60s\n" " * (${EVERYTHING_COUNTER}) ${PKG} [${status}]: v${version}" "${description^}" >> "${PKG_LIST}"
+        PKG_INFO="$(/usr/bin/apt-cache show "${PKG}")"  
+        
+        description="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Description-en' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        hash="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Description-md5' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        homepage="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Homepage' | /usr/bin/cut -d ' ' -f2 | /usr/bin/awk '{$1=$1};1')"
+        file_name="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Filename' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        maintainer="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Maintainer' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        add_pkg_list " * (${EVERYTHING_COUNTER}) ${file_name}"
+        add_pkg_list "   ${description^}"
+        add_pkg_list "   Homepage:\t${homepage}"
+        add_pkg_list "   ${status}:\t${description^}"
+        add_pkg_list "   Version:\t${version}"
+        add_pkg_list "   Status\t${status}"
+        add_pkg_list "   Maintainer:\t${maintainer}"
+        add_pkg_list "   md5sum:\t${hash}"
+        add_pkg_list
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
     done
