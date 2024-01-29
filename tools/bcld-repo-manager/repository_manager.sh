@@ -333,20 +333,13 @@ function scan_pkgs () {
         file_name="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Filename' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         maintainer="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Maintainer' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        add_pkg_list "  * (${EVERYTHING_COUNTER}) ${PKG} ${description^}"
-        
+        add_pkg_list "  * (${EVERYTHING_COUNTER}) ${PKG}"
+        add_pkg_list "    ${status}:  ${description^}"
         add_pkg_list "    Version: ${version}"
-        
-        if [[ "${status}" == 'REQ' ]]; then
-            add_pkg_list "    Required?: YES"
-        else
-            add_pkg_list "    Required?: DEPENDENCY"
-        fi
-        
         add_pkg_list "    Maintainer: ${maintainer}"
-        add_pkg_list "    md5sum: ${hash}"
         add_pkg_list "    Homepage: ${homepage}"
         add_pkg_list "    Repository: ${file_name}"
+        add_pkg_list "    md5sum: ${hash}"
         add_pkg_list
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
