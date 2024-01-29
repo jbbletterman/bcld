@@ -338,9 +338,9 @@ function scan_pkgs () {
         add_pkg_list "   Homepage:\t${homepage}"
         add_pkg_list "   ${status}:\t${description^}"
         add_pkg_list "   Version:\t${version}"
-        add_pkg_list "   Status\t\t${status}"
+        add_pkg_list "   Status\t${status}"
         add_pkg_list "   Maintainer:\t${maintainer}"
-        add_pkg_list "   md5sum:\t\t${hash}"
+        add_pkg_list "   md5sum:\t${hash}"
         add_pkg_list
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
