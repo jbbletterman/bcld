@@ -320,9 +320,17 @@ function scan_pkgs () {
             status="REQ"
         fi
         
-        description="$(/usr/bin/apt-cache search "${PKG}" | head -1 | cut -d ' ' -f3-)"
-        version="$(/usr/bin/apt-cache madison "${PKG}" | head -1 | cut -d '|' -f2 | /usr/bin/awk '{$1=$1};1')"
+        PKG_INFO="$(/usr/bin/apt-cache show "${PKG}")"  
+        
+        description="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Description-en' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        hash="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Description-md5' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        homepage="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Homepage' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        file_name="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Filename' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        maintainer="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Maintainer' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         /usr/bin/printf "%-60s %-60s\n" " * (${EVERYTHING_COUNTER}) ${PKG} [${status}]: v${version}" "${description^}" >> "${PKG_LIST}"
+        /usr/bin/printf "%-60s %-60s\n" "   Maintainer:${maintainer}" "#MD5: ${hash}" >> "${PKG_LIST}"
+        /usr/bin/printf "%-60s %-60s\n\n" "   Location: ${filename}" "Homepage: ${homepage}" >> "${PKG_LIST}"
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
     done
