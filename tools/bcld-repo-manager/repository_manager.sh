@@ -335,12 +335,12 @@ function scan_pkgs () {
         version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         add_pkg_list "  * (${EVERYTHING_COUNTER}) ${file_name}"
         add_pkg_list "\t${description^}"
+        add_pkg_list "\tHomepage:\t${homepage}"
         add_pkg_list "\t${status}:\t${description^}"
         add_pkg_list "\tVersion:\t${version}"
         add_pkg_list "\tStatus\t\t${status}"
         add_pkg_list "\tMaintainer:\t${maintainer}"
-        add_pkg_list "\tHomepage:\t${homepage}"
-        add_pkg_list "\t\tmd5sum:\t${hash}"
+        add_pkg_list "\tmd5sum:\t\t${hash}"
         add_pkg_list
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
