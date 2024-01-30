@@ -12,7 +12,7 @@ a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-8e592d952ca4497bfbfccd75a3e4e777  ./config/BUILD.conf
+4992301c77ae72f406b657628707c88d  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -109,6 +109,6 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh
 06f98cfbd9bc8bf4a8da8e0c9b9b8519  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
-745aefd52c2cbeff71f5565528118d94  ./tools/bcld-repo-manager/SBOM_validate.sh
+53160a605dd58bf066095409a2f01278  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
 48281329cbffbc11bd9ac11707f77165  ./tools/bcld-repo-manager/repository_manager.sh
