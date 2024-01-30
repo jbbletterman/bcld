@@ -58,14 +58,12 @@ fi
 for pkg in ${PKG_LIST}; do
 
     if [[ "${pkg}" == 'Name:' ]]; then
+        # Skip garbage entries
         continue
-    else
-        # Create list of basenames from PKG_LIST
-        pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/awk '{ print $2 }')"
     fi
     
     # Debugging
-    list_item "${pkg_basename}"
+    list_item "${pkg}"
     
     # Then, compare this list to SBOM 2
     if [[ $(/usr/bin/grep -c "${pkg_basename}" "${2}") -gt 0 ]]; then
