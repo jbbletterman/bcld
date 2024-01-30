@@ -72,8 +72,8 @@ for pkg in ${PKG_LIST}; do
         pkg_info_2="$(/usr/bin/grep -m1 -B1 -A8 "${pkg}" "${2}")"
         
         # Split version numbers
-        pkg_ver_1="$(/usr/bin/echo "${pkg_info_1}" | /usr/bin/grep 'Version:')"
-        pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:')"
+        pkg_ver_1="$(/usr/bin/echo "${pkg_info_1}" | /usr/bin/grep 'Version:' | /usr/bin/awk '{ print $2 }')"
+        pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:' | /usr/bin/awk '{ print $2 }')"
 
         # Always output different version
         
