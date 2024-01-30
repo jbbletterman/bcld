@@ -66,9 +66,9 @@ for pkg in ${PKG_LIST}; do
 
         # Always output different version
         
-        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
+        #if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
             #list_item_pass "${pkg_info_1} >>> ${pkg_info_2}"
-        fi
+        #fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
         list_item_fail "\"${pkg_basename}\" missing, please check if this is correct!"
