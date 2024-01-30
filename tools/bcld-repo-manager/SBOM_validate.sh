@@ -93,7 +93,7 @@ for pkg in ${PKG_LIST_1}; do
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
-        list_item_fail "\"${pkg}\" is missing in SBOM 2!"
+        list_item_fail "\"${pkg}\" is missing!"
     fi
 done
 
