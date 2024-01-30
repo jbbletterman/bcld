@@ -32,6 +32,8 @@ else
     exit
 fi
 
+# VARs
+ART_DIR="${PROJECT_DIR}/artifacts"
 PKG_LIST="${ART_DIR}/PKGS_ALL"
 
 for package in $(/usr/bin/cat "${PKG_LIST}"); do
