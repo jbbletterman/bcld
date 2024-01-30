@@ -302,15 +302,16 @@ function add_pkg_list (){
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
     PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
-    PKG_LIST_SORT="${TMPDIR}/${REPO_NAME}_PKGS_INFO_SORT"
     PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
     
     if [[ -f ${PKG_LIST} ]];then
-        /usr/bin/rm -f "${PKG_LIST}"
+        /usr/bin/echo "PKG_LIST found!"
+        /usr/bin/rm -vf "${PKG_LIST}"
     fi
 
     if [[ -f ${PKG_REPORT} ]];then
-        /usr/bin/rm -f "${PKG_REPORT}"
+        /usr/bin/echo "PKG_REPORT found!"
+        /usr/bin/rm -vf "${PKG_REPORT}"
     fi
 
     init_report
@@ -346,13 +347,7 @@ function scan_pkgs () {
         ((EVERYTHING_COUNTER++))
     done
     
-    /usr/bin/cat "${PKG_LIST}" | sort -u > "${PKG_LIST_SORT}"
-
-    # Generate Markdown file
-    while read -r LINE;do
-         /usr/bin/echo "${LINE}" >> "${PKG_REPORT}"
-         #/usr/bin/echo -e "\n" >> "${PKG_REPORT}"
-    done < "${PKG_LIST_SORT}"
+    /usr/bin/cat "${PKG_LIST}" > "${PKG_REPORT}"
     
     /usr/bin/echo
     /usr/bin/echo
