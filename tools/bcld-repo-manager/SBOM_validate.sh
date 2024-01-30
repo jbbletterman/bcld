@@ -70,7 +70,12 @@ else
     list_item_fail "SBOM 2 cannot be empty!"
 fi
 
-list_item "Diffing package versions..."
+list_exit
+TAG='SBOM-DIFF'
+
+list_header "Diffing package versions..."
+
+
 for pkg in ${PKG_LIST_1}; do
     
     # Then, compare this list to SBOM 2
@@ -85,8 +90,7 @@ for pkg in ${PKG_LIST_1}; do
 
         # Always output different version
         if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
-            list_item "${pkg}"
-            list_item_pass ">>> ${pkg_ver_1} >>> ${pkg_ver_2}"
+            list_item_pass "${pkg} >>> ${pkg_ver_1} >>> ${pkg_ver_2}"
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
@@ -94,10 +98,16 @@ for pkg in ${PKG_LIST_1}; do
     fi
 done
 
-list_item "Checking new packages..."
+on_completion
+
+TAG='SBOM-PKGS'
+
+list_header "Checking new packages..."
 for pkg in ${PKG_LIST_2}; do
     if [[ $(/usr/bin/grep -c "${pkg}" ${1}) -eq 0 ]]; then
-        list_item "${pkg}"
-        list_item_pass ">>> NEW dependency detected!"
+        pkg_info_2="$(/usr/bin/grep -B1 -A8 $'\t'"${pkg}$" "${2}")"
+        pkg_stat_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Status:' | /usr/bin/awk '{ print $2 }')"
+        list_item_pass "${pkg} >>> NEW ${pkg_stat_2} detected!"
+        list_item_pass ""
     fi
 done
