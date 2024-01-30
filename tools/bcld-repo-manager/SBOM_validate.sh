@@ -19,6 +19,9 @@
 # en de beperkingen van de licentie.
 #
 # Script for diffing BCLD-SBOM
+# Arguments:
+# 1. SBOM1
+# 2. SBOM2
 if [[ -f "$(pwd)"/tools/bcld-repo-manager/SBOM_validate.sh ]]; then
     # Paths
     PROJECT_DIR="$(pwd)"
@@ -85,12 +88,14 @@ for pkg in ${PKG_LIST_1}; do
         pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:' | /usr/bin/awk '{ print $2 }')"
 
         # Always output different version
-        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
-            list_item_pass "${pkg} >>> ${pkg_ver_1} >>> ${pkg_ver_2}"
+        if [[ "${pkg_ver_2}" -gt "${pkg_ver_1}" ]]; then
+            list_item_pass "\"${pkg}\" >>> ${pkg_ver_1} >>> ${pkg_ver_2} (upgraded)"
+        else
+            list_item_fail "\"${pkg}\" >>> ${pkg_ver_1} >>> ${pkg_ver_2} (downgraded)"
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
-        list_item_fail "\"${pkg}\" missing, please check if this is correct!"
+        list_item_fail "\"${pkg}\" is missing in SBOM 2!"
     fi
 done
 
@@ -101,7 +106,7 @@ for pkg in ${PKG_LIST_2}; do
     if [[ $(/usr/bin/grep -c "${pkg}" ${1}) -eq 0 ]]; then
         pkg_info_2="$(/usr/bin/grep -B1 -A8 $'\t'"${pkg}$" "${2}")"
         pkg_stat_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Status:' | /usr/bin/awk '{ print $2 }')"
-        list_item_pass "${pkg} >>> NEW ${pkg_stat_2} package detected!"
+        list_item_pass "\"${pkg}\" >>> NEW ${pkg_stat_2} package detected!"
     fi
 done
 
