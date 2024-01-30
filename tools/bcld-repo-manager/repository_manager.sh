@@ -37,12 +37,16 @@ REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
 REPOMAN_LOG="${LOG_DIR}/REPOSITORY_MANAGER.log"
 SOURCES="/etc/apt/sources.list"
 TMP_PKGS_DIR="${TMPDIR}/packages"
+REPO_DIR="${REPO_HUB}/${REPO_NAME}"
 
 ## Directories
 ART_DIR="${PROJECT_DIR}/artifacts"
 CERT_DIR="${PROJECT_DIR}/cert"
+DATA_DIR="${STABLE_DIR}/main/binary-amd64"
 LOG_DIR="${PROJECT_DIR}/log"
+PKGS_DIR="${REPO_DIR}/pool/main"
 REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
+STABLE_DIR="${REPO_DIR}/dists/stable"
 
 ## Package lists
 DEBUG="${LIST_DIR}/DEBUG"
@@ -92,8 +96,8 @@ function prep_dir () {
     if [[ ! -d ${1} ]]; then
         /usr/bin/echo "Preparing directory: ${1}"
         /usr/bin/mkdir -pv "${1}" &>> "${REPOMAN_LOG}" || exit
-        if [[ ${1} = "${pkgs_dir}" ]]; then
-            /usr/bin/chown _apt "${pkgs_dir}"
+        if [[ ${1} = "${PKGS_DIR}" ]]; then
+            /usr/bin/chown _apt "${PKGS_DIR}"
         fi
     fi    
 }
@@ -121,43 +125,12 @@ function populate_pkg_lists () {
 
 # Function to check repository and set the name if there is just 1
 function check_repos () {
-  repos=$(find "${REPO_HUB}" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
-  repo_num=$(/usr/bin/echo "${repos}" | wc -w)
+  repos=$(/usr/bin/find "${REPO_HUB}" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+  repo_num=$(/usr/bin/echo "${repos}" | /usr/bin/wc -w)
   
   /usr/bin/echo "Checking ${REPO_HUB} for existing repositories..."
   /usr/bin/echo "Repositories detected: ${repos}"
   /usr/bin/echo "Total: ${repo_num}" 
-}
-
-# Automatically detect repo name if there is only 1
-function auto_repo_name () {
-    if [[ -z "${REPO_NAME}" ]] \
-        || [[ "${repo_num}" -eq 0 ]]; then
-        /usr/bin/echo
-        /usr/bin/echo "No repositories found!"
-    elif [[ -n "${REPO_NAME}" ]] \
-        && [[ "${repo_num}" -eq 1 ]]; then
-        /usr/bin/echo "A single repository was detected: (${repos})"
-        REPO_NAME="${repos}"        
-    fi
-
-    set_repo_name
-}
-
-# Set repo name if not set.  
-function set_repo_name () {
-    if [[ -z ${REPO_NAME} ]]; then
-		REPO_NAME="${BCLD_CODE_NAME^^}-${BCLD_PATCH}"
-		/usr/bin/echo "Setting repo name: ${REPO_NAME}"
-		/usr/bin/echo
-    fi
-
-    repo_dir="${REPO_HUB}/${REPO_NAME}"
-
-    pkgs_dir="${repo_dir}/pool/main"
-    stable_dir="${repo_dir}/dists/stable"
-    data_dir="${stable_dir}/main/binary-amd64"
-
 }
 
 # Zip everything inside REPO_HUB/REPO_NAME
@@ -174,6 +147,19 @@ function zip_repo () {
     /usr/bin/echo "Repository saved to: $(readlink -e "${ART_DIR}/${zip_file}")"
 }
 
+# Function to prepare directories
+function prep_dirs () {
+    # Prepare ENVs
+    prep_dir "${ART_DIR}" 
+    prep_dir "${LOG_DIR}"
+    prep_dir "${REPO_HUB}"
+    prep_dir "${TMP_PKGS_DIR}"
+
+    # Repo functions
+    prep_dir "${PKGS_DIR}"
+    prep_dir "${DATA_DIR}"
+}
+
 # Download dependencies using /usr/bin/apt-cache
 function dep_init () {    
     
@@ -186,7 +172,7 @@ function dep_init () {
     /usr/bin/echo
     /usr/bin/echo "Querying dependencies..."
 
-    cd "${pkgs_dir}" || exit
+    cd "${PKGS_DIR}" || exit
     while read -r PKG; do
         /usr/bin/echo
         /usr/bin/echo " ┌┤[PKG]: ${PKG} [${pkg_count}/${PKG_TOTAL}]" \
@@ -264,15 +250,15 @@ function update_repo () {
     # Scan all downloaded packages and generate Package files
     /usr/bin/echo
     /usr/bin/echo "Scanning packages..."
-    cd "${repo_dir}" || exit
-    dpkg-scanpackages --arch amd64 pool/ > "${data_dir}/Packages"
+    cd "${REPO_DIR}" || exit
+    dpkg-scanpackages --arch amd64 pool/ > "${DATA_DIR}/Packages"
     /usr/bin/echo "Compressing Packages.gz..."
-    /usr/bin/cat "${data_dir}/Packages" | gzip -9 > "${data_dir}/Packages.gz"
+    /usr/bin/cat "${DATA_DIR}/Packages" | gzip -9 > "${DATA_DIR}/Packages.gz"
 
     # Generate Release file
     /usr/bin/echo
     /usr/bin/echo "Generating Release file..."
-    cd "${stable_dir}/" || exit
+    cd "${STABLE_DIR}/" || exit
     "${REPOMAN_DIR}/generate_release.sh" > Release
 
     /usr/bin/echo -e "\nBCLD repository packages successfully scanned!\n"
@@ -283,7 +269,7 @@ function init_report () {
     if [[ -f ${PKG_REPORT} ]]; then
         /usr/bin/echo
         /usr/bin/echo "Found old artifact: ${PKG_REPORT}! Removing..."
-        /usr/bin/rm -f ${PKG_REPORT}
+        /usr/bin/rm -vf ${PKG_REPORT}
     fi
     
     /usr/bin/echo
@@ -307,11 +293,6 @@ function scan_pkgs () {
     if [[ -f ${PKG_LIST} ]];then
         /usr/bin/echo "PKG_LIST found!"
         /usr/bin/rm -vf "${PKG_LIST}"
-    fi
-
-    if [[ -f ${PKG_REPORT} ]];then
-        /usr/bin/echo "PKG_REPORT found!"
-        /usr/bin/rm -vf "${PKG_REPORT}"
     fi
 
     init_report
@@ -347,7 +328,7 @@ function scan_pkgs () {
         ((EVERYTHING_COUNTER++))
     done
     
-    /usr/bin/cat "${PKG_LIST}" > "${PKG_REPORT}"
+    /usr/bin/cat "${PKG_LIST}" >> "${PKG_REPORT}"
     
     /usr/bin/echo
     /usr/bin/echo
@@ -365,18 +346,18 @@ function sign_repo () {
         
         /usr/bin/echo
         /usr/bin/echo "Signing Release file..."
-        /usr/bin/cat "${stable_dir}/Release" \
+        /usr/bin/cat "${STABLE_DIR}/Release" \
             | gpg --default-key "${GPG_KEY}" --armor --detach-sign --sign \
-            > "${stable_dir}/Release.gpg" \
-            && /usr/bin/echo "Signed: ${stable_dir}/Release.gpg" \
+            > "${STABLE_DIR}/Release.gpg" \
+            && /usr/bin/echo "Signed: ${STABLE_DIR}/Release.gpg" \
             || /usr/bin/echo "Release signing failed!"
         
         /usr/bin/echo
         /usr/bin/echo "Signing InRelease file..."
-        /usr/bin/cat "${stable_dir}/Release" \
+        /usr/bin/cat "${STABLE_DIR}/Release" \
             | gpg --default-key "${GPG_KEY}" --armor --detach-sign --sign --clearsign \
-            > "${stable_dir}/InRelease" \
-            && /usr/bin/echo "Signed: ${stable_dir}/InRelease" \
+            > "${STABLE_DIR}/InRelease" \
+            && /usr/bin/echo "Signed: ${STABLE_DIR}/InRelease" \
             || /usr/bin/echo "InRelease signing failed!"
     else
         /usr/bin/echo
@@ -443,7 +424,7 @@ function clear_web_dir () {
 
 # Function to count packages inside the repo
 function count_packages () {
-    pkgs_num=$(find "${pkgs_dir}" -mindepth 1 -maxdepth 1 -type f -name '*.deb' | wc -l)
+    pkgs_num=$(find "${PKGS_DIR}" -mindepth 1 -maxdepth 1 -type f -name '*.deb' | wc -l)
     /usr/bin/echo
     /usr/bin/echo "Current repository contains: ${pkgs_num} packages!"
     /usr/bin/echo
@@ -503,17 +484,7 @@ while [[ ! $done ]]; do
         /usr/bin/echo "Please enter a new BCLD repo name."
         /usr/bin/echo "This is usually the name of the version: 11.0.0"
         /usr/bin/echo
-
-        # Prepare ENVs
-        prep_dir "${ART_DIR}" 
-        prep_dir "${LOG_DIR}"
-        prep_dir "${REPO_HUB}"
-        prep_dir "${TMP_PKGS_DIR}"
-
-        # Repo functions
-        set_repo_name
-        prep_dir "${pkgs_dir}"
-        prep_dir "${data_dir}"
+        prep_dirs
         dep_init
         download_now
         /usr/bin/echo -e "\nBCLD repository successfully created!\n"
@@ -524,32 +495,25 @@ while [[ ! $done ]]; do
         /usr/bin/echo
         /usr/bin/echo "Please enter the name of the BCLD repo you wish to update."
         /usr/bin/echo
-        auto_repo_name
         update_repo
         sign_repo
         ;;
     
     g)
-        auto_repo_name
         sign_repo
         ;;
 
     o) 
-        auto_repo_name
-        prep_dir "${TMP_PKGS_DIR}"
-        prep_dir "${REPO_HUB}"
-        prep_dir "${pkgs_dir}"
+        prep_dirs
         dep_init
         scan_pkgs
         ;;
 
     d)
-        auto_repo_name
         deploy_repo
         ;;
 
     z)
-        auto_repo_name
         zip_repo
         ;;
     
