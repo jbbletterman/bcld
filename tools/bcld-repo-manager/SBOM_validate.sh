@@ -46,8 +46,11 @@ list_item "Grabbing package list from ${1}"
 ## Generate a list of packages from SBOM 1
 if [[ -f "${1}" ]]; then
     for pkg in $(/usr/bin/grep 'Name:' ${1}); do
-        pkg_basename="$(/usr/bin/echo ${pkg} | /usr/bin/awk '{ print $2 }')"
-        PKG_LIST_1+="${pkg} "
+                if [[ "${pkg}" == 'Name:' ]]; then
+            continue
+        else
+            PKG_LIST_1+="${pkg} "
+        fi
     done
 else
     list_item_fail "SBOM 1 cannot be empty!"
@@ -57,8 +60,11 @@ list_item "Grabbing package list from ${2}"
 ## Generate a list of packages from SBOM 1
 if [[ ! -f "${2}" ]]; then
     for pkg in $(/usr/bin/grep 'Name:' ${2}); do
-        pkg_basename="$(/usr/bin/echo ${pkg} | /usr/bin/awk '{ print $2 }')"
-        PKG_LIST_2+="${pkg} "
+        if [[ "${pkg}" == 'Name:' ]]; then
+            continue
+        else
+            PKG_LIST_2+="${pkg} "
+        fi
     done
 else
     list_item_fail "SBOM 2 cannot be empty!"
