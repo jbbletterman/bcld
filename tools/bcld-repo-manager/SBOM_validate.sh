@@ -70,7 +70,7 @@ else
     list_item_fail "SBOM 2 cannot be empty!"
 fi
 
-
+list_line
 list_item 'Diffing package versions...'
 
 for pkg in ${PKG_LIST_1}; do

@@ -97,6 +97,11 @@ function list_exit () {
     /usr/bin/echo "    ╽"
 }
 
+# Function for white line
+function list_line () {
+    /usr/bin/echo "    │"
+}
+
 # Function to catch lists
 function list_catch () {
     /usr/bin/echo "   ─┬─"
