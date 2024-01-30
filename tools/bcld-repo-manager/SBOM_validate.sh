@@ -70,11 +70,8 @@ else
     list_item_fail "SBOM 2 cannot be empty!"
 fi
 
-list_exit
-TAG='SBOM-DIFF'
 
-list_header "Diffing package versions..."
-
+list_item 'Diffing package versions...'
 
 for pkg in ${PKG_LIST_1}; do
     
@@ -98,16 +95,15 @@ for pkg in ${PKG_LIST_1}; do
     fi
 done
 
-on_completion
 
-TAG='SBOM-PKGS'
+list_item 'Checking for new packages...'
 
-list_header "Checking new packages..."
 for pkg in ${PKG_LIST_2}; do
     if [[ $(/usr/bin/grep -c "${pkg}" ${1}) -eq 0 ]]; then
         pkg_info_2="$(/usr/bin/grep -B1 -A8 $'\t'"${pkg}$" "${2}")"
         pkg_stat_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Status:' | /usr/bin/awk '{ print $2 }')"
-        list_item_pass "${pkg} >>> NEW ${pkg_stat_2} detected!"
-        list_item_pass ""
+        list_item_pass "${pkg} >>> NEW ${pkg_stat_2} package detected!"
     fi
 done
+
+on_completion
