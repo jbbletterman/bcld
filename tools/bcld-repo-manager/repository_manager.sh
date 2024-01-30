@@ -61,6 +61,10 @@ ALL_DEPS="${TMP_PKGS_DIR}/DEPS"
 ALL_DEPS_SORT="${TMP_PKGS_DIR}/DEPS_SORT"
 DEP_DOWNLOADS="${TMP_PKGS_DIR}/DOWNLOADS"
 
+# Artifacts
+PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
+PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
+
 ## Logging
 APT_REPOMAN_LOG="${LOG_DIR}/APT_REPOMAN.log"
 PKGS_LOG="${LOG_DIR}/PKGS.log"
@@ -287,8 +291,6 @@ function add_pkg_list (){
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
-    PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
-    PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
     
     if [[ -f ${PKG_LIST} ]];then
         /usr/bin/echo "PKG_LIST found!"
