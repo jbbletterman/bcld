@@ -19,7 +19,7 @@
 # en de beperkingen van de licentie.
 #
 # Script for diffing BCLD-SBOM
-if [[ -f "$(pwd)"/tools/bcld-repo-manager/RepoMan.sh ]]; then
+if [[ -f "$(pwd)"/tools/bcld-repo-manager/SBOM_validate.sh ]]; then
     # Paths
     PROJECT_DIR="$(pwd)"
     CONFIG_DIR="${PROJECT_DIR}/config"
