@@ -56,9 +56,13 @@ if [[ ! -f "${2}" ]]; then
 fi
 
 for pkg in ${PKG_LIST}; do
-    
-    # Create list of basenames from PKG_LIST
-    pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/awk '{ print $2 }')"
+
+    if [[ "${pkg}" == 'Name:' ]]; then
+        continue
+    else
+        # Create list of basenames from PKG_LIST
+        pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/awk '{ print $2 }')"
+    fi
     
     # Debugging
     list_item "${pkg_basename}"
