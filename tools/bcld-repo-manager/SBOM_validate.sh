@@ -63,7 +63,7 @@ for pkg in ${PKG_LIST}; do
     fi
     
     # Then, compare this list to SBOM 2
-    if [[ $(/usr/bin/grep -c $'\t'${pkg} "${2}") -eq 1 ]]; then
+    if [[ $(/usr/bin/grep -c "${pkg}" "${2}") -eq 1 ]]; then
         # Split pkg_info for SBOM 1 and SBOM 2
         pkg_info_1="$(/usr/bin/grep -m1 -B1 -A8 $'\t'"${pkg}" "${1}")"
         pkg_info_2="$(/usr/bin/grep -m1 -B1 -A8 $'\t'"${pkg}" "${2}")"
