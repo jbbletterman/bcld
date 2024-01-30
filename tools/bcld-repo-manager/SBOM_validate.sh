@@ -66,10 +66,10 @@ for pkg in ${PKG_LIST}; do
     list_item "${pkg}"
     
     # Then, compare this list to SBOM 2
-    if [[ $(/usr/bin/grep -c "${pkg_basename}" "${2}") -gt 0 ]]; then
+    if [[ $(/usr/bin/grep -c "${pkg}" "${2}") -gt 0 ]]; then
         # Split pkg_info for SBOM 1 and SBOM 2
-        pkg_info_1="$(/usr/bin/grep -m1 -A8 "${pkg_basename}" "${1}")"
-        pkg_info_2="$(/usr/bin/grep -m1 -A8 "${pkg_basename}" "${2}")"
+        pkg_info_1="$(/usr/bin/grep -m1 -B1 -A8 "${pkg}" "${1}")"
+        pkg_info_2="$(/usr/bin/grep -m1 -B1 -A8 "${pkg}" "${2}")"
         
         # Split version numbers
         pkg_ver_1="$(/usr/bin/echo "${pkg_info_1}" | /usr/bin/grep 'Version:')"
@@ -77,7 +77,7 @@ for pkg in ${PKG_LIST}; do
 
         # Always output different version
         
-        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
+        if [[ "${pkg_ver_1}" == "${pkg_ver_2}" ]]; then
             list_item_pass "${pkg_info_1} >>> ${pkg_info_2}"
         fi
     else
