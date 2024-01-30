@@ -1,4 +1,23 @@
 #!/bin/bash
+#
+# Copyright © 2023 Quintor B.V.
+#
+# BCLD is gelicentieerd onder de EUPL, versie 1.2 of
+# – zodra ze zullen worden goedgekeurd door de Europese Commissie -
+# latere versies van de EUPL (de "Licentie");
+# U mag BCLD alleen gebruiken in overeenstemming met de licentie.
+# U kunt een kopie van de licentie verkrijgen op:
+#
+# https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+#
+# Tenzij vereist door de toepasselijke wetgeving of overeengekomen in
+# schrijven, wordt software onder deze licentie gedistribueerd
+# gedistribueerd op een "AS IS"-basis,
+# ZONDER ENIGE GARANTIES OF VOORWAARDEN, zowel
+# expliciet als impliciet.
+# Zie de licentie voor de specifieke taal die van toepassing is
+# en de beperkingen van de licentie.
+#
 # BCLD Repo Manager
 # This script requires, `gettext-base`, `aptitude`, `dpkg-dev`, `tee`, `tar` and `gzip`
 #set -x
@@ -8,7 +27,7 @@
 
 if [[ -f "$(pwd)"/RepoMan.sh ]]; then
     # Paths
-    PROJECT_DIR=$(pwd)
+    PROJECT_DIR="$(pwd)"
     CONFIG_DIR="${PROJECT_DIR}/config"
 
     # Read ENVs from BUILD.conf
@@ -37,12 +56,16 @@ REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
 REPOMAN_LOG="${LOG_DIR}/REPOSITORY_MANAGER.log"
 SOURCES="/etc/apt/sources.list"
 TMP_PKGS_DIR="${TMPDIR}/packages"
+REPO_DIR="${REPO_HUB}/${REPO_NAME}"
 
 ## Directories
 ART_DIR="${PROJECT_DIR}/artifacts"
 CERT_DIR="${PROJECT_DIR}/cert"
+DATA_DIR="${STABLE_DIR}/main/binary-amd64"
 LOG_DIR="${PROJECT_DIR}/log"
+PKGS_DIR="${REPO_DIR}/pool/main"
 REPOMAN_DIR="${PROJECT_DIR}/tools/bcld-repo-manager"
+STABLE_DIR="${REPO_DIR}/dists/stable"
 
 ## Package lists
 DEBUG="${LIST_DIR}/DEBUG"
@@ -56,6 +79,10 @@ ALL_PKGS="${TMP_PKGS_DIR}/PKGS"
 ALL_DEPS="${TMP_PKGS_DIR}/DEPS"
 ALL_DEPS_SORT="${TMP_PKGS_DIR}/DEPS_SORT"
 DEP_DOWNLOADS="${TMP_PKGS_DIR}/DOWNLOADS"
+
+# Artifacts
+PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
+PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
 
 ## Logging
 APT_REPOMAN_LOG="${LOG_DIR}/APT_REPOMAN.log"
@@ -92,8 +119,8 @@ function prep_dir () {
     if [[ ! -d ${1} ]]; then
         /usr/bin/echo "Preparing directory: ${1}"
         /usr/bin/mkdir -pv "${1}" &>> "${REPOMAN_LOG}" || exit
-        if [[ ${1} = "${pkgs_dir}" ]]; then
-            /usr/bin/chown _apt "${pkgs_dir}"
+        if [[ ${1} = "${PKGS_DIR}" ]]; then
+            /usr/bin/chown _apt "${PKGS_DIR}"
         fi
     fi    
 }
@@ -121,43 +148,12 @@ function populate_pkg_lists () {
 
 # Function to check repository and set the name if there is just 1
 function check_repos () {
-  repos=$(find "${REPO_HUB}" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
-  repo_num=$(/usr/bin/echo "${repos}" | wc -w)
+  repos=$(/usr/bin/find "${REPO_HUB}" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+  repo_num=$(/usr/bin/echo "${repos}" | /usr/bin/wc -w)
   
   /usr/bin/echo "Checking ${REPO_HUB} for existing repositories..."
   /usr/bin/echo "Repositories detected: ${repos}"
   /usr/bin/echo "Total: ${repo_num}" 
-}
-
-# Automatically detect repo name if there is only 1
-function auto_repo_name () {
-    if [[ -z "${REPO_NAME}" ]] \
-        || [[ "${repo_num}" -eq 0 ]]; then
-        /usr/bin/echo
-        /usr/bin/echo "No repositories found!"
-    elif [[ -n "${REPO_NAME}" ]] \
-        && [[ "${repo_num}" -eq 1 ]]; then
-        /usr/bin/echo "A single repository was detected: (${repos})"
-        REPO_NAME="${repos}"        
-    fi
-
-    set_repo_name
-}
-
-# Set repo name if not set.  
-function set_repo_name () {
-    if [[ -z ${REPO_NAME} ]]; then
-		REPO_NAME="${BCLD_CODE_NAME^^}-${BCLD_PATCH}"
-		/usr/bin/echo "Setting repo name: ${REPO_NAME}"
-		/usr/bin/echo
-    fi
-
-    repo_dir="${REPO_HUB}/${REPO_NAME}"
-
-    pkgs_dir="${repo_dir}/pool/main"
-    stable_dir="${repo_dir}/dists/stable"
-    data_dir="${stable_dir}/main/binary-amd64"
-
 }
 
 # Zip everything inside REPO_HUB/REPO_NAME
@@ -174,6 +170,19 @@ function zip_repo () {
     /usr/bin/echo "Repository saved to: $(readlink -e "${ART_DIR}/${zip_file}")"
 }
 
+# Function to prepare directories
+function prep_dirs () {
+    # Prepare ENVs
+    prep_dir "${ART_DIR}" 
+    prep_dir "${LOG_DIR}"
+    prep_dir "${REPO_HUB}"
+    prep_dir "${TMP_PKGS_DIR}"
+
+    # Repo functions
+    prep_dir "${PKGS_DIR}"
+    prep_dir "${DATA_DIR}"
+}
+
 # Download dependencies using /usr/bin/apt-cache
 function dep_init () {    
     
@@ -186,7 +195,7 @@ function dep_init () {
     /usr/bin/echo
     /usr/bin/echo "Querying dependencies..."
 
-    cd "${pkgs_dir}" || exit
+    cd "${PKGS_DIR}" || exit
     while read -r PKG; do
         /usr/bin/echo
         /usr/bin/echo " ┌┤[PKG]: ${PKG} [${pkg_count}/${PKG_TOTAL}]" \
@@ -223,7 +232,8 @@ function dep_init () {
     /usr/bin/echo "DEPS:"
     /usr/bin/cat "${DEP_DOWNLOADS}"
     EVERYTHING="$(/usr/bin/cat "${ALL_PKGS}" <(/usr/bin/echo) ${DEP_DOWNLOADS})"
-    EVERYTHING_TOTAL="$(/usr/bin/echo ${EVERYTHING} | wc -w)"
+    EVERYTHING_UNIQUE="$(/usr/bin/echo "${EVERYTHING}" | /usr/bin/sort -u)"
+    EVERYTHING_TOTAL="$(/usr/bin/echo ${EVERYTHING_UNIQUE} | /usr/bin/wc -w)"
 }
 
 function download_now () {
@@ -264,15 +274,15 @@ function update_repo () {
     # Scan all downloaded packages and generate Package files
     /usr/bin/echo
     /usr/bin/echo "Scanning packages..."
-    cd "${repo_dir}" || exit
-    dpkg-scanpackages --arch amd64 pool/ > "${data_dir}/Packages"
+    cd "${REPO_DIR}" || exit
+    dpkg-scanpackages --arch amd64 pool/ > "${DATA_DIR}/Packages"
     /usr/bin/echo "Compressing Packages.gz..."
-    /usr/bin/cat "${data_dir}/Packages" | gzip -9 > "${data_dir}/Packages.gz"
+    /usr/bin/cat "${DATA_DIR}/Packages" | gzip -9 > "${DATA_DIR}/Packages.gz"
 
     # Generate Release file
     /usr/bin/echo
     /usr/bin/echo "Generating Release file..."
-    cd "${stable_dir}/" || exit
+    cd "${STABLE_DIR}/" || exit
     "${REPOMAN_DIR}/generate_release.sh" > Release
 
     /usr/bin/echo -e "\nBCLD repository packages successfully scanned!\n"
@@ -283,7 +293,7 @@ function init_report () {
     if [[ -f ${PKG_REPORT} ]]; then
         /usr/bin/echo
         /usr/bin/echo "Found old artifact: ${PKG_REPORT}! Removing..."
-        /usr/bin/rm -f ${PKG_REPORT}
+        /usr/bin/rm -vf ${PKG_REPORT}
     fi
     
     /usr/bin/echo
@@ -301,22 +311,16 @@ function add_pkg_list (){
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=0
-    PKG_LIST="${TMPDIR}/${REPO_NAME}_PKGS_INFO"
-    PKG_LIST_SORT="${TMPDIR}/${REPO_NAME}_PKGS_INFO_SORT"
-    PKG_REPORT="${ART_DIR}/${REPO_NAME}_PKGS.md"
     
     if [[ -f ${PKG_LIST} ]];then
-        /usr/bin/rm -f "${PKG_LIST}"
-    fi
-
-    if [[ -f ${PKG_REPORT} ]];then
-        /usr/bin/rm -f "${PKG_REPORT}"
+        /usr/bin/echo "PKG_LIST found!"
+        /usr/bin/rm -vf "${PKG_LIST}"
     fi
 
     init_report
     
     ## Generate entries
-    for PKG in ${EVERYTHING};do
+    for PKG in ${EVERYTHING_UNIQUE};do
 
         /usr/bin/echo " └> (${EVERYTHING_COUNTER}/${EVERYTHING_TOTAL}) ${PKG}"
         if [[ -n "$(/usr/bin/apt-mark showauto "${PKG}")" ]]; then
@@ -333,26 +337,21 @@ function scan_pkgs () {
         file_name="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Filename' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         maintainer="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Maintainer' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
         version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        add_pkg_list " * (${EVERYTHING_COUNTER}) ${file_name}"
-        add_pkg_list "   ${description^}"
-        add_pkg_list "   Homepage:\t${homepage}"
-        add_pkg_list "   ${status}:\t${description^}"
+        add_pkg_list " * (${EVERYTHING_COUNTER})"
+        add_pkg_list "   Name:\t${PKG}"
+        add_pkg_list "   Description:\t${description^}"
+        add_pkg_list "   Filename:\t${file_name}"
         add_pkg_list "   Version:\t${version}"
-        add_pkg_list "   Status\t${status}"
+        add_pkg_list "   Status:\t${status}"
         add_pkg_list "   Maintainer:\t${maintainer}"
         add_pkg_list "   md5sum:\t${hash}"
+        add_pkg_list "   Homepage:\t${homepage}"
         add_pkg_list
         #/usr/bin/echo -e " * (${EVERYTHING_COUNTER}) \`${PKG}\` [${status}]:\t${description^}" >> "${PKG_LIST}"
         ((EVERYTHING_COUNTER++))
     done
     
-    /usr/bin/cat "${PKG_LIST}" | sort -u > "${PKG_LIST_SORT}"
-
-    # Generate Markdown file
-    while read -r LINE;do
-         /usr/bin/echo "${LINE}" >> "${PKG_REPORT}"
-         #/usr/bin/echo -e "\n" >> "${PKG_REPORT}"
-    done < "${PKG_LIST_SORT}"
+    /usr/bin/cat "${PKG_LIST}" >> "${PKG_REPORT}"
     
     /usr/bin/echo
     /usr/bin/echo
@@ -370,18 +369,18 @@ function sign_repo () {
         
         /usr/bin/echo
         /usr/bin/echo "Signing Release file..."
-        /usr/bin/cat "${stable_dir}/Release" \
+        /usr/bin/cat "${STABLE_DIR}/Release" \
             | gpg --default-key "${GPG_KEY}" --armor --detach-sign --sign \
-            > "${stable_dir}/Release.gpg" \
-            && /usr/bin/echo "Signed: ${stable_dir}/Release.gpg" \
+            > "${STABLE_DIR}/Release.gpg" \
+            && /usr/bin/echo "Signed: ${STABLE_DIR}/Release.gpg" \
             || /usr/bin/echo "Release signing failed!"
         
         /usr/bin/echo
         /usr/bin/echo "Signing InRelease file..."
-        /usr/bin/cat "${stable_dir}/Release" \
+        /usr/bin/cat "${STABLE_DIR}/Release" \
             | gpg --default-key "${GPG_KEY}" --armor --detach-sign --sign --clearsign \
-            > "${stable_dir}/InRelease" \
-            && /usr/bin/echo "Signed: ${stable_dir}/InRelease" \
+            > "${STABLE_DIR}/InRelease" \
+            && /usr/bin/echo "Signed: ${STABLE_DIR}/InRelease" \
             || /usr/bin/echo "InRelease signing failed!"
     else
         /usr/bin/echo
@@ -448,7 +447,7 @@ function clear_web_dir () {
 
 # Function to count packages inside the repo
 function count_packages () {
-    pkgs_num=$(find "${pkgs_dir}" -mindepth 1 -maxdepth 1 -type f -name '*.deb' | wc -l)
+    pkgs_num=$(find "${PKGS_DIR}" -mindepth 1 -maxdepth 1 -type f -name '*.deb' | wc -l)
     /usr/bin/echo
     /usr/bin/echo "Current repository contains: ${pkgs_num} packages!"
     /usr/bin/echo
@@ -508,17 +507,7 @@ while [[ ! $done ]]; do
         /usr/bin/echo "Please enter a new BCLD repo name."
         /usr/bin/echo "This is usually the name of the version: 11.0.0"
         /usr/bin/echo
-
-        # Prepare ENVs
-        prep_dir "${ART_DIR}" 
-        prep_dir "${LOG_DIR}"
-        prep_dir "${REPO_HUB}"
-        prep_dir "${TMP_PKGS_DIR}"
-
-        # Repo functions
-        set_repo_name
-        prep_dir "${pkgs_dir}"
-        prep_dir "${data_dir}"
+        prep_dirs
         dep_init
         download_now
         /usr/bin/echo -e "\nBCLD repository successfully created!\n"
@@ -529,32 +518,25 @@ while [[ ! $done ]]; do
         /usr/bin/echo
         /usr/bin/echo "Please enter the name of the BCLD repo you wish to update."
         /usr/bin/echo
-        auto_repo_name
         update_repo
         sign_repo
         ;;
     
     g)
-        auto_repo_name
         sign_repo
         ;;
 
     o) 
-        auto_repo_name
-        prep_dir "${TMP_PKGS_DIR}"
-        prep_dir "${REPO_HUB}"
-        prep_dir "${pkgs_dir}"
+        prep_dirs
         dep_init
         scan_pkgs
         ;;
 
     d)
-        auto_repo_name
         deploy_repo
         ;;
 
     z)
-        auto_repo_name
         zip_repo
         ;;
     

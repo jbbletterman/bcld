@@ -7,12 +7,12 @@ b654c9911fd9f6bbef88c52332b669da  ./CHANGELOG
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 f989130a6074ceca51514421f336a6fe  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
-274e84333d666d371f7cf375bdee8586  ./README.md
+8797227fb3cfc0e50a3c968cd7126023  ./README.md
 a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-d311240b5a58c9e3210db2fa5dfd9141  ./config/BUILD.conf
+4992301c77ae72f406b657628707c88d  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -95,7 +95,7 @@ b121babd8673a6d38330ab59a6d081e1  ./script/chroot.sh
 2b51f6a1e2969d2de917c72ee45768b7  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 136a1935b5d4fd11062a7ba686a98c5d  ./script/docker_run.sh
-32c8cbd36088450bce11f16eb1afc325  ./script/echo_tools.sh
+6e84c2681a7624154f54831f2b7f7155  ./script/echo_tools.sh
 6016a0192dc8975287b1bdf97c846b7a  ./script/file_operations.sh
 6257ca5ef1f37f5a08322cc9a08e61b3  ./script/log_tools.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
@@ -109,5 +109,6 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh
 06f98cfbd9bc8bf4a8da8e0c9b9b8519  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
+c71b0c6f4b891d9fd7a3d0fadae1bccd  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-0e7ee6752112605a277c9ee62a321f28  ./tools/bcld-repo-manager/repository_manager.sh
+58aa490e45f9859aa374719c3946945b  ./tools/bcld-repo-manager/repository_manager.sh
