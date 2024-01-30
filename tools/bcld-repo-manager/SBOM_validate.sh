@@ -49,7 +49,7 @@ PKG_LIST="$(/usr/bin/grep 'Filename:' ${1})"
 for pkg in ${PKG_LIST}; do
     
     # Create list of basenames from PKG_LIST
-    pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/awk '{ print $2 }')"
+    pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/grep '*' | /usr/bin/awk '{ print $3 }')"
     
     # Debugging
     list_item "${pkg_basename}"
