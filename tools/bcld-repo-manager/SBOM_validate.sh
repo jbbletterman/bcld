@@ -62,9 +62,6 @@ for pkg in ${PKG_LIST}; do
         continue
     fi
     
-    # Debugging
-    list_item "${pkg}"
-    
     # Then, compare this list to SBOM 2
     if [[ $(/usr/bin/grep -c "${pkg}" "${2}") -gt 0 ]]; then
         # Split pkg_info for SBOM 1 and SBOM 2
@@ -77,8 +74,9 @@ for pkg in ${PKG_LIST}; do
 
         # Always output different version
         
-        if [[ "${pkg_ver_1}" == "${pkg_ver_2}" ]]; then
-            list_item_pass "${pkg_ver_1} >>> ${pkg_ver_2}"
+        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
+            list_item_pass "${pkg}"
+            list_item_pass ">>> ${pkg_ver_1} >>> ${pkg_ver_2}"
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
