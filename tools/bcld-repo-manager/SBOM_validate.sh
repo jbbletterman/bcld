@@ -44,12 +44,12 @@ list_header 'Starting BCLD SBOM Validation...'
 list_item "Grabbing package list from ${1}"
 
 ## Generate a list of packages from SBOM 1
-PKG_LIST="$(/usr/bin/grep '.deb' ${1})"
+PKG_LIST="$(/usr/bin/grep 'Filename:' ${1})"
 
 for pkg in ${PKG_LIST}; do
     
     # Create list of basenames from PKG_LIST
-    pkg_basename="$(/usr/bin/basename "${pkg}" | /usr/bin/cut -d '_' -f1)"
+    pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/awk '{ print $2 }')"
     
     # Debugging
     list_item "${pkg_basename}"
@@ -66,9 +66,9 @@ for pkg in ${PKG_LIST}; do
 
         # Always output different version
         
-        #if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
-            #list_item_pass "${pkg_info_1} >>> ${pkg_info_2}"
-        #fi
+        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
+            list_item_pass "${pkg_info_1} >>> ${pkg_info_2}"
+        fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
         list_item_fail "\"${pkg_basename}\" missing, please check if this is correct!"
