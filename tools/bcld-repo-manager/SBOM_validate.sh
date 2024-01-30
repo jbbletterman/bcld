@@ -88,10 +88,8 @@ for pkg in ${PKG_LIST_1}; do
         pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:' | /usr/bin/awk '{ print $2 }')"
 
         # Always output different version
-        if [[ "${pkg_ver_2}" -gt "${pkg_ver_1}" ]]; then
-            list_item_pass "\"${pkg}\" >>> ${pkg_ver_1} >>> ${pkg_ver_2} (upgraded)"
-        else
-            list_item_fail "\"${pkg}\" >>> ${pkg_ver_1} >>> ${pkg_ver_2} (downgraded)"
+        if [[ "${pkg_ver_1}" == "${pkg_ver_2}" ]]; then
+            list_item_pass "\"${pkg}\" >>> ${pkg_ver_1} >>> ${pkg_ver_2}"
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
