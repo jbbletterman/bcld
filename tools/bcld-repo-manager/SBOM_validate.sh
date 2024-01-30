@@ -58,7 +58,7 @@ fi
 
 list_item "Grabbing package list from ${2}"
 ## Generate a list of packages from SBOM 1
-if [[ ! -f "${2}" ]]; then
+if [[ -f "${2}" ]]; then
     for pkg in $(/usr/bin/grep 'Name:' ${2}); do
         if [[ "${pkg}" == 'Name:' ]]; then
             continue
