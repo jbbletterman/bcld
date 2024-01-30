@@ -88,7 +88,7 @@ for pkg in ${PKG_LIST_1}; do
         pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:' | /usr/bin/awk '{ print $2 }')"
 
         # Always output different version
-        if [[ "${pkg_ver_1}" == "${pkg_ver_2}" ]]; then
+        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
             list_item_pass "\"${pkg}\" >>> ${pkg_ver_1} >>> ${pkg_ver_2}"
         fi
     else
