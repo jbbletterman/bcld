@@ -41,26 +41,31 @@ TAG='SBOM-VAL'
 # EXE
 
 list_header 'Starting BCLD SBOM Validation...'
+
 list_item "Grabbing package list from ${1}"
-
 ## Generate a list of packages from SBOM 1
-
 if [[ -f "${1}" ]]; then
-    PKG_LIST="$(/usr/bin/grep 'Name:' ${1})"
+    for pkg in $(/usr/bin/grep 'Name:' ${1}); do
+        pkg_basename="$(/usr/bin/echo ${pkg} | /usr/bin/awk '{ print $2 }')"
+        PKG_LIST_1+="${pkg} "
+    done
 else
     list_item_fail "SBOM 1 cannot be empty!"
 fi
 
+list_item "Grabbing package list from ${2}"
+## Generate a list of packages from SBOM 1
 if [[ ! -f "${2}" ]]; then
+    for pkg in $(/usr/bin/grep 'Name:' ${2}); do
+        pkg_basename="$(/usr/bin/echo ${pkg} | /usr/bin/awk '{ print $2 }')"
+        PKG_LIST_2+="${pkg} "
+    done
+else
     list_item_fail "SBOM 2 cannot be empty!"
 fi
 
-for pkg in ${PKG_LIST}; do
-
-    if [[ "${pkg}" == 'Name:' ]]; then
-        # Skip garbage entries
-        continue
-    fi
+list_item "Diffing package versions..."
+for pkg in ${PKG_LIST_1}; do
     
     # Then, compare this list to SBOM 2
     if [[ $(/usr/bin/grep -c "${pkg}$" "${2}") -gt 0 ]]; then
@@ -73,12 +78,20 @@ for pkg in ${PKG_LIST}; do
         pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:' | /usr/bin/awk '{ print $2 }')"
 
         # Always output different version
-        if [[ "${pkg_ver_1}" == "${pkg_ver_2}" ]]; then
+        if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
             list_item "${pkg}"
             list_item_pass ">>> ${pkg_ver_1} >>> ${pkg_ver_2}"
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
         list_item_fail "\"${pkg}\" missing, please check if this is correct!"
+    fi
+done
+
+list_item "Checking new packages..."
+for pkg in ${PKG_LIST_2}; do
+    if [[ $(/usr/bin/grep -c "${pkg}" ${1}) -eq 0 ]]; then
+        list_item "${pkg}"
+        list_item_pass ">>> NEW dependency detected!"
     fi
 done
