@@ -79,6 +79,6 @@ for pkg in ${PKG_LIST}; do
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
-        list_item_fail "\"${pkg_basename}\" missing, please check if this is correct!"
+        list_item_fail "\"${pkg}\" missing, please check if this is correct!"
     fi
 done
