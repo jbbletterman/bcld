@@ -46,7 +46,7 @@ list_item "Grabbing package list from ${1}"
 ## Generate a list of packages from SBOM 1
 
 if [[ -f "${1}" ]]; then
-    PKG_LIST="$(/usr/bin/grep 'Filename:' ${1})"
+    PKG_LIST="$(/usr/bin/grep '*' ${1})"
 else
     list_item_fail "SBOM 1 cannot be empty!"
 fi
@@ -58,7 +58,7 @@ fi
 for pkg in ${PKG_LIST}; do
     
     # Create list of basenames from PKG_LIST
-    pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/grep '*' | /usr/bin/awk '{ print $3 }')"
+    pkg_basename="$(/usr/bin/echo "${pkg}" | /usr/bin/awk '{ print $3 }')"
     
     # Debugging
     list_item "${pkg_basename}"
