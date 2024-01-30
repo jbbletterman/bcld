@@ -34,7 +34,7 @@ fi
 
 PKG_LIST="${ART_DIR}/PKGS_ALL"
 
-for package in ${PKG_LIST}; do
+for package in $(/usr/bin/cat "${PKG_LIST}"); do
     pkg="$(/usr/bin/basename "${package}")"
     /usr/bin/echo "${pkg}"
 done
