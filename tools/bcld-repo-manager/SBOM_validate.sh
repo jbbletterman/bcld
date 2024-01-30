@@ -51,6 +51,9 @@ for pkg in ${PKG_LIST}; do
     # Create list of basenames from PKG_LIST
     pkg_basename="$(/usr/bin/basename "${pkg}" | /usr/bin/cut -d '_' -f1)"
     
+    # Debugging
+    list_item "${pkg_basename}"
+    
     # Then, compare this list to SBOM 2
     if [[ $(/usr/bin/grep -c "${pkg_basename}" "${2}") -gt 0 ]]; then
         # Split pkg_info for SBOM 1 and SBOM 2
@@ -62,11 +65,9 @@ for pkg in ${PKG_LIST}; do
         pkg_ver_2="$(/usr/bin/echo "${pkg_info_2}" | /usr/bin/grep 'Version:')"
 
         # Always output different version
-        # Debugging
-        list_item "\"${pkg_basename}\" found!"
         
         if [[ "${pkg_ver_1}" != "${pkg_ver_2}" ]]; then
-            list_item_pass "${pkg_info_1} >>> ${pkg_info_2}"
+            #list_item_pass "${pkg_info_1} >>> ${pkg_info_2}"
         fi
     else
         # Always fail if SBOM 1 is missing from SBOM 2
