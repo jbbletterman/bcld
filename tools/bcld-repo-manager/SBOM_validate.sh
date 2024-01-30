@@ -44,7 +44,16 @@ list_header 'Starting BCLD SBOM Validation...'
 list_item "Grabbing package list from ${1}"
 
 ## Generate a list of packages from SBOM 1
-PKG_LIST="$(/usr/bin/grep 'Filename:' ${1})"
+
+if [[ -f "${1}" ]]; then
+    PKG_LIST="$(/usr/bin/grep 'Filename:' ${1})"
+else
+    list_item_fail "SBOM 1 cannot be empty!"
+fi
+
+if [[ ! -f "${2}" ]]; then
+    list_item_fail "SBOM 2 cannot be empty!"
+fi
 
 for pkg in ${PKG_LIST}; do
     
