@@ -70,8 +70,7 @@ else
     list_item_fail "SBOM 2 cannot be empty!"
 fi
 
-list_line
-list_item 'Diffing package versions...'
+list_line_item 'Diffing package versions...'
 
 for pkg in ${PKG_LIST_1}; do
     
@@ -96,7 +95,7 @@ for pkg in ${PKG_LIST_1}; do
 done
 
 
-list_item 'Checking for new packages...'
+list_line_item 'Checking for new packages...'
 
 for pkg in ${PKG_LIST_2}; do
     if [[ $(/usr/bin/grep -c "${pkg}" ${1}) -eq 0 ]]; then

@@ -102,6 +102,12 @@ function list_line () {
     /usr/bin/echo "    │"
 }
 
+# Function which combines list_item with list_line
+function list_line_item () {
+    list_line
+    list_item "${1}"
+}
+
 # Function to catch lists
 function list_catch () {
     /usr/bin/echo "   ─┬─"

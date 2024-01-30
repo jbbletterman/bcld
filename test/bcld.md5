@@ -95,7 +95,7 @@ b121babd8673a6d38330ab59a6d081e1  ./script/chroot.sh
 2b51f6a1e2969d2de917c72ee45768b7  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 136a1935b5d4fd11062a7ba686a98c5d  ./script/docker_run.sh
-95f03df256d7ccc11b2222ef28be9115  ./script/echo_tools.sh
+6e84c2681a7624154f54831f2b7f7155  ./script/echo_tools.sh
 6016a0192dc8975287b1bdf97c846b7a  ./script/file_operations.sh
 6257ca5ef1f37f5a08322cc9a08e61b3  ./script/log_tools.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
@@ -109,6 +109,6 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh
 06f98cfbd9bc8bf4a8da8e0c9b9b8519  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
-ce1fa5d755bcb63170a4cd822ab78a85  ./tools/bcld-repo-manager/SBOM_validate.sh
+7688b01b30f3d791d9916f68e39bba04  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
 58aa490e45f9859aa374719c3946945b  ./tools/bcld-repo-manager/repository_manager.sh
