@@ -232,7 +232,8 @@ function dep_init () {
     /usr/bin/echo "DEPS:"
     /usr/bin/cat "${DEP_DOWNLOADS}"
     EVERYTHING="$(/usr/bin/cat "${ALL_PKGS}" <(/usr/bin/echo) ${DEP_DOWNLOADS})"
-    EVERYTHING_TOTAL="$(/usr/bin/echo ${EVERYTHING} | wc -w)"
+    EVERYTHING_UNIQUE="$(/usr/bin/echo "${EVERYTHING}" | /usr/bin/sort -u)"
+    EVERYTHING_TOTAL="$(/usr/bin/echo ${EVERYTHING_UNIQUE} | /usr/bin/wc -w)"
 }
 
 function download_now () {
@@ -319,7 +320,7 @@ function scan_pkgs () {
     init_report
     
     ## Generate entries
-    for PKG in ${EVERYTHING};do
+    for PKG in ${EVERYTHING_UNIQUE};do
 
         /usr/bin/echo " └> (${EVERYTHING_COUNTER}/${EVERYTHING_TOTAL}) ${PKG}"
         if [[ -n "$(/usr/bin/apt-mark showauto "${PKG}")" ]]; then

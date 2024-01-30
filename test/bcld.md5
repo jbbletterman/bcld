@@ -109,6 +109,6 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh
 06f98cfbd9bc8bf4a8da8e0c9b9b8519  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
-60d57b46457054776abafed52806049a  ./tools/bcld-repo-manager/SBOM_validate.sh
+6bf403aedd1e510649a145ca5da9c09a  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-28c0ea06e072fb063032e49c2b8b2937  ./tools/bcld-repo-manager/repository_manager.sh
+58aa490e45f9859aa374719c3946945b  ./tools/bcld-repo-manager/repository_manager.sh
