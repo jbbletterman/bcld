@@ -197,24 +197,27 @@ function dep_init () {
 
     cd "${PKGS_DIR}" || exit
     while read -r PKG; do
-        /usr/bin/echo
-        /usr/bin/echo " ┌┤[PKG]: ${PKG} [${pkg_count}/${PKG_TOTAL}]" \
-            | /usr/bin/tee "${PKGS_LOG}"  \
-            && ((pkg_count++))
-        
-        # Return string of DEPS for PKG
-        DEPS=$(/usr/bin/apt-cache depends ${PKG} \
-        | grep -E 'Depends' \
-        | cut -d ':' -f 2,3 \
-        | sed -e s/'<'/''/ -e s/'>'/''/)
-        
-        for DEP in ${DEPS};do
-            if [[ ! ${ALL_DEPS} == *"${DEP}"* ]];then
-                /usr/bin/echo " └──•(DEP): ${DEP}"  \
-                    | /usr/bin/tee "${PKGS_LOG}"
-                /usr/bin/echo "${DEP}" >> "${ALL_DEPS}"
-            fi
-        done
+        # PKG cannot be empty
+        if [[ -n ${PKG} ]]; then
+            /usr/bin/echo
+            /usr/bin/echo " ┌┤[PKG]: ${PKG} [${pkg_count}/${PKG_TOTAL}]" \
+                | /usr/bin/tee "${PKGS_LOG}"  \
+                && ((pkg_count++))
+            
+            # Return string of DEPS for PKG
+            DEPS=$(/usr/bin/apt-cache depends ${PKG} \
+            | grep -E 'Depends' \
+            | cut -d ':' -f 2,3 \
+            | sed -e s/'<'/''/ -e s/'>'/''/)
+            
+            for DEP in ${DEPS};do
+                if [[ ! ${ALL_DEPS} == *"${DEP}"* ]];then
+                    /usr/bin/echo " └──•(DEP): ${DEP}"  \
+                        | /usr/bin/tee "${PKGS_LOG}"
+                    /usr/bin/echo "${DEP}" >> "${ALL_DEPS}"
+                fi
+            done
+        fi
     done < "${ALL_PKGS}"
     /usr/bin/echo
     /usr/bin/echo
