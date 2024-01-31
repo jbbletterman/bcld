@@ -190,7 +190,7 @@ function dep_init () {
     populate_pkg_lists
     
     # Counter
-    pkg_count=0
+    pkg_count=1
     
     /usr/bin/echo
     /usr/bin/echo "Querying dependencies..."
@@ -313,7 +313,7 @@ function add_pkg_list (){
 
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
-    EVERYTHING_COUNTER=0
+    EVERYTHING_COUNTER=1
     
     if [[ -f ${PKG_LIST} ]];then
         /usr/bin/echo "PKG_LIST found!"

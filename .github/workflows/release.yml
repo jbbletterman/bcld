@@ -18,6 +18,7 @@ jobs:
         BCLD_SECRET: ${{ secrets.BCLD_SECRET }}
         CLEAN_BOOTSTRAP: ${{ vars.CLEAN_BOOTSTRAP }}
         NULLFIX: ${{ vars.NULLFIX }}
+        POINTER_TYPE: ${{ vars.POINTER_TYPE }}
       volumes:
         - /dev:/dev:ro
         - /run:/run:rw
@@ -43,10 +44,10 @@ jobs:
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
     - name: Run BCLD build script through BATS
       run: |
-        /usr/bin/bash -c 'BCLD_MODEL=release ./test/BCLD-BATS.sh'
+        /usr/bin/bash -c './test/BCLD-BATS.sh'
     - name: Run BCLD RepoMan to scan all packages after RELEASE
       run: |
-        /usr/bin/bash -c 'POINTER_TYPE=o ./tools/bcld-repo-manager/repository_manager.sh'
+        /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
     - name: Upload ShellCheck report
       uses: actions/upload-artifact@v2
       with:

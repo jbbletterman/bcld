@@ -142,8 +142,8 @@ img_size () {
     refute_output --partial 'SHELL-CHECK FAILED'
 }
 
-@test "Preparing to build ${BCLD_MODEL} image..." {
-
+@test "Building ${BCLD_MODEL} image..." {
+    # Do nothing
 }
 
 ## Test if ISO Builder can execute
