@@ -138,7 +138,7 @@ function populate_pkg_lists () {
     /usr/bin/cat "${DEBUG}" > "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
     /usr/bin/cat "${CHKERNEL}" >> "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
     /usr/bin/cat "${REQUIRED}" >> "${ALL_PKGS}" && /usr/bin/echo "" >> "${ALL_PKGS}"
-    PKG_TOTAL="$(wc -l < "${ALL_PKGS}")"
+    PKG_TOTAL="$(/usr/bin/wc -w < "${ALL_PKGS}")"
 
     # DEPs
     if [[ -f "${ALL_DEPS}" ]];then
