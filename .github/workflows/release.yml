@@ -57,10 +57,10 @@ jobs:
       with:
         name: BATS-REPORT
         path: /project/test/BATS-REPORT.txt
-    - name: Upload RepoMan package list
+    - name: Upload RepoMan Software Bill of Materials
       uses: actions/upload-artifact@v2
       with:
-        name: RepoMan
+        name: RepoMan SBOM
         path: /project/artifacts/*.md
     - name: Upload kernel image
       uses: actions/upload-artifact@v2
