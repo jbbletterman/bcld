@@ -8,7 +8,7 @@ Below is an extensive manual of the product.
 
 **BCLD Version**: 13.6-1 BCLD (Gargoyle)
 
-**BCLD Kernel**: 6.5.0-15-generic
+**BCLD Kernel**: 6.2.0-39-generic
 
 # Index
 1. [System Requirements](#system-requirements)
