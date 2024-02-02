@@ -158,7 +158,7 @@ function BCLD_NSSDB () {
 	    FACET_DOM='facet.onl'
 	    WFT_DOM='duo.nl'
 		    
-		# Check certificate
+		# Check certificate, cannot check for KEY without NSSDB_PW
 	    if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${FACET_DOM}")" -gt 0 ]]; then
 	    	print_cert "${FACET_DOM}"
 	    elif [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${WFT_DOM}")" -gt 0 ]]; then
@@ -166,15 +166,6 @@ function BCLD_NSSDB () {
     	else
 			list_item_fail 'CERT ERROR!'
 		fi
-			
-		# Check key        
-	    if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${FACET_DOM}")" -gt 0 ]]; then
-	    	print_key "${FACET_DOM}"
-	    elif [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${WFT_DOM}")" -gt 0 ]]; then
-	    	print_key "${WFT_DOM}"
-		else
-			list_item_fail 'KEY ERROR!'
-	    fi
     fi
 }
 
