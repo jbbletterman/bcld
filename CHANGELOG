@@ -3,7 +3,9 @@
 ## 2024
 
 ### Februari
-* `2024-02-02 15:25:10` : Fix certificate permissions on install
+* `2024-02-02 15:25:10` : 
+    - Fix certificate permissions inside [bcld_vendor.sh](./script/bcld_vendor.sh)
+    - Remove KEY checks from [bcld_vendor.sh](./script/bcld_vendor.sh) (they no longer work since the NSSDB has password security)
 
 ### January
 * `2024-01-26 16:46:24` : RepoMan dependency check updates
