@@ -7,7 +7,7 @@ b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 f989130a6074ceca51514421f336a6fe  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
-c3969df5b362921f85560984c3ef5b9c  ./README.md
+e67096146d01ff9dac290868f4b282fa  ./README.md
 a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
@@ -90,7 +90,7 @@ c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
 f1a30a681a41d6494dc10a76f56b54b2  ./script/Xconfigure.sh
 1ba1a6ee7efc9e6a45afa65d824c583a  ./script/autocert.sh
 940b39c8004a94006606b2566ce2194e  ./script/bcld_app.sh
-0c72c01f4b51226ea2a7721ad78fb4fd  ./script/bcld_vendor.sh
+d0579abc7d62cbb7154d80c333a52049  ./script/bcld_vendor.sh
 b121babd8673a6d38330ab59a6d081e1  ./script/chroot.sh
 2b51f6a1e2969d2de917c72ee45768b7  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
