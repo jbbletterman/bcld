@@ -117,7 +117,7 @@ function bcld_get_nssdb () {
 
 ## To fix permissions of selected certs
 function bcld_fix_perms () {
-	/usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
+	/usr/bin/sudo /usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
 }
 
 
