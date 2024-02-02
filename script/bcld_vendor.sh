@@ -115,6 +115,11 @@ function bcld_get_nssdb () {
 	fi
 }
 
+## To fix permissions of selected certs
+function bcld_fix_perms () {
+	/usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
+}
+
 
 # EXE
 
@@ -125,6 +130,7 @@ if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	bcld_set_nssdb
 	bcld_get_nssdb 'facet.onl'
 	update_cert
+	bcld_fix_perms
 elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	
 	export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
@@ -135,6 +141,7 @@ elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	bcld_set_nssdb
 	bcld_get_nssdb 'duo.nl'
 	update_cert
+	bcld_fix_perms
 elif [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
 	# Vendorless does not need extra certificates and does not work well with regular BCLD_OPTS
 	get_vendor_opts
