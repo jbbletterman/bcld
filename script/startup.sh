@@ -320,7 +320,11 @@ function BCLD_MD5CHECK () {
 
 # Function to umount important directories
 function bcld_umount () {
-	BCLD_MD5CHECK # Can only be done right before unmounting
+	
+	# Alternative Casper (if Plymouth not working)
+	# Can only be done right before unmounting
+	# BCLD_MD5CHECK
+	
 	list_item "Unmounting necessary devices"
 	lf_umount /cdrom
 	lf_umount /media/BCLD-USB
@@ -610,7 +614,7 @@ function detect_sinks_and_ports () {
 ## Function to launch, enables users to read feedback if too fast
 function launch () {
 	last_item 'Launching BCLD...'
-	(/usr/bin/sleep 3s) && /usr/bin/bash -c "${BCLD_LAUNCH_COMMAND}"
+	(/usr/bin/sleep 5s) && /usr/bin/bash -c "${BCLD_LAUNCH_COMMAND}"
 }
 
 ## Function to start app
