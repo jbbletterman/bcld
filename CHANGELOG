@@ -3,6 +3,7 @@
 ## 2024
 
 ### Februari
+* `2024-02-05 11:39:11` : Fix permissions and remove NSSDB generation from [chroot.sh](./script/chroot.sh)
 * `2024-02-02 15:25:10` : 
     - Fix certificate permissions inside [bcld_vendor.sh](./script/bcld_vendor.sh)
     - Remove KEY checks from [bcld_vendor.sh](./script/bcld_vendor.sh) (they no longer work since the NSSDB has password security)

@@ -171,12 +171,6 @@ else
     on_failure
 fi
 
-## Create NSS Database (for WFT)
-list_item "Creating NSSDB"
-list_entry
-/usr/bin/sudo -u "${BCLD_USER}" /usr/bin/mkdir -pv "${NSSDB}"
-/usr/bin/sudo -u "${BCLD_USER}" /usr/bin/certutil -N -d "sql:${NSSDB}" --empty-password
-
 ## USB-logger
 list_item "Enable USB-logger by default"
 list_entry
