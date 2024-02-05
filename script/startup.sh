@@ -614,7 +614,7 @@ function detect_sinks_and_ports () {
 ## Function to launch, enables users to read feedback if too fast
 function launch () {
 	last_item 'Launching BCLD...'
-	(/usr/bin/sleep 5s) && /usr/bin/bash -c "${BCLD_LAUNCH_COMMAND}"
+	(/usr/bin/sleep 3s) && /usr/bin/bash -c "${BCLD_LAUNCH_COMMAND}"
 }
 
 ## Function to start app
