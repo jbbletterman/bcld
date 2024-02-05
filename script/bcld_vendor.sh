@@ -123,9 +123,9 @@ if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	export BCLD_RSYSLOG='true'
 	bcld_cert_hash
 	bcld_set_nssdb
+	bcld_fix_perms
 	bcld_get_nssdb 'facet.onl'
 	update_cert
-	bcld_fix_perms
 elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	
 	export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
@@ -134,9 +134,9 @@ elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	# Configure certificates for WFT, but disable remote logging
 	bcld_cert_hash
 	bcld_set_nssdb
+	bcld_fix_perms
 	bcld_get_nssdb 'duo.nl'
 	update_cert
-	bcld_fix_perms
 elif [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
 	# Vendorless does not need extra certificates and does not work well with regular BCLD_OPTS
 	get_vendor_opts

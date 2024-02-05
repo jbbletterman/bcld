@@ -1,7 +1,7 @@
 a58107076e3e9ed3c5dea007a74cf13d  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-cc0b84344b16dacefcd5632de22a4d06  ./CHANGELOG
+b6ba9567ed13acbda03d2e92b192323c  ./CHANGELOG
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING.eupl
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -90,9 +90,9 @@ c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
 f1a30a681a41d6494dc10a76f56b54b2  ./script/Xconfigure.sh
 1ba1a6ee7efc9e6a45afa65d824c583a  ./script/autocert.sh
 940b39c8004a94006606b2566ce2194e  ./script/bcld_app.sh
-854198ec9f58e5062cd518c2302f4ed1  ./script/bcld_vendor.sh
-b121babd8673a6d38330ab59a6d081e1  ./script/chroot.sh
-2b51f6a1e2969d2de917c72ee45768b7  ./script/client_logger.sh
+ee4eb2f459714b37e2e75a6d92ec07cb  ./script/bcld_vendor.sh
+e271151b5025d43f5b62f63cc9d8de99  ./script/chroot.sh
+f5f2e458a18be2e801708e9373b2538c  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 136a1935b5d4fd11062a7ba686a98c5d  ./script/docker_run.sh
 6e84c2681a7624154f54831f2b7f7155  ./script/echo_tools.sh
