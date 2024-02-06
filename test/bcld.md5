@@ -1,7 +1,7 @@
 a58107076e3e9ed3c5dea007a74cf13d  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-d54fe2b01ba80b12048dcca8255ef106  ./CHANGELOG
+c55e1bbadd6547242e49f536e8bb0062  ./CHANGELOG
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING.eupl
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -12,7 +12,7 @@ a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-5f185a4ced3489a0c6ce4ef5370c169c  ./config/BUILD.conf
+b40837d98ca5b56be3fb9fc41dbc3d32  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -90,7 +90,7 @@ c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
 f1a30a681a41d6494dc10a76f56b54b2  ./script/Xconfigure.sh
 1ba1a6ee7efc9e6a45afa65d824c583a  ./script/autocert.sh
 940b39c8004a94006606b2566ce2194e  ./script/bcld_app.sh
-ee4eb2f459714b37e2e75a6d92ec07cb  ./script/bcld_vendor.sh
+7252d47c4fd0ca111b9dc6a88fddfc56  ./script/bcld_vendor.sh
 e271151b5025d43f5b62f63cc9d8de99  ./script/chroot.sh
 f5f2e458a18be2e801708e9373b2538c  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
@@ -103,7 +103,7 @@ d7fd35da3fc64d786ff28ee29846acd2  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 b4040c7360fa596caf4232310b156ba3  ./test/00_BCLD-BUILD.bats
 cdb9703f21c79faa1eae03f7c28a7cca  ./test/BCLD-BATS.sh
-f213697e9cc1b805cc67897d8474f381  ./test/bcld_test.sh
+7810e177efabc4f8cd053551c748854d  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh

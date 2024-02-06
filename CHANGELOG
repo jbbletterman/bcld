@@ -3,6 +3,10 @@
 ## 2024
 
 ### Februari
+* `2024-02-06 15:12:49` : Added KEY checks back to [bcld_vendor.sh](./script/bcld_vendor.sh)
+    - BCLD will break if the NSSDB has a password
+    - But when the NSSDB has a password, the URL prompts for it
+    - This is undesirable
 * `2024-02-05 13:58:35` : Disabled alternative BCLD_MD5CHECK
 * `2024-02-05 11:39:11` : Fix permissions and remove NSSDB generation from [chroot.sh](./script/chroot.sh)
 * `2024-02-02 15:25:10` : 
