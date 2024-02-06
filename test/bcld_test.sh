@@ -158,7 +158,7 @@ function BCLD_NSSDB () {
 	    FACET_DOM='facet.onl'
 	    WFT_DOM='duo.nl'
 		    
-		# Check certificate, cannot check for KEY without NSSDB_PW
+		# Check certificate
 	    if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${FACET_DOM}")" -gt 0 ]]; then
 	    	print_cert "${FACET_DOM}"
 	    elif [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${WFT_DOM}")" -gt 0 ]]; then
@@ -166,6 +166,15 @@ function BCLD_NSSDB () {
     	else
 			list_item_fail 'CERT ERROR!'
 		fi
+		
+		# Check key        
+	    if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${FACET_DOM}")" -gt 0 ]]; then
+	    	print_key "${FACET_DOM}"
+	    elif [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${WFT_DOM}")" -gt 0 ]]; then
+	    	print_key "${WFT_DOM}"
+		else
+			list_item_fail 'KEY ERROR!'
+	    fi
     fi
 }
 
@@ -255,8 +264,7 @@ function reset_terminal () {
     check_sb_state
     
     list_header "Resetting terminal"
-    
-    BCLD_WOL
+
     list_param "${BCLD_APP_VERSION}" 'App Version'
     list_param "${BCLD_KERNEL_VERSION}" 'Kernel Version'
     list_param "${BCLD_LAUNCH_COMMAND}" 'Launch Command'

@@ -104,9 +104,14 @@ function bcld_set_nssdb () {
 ## To get certificates
 function bcld_get_nssdb () {
 	
-	# Check for CRT, KEY cannot be checked without NSSDB_PW
+	# Check for CRT
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
 		list_item_pass "${BCLD_VENDOR} certificate detected!"
+	fi
+
+	# Check for KEY
+	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
+		list_item_pass "${BCLD_VENDOR} key detected!"
 	fi
 }
 
