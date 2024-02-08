@@ -99,9 +99,6 @@ WWAN_ENABLED_ALIAS='bcld.wwan.enable'
 # BROADCOM_LEGACY_ALIAS='bcld.module.enable_legacy_broadcom'
 # BROADCOM_PROPRIETARY_ALIAS='bcld.module.enable_broadcom_proprietary'
 
-### REALTEK
-REALTEK_DRIVER_ALIAS='bcld.realtek.driver'
-
 ### EDUROAM
 WIFI_EAP_AUTH_ALIAS='bcld.wifi.eap.auth'
 #WIFI_EAP_DOMAIN_ALIAS='bcld.wifi.eap.domain'

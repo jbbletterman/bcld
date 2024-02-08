@@ -220,7 +220,6 @@ python3-requests-unixsocket
 python3-secretstorage
 python3-wadllib
 python3-xdg
-r8168-dkms
 rpm
 rpm2cpio
 rpm-common

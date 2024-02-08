@@ -289,9 +289,6 @@ function read_all_params() {
 	readparam "${WOL_DISABLED_PARAM}" "${WOL_DISABLED_ALIAS}"
 	readparam "${WWAN_ENABLED_PARAM}" "${WWAN_ENABLED_ALIAS}"
 	
-	#### REALTEK
-	readparam "${REALTEK_DRIVER_PARAM}" "${REALTEK_DRIVER_ALIAS}"
-
 	#### EDUROAM
 	readparam "${WIFI_EAP_AUTH_PARAM}" "${WIFI_EAP_AUTH_ALIAS}"
 	#readparam "${WIFI_EAP_DOMAIN_PARAM}" "${WIFI_EAP_DOMAIN_ALIAS}"
@@ -336,11 +333,11 @@ function bcld_umount () {
 
 # Function to to load Realtek kernel modules
 function realtek_modules () {
-	if [[ "${BCLD_REALTEK}" == 'r8168' ]]; then
+	if [[ "$(/usr/bin/dpkg -l | /usr/bin/grep 'r8168-dkms' | /usr/bin/wc -l)" -gt 0 ]]; then
+		list_item 'Realtek 8168 detected!'
 		list_item_pass 'Using Realtek 8168!'
-		/usr/bin/sudo /usr/sbin/modprobe r8169
 	else
-		list_item 'Using Realtek 8821ce (default)'
+		list_item_pass 'Using Realtek 8821ce (default)'
 	fi
 }
 

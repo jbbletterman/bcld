@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.6-3 BCLD (Gargoyle)
+**BCLD Version**: 13.6-4 BCLD (Gargoyle)
 
 **BCLD Kernel**: 6.2.0-39-generic
 
@@ -196,7 +196,7 @@ This repository consists of the following objects:
 |:---:| -------------------------------- | --------------------------------------------------------------- |:-----------------------:| ---------------------------------------------------------------------------------------------------------------- |
 |     | **GENERAL**                      |                                                                 |                         |                                                                                                                  |
 | 1   | bcld.afname.mouse                | Bigger mouse cursor.                                            | *BIT*                   | **0**, 1                                                                                                         |
-| 2   | bcld.afname.url                  | Web site target                                                 | *URL*                   | https://www.google.com/                                                                               |
+| 2   | bcld.afname.url                  | Web site target                                                 | *URL*                   | https://www.google.com/                                                                                          |
 | 3   | bcld.afname.verbose              | Increase verbosity                                              | *BIT*                   | **0**, 1                                                                                                         |
 |     |                                  |                                                                 |                         |                                                                                                                  |
 |     | **DISPLAY**                      |                                                                 |                         |                                                                                                                  |
@@ -218,22 +218,21 @@ This repository consists of the following objects:
 |     |                                  |                                                                 |                         |                                                                                                                  |
 |     | **NETWORK**                      |                                                                 |                         |                                                                                                                  |
 | 17  | bcld.default.interface           | Standard network adapter                                        | *INTERFACE*             | enp0s1                                                                                                           |
-| 18  | bcld.realtek.driver              | Selected Realtek driver                                         | *KERNEL MODULE*         | r8168                                                                                                            |
-| 19  | bcld.wifi.eap.auth               | Wi-Fi EAP authentication method                                 | *AUTHENTICATION METHOD* | mschap, **mschapv2**                                                                                             |
-| 20  | bcld.wifi.eap.method             | Wi-Fi EAP method                                                | *EAP METHOD*            | tls, ttls                                                                                                        |
-| 21  | bcld.wifi.eap.user               | Wi-Fi user (with domain) for EAP                                | *BASE64 USER[@DOMAIN]*  | jan, jan@duo.nl                                                                                                  |
-| 22  | bcld.wifi.eap.password           | Wi-Fi password for EAP                                          | *BASE64 PASSWORD*       | bm90aGluZ2J1dHVzY2hpY2tlbnMK                                                                                     |
-| 23  | bcld.wifi.psk                    | Wi-Fi password                                                  | *BASE64 STRING*         | bm90aGluZ2J1dHVzY2hpY2tlbnMK                                                                                     |
-| 24  | bcld.wifi.ssid                   | Wi-Fi name                                                      | *BASE64 SSID*           | RG9udFRyeWl0QW5ha2luCg==                                                                                                 |
-| 25  | bcld.wol.disable                 | Wake-on-LAN                                                     | *BIT*                   | **0**, 1                                                                                                         |
-| 26  | bcld.wwan.enable                 | 4G, 5G, LTE                                                     | *BIT*                   | **0**, 1                                                                                                         |
+| 18  | bcld.wifi.eap.auth               | Wi-Fi EAP authentication method                                 | *AUTHENTICATION METHOD* | mschap, **mschapv2**                                                                                             |
+| 19  | bcld.wifi.eap.method             | Wi-Fi EAP method                                                | *EAP METHOD*            | tls, ttls                                                                                                        |
+| 20  | bcld.wifi.eap.user               | Wi-Fi user (with domain) for EAP                                | *BASE64 USER[@DOMAIN]*  | jan, jan@duo.nl                                                                                                  |
+| 21  | bcld.wifi.eap.password           | Wi-Fi password for EAP                                          | *BASE64 PASSWORD*       | bm90aGluZ2J1dHVzY2hpY2tlbnMK                                                                                     |
+| 22  | bcld.wifi.psk                    | Wi-Fi password                                                  | *BASE64 STRING*         | bm90aGluZ2J1dHVzY2hpY2tlbnMK                                                                                     |
+| 23  | bcld.wifi.ssid                   | Wi-Fi name                                                      | *BASE64 SSID*           | RG9udFRyeWl0QW5ha2luCg==                                                                                         |
+| 24  | bcld.wol.disable                 | Wake-on-LAN                                                     | *BIT*                   | **0**, 1                                                                                                         |
+| 25  | bcld.wwan.enable                 | 4G, 5G, LTE                                                     | *BIT*                   | **0**, 1                                                                                                         |
 |     |                                  |                                                                 |                         |                                                                                                                  |
 |     | **KERNEL**                       |                                                                 |                         |                                                                                                                  |
-| 27  | acpi                             | Advanced Configuration and Power Interface                      | *SWITCH*                | **on**, off                                                                                                      |
-| 28  | ipv6.disable                     | Disable IPv6 networking                                         | *BIT*                   | **0**, 1                                                                                                         |
-| 29  | nomodeset                        | Instruction to leave the kernel's mode setting to the firmware. | KERNEL PARAM            | nomodeset                                                                                                        |
-| 30  | nouveau.modeset                  | Allows kernel from loading video driver                         | *BIT*                   | 0, **1**                                                                                                         |
-| 31  | snd_hda_intel.dmic_detect        | Enables integrated microphone detection to force audio.         | *BIT*                   | 0, **1**                                                                                                         |
+| 26  | acpi                             | Advanced Configuration and Power Interface                      | *SWITCH*                | **on**, off                                                                                                      |
+| 27  | ipv6.disable                     | Disable IPv6 networking                                         | *BIT*                   | **0**, 1                                                                                                         |
+| 28  | nomodeset                        | Instruction to leave the kernel's mode setting to the firmware. | KERNEL PARAM            | nomodeset                                                                                                        |
+| 29  | nouveau.modeset                  | Allows kernel from loading video driver                         | *BIT*                   | 0, **1**                                                                                                         |
+| 30  | snd_hda_intel.dmic_detect        | Enables integrated microphone detection to force audio.         | *BIT*                   | 0, **1**                                                                                                         |
 
 
 # Package Lists
