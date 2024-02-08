@@ -3,6 +3,8 @@
 ## 2024
 
 ### Februari
+* `2024-02-08 14:15:37` : Removed BCLD_REALTEK parameter
+    - Driver is still not able to secureboot
 * `2024-02-06 15:12:49` : Added KEY checks back to [bcld_vendor.sh](./script/bcld_vendor.sh)
     - BCLD will break if the NSSDB has a password
     - But when the NSSDB has a password, the URL prompts for it
