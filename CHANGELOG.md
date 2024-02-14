@@ -3,9 +3,7 @@
 ## 2024
 
 ### Februari
-* `2024-02-14 16:19:27` : 
-    - [OAC-458] Added OVAL OpenSCAP evaluation to [BCLD test package](./test/bcld_test.sh)
-    - Changed name of `CHANGELOG` to [CHANGELOG.md](./CHANGELOG) for better type detection
+* `2024-02-14 16:19:27` : [OAC-458] Added OVAL OpenSCAP evaluation to [BCLD test package](./test/bcld_test.sh)
 * `2024-02-08 14:15:37` : Removed `bcld.realtek.driver` parameter from [BCLD ENVs](./config/bash/environment)
     - Driver is still not able to secureboot
     - Removed [r8168-dkms](./config/packages/REQUIRED)
