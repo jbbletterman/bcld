@@ -253,6 +253,40 @@ function check_sb_state () {
     fi
 }
 
+## Function to perform OpenSCAP OVAL evaluation
+function BCLD_OVAL () {
+    if [[ -x /usr/bin/oscap ]]; then
+        
+        OSCAP_REPORT="${HOME}/BCLD_OSCAP_REPORT.html"
+        
+        list_header 'Starting BCLD OpenSCAP OVAL evaluation'
+        
+        # Pull OVAL SCAP content from Ubuntu
+        list_item 'Getting OVAL content...'
+        list_entry
+        /usr/bin/curl -O "https://security-metadata.canonical.com/oval/com.ubuntu.$(lsb_release -cs).usn.oval.xml.bz2"
+        list_catch
+        
+        # Unpack
+        list_item 'Unpacking OVAL content...'
+        /usr/bin/bunzip2 -f "com.ubuntu.$(lsb_release -cs).usn.oval.xml.bz2"
+        
+        # Generate report
+        list_item 'Generating OpenSCAP report, please wait...' && /usr/bin/sleep 2s
+        list_entry
+        /usr/bin/oscap oval eval --report "${OSCAP_REPORT}" "com.ubuntu.$(lsb_release -cs).usn.oval.xml"
+        /usr/bin/sudo /usr/bin/cp -v "${OSCAP_REPORT}" /srv/index.html
+        list_catch
+
+        # Host report until cancelled
+        list_item_pass "Now hosting OpenSCAP OVAL evaluation on ${BCLD_IP}:8000!"
+        cd /srv
+        /usr/bin/python3 -m http.server && cd -
+    else
+        list_item_fail 'Please check if OpenSCAP is installed!'
+    fi
+}
+
 ## Function to reset TEST sessions, RELEASE and DEBUG can never escape the app
 function reset_terminal () {
 

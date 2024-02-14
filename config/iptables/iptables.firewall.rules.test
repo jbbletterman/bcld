@@ -54,6 +54,10 @@
 -A INPUT -p tcp --dport 12253 -m conntrack --ctstate NEW,ESTABLISHED
 -A OUTPUT -p tcp --sport 12253 -m conntrack --ctstate NEW,ESTABLISHED
 
+# OpenSCAP OVAL
+-A INPUT -p tcp --dport 8000 -j ACCEPT
+-A OUTPUT -p tcp --sport 8000 -j ACCEPT
+
 # Reject ICMPs instead of dropping them
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 
