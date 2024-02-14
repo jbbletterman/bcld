@@ -1,7 +1,6 @@
 a58107076e3e9ed3c5dea007a74cf13d  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-4eaa4be85b8c32b9d62a23322aae980a  ./CHANGELOG
 6902f22422cf6b2ce3132c464e10e880  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING.eupl
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
