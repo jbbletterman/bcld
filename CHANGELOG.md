@@ -5,7 +5,7 @@
 ### Februari
 * `2024-02-15 15:47:17` : Renamed `COPYING.eupl` back to [COPYING](./COPYING)
     - Fixed hyperlinks in [README](./README.md)
-* `2024-02-15 15:30:43` : [OAC-833] There have been complaints about the network check [BCLD_DOWNLOAD](./startup.sh) performs
+* `2024-02-15 15:30:43` : [OAC-833] There have been complaints about the network check [BCLD_DOWNLOAD](./script/startup.sh) performs
     - Outbound asset was [a 10mb PNG-file](https://www.thinkbroadband.com/assets/images/download-files/iconDownload-10MB.png)
     - Asset appears to be blocked in some client networks
     - New asset will be [BCLD_URL](./README.md#bcld-configuration) index page
