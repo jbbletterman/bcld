@@ -383,10 +383,14 @@ function ip_link () {
         	
         	list_item 'Fetching MAC and IP addresses...'
 			
+			if [[ -n "${BCLD_URL}" ]]; then
+			    # Only perform network check on BCLD_URL (trusted)
+			    export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' "${BCLD_URL}")"
+			fi
+			
 			export BCLD_IP="$(/usr/sbin/ip address | /usr/bin/grep "${BCLD_IF}" | /usr/bin/grep inet | /usr/bin/awk '{ print $2 }' | /usr/bin/cut -d '/' -f1 | /usr/bin/head -n 1)"
 		    export BCLD_MAC="$(/usr/sbin/ip link show "${BCLD_IF}" | /usr/bin/grep link | /usr/bin/awk '{ print $2 }')"
 		    export BCLD_SPEED="$(/usr/sbin/ip a | /usr/bin/grep "${BCLD_IF}" | /usr/bin/grep 'qlen' | /usr/bin/awk '{print $NF}')"
-			export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' https://www.thinkbroadband.com/assets/images/download-files/iconDownload-10MB.png)"
 			
 			BCLD_DISCARDED="$(/usr/bin/netstat --statistics | /usr/bin/grep 'incoming packets discarded' | /usr/bin/awk '{ print $1 }')"
 			BCLD_DROPPED="$(/usr/bin/netstat --statistics | /usr/bin/grep 'outgoing packets dropped' | /usr/bin/awk '{ print $1 }')"
