@@ -1,13 +1,13 @@
 a58107076e3e9ed3c5dea007a74cf13d  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-4d52380fd3efeabc3cb063434c8ba477  ./CHANGELOG.md
-04aff3cce210e9c2a8f21df593f07b19  ./COPYING.eupl
+2305b487a7791a6350373a6fc82bf095  ./CHANGELOG.md
+04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 f989130a6074ceca51514421f336a6fe  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
-174b2bd20437254f85d2408504c77d63  ./README.md
+8b93ed0b2da737c21f8c4922cd8be7b7  ./README.md
 a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png

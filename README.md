@@ -61,7 +61,7 @@ This repository consists of the following objects:
   9. `tools` - This folder contains associated tools, such as `RepoMan`.
   10. `.gitignore` - This file contains a list of files and artifacts that must be excluded from the repository.
   11. [BCLD_FLOW.png](./assets/BCLD_FLOW.png) - Overview of the build process.
-  12. [CHANGELOG](./CHANGELOG) - Changelog.
+  12. [CHANGELOG](./CHANGELOG.md) - Changelog.
   13. [IMG-builder.sh](./IMG-builder.sh) - This script is responsible for the generation of the IMG-file during the build process and can be used on its own (as long as there is a `./artifacts/bcld.iso`).
   14. [ISO-builder.sh](./ISO-builder.sh) - This script is responsible for the build process.
   15. [RepoMan.sh](./RepoMan.sh) - `RepoMan` is the repository management tool for BCLD.
@@ -617,8 +617,8 @@ grub-mkstandalone \
 
 # <img src="https://europa.eu/webtools/images/flag.svg?t=1695039139" width="40" /> License
 * Bootable Client Lockdown (BCLD) is licensed under the terms of the EUPL license.
-* See the [LICENSE](./LICENSE) file for license rights and limitations (EUPL).
+* See the [LICENSE](./LICENSE.eupl) file for license rights and limitations (EUPL).
 * See the [COPYING](./COPYING) file for a local copy of EUPL.
 
 # Changelog
-* The [CHANGELOG](./CHANGELOG) file contains a short description of all major changes to BCLD.
+* The [CHANGELOG](./CHANGELOG.md) file contains a short description of all major changes to BCLD.
