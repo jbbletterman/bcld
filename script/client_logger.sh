@@ -199,7 +199,11 @@ log_first "Default interface: ${BCLD_IF}"
 log_item "MAC address: ${BCLD_MAC}"
 log_item "IP address: ${BCLD_IP}"
 log_item "Speed: ${BCLD_SPEED} Mb/s"
-log_item "Download: ${BCLD_DOWNLOAD} B/s"
+
+# BCLD_DOWNLOAD will be empty without BCLD_URL override
+if [[ -n "${BCLD_DOWNLOAD}" ]]; then
+    log_item "Download: ${BCLD_DOWNLOAD} B/s"
+fi
 
 # Packet loss, has to be checked runtime
 TX_DROPPED="$(/usr/bin/netstat --statistics | /usr/bin/grep 'outgoing packets dropped' | /usr/bin/awk '{ print $1 }')"

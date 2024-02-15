@@ -3,6 +3,10 @@
 ## 2024
 
 ### Februari
+* `2024-02-15 15:30:43` : [OAC-833] There have been complaints about the network check [BCLD_DOWNLOAD](./startup.sh) performs
+    - Outbound asset was [a 10mb PNG-file](https://www.thinkbroadband.com/assets/images/download-files/iconDownload-10MB.png)
+    - Asset appears to be blocked in some client networks
+    - New asset will be [BCLD_URL](./README.md#bcld-configuration) index page
 * `2024-02-14 16:19:27` : [OAC-458] Added OVAL OpenSCAP evaluation to [BCLD test package](./test/bcld_test.sh)
 * `2024-02-08 14:15:37` : Removed `bcld.realtek.driver` parameter from [BCLD ENVs](./config/bash/environment)
     - Driver is still not able to secureboot
