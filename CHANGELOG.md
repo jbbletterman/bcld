@@ -3,6 +3,7 @@
 ## 2024
 
 ### Februari
+* `2024-02-19 16:03:28` : Added [Security Policy](./SECURITY.md)
 * `2024-02-15 15:47:17` : Renamed `COPYING.eupl` back to [COPYING](./COPYING)
     - Fixed hyperlinks in [README](./README.md)
 * `2024-02-15 15:30:43` : [OAC-833] There have been complaints about the network check [BCLD_DOWNLOAD](./script/startup.sh) performs

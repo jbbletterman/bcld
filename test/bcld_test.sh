@@ -309,8 +309,8 @@ function reset_terminal () {
     list_param "${BCLD_IF}" 'Default interface'
     list_param "${BCLD_IP}" 'IP address'
     list_param "${BCLD_MAC}" 'Link address'
-    list_param "${BCLD_SPEED} Mb/s" 'Link speed'
-    list_param "${BCLD_DOWNLOAD} B/s" 'Link download'
+    list_param "${BCLD_SPEED}" 'Link speed (Megabytes/s)'
+    list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${PACKET_LOSS}" 'Packets dropped (so far)'
     
     # List broken services
