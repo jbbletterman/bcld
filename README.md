@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.6-6 BCLD (Gargoyle)
+**BCLD Version**: 13.7-0 BCLD (Halcyon)
 
 **BCLD Kernel**: 6.2.0-39-generic
 
@@ -37,8 +37,9 @@ Below is an extensive manual of the product.
 24. [BCLD Flow Chart](#bcld-flow-chart)
 25. [ISO Builder Flow Chart](#iso-builder-flow-chart)
 26. [Known Bugs](#known-bugs)
-27. [License](#license)
-28. [Changelog](#changelog)
+27. [Security](#security)
+28. [License](#license)
+29. [Changelog](#changelog)
 
 # System Requirements
 
@@ -614,6 +615,9 @@ grub-mkstandalone \
 1. Disable Secure Boot
 2. Enable Legacy Boot
 3. Use another type of connection (Wi-Fi/LAN)
+
+# Security
+* There is a BCLD [Security Policy](./SECURITY.md) available
 
 # <img src="https://europa.eu/webtools/images/flag.svg?t=1695039139" width="40" /> License
 * Bootable Client Lockdown (BCLD) is licensed under the terms of the EUPL license.
