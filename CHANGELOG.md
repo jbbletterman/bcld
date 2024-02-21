@@ -3,6 +3,7 @@
 ## 2024
 
 ### Februari
+* `2024-02-21 17:56:29` : Fixed missing description in SBOM
 * `2024-02-21 12:21:25` : 
     - Added `echo_build` method to [BCLD-BATS](./test/00_BCLD-BUILD.bats) to fix a broken test in the GitHub Workflow
     - Split up BATS test to try and fix on GitHub Actions

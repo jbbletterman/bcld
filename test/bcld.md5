@@ -2,7 +2,7 @@ ddbba4c6fb01bf813aaf6a0e0d04b454  ./.github/workflows/release (r8168).yml
 8a8019859d1eb66f616f4df607509742  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-fba570c63148a844b0c28775785fe778  ./CHANGELOG.md
+fea77c28efac2df75cb41dd2a9ac74c5  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -113,4 +113,4 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 c71b0c6f4b891d9fd7a3d0fadae1bccd  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-0af83288df71261cc2ff4076025ff113  ./tools/bcld-repo-manager/repository_manager.sh
+666c5494171aba1efcee9f7a8ce388cf  ./tools/bcld-repo-manager/repository_manager.sh
