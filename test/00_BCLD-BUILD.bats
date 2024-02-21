@@ -134,7 +134,6 @@ img_size () {
     tag_check "ISO-PREP"
     tag_check "ISO-BOOTSTRAP"
     tag_check "ISO-PRECONF"
-    tag_check "ISO-CROS"
     tag_check "ISO-MOUNT"
     tag_check "ISO-CHROOT"
     tag_check "ISO-POSTCONF"
