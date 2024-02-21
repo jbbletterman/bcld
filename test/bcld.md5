@@ -1,12 +1,12 @@
-8c5f7a9310a9ac0031baf4c8b43656c1  ./.github/workflows/release (r8168).yml
-3217d70bfcf6ab167f29902b9d9eafe6  ./.github/workflows/release.yml
+2ca8aa1998d2c814999798393b68428b  ./.github/workflows/release (r8168).yml
+8a8019859d1eb66f616f4df607509742  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 4974d1f637cca623808fc2985c01b353  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
-f989130a6074ceca51514421f336a6fe  ./ISO-builder.sh
+7a005c009c527102ad79af569bc58a3c  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
 ee22af7397ce63c57ffdc74dad9f1e21  ./README.md
 a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
@@ -103,8 +103,8 @@ df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 2363ed02dc3285cc2b84adca5e4d7af2  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
-9a346c852590dde59db3155da9d5d683  ./test/00_BCLD-BUILD.bats
-7d278158bf01b5364eaee182f57a5eeb  ./test/BCLD-BATS.sh
+89fd779807e2447b3ce0e9c5e423bde5  ./test/00_BCLD-BUILD.bats
+99030d1b0d0741f28d98226b1231a22f  ./test/BCLD-BATS.sh
 3235c5b713d99733f2f5c8249194fab3  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh

@@ -188,7 +188,6 @@ function check_req_envs () {
     list_item 'Checking REQUIRED ENVs...'
     check_req_env 'BCLD_APP'
     check_req_env 'BCLD_MODEL'
-    check_req_env 'BCLD_SECRET'
 }
 
 ## Function to check optional BUILD ENVs prior to building
@@ -196,6 +195,7 @@ function check_opt_envs () {
     list_item 'Checking OPTIONAL ENVs...'
     check_opt_env 'BCLD_NVIDIA'
     check_opt_env 'BCLD_PKG_EXTRA'
+    check_opt_env 'BCLD_SECRET'
     check_opt_env 'BCLD_TAG_EXTRA'
     check_opt_env 'KEEP_BOOTSTRAP'
     check_opt_env 'FACET_SECRET_1'
