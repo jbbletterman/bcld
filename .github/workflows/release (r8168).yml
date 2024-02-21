@@ -45,7 +45,10 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
-    - name: Run BCLD build script through BATS
+    - name: Build BCLD-ISO
+      run: |
+        /usr/bin/bash -c './ISO-builder.sh'
+    - name: Run BCLD-IMG script through BATS
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
     - name: Run BCLD RepoMan to scan all packages after RELEASE

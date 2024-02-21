@@ -83,18 +83,6 @@ shellcheck() {
 
 }
 
-## Function to check if a stage has been succesful
-tag_check() {
-	
-    refute_output --partial "${1} FAILED!!!"
-	assert_output --partial "${1} COMPLETE!"
-}
-
-## Function to warn before building
-build_iso () {
-    /usr/bin/bash -c './ISO-builder.sh'
-}
-
 ## Function to check on generated artifacts
 art_check() {
 	if [[ ! -f "${1}" ]]; then
@@ -126,28 +114,6 @@ img_size () {
     refute_output --partial '(error)'
     refute_output --partial 'ShellCheck found errors!'
     refute_output --partial 'SHELL-CHECK FAILED'
-}
-
-@test "Building ${BCLD_MODEL} ISO..." {
-    run build_iso
-}
-
-## Test if ISO Builder can execute
-@test 'TagCheck' {
-    tag_check "ISO-INIT"
-    tag_check "ISO-PRECLEAN"
-    tag_check "ISO-PREP"
-    tag_check "ISO-BOOTSTRAP"
-    tag_check "ISO-PRECONF"
-    tag_check "ISO-CROS"
-    tag_check "ISO-MOUNT"
-    tag_check "ISO-CHROOT"
-    tag_check "ISO-POSTCONF"
-    tag_check "ISO-INITRAMFS"
-    tag_check "ISO-REPO"
-    tag_check "ISO-SQUASHFS"
-    tag_check "ISO-GRUB"
-    tag_check "ISO-GEN"
 }
 
 ## Test if ISO Builder can execute
