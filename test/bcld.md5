@@ -2,7 +2,7 @@
 2a35b89d66d9aaa3f00428087d3f0e31  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-94a18a6668e3adbae09ec7827d53aab6  ./CHANGELOG.md
+8019661035026a3c2cd30ecacca02ddb  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
