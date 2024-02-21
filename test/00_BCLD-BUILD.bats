@@ -90,23 +90,9 @@ tag_check() {
 	assert_output --partial "${1} COMPLETE!"
 }
 
-## Function to run all tag checks
-tag_checks() {
+## Function to warn before building
+build_iso () {
     run ./ISO-builder.sh
-    tag_check "ISO-INIT"
-    tag_check "ISO-PRECLEAN"
-    tag_check "ISO-PREP"
-    tag_check "ISO-BOOTSTRAP"
-    tag_check "ISO-PRECONF"
-    tag_check "ISO-CROS"
-    tag_check "ISO-MOUNT"
-    tag_check "ISO-CHROOT"
-    tag_check "ISO-POSTCONF"
-    tag_check "ISO-INITRAMFS"
-    tag_check "ISO-REPO"
-    tag_check "ISO-SQUASHFS"
-    tag_check "ISO-GRUB"
-    tag_check "ISO-GEN"
 }
 
 ## Function to check on generated artifacts
@@ -134,11 +120,6 @@ img_size () {
 	fi
 }
 
-## Function to warn before building
-echo_build () {
-    /usr/bin/echo 'Starting BATS build...'
-}
-
 # Tests
 @test 'ShellCheck' {
     run shellcheck
@@ -147,13 +128,26 @@ echo_build () {
     refute_output --partial 'SHELL-CHECK FAILED'
 }
 
-@test "Building ${BCLD_MODEL} image..." {
-    run echo_build
+@test "Building ${BCLD_MODEL} ISO..." {
+    run build_iso
 }
 
 ## Test if ISO Builder can execute
-@test 'TagCheck complete!' {
-    run tag_checks
+@test 'TagCheck' {
+    tag_check "ISO-INIT"
+    tag_check "ISO-PRECLEAN"
+    tag_check "ISO-PREP"
+    tag_check "ISO-BOOTSTRAP"
+    tag_check "ISO-PRECONF"
+    tag_check "ISO-CROS"
+    tag_check "ISO-MOUNT"
+    tag_check "ISO-CHROOT"
+    tag_check "ISO-POSTCONF"
+    tag_check "ISO-INITRAMFS"
+    tag_check "ISO-REPO"
+    tag_check "ISO-SQUASHFS"
+    tag_check "ISO-GRUB"
+    tag_check "ISO-GEN"
 }
 
 ## Test if ISO Builder can execute

@@ -5,6 +5,7 @@
 ### Februari
 * `2024-02-21 12:21:25` : 
     - Added `echo_build` method to [BCLD-BATS](./test/00_BCLD-BUILD.bats) to fix a broken test in the GitHub Workflow
+    - Split up BATS test to try and fix on GitHub Actions
     - Added new [workflow](./.github/workflows/release%20(r8168).yml) for Realtek BCLD image
 * `2024-02-19 16:03:28` : Added [Security Policy](./SECURITY.md)
 * `2024-02-15 15:47:17` : Renamed `COPYING.eupl` back to [COPYING](./COPYING)
