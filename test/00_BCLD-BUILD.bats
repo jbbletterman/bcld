@@ -92,7 +92,7 @@ tag_check() {
 
 ## Function to warn before building
 build_iso () {
-    run ./ISO-builder.sh
+    /usr/bin/bash -c './ISO-builder.sh'
 }
 
 ## Function to check on generated artifacts
