@@ -134,6 +134,11 @@ img_size () {
 	fi
 }
 
+## Function to warn before building
+echo_build () {
+    /usr/bin/echo 'Starting BATS build...'
+}
+
 # Tests
 @test 'ShellCheck' {
     run shellcheck
@@ -143,7 +148,7 @@ img_size () {
 }
 
 @test "Building ${BCLD_MODEL} image..." {
-    # Do nothing
+    run echo_build
 }
 
 ## Test if ISO Builder can execute
