@@ -318,12 +318,12 @@ function apt_show () {
 
 # Function to scan for simple description
 function apt_show_description () {
-    description_en="$(/usr/bin/apt-cache search --names-only "^${PKG}$")"
+    description_en="$(/usr/bin/apt-cache search --names-only "^${PKG}$" | /usr/bin/head -1)"
     
     if [[ -z "${description_en}" ]]; then
         # If not found, use 'show' intead
         count=16
-        description_en=$(/usr/bin/apt-cache show "${PKG}" | /usr/bin/grep -m1 'Description-en')
+        description_en="$(/usr/bin/apt-cache show "${PKG}" | /usr/bin/grep -m1 'Description-en')"
     else
         # If found, cut label and delimiter
         count=$(( "${#PKG}" + 3 ))
