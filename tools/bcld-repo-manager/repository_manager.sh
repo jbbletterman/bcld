@@ -362,7 +362,7 @@ function scan_pkgs () {
         homepage="$(apt_show 'Homepage' ' ')"
         file_name="$(apt_show 'Filename' ':')"
         maintainer="$(apt_show 'Maintainer' ':')"
-        version="$(apt_show 'Version' ':')"
+        version="$(apt_show 'Version' ' ')"
 
         add_pkg_list " * (${EVERYTHING_COUNTER})"
         add_pkg_list "   Name:\t${PKG}"
