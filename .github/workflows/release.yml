@@ -43,12 +43,17 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
+    - name: Run RepoMan SBOM
+      run: |
+        /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
+    - name: Upload RepoMan SBOM
+      uses: actions/upload-artifact@v2
+      with:
+        name: RepoMan SBOM
+        path: /project/artifacts/*.md
     - name: Run BCLD BATS (with ShellCheck)
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
-    - name: Run BCLD RepoMan to scan all packages after RELEASE
-      run: |
-        /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
     - name: Upload ShellCheck report
       uses: actions/upload-artifact@v2
       with:
@@ -59,11 +64,6 @@ jobs:
       with:
         name: BATS-REPORT
         path: /project/test/BATS-REPORT.txt
-    - name: Upload RepoMan Software Bill of Materials
-      uses: actions/upload-artifact@v2
-      with:
-        name: RepoMan SBOM
-        path: /project/artifacts/*.md
     - name: Upload kernel image
       uses: actions/upload-artifact@v2
       with:
