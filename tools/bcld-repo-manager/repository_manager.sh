@@ -346,7 +346,7 @@ function scan_pkgs () {
 
         add_pkg_list " * (${EVERYTHING_COUNTER})"
         add_pkg_list "   Name:\t${PKG}"
-        add_pkg_list "   Description:\t${description^}"
+        add_pkg_list "   Description:\t${description}"
         add_pkg_list "   Filename:\t${file_name}"
         add_pkg_list "   Version:\t${version}"
         add_pkg_list "   Status:\t${status}"
