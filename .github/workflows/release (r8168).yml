@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop/ALPHA
-      - develop/BETA
 jobs:
   vendorless-release-r8168:
     runs-on: ubuntu-22.04
