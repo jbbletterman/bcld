@@ -66,15 +66,15 @@ shellcheck() {
         SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'error')"
         SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c 'warning')"
         
-        /usr/bin/echo "ShellCheck Errors: ${SHELL_ERROR}"
-        /usr/bin/echo "ShellCheck Warnings: ${SHELL_WARN}"
-        /usr/bin/echo "ShellCheck report: ${SHELL_REPORT}"
+        /usr/bin/echo -e '\n' > "${SHELL_REPORT}"
+        /usr/bin/echo -e "# ShellCheck Errors: ${SHELL_ERROR}\n" | /usr/bin/tee -a "${SHELL_REPORT}"
+        /usr/bin/echo -e "# ShellCheck Warnings: ${SHELL_WARN}\n" | /usr/bin/tee -a "${SHELL_REPORT}"
+        /usr/bin/echo "# ShellCheck report: ${SHELL_REPORT}" | /usr/bin/tee -a "${SHELL_REPORT}"
         
         if [[ ${SHELL_ERROR} -gt 0 ]]; then
-            /usr/bin/echo 'ShellCheck found errors!'
+            /usr/bin/echo -e '\n# ShellCheck found errors!' | /usr/bin/tee -a "${SHELL_REPORT}"
             exit 1    
         fi
-        
         
     else
         /usr/bin/echo 'ShellCheck could not be found!'
