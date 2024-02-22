@@ -56,7 +56,6 @@ if [[ -f ./test/BCLD-BATS.sh ]]; then
 		list_item "# $(/usr/bin/basename "${BATS_TEST}")" | /usr/bin/tee --append "${BATS_REPORT}"
 		list_entry | /usr/bin/tee --append "${BATS_REPORT}"
 
-		# Broken in GitHub Workflow
 		("${BATS_BIN}" "${BATS_TEST}" | /usr/bin/tee --append "${BATS_REPORT}") || on_failure
 		
 		list_header 'Checking BCLD-BATS-TEST results...'

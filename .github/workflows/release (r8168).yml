@@ -79,11 +79,11 @@ jobs:
     - name: Upload BCLD-ISO
       uses: actions/upload-artifact@v2
       with:
-        name: BCLD-ISO
+        name: BCLD-ISO-R8168
         path: /project/artifacts/bcld.iso
     - name: Upload BCLD-IMG
       uses: actions/upload-artifact@v2
       with:
-        name: BCLD-IMG
+        name: BCLD-IMG-R8168
         path: /project/artifacts/*.img
 

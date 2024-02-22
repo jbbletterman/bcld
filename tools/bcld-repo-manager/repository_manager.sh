@@ -312,6 +312,11 @@ function add_pkg_list (){
 }
 
 # Function to scan for information about all packages in ./config.
+function apt_show () {
+    /usr/bin/apt-cache show "${PKG}" | /usr/bin/grep -m1 "${1}" | /usr/bin/cut -d "${2}" -f2 | /usr/bin/awk '{$1=$1};1'
+}
+
+# Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=1
     
@@ -332,17 +337,16 @@ function scan_pkgs () {
             status="REQUIRED"
         fi
         
-        PKG_INFO="$(/usr/bin/apt-cache show "${PKG}")"  
-        
-        description="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Description-en' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        hash="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Description-md5' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        homepage="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Homepage' | /usr/bin/cut -d ' ' -f2 | /usr/bin/awk '{$1=$1};1')"
-        file_name="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Filename' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        maintainer="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Maintainer' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
-        version="$(/usr/bin/echo "${PKG_INFO}" | /usr/bin/grep -m1 'Version' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
+        description="$(apt_show 'Description-en' ':')"
+        hash="$(apt_show 'Description-md5' ':')"
+        homepage="$(apt_show 'Homepage' ' ')"
+        file_name="$(apt_show 'Filename' ':')"
+        maintainer="$(apt_show 'Maintainer' ':')"
+        version="$(apt_show 'Version' ':')"
+
         add_pkg_list " * (${EVERYTHING_COUNTER})"
         add_pkg_list "   Name:\t${PKG}"
-        add_pkg_list "   Description:\t${description^}"
+        add_pkg_list "   Description:\t${description}"
         add_pkg_list "   Filename:\t${file_name}"
         add_pkg_list "   Version:\t${version}"
         add_pkg_list "   Status:\t${status}"
