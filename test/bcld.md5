@@ -113,4 +113,4 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 c71b0c6f4b891d9fd7a3d0fadae1bccd  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-8230214ccbddd90a69402418a914399d  ./tools/bcld-repo-manager/repository_manager.sh
+9db54eb5e6fefd7ec732930b2b16f135  ./tools/bcld-repo-manager/repository_manager.sh
