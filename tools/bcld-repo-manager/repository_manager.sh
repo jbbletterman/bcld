@@ -318,7 +318,9 @@ function apt_show () {
 
 # Function to scan for simple description
 function apt_show_description () {
-    add_pkg_list "   Description:\t\"$(/usr/bin/apt-cache search --names-only "^${PKG}$" | /usr/bin/cut -d '-' -f2 | /usr/bin/awk '{$1=$1};1')\""
+    count=$(( "${#PKG}" + 3 ))
+    description="$(/usr/bin/apt-cache search --names-only "^${PKG}$")"
+    add_pkg_list "   Description:\t\"${description:$count}\""
 }
 
 # Function to scan for information about all packages in ./config.
