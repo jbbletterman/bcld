@@ -635,7 +635,7 @@ function init_app () {
 list_header "Configuring BCLD"
 
 ## PACTL
-list item "Waiting for Pulse daemon to start"
+list_item "Waiting for Pulse daemon to start"
 print_item "Scanning sound cards (please wait)"
 
 # pactl does not work inside a VM
@@ -702,8 +702,6 @@ if [[ "${BCLD_MODEL}" == 'test' ]] \
     && [[ -f "${BCLD_TEST}" ]]; then
     /usr/bin/sudo /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | openssl passwd -1 -stdin)" "${BCLD_USER}"
 fi
-
-## Configurations
 
 ### Generic Configurations
 
