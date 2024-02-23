@@ -4,6 +4,7 @@
 
 ### Februari
 * `2024-02-23 15:54:27` : Fixed ALSA sound card check in [startup script](./script/startup.sh) to display results or failure
+    - Also refactored [trap_shutdown](./config/trap_shutdown/snd-warning/snd-warning-1.png) to include `snd-warning`
 * `2024-02-22 15:02:56` : Fixed output in BATS and ShellCheck test reports
 * `2024-02-21 17:56:29` : Fixed missing description in SBOM
 * `2024-02-21 12:21:25` : 

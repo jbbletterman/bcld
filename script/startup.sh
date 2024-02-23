@@ -521,7 +521,7 @@ function connect_establish () {
 	if [[ ! -s "${DHCP_LEASE}" ]] && [[ -z "${BCLD_IF}" ]]; then
 		list_item_fail "Unable to connect to any networks!"
 		last_item
-		net_shutdown
+		trap_shutdown 'net'
 	else
 		# Display BCLD_IF
 		list_item_pass "Connection established on: ${BCLD_IF}"
@@ -648,9 +648,13 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
 
     # When started, we can now use Pulse Audio controls
     export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
-
-    /usr/bin/echo
-    last_item "Sinks detected: ${BCLD_SINKS}"
+    
+    if [[ -n "${BCLD_SINKS}" ]]; then
+        /usr/bin/echo
+        last_item "Sinks detected: ${BCLD_SINKS}"
+    else
+        trap_shutdown 'snd'
+    fi
     # SINKS found with pactl and output in JSON. Used throughout code
     SINKS_JSON="$(/usr/bin/pactl --format json list sinks)"
 else

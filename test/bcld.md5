@@ -2,7 +2,7 @@
 f07cc0bdb925b0c0f24192c3c7b7a1b3  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-48bbda61bfa06130b2a1f71ca7011691  ./CHANGELOG.md
+147d2e792498a4ce3609a0f7c5225a0e  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -14,7 +14,7 @@ a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-46e838c0cce8ae528728dd8e05107a7d  ./config/BUILD.conf
+5e9742e155f4e8c7c9533b15e3bca97b  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -57,7 +57,7 @@ e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf
 1540737da39ba1e9ca293b7b895c4ff9  ./config/pam/login
 a69edad4dcdbc0ef94a36fc32f993124  ./config/plymouth/bcld-plymouth.png
 df80acf8fb77a47a342b0862308d4ed4  ./config/plymouth/spinner.plymouth
-9832a7e88354fe265cfcfe3324542337  ./config/profile.d/10-BCLD.sh
+11728d8709877e0fef3e921af7101fa3  ./config/profile.d/10-BCLD.sh
 b11be49e5fb596a28c7b4fcb19f808d9  ./config/qutebrowser/config.py
 78c908f9f98459b21ca703c224b13ff1  ./config/rsyslog/60-BCLD-rsyslog.conf
 c4ca4238a0b923820dcc509a6f75849b  ./config/systemd/shm/removable
@@ -78,6 +78,12 @@ b38a766499eb807c28c679eebd6383c2  ./config/trap_shutdown/net-warning/net-warning
 cc387c1caf8496805c4ca8eb0b649abb  ./config/trap_shutdown/param-warning/param-warning-4.png
 f2c0e8ab771428f9d59400ad4fd51c95  ./config/trap_shutdown/param-warning/param-warning-5.png
 5febda87066e1f973de3e39209ea1b2b  ./config/trap_shutdown/param-warning/param-warning-6.png
+ae44d11263a89d2b477666845b6aee8b  ./config/trap_shutdown/snd-warning/snd-warning-1.png
+7872490f84058e1a9253f798a0f89e62  ./config/trap_shutdown/snd-warning/snd-warning-2.png
+101193d4902e968a51ce0d2a66ef275f  ./config/trap_shutdown/snd-warning/snd-warning-3.png
+0a9704b075076d96d37f37b94077df0b  ./config/trap_shutdown/snd-warning/snd-warning-4.png
+c7559f0c934782d9401ba0763958891f  ./config/trap_shutdown/snd-warning/snd-warning-5.png
+c06460d2702dfa4eccb50aabce15613d  ./config/trap_shutdown/snd-warning/snd-warning-6.png
 1f77666b2f4e62b322c6aa6be33ebf5a  ./config/trap_shutdown/trap_shutdown.sh
 fa8a98573721ffd92ce67d9fcc5dfec9  ./config/trap_shutdown/virt-warning/virt-warning-1.png
 d1c35183e79c3e4b5d88acd76ce7384d  ./config/trap_shutdown/virt-warning/virt-warning-2.png
@@ -101,7 +107,7 @@ df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
 6016a0192dc8975287b1bdf97c846b7a  ./script/file_operations.sh
 6257ca5ef1f37f5a08322cc9a08e61b3  ./script/log_tools.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
-7431ae16f874a09831d40fdb54ea3cd8  ./script/startup.sh
+43799f7ec25bce8619d619cbded49757  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 ceb0f697f6ed40f9aa0eab9ae33c743b  ./test/00_BCLD-BUILD.bats
 99030d1b0d0741f28d98226b1231a22f  ./test/BCLD-BATS.sh
@@ -113,4 +119,4 @@ d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 c71b0c6f4b891d9fd7a3d0fadae1bccd  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh
-f539c712115b477dc2184c7506c5b8c9  ./tools/bcld-repo-manager/repository_manager.sh
+465ba7ccd55905f5df90a5675fe89ba2  ./tools/bcld-repo-manager/repository_manager.sh
