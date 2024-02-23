@@ -100,28 +100,6 @@ PACTL_SCANS='20'
 ## SCAN_TRIES before giving up on LAN, or shutting down after WLAN
 SCAN_TRIES='3'
 
-# pactl does not work inside a VM
-if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
-    # Give systems time to start Pulse Audio
-    list_header "Waiting for Pulse daemon to start"
-    print_item "Scanning soundcards (please wait)"
-    for scan in $(/usr/bin/seq 1 20); do
-        pactl get-default-sink | /usr/bin/grep -qv null && break
-        /usr/bin/printf "." && /usr/bin/sleep 1s
-    done
-    echo
-    last_item "Continue..."
-
-    # When started, we can now use Pulse Audio controls
-    export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
-
-    # SINKS found with pactl and output in JSON. Used throughout code
-    SINKS_JSON="$(/usr/bin/pactl --format json list sinks)" 
-fi
-
-# This is allowed to detect 0 sinks when running inside VM
-export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
-
 # FUNCTIONS
 
 ## Function to create directories with root permission
@@ -652,9 +630,36 @@ function init_app () {
     fi
 }
 
-
-# Configurations
+# EXE
+## Configurations
 list_header "Configuring BCLD"
+
+## PACTL
+list item "Waiting for Pulse daemon to start"
+print_item "Scanning sound cards (please wait)"
+
+# pactl does not work inside a VM
+if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
+    # Give systems time to start Pulse Audio
+    for scan in $(/usr/bin/seq 1 20); do
+        /usr/bin/pactl get-default-sink | /usr/bin/grep -qv null && break
+        /usr/bin/printf "." && /usr/bin/sleep 1s
+    done
+
+    # When started, we can now use Pulse Audio controls
+    export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
+
+    /usr/bin/echo
+    last_item "Sinks detected: ${BCLD_SINKS}"
+    # SINKS found with pactl and output in JSON. Used throughout code
+    SINKS_JSON="$(/usr/bin/pactl --format json list sinks)"
+else
+    /usr/bin/echo
+    last_item "Virtual machine detected, skipping..."
+fi
+
+# This is allowed to detect 0 sinks when running inside VM
+export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 
 ## Read BCLD_VENDOR first
 read_vendor_param
