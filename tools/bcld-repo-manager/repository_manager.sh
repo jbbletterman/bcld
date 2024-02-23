@@ -316,6 +316,27 @@ function apt_show () {
     /usr/bin/apt-cache show "${PKG}" | /usr/bin/grep -m1 "${1}" | /usr/bin/cut -d "${2}" -f2 | /usr/bin/awk '{$1=$1};1'
 }
 
+# Function to scan for simple description
+function apt_show_description () {
+    description_en="$(/usr/bin/apt-cache search --names-only "^${PKG}$" | /usr/bin/head -1)"
+    
+    if [[ -z "${description_en}" ]]; then
+        # If not found, use 'show' intead
+        count=16
+        description_en="$(/usr/bin/apt-cache show "${PKG}" | /usr/bin/grep -m1 'Description-en')"
+    else
+        # If found, cut label and delimiter
+        count=$(( "${#PKG}" + 3 ))
+    fi
+    
+    # If STILL empty, probably a virtual pacakge
+    if [[ -z "${description_en}" ]]; then
+        description_en='VIRTUAL PACKAGE'
+    fi
+    
+    add_pkg_list "   Description:\t\"${description_en:$count}\""
+}
+
 # Function to scan for information about all packages in ./config.
 function scan_pkgs () {
     EVERYTHING_COUNTER=1
@@ -336,17 +357,16 @@ function scan_pkgs () {
         else
             status="REQUIRED"
         fi
-        
-        description="$(apt_show 'Description-en' ':')"
+
         hash="$(apt_show 'Description-md5' ':')"
         homepage="$(apt_show 'Homepage' ' ')"
         file_name="$(apt_show 'Filename' ':')"
         maintainer="$(apt_show 'Maintainer' ':')"
-        version="$(apt_show 'Version' ':')"
+        version="$(apt_show 'Version' ' ')"
 
         add_pkg_list " * (${EVERYTHING_COUNTER})"
         add_pkg_list "   Name:\t${PKG}"
-        add_pkg_list "   Description:\t${description}"
+        apt_show_description
         add_pkg_list "   Filename:\t${file_name}"
         add_pkg_list "   Version:\t${version}"
         add_pkg_list "   Status:\t${status}"
