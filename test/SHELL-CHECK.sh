@@ -15,9 +15,9 @@ function output_desc () {
         append_report " - ${1}:${2}"
     else
         append_report " - ${1}:"
-        append_report_silent '\`\`\`\'
+        append_report_silent '\n```'
         append_report " - ${2}"
-        append_report_silent '\`\`\`\'
+        append_report_silent '```\n'
     fi
 }
 
@@ -30,7 +30,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     
     /usr/bin/echo -e '\n# Starting BCLD ShellCheck' | /usr/bin/tee "${SHELL_REPORT}"
     
-    append_report_silent '\`\`\`\n'
+    append_report_silent '```\n'
     
     # Make necessary directories
     /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"
@@ -40,7 +40,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
         -not \( -path './chroot' -o -path './modules' \) \
         -exec shellcheck -S warning {} \; >> "${SHELL_REPORT}"
         
-    append_report_silent '\`\`\`\n'
+    append_report_silent '```\n'
 
     # Warnings
     SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c '(warning)')"
