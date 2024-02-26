@@ -28,8 +28,6 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
         COMMON_WARNINGS="$(/usr/bin/cat ${SHELL_REPORT} | /usr/bin/grep '(warning)' | /usr/bin/awk '{ print $2 }' | /usr/bin/sort -u)"
         
         for warn in ${COMMON_WARNINGS}; do
-            echo "$warn"
-        done
             
             description="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep "${warn}" | /usr/bin/grep -v 'https' | /usr/bin/cut -d ':' -f2 | /usr/bin/sort -u)"
             
