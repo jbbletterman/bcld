@@ -1,5 +1,5 @@
-9112f068f367729d5df76c2e94833c68  ./.github/workflows/release (r8168).yml
-f07cc0bdb925b0c0f24192c3c7b7a1b3  ./.github/workflows/release.yml
+52c3f8a660b0ff58c8b20faad71a659f  ./.github/workflows/release (r8168).yml
+36b16961bc1f749ab658e8473395fe1b  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 6f6c56f34a87dd019623373f3043e67e  ./CHANGELOG.md
@@ -111,7 +111,7 @@ a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 f14c215295b07b1e98aa276e720e735b  ./test/00_BCLD-BUILD.bats
 99030d1b0d0741f28d98226b1231a22f  ./test/BCLD-BATS.sh
-ab526708c8cc3c01e340fea1b4f39e85  ./test/SHELL-CHECK.sh
+e23247eca74dac8977de888040224678  ./test/SHELL-CHECK.sh
 3235c5b713d99733f2f5c8249194fab3  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh

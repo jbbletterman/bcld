@@ -4,7 +4,7 @@
 if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     SHELL_REPORT='./test/SHELL-REPORT.txt'
     
-    /usr/bin/echo 'Starting BCLD ShellCheck'
+    /usr/bin/echo- e '\nStarting BCLD ShellCheck'
     
     # Make necessary directories
     /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"
@@ -34,7 +34,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     fi
     
     # ERRORS
-    SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c '(warning)')"
+    SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c '(error)')"
     
     /usr/bin/echo -e "\n# ShellCheck Errors: ${SHELL_ERROR}" | /usr/bin/tee -a "${SHELL_REPORT}"
     
