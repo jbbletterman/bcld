@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop/ALPHA
       - develop/BETA
 jobs:
   vendorless-release-r8168:
