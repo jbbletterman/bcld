@@ -12,11 +12,11 @@ function append_report () {
 function output_desc () {
 
     if [[ $(/usr/bin/echo "${2}" | /usr/bin/wc -l) -eq 1 ]]; then
-        append_report " - ${1}:${2}"
+        append_report " - ${1}: ${2}"
     else
         append_report " - ${1}:"
         append_report_silent '\n```'
-        append_report " - ${2}"
+        append_report "${2}"
         append_report_silent '```\n'
     fi
 }
@@ -51,7 +51,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     if [[ ${SHELL_WARN} -gt 0 ]]; then
         append_report '\n## Common warnings found:\n'
         
-        COMMON_WARNINGS="$(/usr/bin/cat ${SHELL_REPORT} | /usr/bin/grep '(warning)' | /usr/bin/awk '{ print $2 }' | /usr/bin/sort -u)"
+        COMMON_WARNINGS="$(/usr/bin/cat ${SHELL_REPORT} | /usr/bin/grep '(warning)' | /usr/bin/awk '{ print $2 }' | /usr/bin/sort -u | /usr/bin/awk '{$1=$1};1')"
         
         for warn in ${COMMON_WARNINGS}; do
             
