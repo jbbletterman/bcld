@@ -30,6 +30,7 @@ log/
 opt/
 test/BATS-REPORT.txt
 test/BATS-SUCCESS
+test/SHELL-REPORT.md
 test/SHELL-REPORT.txt
 tmp/
 tools/ubcld-repo-manager/artifacts
