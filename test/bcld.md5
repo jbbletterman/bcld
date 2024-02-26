@@ -57,7 +57,7 @@ e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf
 1540737da39ba1e9ca293b7b895c4ff9  ./config/pam/login
 a69edad4dcdbc0ef94a36fc32f993124  ./config/plymouth/bcld-plymouth.png
 df80acf8fb77a47a342b0862308d4ed4  ./config/plymouth/spinner.plymouth
-11728d8709877e0fef3e921af7101fa3  ./config/profile.d/10-BCLD.sh
+b400b68ebc75ea06ee1cda0fbce8011c  ./config/profile.d/10-BCLD.sh
 b11be49e5fb596a28c7b4fcb19f808d9  ./config/qutebrowser/config.py
 78c908f9f98459b21ca703c224b13ff1  ./config/rsyslog/60-BCLD-rsyslog.conf
 c4ca4238a0b923820dcc509a6f75849b  ./config/systemd/shm/removable

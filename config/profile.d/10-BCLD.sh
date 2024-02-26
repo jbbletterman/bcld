@@ -22,14 +22,19 @@ function trap_shutdown () {
     case "${1}" in
         net)
             list_item "Reason: Unable to connect to any networks!"
+            ;;
         param)
             list_item "Reason: Illegal parameter detected!: ${2}"
+            ;;
         snd)
             list_item "Reason: Unable to detect any sound cards"
+            ;;
         virt)
             list_item "Reason: Virtualization detected!"
+            ;;
         *)
             list_item "Reason: unknown!"
+            ;;
     esac
     
     list_item_fail 'This is prohibited, shutting BCLD down in 5 seconds...'
