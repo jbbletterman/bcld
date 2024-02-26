@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: SHELL-REPORT
-        path: /project/test/SHELL-REPORT.txt
+        path: /project/test/SHELL-REPORT.md
     - name: Run RepoMan SBOM
       run: |
         /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
