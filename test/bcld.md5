@@ -2,7 +2,7 @@
 f07cc0bdb925b0c0f24192c3c7b7a1b3  ./.github/workflows/release.yml
 b184bc47daaff1fae8e5341c88ff93e6  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-915d0c3c32822615520da8ab7e8a4c91  ./CHANGELOG.md
+6f6c56f34a87dd019623373f3043e67e  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -111,11 +111,12 @@ a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 f14c215295b07b1e98aa276e720e735b  ./test/00_BCLD-BUILD.bats
 99030d1b0d0741f28d98226b1231a22f  ./test/BCLD-BATS.sh
+8d5ab04d676225d6c69ff8a9fe91c679  ./test/SHELL-CHECK.sh
 3235c5b713d99733f2f5c8249194fab3  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 7d874e194ead3b20adcf839a09edc38d  ./tools/EXPORTER-TOOLKIT.sh
-06f98cfbd9bc8bf4a8da8e0c9b9b8519  ./tools/HashGen.sh
+b74607483bd61ad08ba4d0c6dc521631  ./tools/HashGen.sh
 853ffb8a5e4bea6c1b108f07157924c0  ./tools/NEXUS-deploy.sh
 c71b0c6f4b891d9fd7a3d0fadae1bccd  ./tools/bcld-repo-manager/SBOM_validate.sh
 bc8d6f1036b0463c7f1703414b04f691  ./tools/bcld-repo-manager/generate_release.sh

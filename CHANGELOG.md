@@ -3,7 +3,9 @@
 ## 2024
 
 ### Februari
-* `2024-02-26 10:35:35` : Split ShellCheck tests from [BCLD BATS](./test/00_BCLD-BUILD.bats) to [ShellCheck](./test/SHELL-CHECK.sh)
+* `2024-02-26 10:35:35` : 
+    - Split ShellCheck tests from [BCLD BATS](./test/00_BCLD-BUILD.bats) to [ShellCheck](./test/SHELL-CHECK.sh)
+    - Added to [HashGen](./tools/HashGen.sh)
 * `2024-02-23 15:54:27` : Fixed ALSA sound card check in [startup script](./script/startup.sh) to display results or failure
     - Also refactored [trap_shutdown](./config/trap_shutdown/snd-warning/snd-warning-1.png) to include `snd-warning`
 * `2024-02-22 15:02:56` : Fixed output in BATS and ShellCheck test reports
