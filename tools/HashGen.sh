@@ -91,14 +91,14 @@ function generate_bcld_md5 () {
     add_dir_hash ./script
     add_dir_hash ./tools/bcld-repo-manager
     add_dir_hash .
-    add_file_hash ./test/BCLD-BATS.sh
-    add_file_hash ./test/bcld_test.sh
     add_file_hash ./image/ISO/isolinux/isolinux.bin
     add_file_hash ./image/ISO/isolinux/isolinux.cfg
     add_file_hash ./image/ISO/README.diskdefines
-    add_file_hash ./test/bcld_test.sh
     add_file_hash ./test/00_BCLD-BUILD.bats
+    add_file_hash ./test/BCLD-BATS.sh
+    add_file_hash ./test/bcld_test.sh
     add_file_hash ./test/common-setup
+    add_file_hash ./test/SHELL-CHECK.sh
     
     /usr/bin/cat "${BCLD_MD5}" | /usr/bin/sort -u -k 2 > "${BCLD_MD5}".1
     /usr/bin/mv "${BCLD_MD5}".1 "${BCLD_MD5}"

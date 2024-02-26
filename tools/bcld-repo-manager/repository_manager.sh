@@ -526,7 +526,7 @@ while [[ ! $done ]]; do
         read_pointer
     fi
 
-    case $POINTER_TYPE in
+    case ${POINTER_TYPE} in
 
     c)
         # Allow second parameter when using Repoman Create.
