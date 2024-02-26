@@ -34,6 +34,8 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     fi
     
     # ERRORS
+    SHELL_ERROR="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c '(warning)')"
+    
     /usr/bin/echo -e "\n# ShellCheck Errors: ${SHELL_ERROR}" | /usr/bin/tee -a "${SHELL_REPORT}"
     
     ## If ShellCheck finds errors...    
