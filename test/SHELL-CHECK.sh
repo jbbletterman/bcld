@@ -30,7 +30,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     
     /usr/bin/echo -e '\n# Starting BCLD ShellCheck' | /usr/bin/tee "${SHELL_REPORT}"
     
-    append_report_silent '```\n'
+    append_report_silent '\n```'
     
     # Make necessary directories
     /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"
