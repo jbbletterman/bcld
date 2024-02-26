@@ -29,7 +29,11 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
             
             description="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep "${warn}" | /usr/bin/grep -v 'https' | /usr/bin/cut -d ':' -f2 | /usr/bin/sort -u)"
             
-            /usr/bin/echo " - ${warn}:${description}" | /usr/bin/tee -a "${SHELL_REPORT}"
+            if [[ $(/usr/bin/echo "${description}" | /usr/bin/wc -l) -eq 1 ]]; then
+                /usr/bin/echo " - ${warn}:${description}" | /usr/bin/tee -a "${SHELL_REPORT}"
+            else
+                /usr/bin/echo " - ${warn}: ```${description}"``` | /usr/bin/tee -a "${SHELL_REPORT}"
+            fi
         done 
     fi
     

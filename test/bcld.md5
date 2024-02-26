@@ -111,7 +111,7 @@ a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 f14c215295b07b1e98aa276e720e735b  ./test/00_BCLD-BUILD.bats
 99030d1b0d0741f28d98226b1231a22f  ./test/BCLD-BATS.sh
-66b628994531fa54dd9d98cd4c84d07b  ./test/SHELL-CHECK.sh
+1140938893c8c3e30178f58ea5a10b3e  ./test/SHELL-CHECK.sh
 3235c5b713d99733f2f5c8249194fab3  ./test/bcld_test.sh
 3c6d9bad67a59baeb81ef905281f3616  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
