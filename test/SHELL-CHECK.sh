@@ -21,7 +21,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
 
     ## If ShellCheck finds warnings...    
     if [[ ${SHELL_WARN} -gt 0 ]]; then
-        /usr/bin/echo -e '\n## Common warnings found:' | /usr/bin/tee -a "${SHELL_REPORT}"
+        /usr/bin/echo -e '\n## Common warnings found:\n' | /usr/bin/tee -a "${SHELL_REPORT}"
         
         COMMON_WARNINGS="$(/usr/bin/cat ${SHELL_REPORT} | /usr/bin/grep '(warning)' | /usr/bin/awk '{ print $2 }' | /usr/bin/sort -u)"
         
@@ -32,7 +32,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
             if [[ $(/usr/bin/echo "${description}" | /usr/bin/wc -l) -eq 1 ]]; then
                 /usr/bin/echo " - ${warn}:${description}" | /usr/bin/tee -a "${SHELL_REPORT}"
             else
-                /usr/bin/echo " - ${warn}: \`\`\`${description}\`\`\`" | /usr/bin/tee -a "${SHELL_REPORT}"
+                /usr/bin/echo " - ${warn}: \`\`\`${description} \`\`\`" | /usr/bin/tee -a "${SHELL_REPORT}"
             fi
         done 
     fi
@@ -44,7 +44,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     
     ## If ShellCheck finds errors...    
     if [[ ${SHELL_ERROR} -gt 0 ]]; then
-        /usr/bin/echo -e '\n## Common ERRORS found!:' | /usr/bin/tee -a "${SHELL_REPORT}"
+        /usr/bin/echo -e '\n## Common ERRORS found!:\n' | /usr/bin/tee -a "${SHELL_REPORT}"
         
         COMMON_ERRORS=$(/usr/bin/cat ${SHELL_REPORT} | /usr/bin/grep '(error)' | /usr/bin/awk '{ print $2 }' | /usr/bin/sort -u)
         
