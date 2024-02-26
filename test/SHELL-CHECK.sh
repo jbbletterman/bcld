@@ -6,6 +6,21 @@ function append_report () {
     /usr/bin/echo -e "${1}" | /usr/bin/tee -a "${SHELL_REPORT}"
 }
 
+# Function to output description if too long
+# 1: warn, error id
+# 2: description
+function output_desc () {
+
+    if [[ $(/usr/bin/echo "${2}" | /usr/bin/wc -l) -eq 1 ]]; then
+        append_report " - ${1}:${2}"
+    else
+        append_report " - ${1}:"
+        append_report_silent '\`\`\`\'
+        append_report " - ${2}"
+        append_report_silent '\`\`\`\'
+    fi
+}
+
 function append_report_silent () {
     /usr/bin/echo -e "${1}" >> "${SHELL_REPORT}"
 }
@@ -42,11 +57,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
             
             description="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep "${warn}" | /usr/bin/grep -v 'https' | /usr/bin/cut -d ':' -f2 | /usr/bin/sort -u)"
             
-            if [[ $(/usr/bin/echo "${description}" | /usr/bin/wc -l) -eq 1 ]]; then
-                append_report " - ${warn}:${description}"
-            else
-                append_report " - ${warn}:\n\`\`\`\n${description}\n\`\`\`\n"
-            fi
+            output_desc "${warn}" "${description}"
         done 
     fi
     
@@ -65,7 +76,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
             
             description="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep "${error}" | /usr/bin/grep -v 'https' | /usr/bin/cut -d ':' -f2 | /usr/bin/awk '{$1=$1};1')"
             
-            append_report " - ${error}: ${description}"
+            output_desc "${error}" "${description}"
         done
 
         exit 1    
