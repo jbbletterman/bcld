@@ -32,7 +32,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
             if [[ $(/usr/bin/echo "${description}" | /usr/bin/wc -l) -eq 1 ]]; then
                 /usr/bin/echo " - ${warn}:${description}" | /usr/bin/tee -a "${SHELL_REPORT}"
             else
-                /usr/bin/echo " - ${warn}: ```${description}"``` | /usr/bin/tee -a "${SHELL_REPORT}"
+                /usr/bin/echo " - ${warn}: \`\`\`${description}"\`\`\` | /usr/bin/tee -a "${SHELL_REPORT}"
             fi
         done 
     fi
