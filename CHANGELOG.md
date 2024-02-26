@@ -3,6 +3,7 @@
 ## 2024
 
 ### Februari
+* `2024-02-26 12:46:52` : Converted ShellCheck report to Markdown format
 * `2024-02-26 10:35:35` : 
     - Split ShellCheck tests from [BCLD BATS](./test/00_BCLD-BUILD.bats) to [ShellCheck](./test/SHELL-CHECK.sh)
     - Added to [HashGen](./tools/HashGen.sh)

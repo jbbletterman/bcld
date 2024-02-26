@@ -6,10 +6,16 @@ function append_report () {
     /usr/bin/echo -e "${1}" | /usr/bin/tee -a "${SHELL_REPORT}"
 }
 
+function append_report_silent () {
+    /usr/bin/echo -e "${1}" >> "${SHELL_REPORT}"
+}
+
 if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     SHELL_REPORT='./test/SHELL-REPORT.md'
     
-    /usr/bin/echo -e '\n# Starting BCLD ShellCheck' | /usr/bin/tee "${SHELL_REPORT}\n\`\`\`\n"
+    /usr/bin/echo -e '\n# Starting BCLD ShellCheck' | /usr/bin/tee "${SHELL_REPORT}"
+    
+    append_report_silent '\`\`\`\n'
     
     # Make necessary directories
     /usr/bin/mkdir -p "$(/usr/bin/dirname ${SHELL_REPORT})"
@@ -19,7 +25,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
         -not \( -path './chroot' -o -path './modules' \) \
         -exec shellcheck -S warning {} \; >> "${SHELL_REPORT}"
         
-    append_report '\`\`\`\n'
+    append_report_silent '\`\`\`\n'
 
     # Warnings
     SHELL_WARN="$(/usr/bin/cat "${SHELL_REPORT}" | /usr/bin/grep -c '(warning)')"
