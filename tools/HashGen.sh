@@ -97,7 +97,6 @@ function generate_bcld_md5 () {
     add_file_hash ./test/00_BCLD-BUILD.bats
     add_file_hash ./test/BCLD-BATS.sh
     add_file_hash ./test/bcld_test.sh
-    add_file_hash ./test/bcld_test.sh
     add_file_hash ./test/common-setup
     add_file_hash ./test/SHELL-CHECK.sh
     
