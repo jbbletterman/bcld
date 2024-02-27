@@ -129,7 +129,7 @@ img_size () {
 	run art_check ./image/ISO/isolinux/bios.img
 	run art_check ./image/ISO/isolinux/grub.cfg
 	run art_check ./image/ISO/isolinux/core.img
-	run art_check ./test/SHELL-REPORT.md
+	run art_check ./test/BATS-REPORT.txt
 
 	refute_output --partial 'FAILED'
 }
