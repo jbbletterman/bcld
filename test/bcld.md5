@@ -2,7 +2,7 @@ a4bdbd9a6fe0d0ad2eb118763c504930  ./.github/workflows/release (r8168).yml
 78be714cb0759c5c9d6386cc3e0a683a  ./.github/workflows/release.yml
 52dd8e4adf9f3ed71bb8abd089dbcefa  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-0f605ce6210e21eae7c538cf820d3634  ./CHANGELOG.md
+fe572acf0367b9321f674c83076afa49  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
@@ -14,7 +14,7 @@ a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
 b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-1c32649f3d78362e78bbd10a511b79b8  ./config/BUILD.conf
+4840111f42df721e6b0e5b830b5d9fbd  ./config/BUILD.conf
 9cba1a18fda70d1aa9ea3de9c7572d3e  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -98,7 +98,7 @@ c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
 f1a30a681a41d6494dc10a76f56b54b2  ./script/Xconfigure.sh
 1ba1a6ee7efc9e6a45afa65d824c583a  ./script/autocert.sh
 940b39c8004a94006606b2566ce2194e  ./script/bcld_app.sh
-17995f23512e945acedb96599aac5d49  ./script/bcld_vendor.sh
+5093d24b03369d3c9c3b5fe6a4cb4d73  ./script/bcld_vendor.sh
 e271151b5025d43f5b62f63cc9d8de99  ./script/chroot.sh
 7322d0ab227a53eb23a2107d7b6b8af6  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
