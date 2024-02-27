@@ -6,7 +6,7 @@ a4bdbd9a6fe0d0ad2eb118763c504930  ./.github/workflows/release (r8168).yml
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
-7a005c009c527102ad79af569bc58a3c  ./ISO-builder.sh
+4489d0c7cf5e14cd1af3700de769c065  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
 22568e9b3e038d1c8735f361086383fb  ./README.md
 a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
@@ -57,7 +57,7 @@ e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf
 1540737da39ba1e9ca293b7b895c4ff9  ./config/pam/login
 a69edad4dcdbc0ef94a36fc32f993124  ./config/plymouth/bcld-plymouth.png
 df80acf8fb77a47a342b0862308d4ed4  ./config/plymouth/spinner.plymouth
-b400b68ebc75ea06ee1cda0fbce8011c  ./config/profile.d/10-BCLD.sh
+090230ff16a5e91a4f9a906a1add7f76  ./config/profile.d/10-BCLD.sh
 b11be49e5fb596a28c7b4fcb19f808d9  ./config/qutebrowser/config.py
 78c908f9f98459b21ca703c224b13ff1  ./config/rsyslog/60-BCLD-rsyslog.conf
 c4ca4238a0b923820dcc509a6f75849b  ./config/systemd/shm/removable
@@ -98,7 +98,7 @@ c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
 f1a30a681a41d6494dc10a76f56b54b2  ./script/Xconfigure.sh
 1ba1a6ee7efc9e6a45afa65d824c583a  ./script/autocert.sh
 940b39c8004a94006606b2566ce2194e  ./script/bcld_app.sh
-7252d47c4fd0ca111b9dc6a88fddfc56  ./script/bcld_vendor.sh
+17995f23512e945acedb96599aac5d49  ./script/bcld_vendor.sh
 e271151b5025d43f5b62f63cc9d8de99  ./script/chroot.sh
 7322d0ab227a53eb23a2107d7b6b8af6  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
