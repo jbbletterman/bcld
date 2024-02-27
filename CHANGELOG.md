@@ -3,13 +3,14 @@
 ## 2024
 
 ### Februari
+* `2024-02-27 17:32:47` : Fixed NSSDB permissions in [BCLD Vendor script](./script/bcld_vendor.sh)
 * `2024-02-26 14:49:36` : [OAC-836] BCLD now executes [HashGen](./tools/HashGen.sh) automatically as part of the new [pre-commit](.git/hooks/pre-commit) hook
 * `2024-02-26 12:46:52` : Converted ShellCheck report to Markdown format
 * `2024-02-26 10:35:35` : 
     - Split ShellCheck tests from [BCLD BATS](./test/00_BCLD-BUILD.bats) to [ShellCheck](./test/SHELL-CHECK.sh)
     - Added to [HashGen](./tools/HashGen.sh)
 * `2024-02-23 15:54:27` : Fixed ALSA sound card check in [startup script](./script/startup.sh) to display results or failure
-    - Also refactored [trap_shutdown](./config/trap_shutdown/snd-warning/snd-warning-1.png) to include `snd-warning`
+    - Also refactored [trap_shutdown](./config/profile.d/10-BCLD.sh) to include [snd-warning](./config/trap_shutdown/snd-warning/snd-warning-1.png)
 * `2024-02-22 15:02:56` : Fixed output in BATS and ShellCheck test reports
 * `2024-02-21 17:56:29` : Fixed missing description in SBOM
 * `2024-02-21 12:21:25` : 

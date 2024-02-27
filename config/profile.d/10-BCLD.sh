@@ -17,28 +17,6 @@ function dir_flasher () {
 function trap_shutdown () {
     trap '' SIGHUP SIGINT SIGQUIT SIGTERM SIGTSTP
     /usr/bin/clear
-    list_header 'EMERGENCY SHUTDOWN'
-    
-    case "${1}" in
-        net)
-            list_item "Reason: Unable to connect to any networks!"
-            ;;
-        param)
-            list_item "Reason: Illegal parameter detected!: ${2}"
-            ;;
-        snd)
-            list_item "Reason: Unable to detect any sound cards"
-            ;;
-        virt)
-            list_item "Reason: Virtualization detected!"
-            ;;
-        *)
-            list_item "Reason: unknown!"
-            ;;
-    esac
-    
-    list_item_fail 'This is prohibited, shutting BCLD down in 5 seconds...'
-	list_entry
 	dir_flasher "${1}"
     ( /usr/bin/sleep 5 && /usr/bin/sudo /usr/sbin/shutdown -P now & ) > /dev/null 2>&1
 }
@@ -51,7 +29,7 @@ for s in "${SUM_ALIAS[@]}"; do
 	HITS=$(/usr/bin/cat /proc/cmdline | /usr/bin/grep -wc "${s}")
 	
 	if [[ ${HITS} -gt 0 ]]; then
-		trap_shutdown 'net' "${s}"
+		trap_shutdown 'param'
 		break
 	fi
 done
