@@ -649,11 +649,14 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
     # When started, we can now use Pulse Audio controls
     export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
     
-    if [[ -n "${BCLD_SINKS}" ]]; then
+    # If no BCLD_SINKS can be found, or if PA sets it to (auto_)null, trap_shutdown with snd
+    if [[ -z "${BCLD_SINKS}" ]] \
+        || [[ "${BCLD_SINKS}" == 'null' ]] \
+        || [[ "${BCLD_SINKS}" == 'auto_null' ]]; then
+        trap_shutdown 'snd'
+    else
         /usr/bin/echo
         last_item "Sinks detected: ${BCLD_SINKS}"
-    else
-        trap_shutdown 'snd'
     fi
     # SINKS found with pactl and output in JSON. Used throughout code
     SINKS_JSON="$(/usr/bin/pactl --format json list sinks)"
