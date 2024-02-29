@@ -298,7 +298,7 @@ function bcld_umount () {
 	
 	# Alternative Casper (if Plymouth not working)
 	# Can only be done right before unmounting
-	# BCLD_MD5CHECK
+	BCLD_MD5CHECK
 	
 	list_item "Unmounting necessary devices"
 	lf_umount /cdrom
