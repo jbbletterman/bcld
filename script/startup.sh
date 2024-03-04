@@ -239,7 +239,6 @@ function read_all_params() {
 	readparam "${MOUSE_PARAM}" "${MOUSE_ALIAS}"
 	readparam "${SHUTDOWN_PARAM}" "${SHUTDOWN_ALIAS}"
 	readparam "${VENDOR_PARAM}" "${VENDOR_ALIAS}"
-	readparam "${X_PARAM}" "${X_ALIAS}"
 	readparam "${ZOOM_PARAM}" "${ZOOM_ALIAS}"
 
 	### Audio
@@ -668,7 +667,10 @@ fi
 # This is allowed to detect 0 sinks when running inside VM
 export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 
-## Read BCLD_VENDOR first
+## Read BCLD_VERBOSE first
+readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
+
+## Read BCLD_VENDOR next
 read_vendor_param
 
 ## Machine-id
