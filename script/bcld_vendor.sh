@@ -97,11 +97,18 @@ function update_cert () {
 ## To set NSSDB
 function bcld_set_nssdb () {
 	list_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
-	list_entry
-	/usr/bin/sudo /usr/bin/mkdir -pv "${NSSDB}"
-	/usr/bin/sudo /usr/bin/cp -v ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
-	/usr/bin/sudo /usr/bin/chown -Rv "${USER}:${USER}" "${NSSDB}"
-	list_catch
+	if [[ "${BCLD_VERBOSE}" -eq 1 ]]; then
+	    list_entry
+	    /usr/bin/sudo /usr/bin/mkdir -pv "${NSSDB}"
+	    /usr/bin/sudo /usr/bin/cp -v ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
+	    /usr/bin/sudo /usr/bin/chown -Rv "${USER}:${USER}" "${NSSDB}"
+	    list_catch
+    else
+	    /usr/bin/sudo /usr/bin/mkdir -p "${NSSDB}"
+	    /usr/bin/sudo /usr/bin/cp ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
+	    /usr/bin/sudo /usr/bin/chown -R "${USER}:${USER}" "${NSSDB}"
+	    list_item_pass 'NSSDB installation complete!'
+	fi
 }
 
 ## To get certificates
