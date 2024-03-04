@@ -22,7 +22,7 @@ AFNAME_PARAM='BCLD_URL'
 MOUSE_PARAM='BCLD_MOUSE'
 SHUTDOWN_PARAM='BCLD_SHUTDOWN'
 VENDOR_PARAM='BCLD_VENDOR'
-X_PARAM='BCLD_VERBOSE'
+VERBOSE_PARAM='BCLD_VERBOSE'
 ZOOM_PARAM='BCLD_ZOOM'
 
 ## AUDIO
@@ -67,7 +67,7 @@ AFNAME_ALIAS='bcld.afname.url'
 MOUSE_ALIAS='bcld.afname.mouse'
 VENDOR_ALIAS='bcld.afname.vendor'
 ZOOM_ALIAS='bcld.afname.zoom'
-X_ALIAS='bcld.afname.verbose'
+VERBOSE_ALIAS='bcld.afname.verbose'
 SHUTDOWN_ALIAS='bcld.afname.shutdown'
 
 ## AUDIO
