@@ -63,7 +63,7 @@ function get_vendor_opts () {
 }
 
 ## To set hashes
-function bcld_cert_hash () {
+function hash_bcld_cert () {
 	
 	## Move into SSL_HASHES and link the added CA as CERT_NAME
 	cd "${SSL_HASHES}"
@@ -95,7 +95,7 @@ function update_cert () {
 
 
 ## To set NSSDB
-function bcld_set_nssdb () {
+function set_bcld_nssdb () {
 	list_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
 	if [[ "${BCLD_VERBOSE}" -eq 1 ]]; then
 	    list_entry
@@ -112,7 +112,7 @@ function bcld_set_nssdb () {
 }
 
 ## To get certificates
-function bcld_get_nssdb () {
+function get_bcld_nssdb () {
 	
 	# Check for CRT
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
@@ -126,7 +126,7 @@ function bcld_get_nssdb () {
 }
 
 ## To fix permissions of selected certs
-function bcld_fix_perms () {
+function fix_bcld_perms () {
 	/usr/bin/sudo /usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
 }
 
@@ -136,10 +136,10 @@ function bcld_fix_perms () {
 if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	# Use Rsyslogging for Facet
 	export BCLD_RSYSLOG='true'
-	bcld_cert_hash
-	bcld_set_nssdb
-	bcld_fix_perms
-	bcld_get_nssdb 'facet.onl'
+	hash_bcld_cert
+	set_bcld_nssdb
+	fix_bcld_perms
+	get_bcld_nssdb 'facet.onl'
 	update_cert
 elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	
@@ -147,10 +147,10 @@ elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	get_vendor_opts
 	
 	# Configure certificates for WFT, but disable remote logging
-	bcld_cert_hash
-	bcld_set_nssdb
-	bcld_fix_perms
-	bcld_get_nssdb 'duo.nl'
+	hash_bcld_cert
+	set_bcld_nssdb
+	fix_bcld_perms
+	get_bcld_nssdb 'duo.nl'
 	update_cert
 elif [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
 	# Vendorless does not need extra certificates and does not work well with regular BCLD_OPTS

@@ -2,13 +2,13 @@ a4bdbd9a6fe0d0ad2eb118763c504930  ./.github/workflows/release (r8168).yml
 78be714cb0759c5c9d6386cc3e0a683a  ./.github/workflows/release.yml
 52dd8e4adf9f3ed71bb8abd089dbcefa  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-1720070d0902d5e2a659dd9e542b69ea  ./CHANGELOG.md
+29bd7778c4379a064d70d0f93d97480b  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 5f630c45a220e988d7c6cb643575f3a0  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 4489d0c7cf5e14cd1af3700de769c065  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
-87fe29dc1f9b48dcb8b911714f1e663f  ./README.md
+dc0fd0a784c2db99801b55b1f0183d23  ./README.md
 a0a5e979c07ce819ed03618daa29316a  ./RepoMan.sh
 821c3b754407f28c3770ec628790dfc5  ./SECURITY.md
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
@@ -98,7 +98,7 @@ c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
 f1a30a681a41d6494dc10a76f56b54b2  ./script/Xconfigure.sh
 1ba1a6ee7efc9e6a45afa65d824c583a  ./script/autocert.sh
 940b39c8004a94006606b2566ce2194e  ./script/bcld_app.sh
-d9f98435a64545351e71d2e1c6ba04df  ./script/bcld_vendor.sh
+60bb2b145cbbea9903459f90223d80ea  ./script/bcld_vendor.sh
 e271151b5025d43f5b62f63cc9d8de99  ./script/chroot.sh
 7322d0ab227a53eb23a2107d7b6b8af6  ./script/client_logger.sh
 df6732bf6b392a7cc69200bd58fb31b9  ./script/crosdump_logger.sh
