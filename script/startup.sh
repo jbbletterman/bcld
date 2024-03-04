@@ -655,13 +655,13 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
         trap_shutdown 'snd'
     else
         /usr/bin/echo
-        last_item "Sinks detected: ${BCLD_SINKS}"
+        list_item_pass "Sinks detected: ${BCLD_SINKS}"
     fi
     # SINKS found with pactl and output in JSON. Used throughout code
     SINKS_JSON="$(/usr/bin/pactl --format json list sinks)"
 else
     /usr/bin/echo
-    last_item "Virtual machine detected, skipping..."
+    list_item_fail "Virtual machine detected, skipping..."
 fi
 
 # This is allowed to detect 0 sinks when running inside VM
