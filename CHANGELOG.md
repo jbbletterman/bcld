@@ -3,6 +3,7 @@
 ## 2024
 
 ### Februari
+* `2024-03-05 14:32:08` : Make network check visible in [startup script](./script/startup.sh)
 * `2024-03-04 13:54:55` : 
     - Renamed `X_PARAM` and `X_ALIAS` to `VENDOR_PARAM` and `VENDOR_ALIAS`
     - Make sure BCLD always reads the [BCLD_VERBOSE](./script/startup.sh) parameter first
