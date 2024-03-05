@@ -362,7 +362,7 @@ function ip_link () {
 			
 			if [[ -n "${BCLD_URL}" ]]; then
 			    # Only perform network check on BCLD_URL (trusted)
-			    list_item_pass "Performing network check on \"${BCLD_URL}\"..."
+			    list_item_pass "Performing network check on: \"${BCLD_URL}\""
 			    export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' "${BCLD_URL}")"
 			fi
 			
