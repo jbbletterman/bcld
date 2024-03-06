@@ -114,7 +114,7 @@ ea663b1c905269bde1992b95fc4dd01e  ./test/00_BCLD-BUILD.bats
 ee8d55912f9a65c36f42f3d3ea3a5105  ./test/BCLD-BATS.sh
 ef56a7da80b4c02df279add5e8abbf90  ./test/SHELL-CHECK.sh
 73049d2137e14be17258b8c6c288cfa3  ./test/bcld_test.sh
-49e6854b1b03169dd7cc23f97e7f6fab  ./test/common-setup
+fe60a1347751dc5605d784673058ef42  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
 c09c4b8778c160ca08b8632d6d8ce6cf  ./tools/EXPORTER-TOOLKIT.sh
 2c565f2e88fe6bf888c1d75ed9319325  ./tools/HashGen.sh

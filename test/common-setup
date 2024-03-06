@@ -55,5 +55,7 @@ _common_setup() {
     
     # Functions
     #source ${DIR}/../scripts/ubcld_functions.sh
+    
+    [ ! -f ${BATS_PARENT_TMPNAME}.skip ] || skip "skip remaining tests"
 }
 
