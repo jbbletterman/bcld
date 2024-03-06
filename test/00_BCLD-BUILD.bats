@@ -83,6 +83,8 @@ img_size () {
 # Tests
 @test 'LicenseCheck' {
     run ./test/LICENSE-CHECK.sh
+    
+    refute_output 'Please supply all BCLD scripts of the appropriate EUPL license!'
 }
 
 @test 'ShellCheck' {
