@@ -45,6 +45,7 @@
 setup() {
 	load 'common-setup'
     _common_setup
+    [ ! -f ${BATS_PARENT_TMPNAME}.skip ] || skip "(TEST FAILED)"
 }
 
 # Functions
@@ -84,13 +85,15 @@ img_size () {
 @test 'LicenseCheck' {
     run ./test/LICENSE-CHECK.sh
     
-    refute_output 'Please supply all BCLD scripts of the appropriate EUPL license!'
+    assert_output --partial 'No missing licenses found'
+    refute_output --partial 'Please supply all BCLD scripts of the appropriate EUPL license!'
 }
 
 @test 'ShellCheck' {
     run ./test/SHELL-CHECK.sh
     
-    assert_output '# ShellCheck ERRORS: 0'
+    assert_output --partial 'ShellCheck ERRORS: 0'
+    refute_output --partial 'Common ERRORS found!'
 }
 
 @test "Building ${BCLD_MODEL} ISO..." {
@@ -158,4 +161,8 @@ img_size () {
 	run img_size
 
 	refute_output --partial 'FAILED'
+}
+
+teardown() {
+    [ -n "${BATS_TEST_COMPLETED}" ] || /usr/bin/touch ${BATS_PARENT_TMPNAME}.skip
 }
