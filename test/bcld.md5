@@ -3,7 +3,7 @@ de7d8e6099bdb4098a994a2bd3a393a2  ./.github/workflows/release (r8168).yml
 16242242080430cafecb96876ccb69b7  ./.github/workflows/test.yml
 ad24109900db2fb3007f863ced4d0f2b  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-a5c93b9ab2c7bb02990e9de9bd237422  ./CHANGELOG.md
+590e5173a4a2036233b6f10ad1607a6a  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 c2a3b48cdd0dc916dd59c8b0c830c32a  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
