@@ -43,6 +43,7 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
         list_line_item 'Please supply all BCLD scripts of the appropriate EUPL license!'
         on_failure
     else
+        list_item_pass 'No missing licenses found'
         on_completion
     fi
 else
