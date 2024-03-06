@@ -49,12 +49,11 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     source ./script/echo_tools.sh
     #source ./script/file_operations.sh
     
-    TAG='LICENSE-CHECK'
-
-    list_header 'Starting LICENSE-CHECK'
-    
     # VAR    
+    TAG='LICENSE-CHECK'
+    
     IGNORE_STRING='.git|.md|artifacts|assets|cert|chroot|config|image|log|modules|-REPORT'
+    LICENSE_REPORT='./test/LICENSE-REPORT.txt'
     MATCH_STRING='European Union Public License'
     FAIL_STRING='UNKNOWN'
 
@@ -69,24 +68,25 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     FAILNUM="$(/usr/bin/echo "${UNKNOWN}" | /usr/bin/wc -w)"
     
     # DETECTED
-    list_item "Files with \"${MATCH_STRING}\": ${PASSNUM}"
+    list_header 'Starting LICENSE-CHECK' | /usr/bin/tee "${LICENSE_REPORT}"
+    list_item "Files with \"${MATCH_STRING}\": ${PASSNUM}" | /usr/bin/tee -a "${LICENSE_REPORT}"
     if [[ "${PASSNUM}" -gt 0 ]]; then
         for detected in ${DETECTED}; do
-            list_item_pass "${detected}"
+            list_item_pass "${detected}" | /usr/bin/tee -a "${LICENSE_REPORT}"
         done
     fi
     
     # UNKNOWN
-    list_line_item "Files with \"${FAIL_STRING}\" licenses: ${FAILNUM}"
+    list_line_item "Files with \"${FAIL_STRING}\" licenses: ${FAILNUM}" | /usr/bin/tee -a "${LICENSE_REPORT}"
     if [[ "${FAILNUM}" -gt 0 ]]; then
         for unknown in ${UNKNOWN}; do
-            list_item_fail "${unknown}"
+            list_item_fail "${unknown}" | /usr/bin/tee -a "${LICENSE_REPORT}"
         done
-        list_line_item 'Please supply all BCLD scripts of the appropriate EUPL license!'
-        on_failure
+        list_line_item 'Please supply all BCLD scripts of the appropriate EUPL license!' | /usr/bin/tee -a "${LICENSE_REPORT}"
+        on_failure | /usr/bin/tee -a "${LICENSE_REPORT}"
     else
-        list_item_pass 'No missing licenses found'
-        on_completion
+        list_item_pass 'No missing licenses found' | /usr/bin/tee -a "${LICENSE_REPORT}"
+        on_completion | /usr/bin/tee -a "${LICENSE_REPORT}"
     fi
 else
 
