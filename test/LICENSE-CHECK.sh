@@ -29,16 +29,16 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     # DETECTED
     list_item "Files with \"${MATCH_STRING}\": ${PASSNUM}"
     if [[ "${PASSNUM}" -gt 0 ]]; then
-        for detected in "${DETECTED}"; do
-            list_item_pass "$(/usr/bin/basename ${detected})"
+        for detected in ${DETECTED}; do
+            list_item_pass "$(/usr/bin/basename "${detected}")"
         done
     fi
     
     # UNKNOWN
     list_item "Files with \"${FAIL_STRING}\" licenses: ${FAILNUM}"
     if [[ "${FAILNUM}" -gt 0 ]]; then
-        for unknown in "${UNKNOWN}"; do
-            list_item_fail "$(/usr/bin/basename ${unknown})"
+        for unknown in ${UNKNOWN}; do
+            list_item_pass "$(/usr/bin/basename "${unknown}")"
         done
     fi
 else
