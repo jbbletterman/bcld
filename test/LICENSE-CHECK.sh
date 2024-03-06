@@ -4,21 +4,24 @@
 if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     
     # Source external tools
-    #source ./config/BUILD.conf
+    source ./config/BUILD.conf
     source ./script/echo_tools.sh
     #source ./script/file_operations.sh
     
     list_header 'Starting LICENSE-CHECK'
     
     # VAR
+    TAG='LICENSE-CHECK'
+    
     IGNORE_STRING='.git|.md|artifacts|assets|cert|config|image|log|modules|-REPORT'
     MATCH_STRING='European Union Public License'
     FAIL_STRING='UNKNOWN'
 
     DETECTED="$(/usr/bin/licensecheck -r "${PWD}" -i "${IGNORE_STRING}" \
-        | /usr/bin/grep "${MATCH_STRING}" | /usr/bin/cut -d ':' -f2)"
+        | /usr/bin/grep "${MATCH_STRING}" | /usr/bin/cut -d ':' -f1)"
+    
     UNKNOWN="$(/usr/bin/licensecheck -r "${PWD}" -i "${IGNORE_STRING}" \
-        | /usr/bin/grep "${FAIL_STRING}" | /usr/bin/cut -d ':' -f2)"
+        | /usr/bin/grep "${FAIL_STRING}" | /usr/bin/cut -d ':' -f1)"
         
     PASSNUM="$(/usr/bin/echo "${DETECTED}" | /usr/bin/wc -w)"
     FAILNUM="$(/usr/bin/echo "${UNKNOWN}" | /usr/bin/wc -w)"
