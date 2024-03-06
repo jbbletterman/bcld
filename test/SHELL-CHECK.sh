@@ -78,7 +78,7 @@ if [[ -x /usr/bin/shellcheck ]] && [[ -f ./test/00_BCLD-BUILD.bats ]]; then
     
     /usr/bin/find . -type f \
         -name "*.sh" \
-        -not \( -path './chroot' -o -path './modules' \) \
+        -not \( -path './chroot/*' -o -path './modules/*' \) \
         -exec shellcheck -S warning {} \; >> "${SHELL_REPORT}"
         
     append_report_silent '```\n'

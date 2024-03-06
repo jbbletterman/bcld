@@ -112,7 +112,7 @@ bda7ab2efdc5fef0e779b9f21823b2d3  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
 ddfb0a79247e288d35ab512c670930c4  ./test/00_BCLD-BUILD.bats
 ee8d55912f9a65c36f42f3d3ea3a5105  ./test/BCLD-BATS.sh
-ef56a7da80b4c02df279add5e8abbf90  ./test/SHELL-CHECK.sh
+3e4ba0fb21960ea45aea0e81bea9cd06  ./test/SHELL-CHECK.sh
 73049d2137e14be17258b8c6c288cfa3  ./test/bcld_test.sh
 49e6854b1b03169dd7cc23f97e7f6fab  ./test/common-setup
 d17592b1867453e7e203d9d13b2251e4  ./tools/DOCKER-install.sh
