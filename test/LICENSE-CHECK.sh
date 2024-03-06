@@ -20,8 +20,9 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     DETECTED="$(/usr/bin/licensecheck -r "${PWD}" -i "${IGNORE_STRING}" \
         | /usr/bin/grep "${MATCH_STRING}" | /usr/bin/cut -d ':' -f1)"
     
+    # Leave out COPYING as it is unable to detect EUPL
     UNKNOWN="$(/usr/bin/licensecheck -r "${PWD}" -i "${IGNORE_STRING}" \
-        | /usr/bin/grep "${FAIL_STRING}" | /usr/bin/cut -d ':' -f1)"
+        | /usr/bin/grep "${FAIL_STRING}" | /usr/bin/grep -v 'COPYING' | /usr/bin/cut -d ':' -f1)"
         
     PASSNUM="$(/usr/bin/echo "${DETECTED}" | /usr/bin/wc -w)"
     FAILNUM="$(/usr/bin/echo "${UNKNOWN}" | /usr/bin/wc -w)"
