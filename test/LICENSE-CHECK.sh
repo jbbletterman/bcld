@@ -27,7 +27,7 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     FAILNUM="$(/usr/bin/echo "${UNKNOWN}" | /usr/bin/wc -w)"
     
     # DETECTED
-    list_line_item "Files with \"${MATCH_STRING}\": ${PASSNUM}"
+    list_item "Files with \"${MATCH_STRING}\": ${PASSNUM}"
     if [[ "${PASSNUM}" -gt 0 ]]; then
         for detected in ${DETECTED}; do
             list_item_pass "$(/usr/bin/basename "${detected}")"
@@ -35,7 +35,7 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     fi
     
     # UNKNOWN
-    list_item "Files with \"${FAIL_STRING}\" licenses: ${FAILNUM}"
+    list_line_item "Files with \"${FAIL_STRING}\" licenses: ${FAILNUM}"
     if [[ "${FAILNUM}" -gt 0 ]]; then
         for unknown in ${UNKNOWN}; do
             list_item_fail "$(/usr/bin/basename "${unknown}")"
