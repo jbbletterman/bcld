@@ -18,6 +18,7 @@ grub-pc
 gzip
 inetutils-ping
 libnss3-tools
+licensecheck
 mtools
 parted
 rsync

@@ -81,6 +81,16 @@ img_size () {
 }
 
 # Tests
+@test 'LicenseCheck' {
+    run ./test/LICENSE-CHECK.sh
+}
+
+@test 'ShellCheck' {
+    run ./test/SHELL-CHECK.sh
+    
+    assert_output '# ShellCheck ERRORS: 0'
+}
+
 @test "Building ${BCLD_MODEL} ISO..." {
     /usr/bin/echo 'Building BCLD-ISO'
 }
