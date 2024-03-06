@@ -9,7 +9,7 @@ c2a3b48cdd0dc916dd59c8b0c830c32a  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 4489d0c7cf5e14cd1af3700de769c065  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
-081d7ed93200439f0bb2574a96172c32  ./README.md
+dde8c17b8744eb582c2c416709d468f8  ./README.md
 a66e8c57493717936033b6a6d9a60403  ./RepoMan.sh
 821c3b754407f28c3770ec628790dfc5  ./SECURITY.md
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
@@ -110,7 +110,7 @@ d090b4ffe9bb151c311251013d69f088  ./script/docker_run.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 bda7ab2efdc5fef0e779b9f21823b2d3  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
-74e0deb8a1d9f0c59c0d4abff0071b34  ./test/00_BCLD-BUILD.bats
+0dfc8a071a9c63245b69e83a9b662a0f  ./test/00_BCLD-BUILD.bats
 ee8d55912f9a65c36f42f3d3ea3a5105  ./test/BCLD-BATS.sh
 ef56a7da80b4c02df279add5e8abbf90  ./test/SHELL-CHECK.sh
 73049d2137e14be17258b8c6c288cfa3  ./test/bcld_test.sh

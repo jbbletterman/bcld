@@ -84,13 +84,15 @@ img_size () {
 @test 'LicenseCheck' {
     run ./test/LICENSE-CHECK.sh
     
+    assert_output 'No missing licenses found'
     refute_output 'Please supply all BCLD scripts of the appropriate EUPL license!'
 }
 
 @test 'ShellCheck' {
     run ./test/SHELL-CHECK.sh
     
-    assert_output '# ShellCheck ERRORS: 0'
+    assert_output 'ShellCheck ERRORS: 0'
+    refute_output 'Common ERRORS found!'
 }
 
 @test "Building ${BCLD_MODEL} ISO..." {
