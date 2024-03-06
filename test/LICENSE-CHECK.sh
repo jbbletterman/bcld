@@ -87,6 +87,7 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     else
         list_item_pass 'No missing licenses found' | /usr/bin/tee -a "${LICENSE_REPORT}"
         on_completion | /usr/bin/tee -a "${LICENSE_REPORT}"
+        /usr/bin/echo | /usr/bin/tee -a "${LICENSE_REPORT}"
     fi
 else
 
