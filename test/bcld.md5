@@ -110,7 +110,7 @@ d090b4ffe9bb151c311251013d69f088  ./script/docker_run.sh
 a0ad3b8dcdd06327c49632ade4f76658  ./script/rsyslogger.sh
 bda7ab2efdc5fef0e779b9f21823b2d3  ./script/startup.sh
 433a2f4f80224f7c115b47a656b7c57c  ./script/usb_logger.sh
-dfb473d835355df4b04a3b8ad502af84  ./test/00_BCLD-BUILD.bats
+ddfb0a79247e288d35ab512c670930c4  ./test/00_BCLD-BUILD.bats
 ee8d55912f9a65c36f42f3d3ea3a5105  ./test/BCLD-BATS.sh
 ef56a7da80b4c02df279add5e8abbf90  ./test/SHELL-CHECK.sh
 73049d2137e14be17258b8c6c288cfa3  ./test/bcld_test.sh

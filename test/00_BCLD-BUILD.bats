@@ -45,7 +45,7 @@
 setup() {
 	load 'common-setup'
     _common_setup
-    [ ! -f ${BATS_PARENT_TMPNAME}.skip ] || skip "skip remaining tests"
+    [ ! -f ${BATS_PARENT_TMPNAME}.skip ] || skip "(TEST FAILED)"
 }
 
 # Functions

@@ -54,7 +54,7 @@ if [[ -f ./test/LICENSE-CHECK.sh ]]; then
     list_header 'Starting LICENSE-CHECK'
     
     # VAR    
-    IGNORE_STRING='.git|.md|artifacts|assets|cert|config|image|log|modules|-REPORT'
+    IGNORE_STRING='.git|.md|artifacts|assets|cert|chroot|config|image|log|modules|-REPORT'
     MATCH_STRING='European Union Public License'
     FAIL_STRING='UNKNOWN'
 
