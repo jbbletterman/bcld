@@ -45,6 +45,7 @@
 setup() {
 	load 'common-setup'
     _common_setup
+    [ ! -f ${BATS_PARENT_TMPNAME}.skip ] || skip "skip remaining tests"
 }
 
 # Functions
@@ -160,4 +161,8 @@ img_size () {
 	run img_size
 
 	refute_output --partial 'FAILED'
+}
+
+teardown() {
+    [ -n "${BATS_TEST_COMPLETED}" ] || /usr/bin/touch ${BATS_PARENT_TMPNAME}.skip
 }
