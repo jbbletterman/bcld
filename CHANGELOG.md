@@ -10,6 +10,7 @@
     - Made the appropriate changes in [GitHub Workflows](./.github/workflows/release (r8168).yml)
     - Added new [GitHub Workflow](./.github/workflows/test.yml) for testing and saving resources
     - Added missing [EUPL licensing text](./COPYING) to various BCLD scripts
+    - [BATS](./test/00_BCLD-BUILD.bats) tests now skip immediately upon failure
 * `2024-03-05 14:32:08` : Make network check visible in [startup script](./script/startup.sh)
 * `2024-03-04 13:54:55` : 
     - Renamed `X_PARAM` and `X_ALIAS` to `VENDOR_PARAM` and `VENDOR_ALIAS`
