@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop/ALPHA
-      - develop/BETA
 jobs:
   vendorless-release-r8168:
     runs-on: ubuntu-22.04
@@ -45,14 +43,6 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
-    - name: Run BCLD ShellCheck
-      run: |
-        /usr/bin/bash -c './test/SHELL-CHECK.sh'
-    - name: Upload ShellCheck report
-      uses: actions/upload-artifact@v2
-      with:
-        name: SHELL-REPORT
-        path: /project/test/SHELL-REPORT.md
     - name: Run RepoMan SBOM
       run: |
         /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
@@ -61,9 +51,20 @@ jobs:
       with:
         name: RepoMan SBOM
         path: /project/artifacts/*.md
-    - name: Run BCLD BATS (with ShellCheck)
+    - name: Run BCLD BATS
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
+    - name: Upload LICENSE-REPORT
+      uses: actions/upload-artifact@v2
+      with:
+        name: LICENSE-REPORT
+        path: /project/test/LICENSE-REPORT.txt
+
+    - name: Upload SHELL-REPORT
+      uses: actions/upload-artifact@v2
+      with:
+        name: SHELL-REPORT
+        path: /project/test/SHELL-REPORT.md
     - name: Upload BATS-REPORT
       uses: actions/upload-artifact@v2
       with:

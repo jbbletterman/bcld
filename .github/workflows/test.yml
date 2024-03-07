@@ -1,13 +1,14 @@
-name: BCLD FLOW (RELEASE)
+name: BCLD FLOW (TEST)
 
 on:
   push:
     branches:
-      - main
+      - develop/ALPHA
+      - develop/BETA
 jobs:
-  vendorless-release:
+  vendorless-test:
     runs-on: ubuntu-22.04
-    environment: release
+    environment: test
     container:
       image: ubuntu:jammy
       options: --privileged
@@ -15,6 +16,8 @@ jobs:
         BCLD_APP: ${{ vars.BCLD_APP }}
         BCLD_CFG_EDIT: ${{ vars.BCLD_CFG_EDIT }}
         BCLD_MODEL: ${{ vars.BCLD_MODEL }}
+        BCLD_PKG_EXTRA: ${{ vars.BCLD_PKG_EXTRA }}
+        BCLD_TAG_EXTRA: ${{ vars.BCLD_TAG_EXTRA }}
         CLEAN_BOOTSTRAP: ${{ vars.CLEAN_BOOTSTRAP }}
         NULLFIX: ${{ vars.NULLFIX }}
         POINTER_TYPE: ${{ vars.POINTER_TYPE }}
@@ -41,14 +44,6 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
-    - name: Run RepoMan SBOM
-      run: |
-        /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
-    - name: Upload RepoMan SBOM
-      uses: actions/upload-artifact@v2
-      with:
-        name: RepoMan SBOM
-        path: /project/artifacts/*.md
     - name: Run BCLD BATS
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
@@ -81,11 +76,11 @@ jobs:
     - name: Upload BCLD-ISO
       uses: actions/upload-artifact@v2
       with:
-        name: BCLD-ISO
+        name: BCLD-ISO-TEST
         path: /project/artifacts/bcld.iso
     - name: Upload BCLD-IMG
       uses: actions/upload-artifact@v2
       with:
-        name: BCLD-IMG
+        name: BCLD-IMG-TEST
         path: /project/artifacts/*.img
 
