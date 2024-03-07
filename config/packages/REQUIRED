@@ -49,7 +49,9 @@ feh
 file
 fontconfig
 fontconfig-config
+fonts-font-awesome
 fonts-freefont-ttf
+fonts-inconsolata
 genisoimage
 gettext
 glib-networking

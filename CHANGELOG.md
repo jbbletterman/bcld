@@ -3,6 +3,9 @@
 ## 2024
 
 ## March
+* `2024-03-07 14:22:23` : [OAC-938] Added new font packages to support third party apps:
+    - [fonts-font-awesome](./config/packages/REQUIRED)
+    - [fonts-inconsolata](./config/packages/REQUIRED)
 * `2024-03-06 15:15:15` : 
     - Added `licensecheck` to [BUILD](./config/packages/BUILD) packages
     - Added new [LICENSE-CHECK](./test/LICENSE-CHECK.sh) test to [BATS](./test/00_BCLD-BUILD.bats)
