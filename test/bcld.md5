@@ -9,7 +9,7 @@ c2a3b48cdd0dc916dd59c8b0c830c32a  ./Docker-builder.sh
 d221c605820660f1d244c6213e28d08b  ./IMG-builder.sh
 4489d0c7cf5e14cd1af3700de769c065  ./ISO-builder.sh
 cc04d3c28306689fde5be96638e22f70  ./LICENSE.eupl
-30ab39af618581e800fd9346ddb24514  ./README.md
+9fb1d2b8adfedfc919154858853759e0  ./README.md
 a66e8c57493717936033b6a6d9a60403  ./RepoMan.sh
 821c3b754407f28c3770ec628790dfc5  ./SECURITY.md
 53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
@@ -51,7 +51,7 @@ d57cf84974e9a959d64a38710983a18d  ./config/packages/APP
 335cd24f955359c232ece20790776c3d  ./config/packages/KERNEL
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
 6c224b812083575965b9bf1aca105231  ./config/packages/REMOVE
-6572d59d76353b835b90ce4006902dcc  ./config/packages/REQUIRED
+9573cbe6514dbc76dcc5c831e66511b3  ./config/packages/REQUIRED
 626f50bfe4b5318ece35f2572e5e95af  ./config/packages/TEST
 c4194d2bde957994fa74aaa13bc8333e  ./config/packages/VIRTUAL
 e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf
