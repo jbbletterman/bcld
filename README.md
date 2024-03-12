@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.8-2 BCLD (Illium)
+**BCLD Version**: 13.8-4 BCLD (Illium)
 
 **BCLD Kernel**: 6.2.0-39-generic
 

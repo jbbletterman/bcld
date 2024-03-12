@@ -1,5 +1,5 @@
 #
-# Copyright © 2023 Quintor B.V.
+# Copyright © 2024 Quintor B.V.
 #
 # BCLD is gelicentieerd onder de EUPL, versie 1.2 of
 # – zodra ze zullen worden goedgekeurd door de Europese Commissie -
@@ -18,7 +18,7 @@
 # en de beperkingen van de licentie.
 #
 #
-# Copyright © 2023 Quintor B.V.
+# Copyright © 2024 Quintor B.V.
 #
 # BCLD is licensed under the EUPL, Version 1.2 or 
 # – as soon they will be approved by the European Commission -
