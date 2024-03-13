@@ -19,7 +19,19 @@ The test will display common vulnerabilities on the Ubuntu platform that BCLD is
 OpenSCAP will detect vulnerabilities for Ubuntu systems using OVAL content.
 Aside from common vulnerabilities on Ubuntu systems, ShellCheck is used in conjunction with [RepoMan](./RepoMan.sh), our BCLD repository management tool.
 
-## Reporting a Vulnerability
+## Reporting a Bug
+There are ways you can help us help you, by reporting bugs and vulnerabilities in a well-structured manner:
+1. First of all, make sure you are using the latest release
+2. Then, note down which version of the BCLD Client is having issues
+3. Be sure to check the BCLD Issues and Wiki on GitHub for the latest developments and known issues
+4. If the issue has not been reported, create a new issue
+5. Give a short description of what's happening
+6. Exclude features that are clearly working
+7. Describe non-working features and unmet expectations
+8. Figure out how to reproduce the incident
+9. Try to categorize the issue in at least one tag, like `kernel`, `graphics`, `network`, etc.
+
+
 We try to track as many bugs, glitches and vulnerabilities as we can,
 but there is no certainty that we will catch everything.
 So if any of you find anything smelly in our code,

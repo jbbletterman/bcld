@@ -104,12 +104,12 @@ c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
 a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh
 6f833607c89d206f3d2dd97df02862e2  ./tools/bcld-repo-manager/SBOM_validate.sh
 0989b92e72241b3a93a32035a1cebe8b  ./tools/bcld-repo-manager/repository_manager.sh
-25ac222f8fc208f37e439dc0803bde63  ./CHANGELOG.md
+66bd5772769c4a31609c2540eeffe920  ./CHANGELOG.md
 6d1e4fa710538f069720a719c179e61e  ./README.md
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 ad24109900db2fb3007f863ced4d0f2b  ./.gitignore
-821c3b754407f28c3770ec628790dfc5  ./SECURITY.md
+3ce18124e2467ab0d27580e9a1c80616  ./SECURITY.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh

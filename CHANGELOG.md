@@ -3,6 +3,8 @@
 ## 2024
 
 ## March
+* `2024-03-13 13:33:25` : Updated [Security Policy](./SECURITY.md#reporting-a-bug)
+    - More detailed description of bug reporting
 * `2024-03-12 15:14:49` : 
     - Moved BCLD assets to [BCLD Wiki](https://www.github.com/jbbletterman/bcld.wiki#bcld-flow-charts) project
     - Cleaned up two obsolete files: 
