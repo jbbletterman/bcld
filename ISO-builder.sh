@@ -768,6 +768,9 @@ copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
 copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
 list_exit
 
+## Copy ISOLINUX
+copy_file '/usr/lib/ISOLINUX/isolinux.bin' "${ISOLINUX_DIR}"
+
 ## Copy configuration files
 copy_post_configs
 

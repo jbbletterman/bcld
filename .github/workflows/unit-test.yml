@@ -3,7 +3,7 @@ name: BCLD UNIT TEST
 on:
   push:
     branches:
-      - develop
+      - develop/*
 jobs:
   vendorless-unit-test:
     runs-on: ubuntu-22.04
