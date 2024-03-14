@@ -6,7 +6,7 @@ on:
       - develop/ALPHA
       - develop/BETA
 jobs:
-  vendorless-test:
+  vendorless-regression-test:
     runs-on: ubuntu-22.04
     environment: test
     container:
