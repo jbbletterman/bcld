@@ -28,7 +28,7 @@ fa8a98573721ffd92ce67d9fcc5dfec9  ./config/trap_shutdown/virt/virt-warning-1.png
 0f5e199c4b7ac8fe87ba8e81fdfb2a5f  ./config/trap_shutdown/virt/virt-warning-3.png
 bc8d4c92bdbadd1c62c088184f39073f  ./config/trap_shutdown/virt/virt-warning-5.png
 b11be49e5fb596a28c7b4fcb19f808d9  ./config/qutebrowser/config.py
-f867dd62fc97e35db33a952da66ae33a  ./config/BUILD.conf
+15e99a1205b316d28a917d11d7897146  ./config/BUILD.conf
 d93c0ecfa96fe619d9503decf1193dd3  ./config/openbox/rc.xml.debug
 818e728f1804c52e2abb09cbf0fe364c  ./config/openbox/rc.xml
 6e2f77bbba38b224e732db10952118a1  ./config/openbox/autostart
@@ -104,7 +104,7 @@ c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
 a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh
 6f833607c89d206f3d2dd97df02862e2  ./tools/bcld-repo-manager/SBOM_validate.sh
 0989b92e72241b3a93a32035a1cebe8b  ./tools/bcld-repo-manager/repository_manager.sh
-66bd5772769c4a31609c2540eeffe920  ./CHANGELOG.md
+1ce5e5836913428721e04e24eee0a11b  ./CHANGELOG.md
 6d1e4fa710538f069720a719c179e61e  ./README.md
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh

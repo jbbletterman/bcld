@@ -3,6 +3,7 @@
 ## 2024
 
 ## March
+* `2024-03-14 12:45:25` : Added section on Vulnerability Reporting in [Security Policy](./SECURITY.md#reporting-a-vulnerability)
 * `2024-03-13 13:33:25` : Updated [Security Policy](./SECURITY.md#reporting-a-bug)
     - More detailed description of bug reporting
 * `2024-03-12 15:14:49` : 
