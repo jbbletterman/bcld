@@ -1,4 +1,4 @@
-name: BCLD FLOW (TEST)
+name: BCLD REGRESSION TEST
 
 on:
   push:
