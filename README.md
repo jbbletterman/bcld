@@ -229,7 +229,8 @@ This repository consists of the following objects:
 | 27  | ipv6.disable                     | Disable IPv6 networking                                         | *BIT*                   | **0**, 1                                                                                                         |
 | 28  | nomodeset                        | Instruction to leave the kernel's mode setting to the firmware. | KERNEL PARAM            | nomodeset                                                                                                        |
 | 29  | nouveau.modeset                  | Allows kernel from loading video driver                         | *BIT*                   | 0, **1**                                                                                                         |
-| 30  | snd_hda_intel.dmic_detect        | Enables integrated microphone detection to force audio.         | *BIT*                   | 0, **1**                                                                                                         |
+| 30  | pci                       | Kernel PCI config                                               | *KERNEL PARAM* | noaer               |
+| 31  | snd_hda_intel.dmic_detect | Enables integrated microphone detection to force audio.         | *BIT*          | 0, **1**            |
 
 
 # Package Lists

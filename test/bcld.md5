@@ -54,7 +54,7 @@ a79dbb95a5b6b488d23c4ff70fad25c5  ./config/grub/.disk/cd_type
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
 78c908f9f98459b21ca703c224b13ff1  ./config/rsyslog/60-BCLD-rsyslog.conf
-bbf802787ee72f889c9c75b07629d580  ./config/bcld/bcld.cfg
+b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg
 ab23e76d42c8177569124b709cf36a10  ./config/modprobe/alsa-base.conf
 d5fa17464f6a8520b0fc28a2731b053c  ./config/modprobe/blacklist.conf
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
@@ -104,8 +104,8 @@ c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
 a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh
 6f833607c89d206f3d2dd97df02862e2  ./tools/bcld-repo-manager/SBOM_validate.sh
 0989b92e72241b3a93a32035a1cebe8b  ./tools/bcld-repo-manager/repository_manager.sh
-1ce5e5836913428721e04e24eee0a11b  ./CHANGELOG.md
-6d1e4fa710538f069720a719c179e61e  ./README.md
+c067d567dc294ff4f70ad40f785fd124  ./CHANGELOG.md
+d09ff6bb8e597106b67950233450c50f  ./README.md
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 ad24109900db2fb3007f863ced4d0f2b  ./.gitignore
