@@ -109,7 +109,7 @@ a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 ad24109900db2fb3007f863ced4d0f2b  ./.gitignore
-3ce18124e2467ab0d27580e9a1c80616  ./SECURITY.md
+6e48fa319a7f357e6d87dfb85433f46f  ./SECURITY.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
