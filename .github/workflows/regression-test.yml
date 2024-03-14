@@ -1,13 +1,14 @@
-name: BCLD EXTRA R8168
+name: BCLD REGRESSION TEST
 
 on:
   push:
     branches:
-      - main
+      - develop/ALPHA
+      - develop/BETA
 jobs:
-  vendorless-release-r8168:
+  vendorless-regression-test:
     runs-on: ubuntu-22.04
-    environment: release
+    environment: test
     container:
       image: ubuntu:jammy
       options: --privileged
@@ -43,14 +44,6 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
-    - name: Run RepoMan SBOM
-      run: |
-        /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
-    - name: Upload RepoMan SBOM
-      uses: actions/upload-artifact@v2
-      with:
-        name: RepoMan SBOM
-        path: /project/artifacts/*.md
     - name: Run BCLD BATS
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
@@ -83,11 +76,11 @@ jobs:
     - name: Upload BCLD-ISO
       uses: actions/upload-artifact@v2
       with:
-        name: BCLD-ISO-R8168
+        name: BCLD-ISO-TEST
         path: /project/artifacts/bcld.iso
     - name: Upload BCLD-IMG
       uses: actions/upload-artifact@v2
       with:
-        name: BCLD-IMG-R8168
+        name: BCLD-IMG-TEST
         path: /project/artifacts/*.img
 

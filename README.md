@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.8-4 BCLD (Illium)
+**BCLD Version**: 13.8-5 BCLD (Illium)
 
 **BCLD Kernel**: 6.2.0-39-generic
 
@@ -33,13 +33,9 @@ Below is an extensive manual of the product.
 20. [Testing](#testing)
 21. [Firewall](#firewall)
 22. [Tools](#tools)
-23. [Update ISOlinux](#update-isolinux)
-24. [BCLD Flow Chart](#bcld-flow-chart)
-25. [ISO Builder Flow Chart](#iso-builder-flow-chart)
-26. [Known Bugs](#known-bugs)
-27. [Security](#security)
-28. [License](#license)
-29. [Changelog](#changelog)
+23. [Security](#security)
+24. [License](#license)
+25. [Changelog](#changelog)
 
 # System Requirements
 
@@ -233,7 +229,8 @@ This repository consists of the following objects:
 | 27  | ipv6.disable                     | Disable IPv6 networking                                         | *BIT*                   | **0**, 1                                                                                                         |
 | 28  | nomodeset                        | Instruction to leave the kernel's mode setting to the firmware. | KERNEL PARAM            | nomodeset                                                                                                        |
 | 29  | nouveau.modeset                  | Allows kernel from loading video driver                         | *BIT*                   | 0, **1**                                                                                                         |
-| 30  | snd_hda_intel.dmic_detect        | Enables integrated microphone detection to force audio.         | *BIT*                   | 0, **1**                                                                                                         |
+| 30  | pci                       | Kernel PCI config                                               | *KERNEL PARAM* | noaer               |
+| 31  | snd_hda_intel.dmic_detect | Enables integrated microphone detection to force audio.         | *BIT*          | 0, **1**            |
 
 
 # Package Lists
@@ -265,11 +262,12 @@ This repository consists of the following objects:
 * All steps are written to `log/chroot.log`.
 * Package installations are written to `log/APT.log`.
 
-# Chrome Apps
-## `./deb` (`/opt`)
-* The BCLD repository contains two special directories: `./deb` and `./opt`:
-* All files in `./deb/RELEASE` are installed in the process.
-* `./deb/DEBUG` is only used for debug builds.
+# BCLD Apps
+## `./app`
+* The BCLD repository can detect a special directory: `./app`:
+* All files in `./app/RELEASE` are installed in the process.
+* `./app/DEBUG` is only used for debug builds.
+## `./opt`
 * All files in `./opt` are simply copied to the `/opt` directory within BCLD.
 
 # Image
@@ -549,72 +547,6 @@ stop
 | x        | clear the Repo Manager      |
 | w        | clear the WEB directory     |
 | q        | QUIT                        |
-
-# Updating bootloaders
-## ISOLINUX: `./image/ISO/isolinux/isolinux.bin`
-* Download ISOLINUX on the build machine: `apt-get install -y syslinux`.
-* Copy the binary: `cp /usr/lib/ISOLINUX/isolinux.bin ./image/ISO/isolinux/`.
-
-## Grub2
-* For Grub2, separate Grub images must be created for BIOS and UEFI.
-* You must supply the Grub configurations with the generation of these binaries.
-* These will be embedded into the ISO.
-* This must also be done for the IMG, which is built around it so that a writable part is left for configuration and logging.
-* Resources related to generating the ISO with `xorriso` can be found in `./image/ISO`.
-
-## BIOS: `./image/ISO/isolinux/bios.img`
-```
-grub-mkstandalone \
-   --format=i386-pc \
-   --output=isolinux/core.img \
-   --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls" \
-   --modules="linux16 linux normal configfile iso9660 biosdisk search" \
-   --locales="" \
-   --fonts="" \
-   "boot/grub/grub.cfg=isolinux/grub.cfg" # Interne ISO grub.cfg mapping (BIOS)
-
-# Combine BIOS-IMG with cdboot.img
-cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
-```
-
-## UEFI: `image/ISO/EFI/BOOT/bootx64.efi`
-
-```
-grub-mkstandalone \
-   --format=x86_64-efi \
-   --output=EFI/BOOT/bootx64.efi \
-   --locales="" \
-   --fonts="" \
-   "boot/grub/grub.cfg=isolinux/grub.cfg" # Interne ISO grub.cfg mapping (UEFI)
-```
-
-# BCLD Flow Chart
-<img src="./assets/BCLD_FLOW.png" alt="chart" width="1080"/>
-
-# ISO Builder Flow Chart
-<img src="./assets/ISO_BUILDER_FLOW.png" alt="chart" width="1080"/>
-
-# Known Bugs
-
-## Illegal parameters disable Plymouth
-* Certain parameters have been used in the past to force Single-User Mode.
-* These attempts are now being detected and will force a shutdown.
-* These parameters may affect the splash screen.
-* As a result, slightly more information about the system may become visible during startup.
-
-## Wi-Fi does not work on Secure Boot systems due to unsigned Realtek drivers
-* If Wi-Fi doesn't work in BCLD, it's probably related to Secure Boot.
-* This is due to the official Ubuntu drivers for the Realtek RTL8821CE Wireless Adapter not being signed for Secure Boot.
-* It has been reported from the community that several users are affected by this, especially since the beginning of 2022.
-* It is remains unknown whether this driver will ever be signed.
-* This mainly affects laptops with RTL8821CE Wi-Fi adapters, most of which are HP systems which previously did not work with BCLD (kernel panics).
-* The process of self-signing this driver is extremely complex for a user to maintain with their own device.
-* Self-signed local Secure Boot signatures must be managed inside the system's firmware.
-
-### Workarounds
-1. Disable Secure Boot
-2. Enable Legacy Boot
-3. Use another type of connection (Wi-Fi/LAN)
 
 # Security
 * There is a BCLD [Security Policy](./SECURITY.md) available

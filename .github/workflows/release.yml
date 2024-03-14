@@ -1,4 +1,4 @@
-name: BCLD FLOW (RELEASE)
+name: BCLD VENDORLESS RELEASE
 
 on:
   push:

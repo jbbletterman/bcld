@@ -1,21 +1,20 @@
-de7d8e6099bdb4098a994a2bd3a393a2  ./.github/workflows/release (r8168).yml
-02d40f13b795716e4054f551883bc6f9  ./.github/workflows/release.yml
-16242242080430cafecb96876ccb69b7  ./.github/workflows/test.yml
+0629b82f78684abc3d3443d156d8182e  ./.github/workflows/regression-test.yml
+2c6993244de4f05222de42f7be0d2438  ./.github/workflows/release (r8168).yml
+1b7152b50a7a13cdd41730f67d290796  ./.github/workflows/release.yml
+6811ff8046aa7875835a95d31a43e2ac  ./.github/workflows/unit-test.yml
 ad24109900db2fb3007f863ced4d0f2b  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-21d3a52d40e2c8c7a428dbcf65e98211  ./CHANGELOG.md
+6e85596efe5d2e5d41eb9e151b7e96e9  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 1caa32b50e9aba8223981fd3e308bb6c  ./IMG-builder.sh
 614336191e5787d7228f1b1276c2fd2f  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-434590d3dcb7165e87fc6e421dc6272f  ./README.md
+04d9c4413c43eb7087337493e4e3ae04  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
-821c3b754407f28c3770ec628790dfc5  ./SECURITY.md
-53712c37e5d406d6e2396d0133c63e0a  ./assets/BCLD_FLOW.png
-b70ef6c6e2ba24acef78d533b2bca185  ./assets/ISO_BUILDER_FLOW.png
+6e48fa319a7f357e6d87dfb85433f46f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-f867dd62fc97e35db33a952da66ae33a  ./config/BUILD.conf
+15e99a1205b316d28a917d11d7897146  ./config/BUILD.conf
 18bd9efd58884edb4e854c3a9f99e078  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -26,7 +25,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
 254b24b0ab8290571f24b7f9aec44017  ./config/bash/environment
-bbf802787ee72f889c9c75b07629d580  ./config/bcld/bcld.cfg
+b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg
 1b98525005b32bb69b3ab90e213c6492  ./config/casper/casper.conf
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
@@ -94,8 +93,6 @@ bc8d4c92bdbadd1c62c088184f39073f  ./config/trap_shutdown/virt/virt-warning-5.png
 49417e644296c2a5c9dbc5f8c805452e  ./config/trap_shutdown/virt/virt-warning-6.png
 c99677e6deb495fb2b90cbfb84ac7349  ./config/udev/rules.d/BCLD-USB.rules
 87ecdd57738b7ed7fe23e3da8a492593  ./image/ISO/README.diskdefines
-c12303174bde6f01a906e5bcd1651345  ./image/ISO/isolinux/isolinux.bin
-49a4210f52e5bcc79077d12c3dfd63f5  ./image/ISO/isolinux/isolinux.cfg
 2567e3b38779a0ba0a5408dda6759532  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
@@ -110,14 +107,14 @@ e31a1abc1d0a51b8784d1c55dcb31d79  ./script/file_operations.sh
 c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
 28e0ffc402b840f73e19252801488c7d  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
-583baeac39011b2b461d3ceb50e02d41  ./test/00_BCLD-BUILD.bats
+07819fd4b05d9e824d7e4865289dfcf1  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
 63ee28588fcf68b5ebb3da30703a8883  ./test/bcld_test.sh
 3923f9371b39761f5903a2c9a6f1eb59  ./test/common-setup
 6a4f851f7c95a345938ea4a517043191  ./tools/DOCKER-install.sh
 605f6267f29522b653b86775dd0c67fa  ./tools/EXPORTER-TOOLKIT.sh
-a9a2c5ec91a076965366520885b16f1f  ./tools/HashGen.sh
+59cf88c18b5ade29a48bf49ca8bd5db3  ./tools/HashGen.sh
 a07b3a3a7d09801f13569ffe9d4e9074  ./tools/NEXUS-deploy.sh
 6f833607c89d206f3d2dd97df02862e2  ./tools/bcld-repo-manager/SBOM_validate.sh
 a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh

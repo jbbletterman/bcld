@@ -116,6 +116,8 @@ img_size () {
     tag_check "ISO-SQUASHFS"
     tag_check "ISO-GRUB"
     tag_check "ISO-GEN"
+    
+    assert_output --partial 'ISO image created!'
 }
 
 ## Test if ISO Builder can execute
