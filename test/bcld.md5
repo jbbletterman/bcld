@@ -2,13 +2,13 @@
 2c6993244de4f05222de42f7be0d2438  ./.github/workflows/release (r8168).yml
 1b7152b50a7a13cdd41730f67d290796  ./.github/workflows/release.yml
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
-ad24109900db2fb3007f863ced4d0f2b  ./.gitignore
+fe04418f518751b34909a21f6bd44c94  ./.gitignore
 4a6fa59b1c01aecca6b7504953723f01  ./.gitmodules
-6e85596efe5d2e5d41eb9e151b7e96e9  ./CHANGELOG.md
+8f37cd23f9acc57028dc1ff8a664312e  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
-1caa32b50e9aba8223981fd3e308bb6c  ./IMG-builder.sh
-614336191e5787d7228f1b1276c2fd2f  ./ISO-builder.sh
+b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
+8f0e31a2827c520d3b59228aadc838ad  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 04d9c4413c43eb7087337493e4e3ae04  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
@@ -45,7 +45,7 @@ d5fa17464f6a8520b0fc28a2731b053c  ./config/modprobe/blacklist.conf
 818e728f1804c52e2abb09cbf0fe364c  ./config/openbox/rc.xml
 d93c0ecfa96fe619d9503decf1193dd3  ./config/openbox/rc.xml.debug
 d57cf84974e9a959d64a38710983a18d  ./config/packages/APP
-12755360b9cd42ab7b43a175416a606b  ./config/packages/BUILD
+66fd4259412e72f0d8315f0b6afecbea  ./config/packages/BUILD
 374480d37890b60da24eda7c90bf7b57  ./config/packages/DEBUG
 335cd24f955359c232ece20790776c3d  ./config/packages/KERNEL
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
@@ -93,6 +93,7 @@ bc8d4c92bdbadd1c62c088184f39073f  ./config/trap_shutdown/virt/virt-warning-5.png
 49417e644296c2a5c9dbc5f8c805452e  ./config/trap_shutdown/virt/virt-warning-6.png
 c99677e6deb495fb2b90cbfb84ac7349  ./config/udev/rules.d/BCLD-USB.rules
 87ecdd57738b7ed7fe23e3da8a492593  ./image/ISO/README.diskdefines
+49a4210f52e5bcc79077d12c3dfd63f5  ./image/ISO/isolinux/isolinux.cfg
 2567e3b38779a0ba0a5408dda6759532  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
@@ -114,7 +115,7 @@ d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 3923f9371b39761f5903a2c9a6f1eb59  ./test/common-setup
 6a4f851f7c95a345938ea4a517043191  ./tools/DOCKER-install.sh
 605f6267f29522b653b86775dd0c67fa  ./tools/EXPORTER-TOOLKIT.sh
-59cf88c18b5ade29a48bf49ca8bd5db3  ./tools/HashGen.sh
+6fdf14ef53f9d1d9d8fa11fc7de97426  ./tools/HashGen.sh
 a07b3a3a7d09801f13569ffe9d4e9074  ./tools/NEXUS-deploy.sh
 6f833607c89d206f3d2dd97df02862e2  ./tools/bcld-repo-manager/SBOM_validate.sh
 a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh

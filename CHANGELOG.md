@@ -3,6 +3,8 @@
 ## 2024
 
 ## March
+* `2024-03-14 16:39:46` : Added `isolinux` package to [BUILD](./config/packages/BUILD) packages
+    - Now generating new [isolinux.bin](./image/ISO/isolinux/)
 * `2024-03-14 15:44:49` : 
     - Add `pci=noaer` to [BCLD Client config](./config/bcld/bcld.cfg)
     - Change precommit to only commit changes if HashGen works
@@ -11,9 +13,6 @@
     - More detailed description of bug reporting
 * `2024-03-12 15:14:49` : 
     - Moved BCLD assets to [BCLD Wiki](https://www.github.com/jbbletterman/bcld.wiki#bcld-flow-charts) project
-    - Cleaned up two obsolete files: 
-        1. [isolinux bin](./image/ISO/isolinux/isolinux.bin), and
-        2. [isolinux cfg](./image/ISO/isolinux/isolinux.cfg)
 * `2024-03-12 12:23:28` : [OAC-978] Updated all [license texts](./LICENSE.eupl) in scripts
 * `2024-03-07 14:22:23` : [OAC-938] Added new font packages to support third party apps:
     - [fonts-font-awesome](./config/packages/REQUIRED)

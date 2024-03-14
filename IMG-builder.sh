@@ -91,8 +91,6 @@ if [[ -f "$(pwd)/IMG-builder.sh" ]]; then
 	## Calculations	
 	iso_size=$(/usr/bin/du "${ISO_ART}" | /usr/bin/awk '{print $1}')
 	img_size=$(( iso_size + RW_PART + EFI_PART ))
-#	ISO_DIR="${IMG_DIR}/ISO"
-
     
     # If BCLD_MODEL isn't sourced, it should be declared within the Bamboo agent.
     if [[ -z ${BCLD_MODEL} ]]; then
