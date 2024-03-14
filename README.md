@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.8-4 BCLD (Illium)
+**BCLD Version**: 13.8-5 BCLD (Illium)
 
 **BCLD Kernel**: 6.2.0-39-generic
 
@@ -229,7 +229,8 @@ This repository consists of the following objects:
 | 27  | ipv6.disable                     | Disable IPv6 networking                                         | *BIT*                   | **0**, 1                                                                                                         |
 | 28  | nomodeset                        | Instruction to leave the kernel's mode setting to the firmware. | KERNEL PARAM            | nomodeset                                                                                                        |
 | 29  | nouveau.modeset                  | Allows kernel from loading video driver                         | *BIT*                   | 0, **1**                                                                                                         |
-| 30  | snd_hda_intel.dmic_detect        | Enables integrated microphone detection to force audio.         | *BIT*                   | 0, **1**                                                                                                         |
+| 30  | pci                       | Kernel PCI config                                               | *KERNEL PARAM* | noaer               |
+| 31  | snd_hda_intel.dmic_detect | Enables integrated microphone detection to force audio.         | *BIT*          | 0, **1**            |
 
 
 # Package Lists
