@@ -19,6 +19,7 @@ gzip
 inetutils-ping
 libnss3-tools
 licensecheck
+isolinux
 mtools
 parted
 rsync
