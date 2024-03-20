@@ -46,7 +46,7 @@ If you are unsure on how to file a report, it may be useful to try the [GitHub R
   8. Credited developers.
 
 ### Bugs, Issues, Incidents, Problems
-When reporting a bug, you can use the report template above to report a GitHub Issue. Aside from this template, there are a few other things to think about:
+When reporting a bug through [GitHub Issues](https://github.com/jbbletterman/bcld/issues), you can use the report template above. Aside from this, there are a few other things to think about:
   * Always check known issues on the BCLD Wiki first.
   * Make sure you are using the latest release.
   * Also state which components are actually working.
