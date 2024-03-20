@@ -34,7 +34,7 @@ Our disclosure deadline for publicly disclosing a vulnerability is: **90 days** 
 
 We **appreciate the hard work** maintainers put into fixing vulnerabilities and understand that sometimes more time is required to properly address an issue. We want project maintainers to succeed and because of that we are always open to discuss our disclosure policy to fit your specific requirements, when warranted.
 
-## What to Report
+## Report Template
 If you are unsure on how to file a report, it may be useful to try the [GitHub Report Template](https://github.com/github/securitylab/blob/main/docs/report-template.md#vulnerability-report). Basically, it comes down to creating the following structure in your report:
   1. Summary of the problem,
   2. Tested product and version number,
