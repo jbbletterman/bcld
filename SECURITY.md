@@ -46,16 +46,13 @@ If you are unsure on how to file a report, it may be useful to try the [GitHub R
   8. Credited developers.
 
 ### Bugs, Issues, Incidents, Problems
-There are ways you can help us help you, by reporting bugs in a well-structured manner:
-1. First of all, make sure you are using the latest release
-2. Then, note down which version of the BCLD Client is having issues
-3. Be sure to check the BCLD Issues and Wiki on GitHub for the latest developments and known issues
-4. If the issue has not been reported, create a new issue
-5. Give a short description of what's happening
-6. Exclude features that are clearly working
-7. Describe non-working features and unmet expectations
-8. Figure out how to reproduce the incident
-9. Try to categorize the issue in at least one tag, like `kernel`, `graphics`, `network`, etc.
+When reporting a bug, you can use the report template above to report a GitHub Issue. Aside from this template, there are a few other things to think about:
+  * Always check known issues on the BCLD Wiki first.
+  * Make sure you are using the latest release.
+  * Also state which components are actually working.
+  * Try to categorize the issue in at least one tag (like `kernel`, `graphics` or `network`).
+  
+The better you describe the issue, the quicker we will find it!
 
 ### Vulnerabilities
 Reporting a vulnerability can be done through the button at the top of this page. For more information, see the [GitHub Docs](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability). Only the title and description are mandatory, but as much information as possible is recommended.
