@@ -19,13 +19,13 @@ The test will display common vulnerabilities on the Ubuntu platform that BCLD is
 OpenSCAP will detect vulnerabilities for Ubuntu systems using OVAL content.
 Aside from common vulnerabilities on Ubuntu systems, ShellCheck is used in conjunction with [RepoMan](./RepoMan.sh), our BCLD repository management tool.
 
-# Reporting a Bug or Vulnerability
+## Reporting a Bug or Vulnerability
 We try to track as many bugs and vulnerabilities as we can,
 but there is no certainty that we will catch everything.
 So if any of you find anything smelly in our code,
 be sure to post an issue, a ticket or contact the developers!
 
-## Disclosure Policy
+### Disclosure Policy
 The BCLD research team is dedicated to working closely with the open source community and with projects that are affected by a vulnerability, in order to protect users and ensure a coordinated disclosure. When we identify a vulnerability in a project, we will report it by contacting the publicly-listed security contact for the project if one exists; otherwise we will attempt to contact the project maintainers directly.
 
 If the project team responds and agrees the issue poses a security risk, we will work with the project security team or maintainers to communicate the vulnerability in detail, and agree on the process for public disclosure. Responsibility for developing and releasing a patch lies firmly with the project team, though we aim to facilitate this by providing detailed information about the vulnerability.
@@ -34,7 +34,7 @@ Our disclosure deadline for publicly disclosing a vulnerability is: **90 days** 
 
 We **appreciate the hard work** maintainers put into fixing vulnerabilities and understand that sometimes more time is required to properly address an issue. We want project maintainers to succeed and because of that we are always open to discuss our disclosure policy to fit your specific requirements, when warranted.
 
-## Report Template
+### Report Template
 If you are unsure on how to file a report, it may be useful to try the [GitHub Report Template](https://github.com/github/securitylab/blob/main/docs/report-template.md#vulnerability-report). Basically, it comes down to creating the following structure in your report:
   1. Summary of the problem,
   2. Tested product and version number,
@@ -45,7 +45,7 @@ If you are unsure on how to file a report, it may be useful to try the [GitHub R
   7. Create a private [GitHub Security Advisor](https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/creating-a-repository-security-advisory),
   8. Credited developers.
 
-## Bugs, Issues, Incidents, Problems
+### Bugs, Issues, Incidents, Problems
 There are ways you can help us help you, by reporting bugs in a well-structured manner:
 1. First of all, make sure you are using the latest release
 2. Then, note down which version of the BCLD Client is having issues
@@ -57,5 +57,5 @@ There are ways you can help us help you, by reporting bugs in a well-structured 
 8. Figure out how to reproduce the incident
 9. Try to categorize the issue in at least one tag, like `kernel`, `graphics`, `network`, etc.
 
-## Vulnerabilities
+### Vulnerabilities
 Reporting a vulnerability can be done through the button at the top of this page. For more information, see the [GitHub Docs](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability). Only the title and description are mandatory, but as much information as possible is recommended.
