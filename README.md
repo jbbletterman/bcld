@@ -6,7 +6,7 @@ This project is a follow-up to the Fedora BCLD project.
 BCLD was initiated in hopes of advancing hardware support and being able to operate in accordance with Secure Boot.
 Below is an extensive manual of the product.
 
-**BCLD Version**: 13.8-5 BCLD (Illium)
+**BCLD Version**: 13.8-6 BCLD (Illium)
 
 **BCLD Kernel**: 6.2.0-39-generic
 
@@ -452,14 +452,24 @@ stop
 * BCLD has a `DEBUG` edition.
 * This mode is enabled with the [`BCLD_MODEL`](#build-configurations) build configuration.
 * This configuration changes the condition of BCLD and installs the extra packages from [DEBUG](./config/packages/DEBUG).
-* This edition has additional firewall rules for Chrome debugging.
+* This edition has additional [debug firewall rules](./config/iptables/iptables.firewall.rules.debug) for Chrome debugging.
 * In BCLD `DEBUG` you can access the Chrome developer tools via the right mouse button or the `F12` key.
 
 # Testing
+* BCLD also has a `TEST` edition.
+* It is configured the same way as `DEBUG`, by overriding `BCLD_MODEL`.
+* This image will install not only the extra packages from [DEBUG](./config/packages/DEBUG), but also from [TEST](./config/packages/TEST).
+* This image has even less secure [test firewall rules](./config/iptables/iptables.firewall.rules.test).
+* This image allows not only SSH and HTTP, but even has a rule to allow the results of an OpenSCAP scan to be hosted locally.
+* Most of the testing done to BCLD is to secure a kiosk environment that users cannot escape.
+* Other tests involve testing features, bug fixes and hardware support.
+
+## Bash Automated Testing System
 * BCLD uses BASH Automated Testing System (BATS) to unit test the build process during major and large scale builds.
 * For the integration of the BATS modules, the repository must be cloned with the `--recursive` flag.
-* If this is forgotten, the modules can be updated with `git submodule update --init` (within the repo).
-* The tests are intended to run prior to a major build to avoid further interruptions, full caches and partially finished files.
+* This can always be done after, with `git submodule update --init` (within the repo).
+* During every test, an image is built in the background.
+* The tests monitor whether the build process runs successfully.
 * Many small tests and checks are carried out during the building process, which immediately interrupt the building process if something goes wrong.
 * Sometimes, services are not available or packages do not arrive.
 * BATS tests the following :
@@ -469,33 +479,16 @@ stop
    - integrity of important files,
    - correct execution of important build stages.
 
-
-| #   | Test                   | Explanation                                                                                               |
-|:---:|:----------------------:| --------------------------------------------------------------------------------------------------------- |
-|     |                        |                                                                                                           |
-|     |                        | *PRE-BUILD*                                                                                               |
-|     |                        |                                                                                                           |
-| 1   | ENV Checker            | Verifies that the necessary variables are set for the build.                                              |
-| 2   | Testing DNS            | Checks whether all domain names can be retrieved.                                                         |
-| 3   | Uplink                 | Checks whether all external services are accessible.                                                      |
-| 4   | Repo Integrity         | Calculates a recursive hash from all of the important files in the repository.                            |
-| 5   | File Integrity         | Checks all hashes of all files in the repository to make sure it is synced correctly on all build agents. |
-| 6   | Dry Run                | Checks whether internal Quintor services are accessible.                                                  |
-| 7   | Bamboo DEBs            | Verifies that Bamboo has the correct packages to continue building.                                       |
-| 8   | AppCheck               | Checks if the Debian repository is accessible before the build starts.                                    |
-|     |                        |                                                                                                           |
-|     |                        | *PER-BUILD*                                                                                               |
-|     |                        |                                                                                                           |
-| 9   | TagCheck               | Checks all TAGs for completion after a build.                                                             |
-| 10  | Bootstrap Monitor      | Checks if the Debian bootstrap runs correctly during a build.                                             |
-| 11  | Sanity MD5s            | Verifies that the integrity of all configured files matches the settings during a build.                  |
-| 12  | Substitution Inspector | Inspects whether the superseded values match the build configurations during a build.                     |
-| 13  | Grub Monitor           | Checks the integrity of all Grub files and the result of the installation during the build.               |
-|     |                        |                                                                                                           |
-|     |                        | *POST-BUILD*                                                                                              |
-|     |                        |                                                                                                           |
-| 14  | BCLD DEBs             | Checks whether the BCLD client contains the correct packages post-build.                                 |
-| 15  | ArtChecker             | Checks whether all artifacts have been created post-build.                                                |
+| #   | Test         | Explanation                                                                                 |
+|:---:|:------------:| ------------------------------------------------------------------------------------------- |
+|     |              |                                                                                             |
+| 1   | LicenseCheck | Checks for license text in all scripts and text files.                                      |
+| 2   | ShellCheck   | Checks for any errors in Bash syntax.                                                       |
+| 3   | TagCheck     | Checks all TAGs for completion after a build.                                               |
+| 4   | Grub Monitor | Checks the integrity of all Grub files and the result of the installation during the build. |
+| 5   | ArtChecker   | Checks whether all artifacts have been created post-build.                                  |
+| 6   | ISOcheck     | Check if the size of the ISO artifact seems correct.                                        |
+| 7   | IMGcheck     | Check if the size of the IMG artifact seems correct.                                        |
 
 # Firewall
 * BCLD uses `iptables` as firewall.

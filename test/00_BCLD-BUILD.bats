@@ -50,7 +50,7 @@ setup() {
 
 # Functions
 
-## Function to check if a stage has been succesful
+## Function to check if a stage has been successful
 tag_check() {
     refute_output --partial "${1} FAILED!!!"
 	assert_output --partial "${1} COMPLETE!"
