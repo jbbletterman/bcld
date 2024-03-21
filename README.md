@@ -460,7 +460,7 @@ stop
 * It is configured the same way as `DEBUG`, by overriding `BCLD_MODEL`.
 * This image will install not only the extra packages from [DEBUG](./config/packages/DEBUG), but also from [TEST](./config/packages/TEST).
 * This image has even less secure [test firewall rules](./config/iptables/iptables.firewall.rules.test).
-* This image allows not only SSH and HTTP, but even has a rule to allow the results of an OpenSCAP scan to be hosted locally.
+* This image allows not only SSH and HTTP, but even has a rule to allow the results of an [OpenSCAP scan](./test/bcld_test.sh#L276) to be hosted locally.
 * Most of the testing done to BCLD is to secure a kiosk environment that users cannot escape.
 * Other tests involve testing features, bug fixes and hardware support.
 
