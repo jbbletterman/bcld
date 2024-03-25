@@ -24,7 +24,8 @@ if [[ -d ./modules ]]; then
         /usr/bin/zip -r -b "${ART_DIR}/bcld.wiki.zip" modules/bcld.wiki \
         && list_catch \
         && on_completion \
-        || list_item_fail 'Module directory is empty!' \
+        || list_catch \
+        && list_item_fail 'Module directory is empty!' \
         && on_failure
     cd -
 else
