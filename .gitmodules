@@ -7,3 +7,6 @@
 [submodule "modules/bats-assert"]
 	path = modules/bats-assert
 	url = https://github.com/bats-core/bats-assert.git
+[submodule "modules/bcld.wiki"]
+	path = modules/bcld.wiki
+	url = https://www.github.com/jbbletterman/bcld.wiki
