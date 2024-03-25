@@ -119,7 +119,7 @@ ab93f20186c5a13a40a0e71ca6a71f78  ./test/00_BCLD-BUILD.bats
 605f6267f29522b653b86775dd0c67fa  ./tools/EXPORTER-TOOLKIT.sh
 6fdf14ef53f9d1d9d8fa11fc7de97426  ./tools/HashGen.sh
 a07b3a3a7d09801f13569ffe9d4e9074  ./tools/NEXUS-deploy.sh
-82744efe06b34c49b4fd6de060da6cc2  ./tools/WIKI-exporter.sh
+72dd05ba572bcbd687e2da96118979cd  ./tools/WIKI-exporter.sh
 6f833607c89d206f3d2dd97df02862e2  ./tools/bcld-repo-manager/SBOM_validate.sh
 a2643ca974e6b0e19fe9f38a1c359eb6  ./tools/bcld-repo-manager/generate_release.sh
 0989b92e72241b3a93a32035a1cebe8b  ./tools/bcld-repo-manager/repository_manager.sh

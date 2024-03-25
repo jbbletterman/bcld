@@ -75,6 +75,7 @@ if [[ -f "${MOD_PATH}/Home.md" ]]; then
     on_completion
 elif [ -d "${MOD_PATH}" ]; then
     list_item_fail 'Wiki directory seems empty!'
+    on_failure
 else
     list_item_fail 'Wiki directory does not exist!'
     on_failure
