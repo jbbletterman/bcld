@@ -1,10 +1,14 @@
 #!/bin/bash
 # Script for exporting the BCLD Wiki into an artifact
 
+set -e
+
 source ./script/file_operations.sh
 source ./script/echo_tools.sh
 
 TAG='WIKI-EXPORT'
+
+list_header "Starting Wiki Exporter"
 
 if [[ -x ./tools/WIKI-exporter.sh ]]; then
     ART_DIR="${PWD}/artifacts"
@@ -15,11 +19,14 @@ else
 fi
 
 if [[ -d ./modules ]]; then
-    cd ./modules || exit 1
-        list_header "Starting Wiki Exporter"
+    cd ./modules
         list_entry
-        /usr/bin/zip -r -b "${ART_DIR}/bcld.wiki.zip" modules/bcld.wiki && list_catch && on_completion
-    cd - || exit 1
+        /usr/bin/zip -r -b "${ART_DIR}/bcld.wiki.zip" modules/bcld.wiki \
+        && list_catch \
+        && on_completion \
+        || list_item_fail 'Module directory is empty!' \
+        && on_failure
+    cd -
 else
     list_item_fail 'Module directory does not exist!'
     on_failure
