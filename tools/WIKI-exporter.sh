@@ -21,7 +21,7 @@ fi
 if [[ -d ./modules ]]; then
     cd ./modules
         list_entry
-        /usr/bin/zip -r -b "${ART_DIR}/bcld.wiki.zip" modules/bcld.wiki \
+        /usr/bin/zip -r "${ART_DIR}/bcld.wiki.zip" modules/bcld.wiki \
         && list_catch \
         && on_completion \
         || list_catch \
