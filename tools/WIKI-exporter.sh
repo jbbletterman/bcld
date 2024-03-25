@@ -70,8 +70,8 @@ if [[ -f "${MOD_PATH}/Home.md" ]]; then
     cd ./modules
         list_entry
         /usr/bin/zip -r "${ART_DIR}/bcld.wiki.zip" "${WIKI_NAME}"
-        list_catch
     cd -
+    list_catch
     on_completion
 elif [ -d "${MOD_PATH}" ]; then
     list_item_fail 'Wiki directory seems empty!'
