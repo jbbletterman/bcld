@@ -4,9 +4,13 @@
 source ./script/file_operations.sh
 source ./script/echo_tools.sh
 
-ART_DIR="${PROJECT_DIR}/artifacts"
-
-prep_dir "${ART_DIR}"
+if [[ -x ./tools/WIKI-exporter.sh ]]; then
+    ART_DIR="${PWD}/artifacts"
+    prep_dir "${ART_DIR}"
+else
+    list_item_fail 'Please run this script from the project root directory!'
+    on_failure
+fi
 
 if [[ -d ./modules ]]; then
     cd ./modules
