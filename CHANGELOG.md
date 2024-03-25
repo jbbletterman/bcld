@@ -3,6 +3,12 @@
 ## 2024
 
 ## March
+* `2024-03-25 14:10:46` : 
+    - The [Release workflow](./.github/workflows/release%20(r8168).yml) now contains a BCLD Wiki export for archiving purposes
+    - The [Extra workflow](./.github/workflows/extra%20(r8168).yml) now contains the SBOM generation for resource optimization
+* `2024-03-25 12:22:20` : 
+    - [OAC-986] Added BCLD Wiki project as submodule in [Modules](./modules/bcld.wiki)
+    - Added [WIKI-exporter.sh](./tools/WIKI-exporter.sh)
 * `2024-03-20 13:02:53` : Added reporting template and `Disclosure Policy` to [Security Policy](./SECURITY.md)
 * `2024-03-14 16:39:46` : Added `isolinux` package to [BUILD](./config/packages/BUILD) packages
     - Now generating new [isolinux.bin](./image/ISO/isolinux/)
