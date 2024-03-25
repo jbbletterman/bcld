@@ -41,14 +41,14 @@ jobs:
         /usr/bin/apt-get update
         /usr/bin/apt-get upgrade -y
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
-    - name: Run RepoMan SBOM
+    - name: Run Wiki Exporter
       run: |
-        /usr/bin/bash -c './tools/bcld-repo-manager/repository_manager.sh'
-    - name: Upload RepoMan SBOM
+        /usr/bin/bash -c './tools/WIKI-exporter.sh'
+    - name: Upload BCLD Wiki
       uses: actions/upload-artifact@v2
       with:
-        name: RepoMan SBOM
-        path: /project/artifacts/*.md
+        name: BCLD WIKI
+        path: /project/artifacts/bcld.wiki.zip
     - name: Run BCLD BATS
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
