@@ -35,6 +35,7 @@ jobs:
         /usr/bin/git clone https://github.com/bats-core/bats-core.git
         /usr/bin/git clone https://github.com/bats-core/bats-support.git
         /usr/bin/git clone https://github.com/bats-core/bats-assert.git
+        /usr/bin/git clone https://github.com/jbbletterman/bcld.wiki.git
         cd - || exit
     - name: Install dependencies
       run: |
