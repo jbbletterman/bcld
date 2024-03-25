@@ -207,6 +207,7 @@ function on_completion () {
     /usr/bin/echo "    ├─────╢ █ █ █║ Environment: (${0})"
     /usr/bin/echo "    ├─────╢█ █ █ ║ Completed on: $(/usr/bin/date +'%Y-%m-%d %T')"
     /usr/bin/echo '    ╽'
+    /usr/bin/echo
 }
 
 # Function to trigger successful feedback
@@ -216,6 +217,7 @@ function on_failure () {
     /usr/bin/echo "    ├─[-]─╢ ░ ░ ░║ ${TAG} FAILED!!!"
     /usr/bin/echo "    ├─────╢░ ░ ░ ║ Date: $(/usr/bin/date +'%Y-%m-%d %T')"
     /usr/bin/echo '    ╽'
+    /usr/bin/echo
     exit 1
 }
 
