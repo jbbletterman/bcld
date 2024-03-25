@@ -30,4 +30,5 @@ tar
 udev
 uuid-runtime
 xorriso
+zip
 zstd
