@@ -3,6 +3,7 @@
 ## 2024
 
 ## March
+* `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Jericho` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)
 * `2024-03-25 14:10:46` : 
     - The [Release workflow](./.github/workflows/release%20(r8168).yml) now contains a BCLD Wiki export for archiving purposes
     - The [Extra workflow](./.github/workflows/extra%20(r8168).yml) now contains the SBOM generation for resource optimization
