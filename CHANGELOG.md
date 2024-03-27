@@ -3,23 +3,22 @@
 ## 2024
 
 ## March
-* `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Jericho` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)
-* `2024-03-25 14:10:46` : 
+* `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Illium` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)
+* `2024-03-25 14:10:46` : [OAC-486]
     - The [Release workflow](./.github/workflows/release%20(r8168).yml) now contains a BCLD Wiki export for archiving purposes
     - The [Extra workflow](./.github/workflows/extra%20(r8168).yml) now contains the SBOM generation for resource optimization
-* `2024-03-25 12:22:20` : 
-    - [OAC-986] Added BCLD Wiki project as submodule in [Modules](./modules/bcld.wiki)
+* `2024-03-25 12:22:20` : [OAC-986] Added BCLD Wiki project as submodule in [Modules](./modules/bcld.wiki)
     - Added [WIKI-exporter.sh](./tools/WIKI-exporter.sh)
-* `2024-03-20 13:02:53` : Added reporting template and `Disclosure Policy` to [Security Policy](./SECURITY.md)
-* `2024-03-14 16:39:46` : Added `isolinux` package to [BUILD](./config/packages/BUILD) packages
+* `2024-03-20 13:02:53` : [OAC-480] Added reporting template and `Disclosure Policy` to [Security Policy](./SECURITY.md)
+* `2024-03-14 16:39:46` : [OAC-1003] Added `isolinux` package to [BUILD](./config/packages/BUILD) packages
     - Now generating new [isolinux.bin](./image/ISO/isolinux/)
 * `2024-03-14 15:44:49` : 
     - Add `pci=noaer` to [BCLD Client config](./config/bcld/bcld.cfg)
     - Change precommit to only commit changes if HashGen works
-* `2024-03-14 12:45:25` : Added section on Vulnerability Reporting in [Security Policy](./SECURITY.md#reporting-a-vulnerability)
-* `2024-03-13 13:33:25` : Updated [Security Policy](./SECURITY.md#reporting-a-bug)
+* `2024-03-14 12:45:25` : [OAC-480] Added section on Vulnerability Reporting in [Security Policy](./SECURITY.md#reporting-a-vulnerability)
+* `2024-03-13 13:33:25` : [OAC-480] Updated [Security Policy](./SECURITY.md#reporting-a-bug)
     - More detailed description of bug reporting
-* `2024-03-12 15:14:49` : 
+* `2024-03-12 15:14:49` : [OAC-1000]
     - Moved BCLD assets to [BCLD Wiki](https://www.github.com/jbbletterman/bcld.wiki#bcld-flow-charts) project
 * `2024-03-12 12:23:28` : [OAC-978] Updated all [license texts](./LICENSE.eupl) in scripts
 * `2024-03-07 14:22:23` : [OAC-938] Added new font packages to support third party apps:
