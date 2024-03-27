@@ -12,7 +12,7 @@
 * `2024-03-20 13:02:53` : [OAC-480] Added reporting template and `Disclosure Policy` to [Security Policy](./SECURITY.md)
 * `2024-03-14 16:39:46` : [OAC-1003] Added `isolinux` package to [BUILD](./config/packages/BUILD) packages
     - Now generating new [isolinux.bin](./image/ISO/isolinux/)
-* `2024-03-14 15:44:49` : 
+* `2024-03-14 15:44:49` : [OAC-1005]
     - Add `pci=noaer` to [BCLD Client config](./config/bcld/bcld.cfg)
     - Change precommit to only commit changes if HashGen works
 * `2024-03-14 12:45:25` : [OAC-480] Added section on Vulnerability Reporting in [Security Policy](./SECURITY.md#reporting-a-vulnerability)
