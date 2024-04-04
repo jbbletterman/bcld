@@ -2,6 +2,9 @@
 
 ## 2024
 
+## April
+* `2024-04-04 17:24:11` : Migrated system requirements, USB configurations and tools from [README](./README.md) to [BCLD Wiki](https://www.github.com/jbbletterman/bcld/wiki)
+
 ## March
 * `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Illium` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)
 * `2024-03-25 14:10:46` : [OAC-486]
