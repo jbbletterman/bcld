@@ -78,7 +78,32 @@ function BCLD_CMDs () {
 
 ## Function to display BCLD certificates
 function BCLD_CERTs () {
+    CERT_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -hash)"
+	CERT_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
+	
+	list_header 'Checking BCLD certificates'
+	list_item "Client certificate: ${CERT_HASH}"
+	list_item "EXPIRES: ${CERT_DATE}"
+	list_entry
+	/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -subject
+	list_catch
+	list_item 'Checking NSSDB certificates...'
+	list_entry
 	/usr/bin/certutil -d "sql:${NSSDB}" -L
+	list_catch
+	list_exit
+}
+
+## Function to display BCLD keys
+function BCLD_KEYs () {
+	KEY_STATE="$(/usr/bin/openssl rsa -in /etc/ssl/certs/bcld.key -noout -check)"
+	
+	list_header 'Checking BCLD keys'
+	list_item "Client key: ${KEY_STATE}"
+	list_entry
+	/usr/bin/certutil -d "sql:${NSSDB}" -K
+	list_catch
+	list_exit
 }
 
 ## Function to display BCLD variables
@@ -96,11 +121,6 @@ function BCLD_FAO () {
 ## Function to check default target
 function BCLD_JRN () {
 	/usr/bin/journalctl -f --no-pager
-}
-
-## Function to display BCLD keys
-function BCLD_KEYs () {
-	/usr/bin/certutil -d "sql:${NSSDB}" -K
 }
 
 ## Function to logout after a few seconds
