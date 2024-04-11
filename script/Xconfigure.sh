@@ -82,6 +82,9 @@ log_whitespace
 log_header "Configuring X settings"
 log_first 'Checking BCLD boot parameters...'
 
+# Bindings
+
+## Escaping
 if [[ "${BCLD_MODEL}" = 'release' ]]; then
     # Terminate escaping in RELEASE
     /usr/bin/setxkbmap -option srvrkeys:none
@@ -92,6 +95,17 @@ else
     # Allow escaping otherwise
     /usr/bin/setxkbmap -option terminate:ctrl_alt_bksp
 fi
+
+## Mouse button swap
+if [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
+    # Since M2 is already disabled in Vendorless BCLD, always swap M2 and M3
+    # This allows for the usage of tabs on laptops
+    # Xmodmap will automatically detect the current mouse and only change the appropriate buttons
+    /usr/bin/echo -e "\nVendorless BCLD detected!" 
+    /usr/bin/echo "Swapping mouse buttons 2 and 3..." 
+    /usr/bin/xmodmap -e "pointer = 1 3 2"
+fi
+
 
 # X configurations, this script starts with Openbox (autostart).
 

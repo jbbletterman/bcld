@@ -219,6 +219,7 @@ function read_vendor_param() {
 		    list_item 'Setting to default: FACET'
 		    export BCLD_VENDOR='facet'
 	    else
+	        # Without a Facet Chrome app, we are likely running Vendorless BCLD
 	        list_item 'BCLD App not found, setting to: VENDORLESS BCLD'
 		    export BCLD_VENDOR='vendorless'
 		fi
