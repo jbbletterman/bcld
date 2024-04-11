@@ -92,6 +92,7 @@ function BCLD_CERTs () {
 	/usr/bin/certutil -d "sql:${NSSDB}" -L
 	list_catch
 	list_exit
+	/usr/bin/echo
 }
 
 ## Function to display BCLD keys
@@ -104,6 +105,7 @@ function BCLD_KEYs () {
 	/usr/bin/certutil -d "sql:${NSSDB}" -K
 	list_catch
 	list_exit
+	/usr/bin/echo
 }
 
 ## Function to display BCLD variables
