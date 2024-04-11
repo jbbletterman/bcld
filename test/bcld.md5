@@ -6,7 +6,7 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-291e0ba0ed065fba6c55f894492c06b9  ./CHANGELOG.md
+07ac38d59721c94a546a44161130c169  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
@@ -26,7 +26,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-5dd417576230204f88a8645ab3c14f1e  ./config/bash/environment
+3b1769a0886d95a3c7b151cd34b28fce  ./config/bash/environment
 b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg
 1b98525005b32bb69b3ab90e213c6492  ./config/casper/casper.conf
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
@@ -96,7 +96,7 @@ bc8d4c92bdbadd1c62c088184f39073f  ./config/trap_shutdown/virt/virt-warning-5.png
 c99677e6deb495fb2b90cbfb84ac7349  ./config/udev/rules.d/BCLD-USB.rules
 87ecdd57738b7ed7fe23e3da8a492593  ./image/ISO/README.diskdefines
 49a4210f52e5bcc79077d12c3dfd63f5  ./image/ISO/isolinux/isolinux.cfg
-a203c6313494053ce64a1b45315bec5a  ./script/Xconfigure.sh
+d82d30ac340520e022f88d6fd0326a13  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
 0b79b08631a8b53b24b14d58a084e372  ./script/bcld_vendor.sh
@@ -108,7 +108,7 @@ f40959577ffde99913136be82d5d7ec1  ./script/echo_tools.sh
 e31a1abc1d0a51b8784d1c55dcb31d79  ./script/file_operations.sh
 07de693b053c97f6f8d44c43d0ab202b  ./script/log_tools.sh
 c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
-062ba9bfb4e93287c07a59d4445aab2f  ./script/startup.sh
+37ae605684b091cd49f574898893e126  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 ab93f20186c5a13a40a0e71ca6a71f78  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh

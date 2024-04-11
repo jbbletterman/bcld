@@ -97,9 +97,12 @@ else
 fi
 
 ## Mouse button swap
-if [[ "${BCLD_SWAP}" -eq 1 ]]; then
+if [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
+    # Since M2 is already disabled in Vendorless BCLD, always swap M2 and M3
+    # This allows for the usage of tabs on laptops
     # Xmodmap will automatically detect the current mouse and only change the appropriate buttons
-    /usr/bin/echo -e "\nBCLD_SWAP detected!" 
+    /usr/bin/echo -e "\nVendorless BCLD detected!" 
+    /usr/bin/echo "Swapping mouse buttons 2 and 3..." 
     /usr/bin/xmodmap -e "pointer = 1 3 2"
 fi
 
