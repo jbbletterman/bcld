@@ -21,6 +21,7 @@ XORG_USR_LOG="/home/${BCLD_USER}/.local/share/xorg/Xorg.0.log"
 AFNAME_PARAM='BCLD_URL'
 MOUSE_PARAM='BCLD_MOUSE'
 SHUTDOWN_PARAM='BCLD_SHUTDOWN'
+SWAP_PARAM='BCLD_SWAP'
 VENDOR_PARAM='BCLD_VENDOR'
 VERBOSE_PARAM='BCLD_VERBOSE'
 ZOOM_PARAM='BCLD_ZOOM'
@@ -65,10 +66,11 @@ WIFI_EAP_USER_PARAM='BCLD_EAP_USER'
 ## AFNAME
 AFNAME_ALIAS='bcld.afname.url'
 MOUSE_ALIAS='bcld.afname.mouse'
-VENDOR_ALIAS='bcld.afname.vendor'
-ZOOM_ALIAS='bcld.afname.zoom'
-VERBOSE_ALIAS='bcld.afname.verbose'
 SHUTDOWN_ALIAS='bcld.afname.shutdown'
+SWAP_ALIAS='bcld.afname.swap'
+VENDOR_ALIAS='bcld.afname.vendor'
+VERBOSE_ALIAS='bcld.afname.verbose'
+ZOOM_ALIAS='bcld.afname.zoom'
 
 ## AUDIO
 AUDIO_ALSA_PORT_ALIAS='bcld.audio.alsa_port'

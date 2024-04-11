@@ -219,8 +219,12 @@ function read_vendor_param() {
 		    list_item 'Setting to default: FACET'
 		    export BCLD_VENDOR='facet'
 	    else
+	        # Without a Facet Chrome app, we are likely running Vendorless BCLD
 	        list_item 'BCLD App not found, setting to: VENDORLESS BCLD'
 		    export BCLD_VENDOR='vendorless'
+		    
+		    # Vendorless BCLD should swap mouse buttons to enable use of tabs by default
+		    export BCLD_SWAP=1
 		fi
 	else
 		# Display used BCLD_VENDOR parameter

@@ -3,8 +3,11 @@
 ## 2024
 
 ## April
-* `2024-04-04 17:24:11` : Migrated system requirements, USB configurations and tools from [README](./README.md) to [BCLD Wiki](https://www.github.com/jbbletterman/bcld/wiki)
+* `2024-04-11 16:35:55` : [OAC-905] Added new BCLD parameter: [bcld.afname.swap](https://github.com/jbbletterman/bcld/wiki/Client%20Configuration#general)
+    - Can be used for swapping mouse buttons M2 and M3
+    - Allows for usage of tabs in Vendorless BCLD
 * `2024-04-10 17:11:10` : [OAC-1031] Enhanced `BCLD_CERTs` and `BCLD_KEYs` methods in [BCLD TEST package](./test/bcld_test.sh) to also include checks for client certificate and key
+* `2024-04-04 17:24:11` : Migrated system requirements, USB configurations and tools from [README](./README.md) to [BCLD Wiki](https://www.github.com/jbbletterman/bcld/wiki)
 
 ## March
 * `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Illium` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)
