@@ -78,10 +78,18 @@ function BCLD_CMDs () {
 
 ## Function to display BCLD certificates
 function BCLD_CERTs () {
+    CA_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -hash)"
+	CA_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
+
     CERT_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -hash)"
 	CERT_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
 	
 	list_header 'Checking BCLD certificates'
+	list_item "CA certificate: ${CA_HASH}"
+	list_item "EXPIRES: ${CA_DATE}"
+	list_entry
+	/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -subject
+	list_catch
 	list_item "Client certificate: ${CERT_HASH}"
 	list_item "EXPIRES: ${CERT_DATE}"
 	list_entry
@@ -92,6 +100,7 @@ function BCLD_CERTs () {
 	/usr/bin/certutil -d "sql:${NSSDB}" -L
 	list_catch
 	list_exit
+	/usr/bin/echo
 }
 
 ## Function to display BCLD keys
@@ -104,6 +113,7 @@ function BCLD_KEYs () {
 	/usr/bin/certutil -d "sql:${NSSDB}" -K
 	list_catch
 	list_exit
+	/usr/bin/echo
 }
 
 ## Function to display BCLD variables
