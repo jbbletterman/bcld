@@ -4,6 +4,7 @@
 
 ## April
 * `2024-04-04 17:24:11` : Migrated system requirements, USB configurations and tools from [README](./README.md) to [BCLD Wiki](https://www.github.com/jbbletterman/bcld/wiki)
+* `2024-04-10 17:11:10` : [OAC-1031] Enhanced `BCLD_CERTs` and `BCLD_KEYs` methods in [BCLD TEST package](./test/bcld_test.sh) to also include checks for client certificate and key
 
 ## March
 * `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Illium` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)

@@ -6,7 +6,7 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-4ae13d4735592ffb2b037d8e9d2f5e08  ./CHANGELOG.md
+b19a5ca72f947bae8e0e701db7b7c084  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
@@ -16,7 +16,7 @@ b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-46bb81e79e771a5befe4caf3637fe0ac  ./config/BUILD.conf
+3ac06411c4d3fc57d1b30bf3a2f2ab95  ./config/BUILD.conf
 18bd9efd58884edb4e854c3a9f99e078  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -99,7 +99,7 @@ c99677e6deb495fb2b90cbfb84ac7349  ./config/udev/rules.d/BCLD-USB.rules
 2567e3b38779a0ba0a5408dda6759532  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
-f196799b361d8b2763b6036a66846172  ./script/bcld_vendor.sh
+0b79b08631a8b53b24b14d58a084e372  ./script/bcld_vendor.sh
 1d7a6ff3ed051e8eeaedca3b4a5c4451  ./script/chroot.sh
 8cbe061a180f3034b8e51dcaf1f03423  ./script/client_logger.sh
 525f0518876e4991769aca7d61e10e5a  ./script/crosdump_logger.sh
@@ -113,7 +113,7 @@ d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 ab93f20186c5a13a40a0e71ca6a71f78  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
-63ee28588fcf68b5ebb3da30703a8883  ./test/bcld_test.sh
+7a2eb9e23b774be553c3b774c346fed0  ./test/bcld_test.sh
 3923f9371b39761f5903a2c9a6f1eb59  ./test/common-setup
 6a4f851f7c95a345938ea4a517043191  ./tools/DOCKER-install.sh
 605f6267f29522b653b86775dd0c67fa  ./tools/EXPORTER-TOOLKIT.sh

@@ -53,7 +53,6 @@ CA_CERT_NAME='ca.crt'
 CLIENT_CRT_NAME='bcld.crt'
 CLIENT_KEY_NAME='bcld.key'
 PUB_PKI_DIR='/usr/share/ca-certificates'
-SSL_HASHES='/etc/ssl/certs'
 
 # FUNCTIONS
 
@@ -65,8 +64,8 @@ function get_vendor_opts () {
 ## To set hashes
 function hash_bcld_cert () {
 	
-	## Move into SSL_HASHES and link the added CA as CERT_NAME
-	cd "${SSL_HASHES}"
+	## Move into '/etc/ssl/certs' and link the added CA as CERT_NAME
+	cd /etc/ssl/certs
 
 	# ENVs
 	CA_CRT="${PUB_PKI_DIR}/${BCLD_VENDOR}/${CA_CERT_NAME}"
