@@ -6,7 +6,7 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-7435658685a6583d228ba53e9e5ac0f6  ./CHANGELOG.md
+4cffd8ccb199906e4715595565141a92  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
@@ -108,7 +108,7 @@ f40959577ffde99913136be82d5d7ec1  ./script/echo_tools.sh
 e31a1abc1d0a51b8784d1c55dcb31d79  ./script/file_operations.sh
 07de693b053c97f6f8d44c43d0ab202b  ./script/log_tools.sh
 c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
-d81c0e5745f4c0a2516cd99dbca0319b  ./script/startup.sh
+04a30d9e9ac024a79b78b7ee061f61cc  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 ab93f20186c5a13a40a0e71ca6a71f78  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh

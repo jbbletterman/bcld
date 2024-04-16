@@ -369,6 +369,9 @@ function ip_link () {
 			    # If BCLD_URL is set, but network check fails, this network is unstable
 			    if [[ "${BCLD_DOWNLOAD}" -eq 0 ]]; then
 			        list_item_fail "Network check failed!"
+			        list_item_fail 'This means BCLD is unable to connect, shutting down...'
+			        list_exit
+			        /usr/bin/sleep 2s
 			        trap_shutdown 'net'
 			    fi
 			    

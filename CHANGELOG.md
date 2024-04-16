@@ -4,9 +4,9 @@
 
 ## April
 * `2024-04-16 15:02:15` : [Network check](./script/startup.sh#L366)
-    - Now actually scans 3 times, instead of stopping after 2 tries
-    - Now waits 3 seconds after every wireless scan if the network is unstable
-    - Now shuts down the system on failure
+    - [OAC-1040] Now actually scans 3 times, instead of stopping after 2 tries
+    - [OAC-1038] Now waits 3 seconds after every wireless scan if the network is unstable
+    - [OAC-1039] Now shuts down the system on failure
 * `2024-04-16 12:37:52` : Remove duplicate package `keyboard-configuration` from [REQUIRED](./config/packages/REQUIRED) packages
 * `2024-04-11 16:35:55` : [OAC-905] Swapping mouse buttons 2 and 3 for Vendorless BCLD by default in [Xconfigure](./script/Xconfigure.sh#L99)
     - Mouse button 2 does not work in Vendorless BCLD
