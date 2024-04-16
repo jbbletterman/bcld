@@ -6,7 +6,7 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-07ac38d59721c94a546a44161130c169  ./CHANGELOG.md
+63cdf24080be22c4e1ced6acfe13cfe7  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
@@ -52,7 +52,7 @@ d57cf84974e9a959d64a38710983a18d  ./config/packages/APP
 335cd24f955359c232ece20790776c3d  ./config/packages/KERNEL
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
 6c224b812083575965b9bf1aca105231  ./config/packages/REMOVE
-9573cbe6514dbc76dcc5c831e66511b3  ./config/packages/REQUIRED
+5f5c28de1f36671f1888b0b24d56be55  ./config/packages/REQUIRED
 626f50bfe4b5318ece35f2572e5e95af  ./config/packages/TEST
 c4194d2bde957994fa74aaa13bc8333e  ./config/packages/VIRTUAL
 e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf

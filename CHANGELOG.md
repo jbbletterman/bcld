@@ -3,6 +3,8 @@
 ## 2024
 
 ## April
+* `2024-04-16 12:37:52` : Remove duplicate package `keyboard-configuration` from [REQUIRED](./config/packages/REQUIRED) packages
+    - Removed `rtl8821ce-dkms` from regular release
 * `2024-04-11 16:35:55` : [OAC-905] Swapping mouse buttons 2 and 3 for Vendorless BCLD by default in [Xconfigure](./script/Xconfigure.sh#L99)
     - Mouse button 2 does not work in Vendorless BCLD
     - Swapping mouse buttons allows for usage of tabs on laptops

@@ -68,7 +68,6 @@ iptables-persistent
 isc-dhcp-client
 jq
 keyboard-configuration
-keyboard-configuration
 klibc-utils
 kmod
 laptop-detect
@@ -228,7 +227,6 @@ rpm2cpio
 rpm-common
 rsyslog
 rsyslog-gnutls
-rtl8821ce-dkms
 shared-mime-info
 squashfs-tools
 strace
