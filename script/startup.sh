@@ -502,6 +502,9 @@ function connect_wifi () {
 			/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
 			((attempt++))
 			
+			# dhclient sometimes works erratically on slower connections
+			/usr/bin/sleep 3s
+			
 			# Break out after SCAN_TRIES
 			if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 				list_item_fail "Tried ${attempt} times... Giving up."
