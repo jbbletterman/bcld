@@ -68,7 +68,6 @@ iptables-persistent
 isc-dhcp-client
 jq
 keyboard-configuration
-keyboard-configuration
 klibc-utils
 kmod
 laptop-detect

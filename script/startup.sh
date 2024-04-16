@@ -365,6 +365,13 @@ function ip_link () {
 			    # Only perform network check on BCLD_URL (trusted)
 			    list_item_pass "Performing network check on: \"${BCLD_URL}\""
 			    export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' "${BCLD_URL}")"
+			    
+			    # If BCLD_URL is set, but network check fails, this network is unstable
+			    if [[ "${BCLD_DOWNLOAD}" -eq 0 ]]; then
+			        list_item_fail 'Network check failed!'
+			        trap_shutdown 'net'
+			    fi
+			    
 			fi
 			
 			export BCLD_IP="$(/usr/sbin/ip address | /usr/bin/grep "${BCLD_IF}" | /usr/bin/grep inet | /usr/bin/awk '{ print $2 }' | /usr/bin/cut -d '/' -f1 | /usr/bin/head -n 1)"
@@ -461,13 +468,15 @@ function connect_lan () {
 		
 		list_item "Attempting to establish wired connection on: ${1} (attempt: #${attempt})"
 		/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
-		((attempt++))
 		
 		# Break out after SCAN_TRIES
 		if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 			list_item_fail "Tried ${attempt} times... Giving up."
 			break
 		fi
+		
+		((attempt++))
+
 	done
 		
 }
@@ -500,13 +509,14 @@ function connect_wifi () {
 		while [[ ! -s "${DHCP_LEASE}" ]]; do
 			list_item "Attempting to establish WiFi connection on: ${1} (attempt: #${attempt})"
 			/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
-			((attempt++))
 			
 			# Break out after SCAN_TRIES
 			if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 				list_item_fail "Tried ${attempt} times... Giving up."
 				break
     		fi
+
+			((attempt++))
 			
 		done
 	fi
@@ -617,7 +627,7 @@ function init_app () {
 	    	write_ENVs
 	    	
 	    	# Only TEST can escape the app and reset the terminal
-	    	launch
+	    	# launch
 	        reset_terminal
         else
             # If not TEST, launch the app normally but shutdown if it halts
@@ -905,13 +915,17 @@ if [[ -n ${BCLD_SSID} ]]; then
     while [[ "${conns}" -lt 1 ]]; do
         list_item "Checking wireless networks...(attempt: #${attempt})"
         conns=$(($(/usr/bin/nmcli device wifi list | /usr/bin/wc -l) - 1))
-        ((attempt++))
+        
+		# dhclient sometimes works erratically on slower connections
+		/usr/bin/sleep 3s
 
 		# Break out after SCAN_TRIES
         if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
         	list_item_fail "Tried ${attempt} times... Giving up."
         	break
     	fi
+        
+        ((attempt++))
 
     done
     
