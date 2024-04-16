@@ -461,13 +461,15 @@ function connect_lan () {
 		
 		list_item "Attempting to establish wired connection on: ${1} (attempt: #${attempt})"
 		/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
-		((attempt++))
 		
 		# Break out after SCAN_TRIES
 		if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 			list_item_fail "Tried ${attempt} times... Giving up."
 			break
 		fi
+		
+		((attempt++))
+
 	done
 		
 }
@@ -500,13 +502,14 @@ function connect_wifi () {
 		while [[ ! -s "${DHCP_LEASE}" ]]; do
 			list_item "Attempting to establish WiFi connection on: ${1} (attempt: #${attempt})"
 			/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
-			((attempt++))
 			
 			# Break out after SCAN_TRIES
 			if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 				list_item_fail "Tried ${attempt} times... Giving up."
 				break
     		fi
+
+			((attempt++))
 			
 		done
 	fi
@@ -905,7 +908,6 @@ if [[ -n ${BCLD_SSID} ]]; then
     while [[ "${conns}" -lt 1 ]]; do
         list_item "Checking wireless networks...(attempt: #${attempt})"
         conns=$(($(/usr/bin/nmcli device wifi list | /usr/bin/wc -l) - 1))
-        ((attempt++))
         
 		# dhclient sometimes works erratically on slower connections
 		/usr/bin/sleep 3s
@@ -915,6 +917,8 @@ if [[ -n ${BCLD_SSID} ]]; then
         	list_item_fail "Tried ${attempt} times... Giving up."
         	break
     	fi
+        
+        ((attempt++))
 
     done
     

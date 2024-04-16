@@ -3,6 +3,7 @@
 ## 2024
 
 ## April
+* `2024-04-16 15:02:15` : Network check now actually scans 3 times, instead of stopping after 2 tries
 * `2024-04-16 12:37:52` : Remove duplicate package `keyboard-configuration` from [REQUIRED](./config/packages/REQUIRED) packages
 * `2024-04-11 16:35:55` : [OAC-905] Swapping mouse buttons 2 and 3 for Vendorless BCLD by default in [Xconfigure](./script/Xconfigure.sh#L99)
     - Mouse button 2 does not work in Vendorless BCLD
