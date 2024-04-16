@@ -16,7 +16,7 @@ b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-67addc24b6f7d86fcdd3e7b1dfcd8d17  ./config/BUILD.conf
+1faf4dcb5239240bd47fb467f8cd8e74  ./config/BUILD.conf
 18bd9efd58884edb4e854c3a9f99e078  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -108,7 +108,7 @@ f40959577ffde99913136be82d5d7ec1  ./script/echo_tools.sh
 e31a1abc1d0a51b8784d1c55dcb31d79  ./script/file_operations.sh
 07de693b053c97f6f8d44c43d0ab202b  ./script/log_tools.sh
 c0de4ac6ac0866d70b5650c49a75f572  ./script/rsyslogger.sh
-04a30d9e9ac024a79b78b7ee061f61cc  ./script/startup.sh
+d81c0e5745f4c0a2516cd99dbca0319b  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 ab93f20186c5a13a40a0e71ca6a71f78  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
