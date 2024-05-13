@@ -77,7 +77,7 @@ function copy_directory {
     fi
 }
 
-## Function to copy a configuration directory
+## Function to copy a directory recursively
 function copy_recursively {
     if [[ -d ${1} ]]; then
 		list_item "Copying recursively $(basename "${1}")..."
