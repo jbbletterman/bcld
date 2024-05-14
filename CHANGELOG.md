@@ -11,6 +11,7 @@
     - Removed libsnapd-glib (DEPRECATED)
     - Removed lsb-core (DEPRECATED)
     - Removed rtl8821ce-dkms (OBSOLETE)
+    - Added "TZ" to [BUILD](./config/BUILD.conf) configuration
 
 ## April
 * `2024-04-16 15:02:15` : [Network check](./script/startup.sh#L366)

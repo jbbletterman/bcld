@@ -6,7 +6,7 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-2b7c127db64f9261b56f64bc601656d9  ./CHANGELOG.md
+5c5cccbdf1d216459a49d950f4e59e79  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
@@ -16,7 +16,7 @@ ab5b7ff3b6dfd2870be0cd751c59397f  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-27872abeaf8aa4ae12eda99270185d71  ./config/BUILD.conf
+885d5746a2b1b202cb0ec55e650afa2f  ./config/BUILD.conf
 18bd9efd58884edb4e854c3a9f99e078  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
