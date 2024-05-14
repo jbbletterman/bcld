@@ -268,3 +268,4 @@ xserver-xorg-video-intel
 xserver-xorg-video-openchrome
 xterm
 zlib1g
+zstd
