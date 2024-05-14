@@ -589,10 +589,12 @@ TAG="ISO-BOOTSTRAP"
 if [[ -f /usr/sbin/debootstrap ]] && [[ ! -d "${BOOTSTRAP_DIR}" ]]; then
 
     list_header "Bootstrapping Ubuntu ${CODE_NAME^}..."
-
 	# Create directory and copy files, /tmp needs special permissions
     prep_dir "${BOOTSTRAP_DIR}"
-    /usr/sbin/debootstrap --variant=minbase --arch=amd64 "${CODE_NAME}" "${BOOTSTRAP_DIR}" "${UBUNTU_REPO}" > "${BOOTSTRAP_LOG}"
+    
+    list_entry
+    /usr/sbin/debootstrap --variant=minbase --arch=amd64 "${CODE_NAME}" "${BOOTSTRAP_DIR}" "${UBUNTU_REPO}" | /usr/bin/tee "${BOOTSTRAP_LOG}"
+    list_catch
     
     copy_bootstrap
 

@@ -12,6 +12,7 @@
     - Removed lsb-core (DEPRECATED)
     - Removed rtl8821ce-dkms (OBSOLETE)
     - Added "TZ" to [BUILD](./config/BUILD.conf) configuration
+* `2024-05-14 17:31:56` : Bootstrap process made visible in build logs
 
 ## April
 * `2024-04-16 15:02:15` : [Network check](./script/startup.sh#L366)

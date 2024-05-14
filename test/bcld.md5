@@ -6,11 +6,11 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-5c5cccbdf1d216459a49d950f4e59e79  ./CHANGELOG.md
+b643d1f739f3b5df073167dddf74a8ed  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
-8f0e31a2827c520d3b59228aadc838ad  ./ISO-builder.sh
+ea4a184577d071d6f6ba8c9ad5f78823  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 ab5b7ff3b6dfd2870be0cd751c59397f  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
