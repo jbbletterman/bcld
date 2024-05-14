@@ -46,11 +46,17 @@
 
 set -e
 
-# Create zone information files for tzdata
-/usr/bin/echo 'Creating zone information files...'
-/usr/bin/ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime
-/usr/bin/echo "${TZ}" > /etc/timezone
+source ./config/BUILD.conf
 
+# Create zone information files for tzdata
+if [[ -n "${TZ}" ]]; then
+    /usr/bin/echo "Creating zone information files: ${TZ}"
+    /usr/bin/ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime
+    /usr/bin/echo "${TZ}" > /etc/timezone
+else
+    /usr/bin/echo '$TZ is NOT SET!'
+    exit
+fi
 
 # Create a ./log directory if it does not exist
 if [[ ! -d ./log ]]; then
