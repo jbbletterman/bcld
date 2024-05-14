@@ -2,6 +2,16 @@
 
 ## 2024
 
+## May
+* `2024-05-14 16:06:51` : [OAC-1068] Upgrade [packages](./config/packages/REQUIRED)
+    - Many packages replaced/updated
+    - Python 3.10 > 3.12
+    - Perl 5.34 > 5.38
+    - Removed libgsasl7 (DEPRECATED)
+    - Removed libsnapd-glib (DEPRECATED)
+    - Removed lsb-core (DEPRECATED)
+    - Removed rtl8821ce-dkms (OBSOLETE)
+
 ## April
 * `2024-04-16 15:02:15` : [Network check](./script/startup.sh#L366)
     - [OAC-1040] Now actually scans 3 times, instead of stopping after 2 tries

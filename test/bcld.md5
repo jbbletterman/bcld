@@ -6,13 +6,13 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 e44738ac562e19955718c19f9252bc85  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-4cffd8ccb199906e4715595565141a92  ./CHANGELOG.md
+2b7c127db64f9261b56f64bc601656d9  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
 8f0e31a2827c520d3b59228aadc838ad  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-cd3e803effb4853d9730d7af57d9321f  ./README.md
+ab5b7ff3b6dfd2870be0cd751c59397f  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
@@ -52,8 +52,8 @@ d57cf84974e9a959d64a38710983a18d  ./config/packages/APP
 335cd24f955359c232ece20790776c3d  ./config/packages/KERNEL
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
 6c224b812083575965b9bf1aca105231  ./config/packages/REMOVE
-a36505f8df9f1c549e106782d94d79e0  ./config/packages/REQUIRED
-626f50bfe4b5318ece35f2572e5e95af  ./config/packages/TEST
+b9e9f2edc9633fe7bb3d03cb0f1a8b67  ./config/packages/REQUIRED
+6314dadcfec3bc5be458230dbbabdf56  ./config/packages/TEST
 c4194d2bde957994fa74aaa13bc8333e  ./config/packages/VIRTUAL
 e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf
 1540737da39ba1e9ca293b7b895c4ff9  ./config/pam/login
