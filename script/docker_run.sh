@@ -44,7 +44,13 @@
 # environment and configures the container before running
 # both ISO-builder.sh and then IMG-builder.sh.
 
-/usr/bin/echo 'Installing packages on build machine, this may take a while...'
+set -e
+
+# Create zone information files for tzdata
+/usr/bin/echo 'Creating zone information files...'
+/usr/bin/ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime
+/usr/bin/echo "${TZ}" > /etc/timezone
+
 
 # Create a ./log directory if it does not exist
 if [[ ! -d ./log ]]; then
@@ -52,9 +58,11 @@ if [[ ! -d ./log ]]; then
     /usr/bin/mkdir -v ./log
 fi
 
+/usr/bin/echo 'Updating build packages...'
 # Prepare the container by updating the package lists
 /usr/bin/apt-get update | /usr/bin/tee log/APT.log
 
+/usr/bin/echo 'Installing packages on build machine, this may take a while...'
 # Install all dependencies
 /usr/bin/apt-get install -y $(/usr/bin/cat /project/config/packages/BUILD) | /usr/bin/tee -a log/APT.log
 
