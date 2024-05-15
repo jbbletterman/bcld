@@ -3,6 +3,10 @@
 ## 2024
 
 ## May
+* `2024-05-15 11:46:33` : 
+    - Build log now displays failed packages
+    - Added new [BUILD](./config/BUILD.conf) env: `DEFAULT_APP="(/usr/bin/qutebrowser &) && /usr/bin/qutebrowser :tab-close"`
+    - `BCLD_APP` is now optional, but will override `DEFAULT_APP`
 * `2024-05-14 16:06:51` : [OAC-1068] Upgrade [packages](./config/packages/REQUIRED)
     - Many packages replaced/updated
     - Python 3.10 > 3.12
