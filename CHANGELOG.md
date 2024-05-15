@@ -2,6 +2,26 @@
 
 ## 2024
 
+## May
+* `2024-05-15 14:20:26` : [OAC-1068] Upgraded more packages
+    - Removed `libcups2` (UNNECESSARY)
+    - Removed `librpm9` (UNNECESSARY)
+* `2024-05-15 11:46:33` : 
+    - Build log now displays failed packages
+    - Added new [BUILD](./config/BUILD.conf) env: `DEFAULT_APP="(/usr/bin/qutebrowser &) && /usr/bin/qutebrowser :tab-close"`
+    - `BCLD_APP` is now optional, but will override `DEFAULT_APP`
+    - Optimized [Echo Tools](./script/echo_tools.sh), improved conditionals and removed sleeps
+* `2024-05-14 16:06:51` : [OAC-1068] Upgrade [packages](./config/packages/REQUIRED)
+    - Many packages replaced/updated
+    - Python 3.10 > 3.12
+    - Perl 5.34 > 5.38
+    - Removed `libgsasl7` (DEPRECATED)
+    - Removed `libsnapd-glib` (DEPRECATED)
+    - Removed `lsb-core` (DEPRECATED)
+    - Removed `rtl8821ce-dkms` (OBSOLETE)
+    - Added `TZ` to [BUILD](./config/BUILD.conf) configuration
+* `2024-05-14 17:31:56` : Bootstrap process made visible in build logs
+
 ## April
 * `2024-04-16 15:02:15` : [Network check](./script/startup.sh#L366)
     - [OAC-1040] Now actually scans 3 times, instead of stopping after 2 tries
