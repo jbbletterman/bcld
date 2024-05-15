@@ -212,9 +212,6 @@ python3-requests-unixsocket
 python3-secretstorage
 python3-wadllib
 python3-xdg
-rpm
-rpm2cpio
-rpm-common
 rsyslog
 rsyslog-gnutls
 shared-mime-info
