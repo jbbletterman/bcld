@@ -99,7 +99,7 @@ PKCS_PASS="$(uuidgen)"
 UBUNTU_BASE=$(basename "${UBUNTU_URL}")
 
 ## Config
-PROFILE_DIR="${CONFIG_DIR}/profile.d"
+PROFILE_DIR="${CONFIG_DIR}/bash/profile.d"
 PKGS_DIR="${CONFIG_DIR}/packages"
 SERVICE_DIR="${CONFIG_DIR}/systemd/system"
 
@@ -536,10 +536,25 @@ function copy_nvidia_configs () {
 
 }
 
+## Function to copy post-configuration directories
+function copy_post_config_dirs () {
+    list_header "Copying configuration directories"
+    #copy_directory "${CONFIG_DIR}/systemd/shm" "${CHROOT_DIR}/sys/block"
+
+    copy_directory "${CONFIG_DIR}/systemd/system/systemd-udevd.service.d" "${CHSERVICE_DIR}"
+    #copy_directory "${CONFIG_DIR}/systemd/system.conf.d/" "${CHROOT_DIR}/etc/systemd"
+    copy_directory "${CONFIG_DIR}/trap_shutdown" "${CHOME_DIR}"
+    copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
+    copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
+	
+	on_completion
+}
+
 ## Function to copy post-configuration files
 function copy_post_configs () {
 	list_header "Copying postconfiguration files..."
 	
+    copy_file "${CONFIG_DIR}/bash/K01bcld" "${CHROOT_DIR}/etc/rc1.d/K01bcld"
 	copy_file "${CONFIG_DIR}/modprobe/alsa-base.conf" "${CHROOT_DIR}/etc/modprobe.d/alsa-base.conf"
 	copy_file "${CONFIG_DIR}/modprobe/blacklist.conf" "${CHROOT_DIR}/etc/modprobe.d/blacklist.conf"
 	copy_file "${CONFIG_DIR}/network-manager/conf.d/default-wifi-powersave-on.conf" "${CHROOT_DIR}/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf"
@@ -762,15 +777,7 @@ prep_dir "${CHROOT_DIR}/etc/sudoers.d"
 list_exit
 
 ## Copy configuration directories
-list_header "Copying configuration directories"
-#copy_directory "${CONFIG_DIR}/systemd/shm" "${CHROOT_DIR}/sys/block"
-
-copy_directory "${CONFIG_DIR}/systemd/system/systemd-udevd.service.d" "${CHSERVICE_DIR}"
-#copy_directory "${CONFIG_DIR}/systemd/system.conf.d/" "${CHROOT_DIR}/etc/systemd"
-copy_directory "${CONFIG_DIR}/trap_shutdown" "${CHOME_DIR}"
-copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
-copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
-list_exit
+copy_post_config_dirs
 
 ## Copy ISOLINUX
 copy_file '/usr/lib/ISOLINUX/isolinux.bin' "${ISOLINUX_DIR}"
