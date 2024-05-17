@@ -54,7 +54,6 @@ source /usr/bin/echo_tools.sh
 
 BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
-TAG='BCLD-INIT'
 
 # Function to set hostname before running BCLD startup script
 function bcld_set_hostname () {
@@ -67,11 +66,7 @@ function bcld_set_hostname () {
 	/usr/bin/sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
 }
 
-#
-
-list_header 'Starting BCLD-INIT script'
-
-## First, set the machine-id
+# First, set the machine-id
 if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
     print_item "MACHINE_ID not set! Setting: "
     /usr/bin/systemd-machine-id-setup || exit 1
@@ -139,5 +134,3 @@ else
 	# If the default hostname is changed, keep it
 	list_item_pass "Hostname already appears to be changed: $(/usr/bin/hostname)"
 fi
-
-on_completion

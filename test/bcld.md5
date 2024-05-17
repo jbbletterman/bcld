@@ -6,11 +6,11 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 f71aa1cbfbac3b78d928b77178e63aef  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-be828a8820cc14e964fefe563aa5e154  ./CHANGELOG.md
+d0db6fad9a92dec590bf8c7aa7ad12d1  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
-eb67fe7f07c0eeb9094248545c8e2802  ./ISO-builder.sh
+5f2d5ca295230079271417fe1da69c38  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
 ab5b7ff3b6dfd2870be0cd751c59397f  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
@@ -26,7 +26,8 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-466b6e0ba9f0870eb626144603f9e284  ./config/bash/K01bcld
+09dab6d0e5a82c9096712db1caef269c  ./config/bash/K01bcld
+466b6e0ba9f0870eb626144603f9e284  ./config/bash/bcld-init
 3b1769a0886d95a3c7b151cd34b28fce  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg

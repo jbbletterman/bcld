@@ -129,6 +129,7 @@ CHROOT_PKI_DIR="${CHROOT_DIR}/usr/share/ca-certificates"
 ### Chroot ETC
 CHROOT_CHROME_CERT_DIR="${CHETC}/chromium/policies/managed/"
 CHENV="${CHETC}/environment"
+CHINIT="${CHETC}/init.d"
 CHLOGIND="${CHETC}/systemd/logind.conf"
 CHNSSDB="${CHOME_DIR}/.pki/nssdb"
 CHSERVICE_DIR="${CHETC}/systemd/system"
@@ -553,8 +554,7 @@ function copy_post_config_dirs () {
 ## Function to copy post-configuration files
 function copy_post_configs () {
 	list_header "Copying postconfiguration files..."
-	
-    copy_file "${CONFIG_DIR}/bash/K01bcld" "${CHROOT_DIR}/etc/rc1.d/K01bcld"
+
 	copy_file "${CONFIG_DIR}/modprobe/alsa-base.conf" "${CHROOT_DIR}/etc/modprobe.d/alsa-base.conf"
 	copy_file "${CONFIG_DIR}/modprobe/blacklist.conf" "${CHROOT_DIR}/etc/modprobe.d/blacklist.conf"
 	copy_file "${CONFIG_DIR}/network-manager/conf.d/default-wifi-powersave-on.conf" "${CHROOT_DIR}/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf"
@@ -795,6 +795,11 @@ subst_file "${CONFIG_DIR}/systemd/system/getty@tty1.service.d/override.conf" "${
 
 ## Current ENVs inside ./chroot
 get_chroot_env
+
+## BCLD INIT script
+copy_file "${CONFIG_DIR}/bash/bcld-init" "${CHINIT}/bcld-init"
+/usr/bin/ln -s "${CHINIT}/bcld-init" "${CHETC}/rc{0,1,6}.d/K01bcld-init"
+/usr/bin/ln -s "${CHINIT}/bcld-init" "${CHETC}/rc{2,3,4,5}.d/S01bcld-init"
 
 ## Change permissions for BCLD Big Mouse
 # BCLD Big Mouse has to overwrite this file when enabled
