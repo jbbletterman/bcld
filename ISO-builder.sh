@@ -332,6 +332,9 @@ function prep_dirs () {
 
 ## Function to generate BCLD-INIT links
 function bcld_init_links {
+    
+    /usr/bin/cd "${CHROOT}" || exit
+    
     ### K-levels
     link_file "${CHINIT}/bcld-init" /etc/rc0.d/K01bcld-init
     link_file "${CHINIT}/bcld-init" /etc/rc1.d/K01bcld-init
@@ -342,6 +345,8 @@ function bcld_init_links {
     link_file "${CHINIT}/bcld-init" /etc/rc3.d/S01bcld-init
     link_file "${CHINIT}/bcld-init" /etc/rc4.d/S01bcld-init
     link_file "${CHINIT}/bcld-init" /etc/rc5.d/S01bcld-init
+    
+    cd - || exit
 }
 
 ## Function to check /usr/bin for installed packages or exit immediately if there is nothing there
