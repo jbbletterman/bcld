@@ -10,6 +10,8 @@
     - Added new [BCLD-INIT](./config/bash/bcld-init) root execution script for hostname changes
     - Added license to [BCLD Bash profile](./config/bash/profile.d/10-BCLD.sh)
     - Added `copy_post_config_dirs` to [ISO-builer](./ISO-builder.sh)
+    - Added `link_file` to [File Operations](./script/file_operations.sh)
+    - Added `bcld_init_links` to [ISO-builder](./ISO-builder.sh)
 * `2024-05-15 14:20:26` : [OAC-1068] Upgraded more packages
     - Removed `libcups2` (UNNECESSARY)
     - Removed `librpm9` (UNNECESSARY)

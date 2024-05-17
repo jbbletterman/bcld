@@ -330,6 +330,20 @@ function prep_dirs () {
     on_completion
 }
 
+## Function to generate BCLD-INIT links
+function bcld_init_links {
+    ### K-levels
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc0.d/K01bcld-init"
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc1.d/K01bcld-init"
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc6.d/K01bcld-init"
+    
+    ### S-levels
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc2.d/S01bcld-init"
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc3.d/S01bcld-init"
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc4.d/S01bcld-init"
+    link_file "${CHINIT}/bcld-init" "${CHETC}/rc5.d/S01bcld-init"
+}
+
 ## Function to check /usr/bin for installed packages or exit immediately if there is nothing there
 # 1: Description
 function check_deb () {
@@ -373,7 +387,7 @@ function check_appimage () {
 }
 
 ## Function to check if ./config/packages/APP was installed
-check_app_pkg () {
+function check_app_pkg () {
 
     APP_PKG_CHECK="$(/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/dpkg -l | /usr/bin/awk '{ print $2 }' | grep "^${BCLD_RUN}$" | /usr/bin/wc -l)"
     
@@ -798,8 +812,8 @@ get_chroot_env
 
 ## BCLD INIT script
 copy_file "${CONFIG_DIR}/bash/bcld-init" "${CHINIT}/bcld-init"
-/usr/bin/ln -s "${CHINIT}/bcld-init" "${CHETC}/rc{0,1,6}.d/K01bcld-init"
-/usr/bin/ln -s "${CHINIT}/bcld-init" "${CHETC}/rc{2,3,4,5}.d/S01bcld-init"
+list_item 'Generating BCLD-INIT links...'
+bcld_init_links
 
 ## Change permissions for BCLD Big Mouse
 # BCLD Big Mouse has to overwrite this file when enabled
