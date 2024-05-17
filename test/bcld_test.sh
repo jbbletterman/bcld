@@ -200,9 +200,7 @@ function BCLD_MOUNT () {
 
 ## Function to display NSSDB status in TEST console
 function BCLD_NSSDB () {
-    if [[ $(/usr/bin/find "${NSSDB}" -type d -empty | /usr/bin/wc -l) -eq 1 ]]; then
-		list_item_fail "NSSDB not found! Are you running vendorless?"
-    else
+    if [[ -d "${NSSDB}" ]]; then
         # Check NSSDB settings
 	    # ENVs
 	    FACET_DOM='facet.onl'
@@ -225,6 +223,8 @@ function BCLD_NSSDB () {
 		else
 			list_item_fail 'KEY ERROR!'
 	    fi
+    else
+		list_item_fail "NSSDB not found! Are you running vendorless?"
     fi
 }
 

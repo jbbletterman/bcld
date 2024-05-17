@@ -186,13 +186,13 @@ dummy_repo_string="Bootable Client Lockdown (BCLD) ${BCLD_VERSION_STRING} \"${CO
 ## Function to check required BUILD ENVs prior to building
 function check_req_envs () {
     list_item 'Checking REQUIRED ENVs...'
-    check_req_env 'BCLD_APP'
     check_req_env 'BCLD_MODEL'
 }
 
 ## Function to check optional BUILD ENVs prior to building
 function check_opt_envs () {
     list_item 'Checking OPTIONAL ENVs...'
+    check_opt_env 'BCLD_APP'
     check_opt_env 'BCLD_NVIDIA'
     check_opt_env 'BCLD_PKG_EXTRA'
     check_opt_env 'BCLD_SECRET'
@@ -460,13 +460,15 @@ function clean_chroot_safe () {
 		
 		if [[ "${PKG_COUNT}" -eq 0 ]]; then
 			FAILED_COUNT="$(( FAILED_COUNT + 1 ))"
+			FAILED_PKGS+=" ${pkg}"
 		fi
 		
 	done
 	
 	if [[ "${FAILED_COUNT}" -gt 0 ]]; then
 		list_catch
-		list_item_fail "Missing packages detected: ${FAILED_COUNT}"
+		list_item_fail "Missing packages detected:${FAILED_PKGS}"
+		list_item_fail "TOTAL: ${FAILED_COUNT}"
 		on_failure
 	else
 		list_catch
@@ -589,10 +591,12 @@ TAG="ISO-BOOTSTRAP"
 if [[ -f /usr/sbin/debootstrap ]] && [[ ! -d "${BOOTSTRAP_DIR}" ]]; then
 
     list_header "Bootstrapping Ubuntu ${CODE_NAME^}..."
-
 	# Create directory and copy files, /tmp needs special permissions
     prep_dir "${BOOTSTRAP_DIR}"
-    /usr/sbin/debootstrap --variant=minbase --arch=amd64 "${CODE_NAME}" "${BOOTSTRAP_DIR}" "${UBUNTU_REPO}" > "${BOOTSTRAP_LOG}"
+    
+    list_entry
+    /usr/sbin/debootstrap --variant=minbase --arch=amd64 "${CODE_NAME}" "${BOOTSTRAP_DIR}" "${UBUNTU_REPO}" | /usr/bin/tee "${BOOTSTRAP_LOG}"
+    list_catch
     
     copy_bootstrap
 
