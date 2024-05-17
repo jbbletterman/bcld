@@ -333,7 +333,7 @@ function prep_dirs () {
 ## Function to generate BCLD-INIT links
 function bcld_init_links {
     
-    /usr/bin/cd "${CHROOT}" || exit
+    cd "${CHROOT}" || exit
     
     ### K-levels
     link_file "${CHINIT}/bcld-init" etc/rc0.d/K01bcld-init
