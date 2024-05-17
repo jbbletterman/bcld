@@ -333,15 +333,15 @@ function prep_dirs () {
 ## Function to generate BCLD-INIT links
 function bcld_init_links {
     ### K-levels
-    link_file "${CHINIT}/bcld-init" '/etc/rc0.d/K01bcld-init'
-    link_file "${CHINIT}/bcld-init" '/etc/rc1.d/K01bcld-init'
-    link_file "${CHINIT}/bcld-init" '/etc/rc6.d/K01bcld-init'
+    link_file "${CHINIT}/bcld-init" /etc/rc0.d/K01bcld-init
+    link_file "${CHINIT}/bcld-init" /etc/rc1.d/K01bcld-init
+    link_file "${CHINIT}/bcld-init" /etc/rc6.d/K01bcld-init
     
     ### S-levels
-    link_file "${CHINIT}/bcld-init" '/etc/rc2.d/S01bcld-init'
-    link_file "${CHINIT}/bcld-init" '/etc/rc3.d/S01bcld-init'
-    link_file "${CHINIT}/bcld-init" '/etc/rc4.d/S01bcld-init'
-    link_file "${CHINIT}/bcld-init" '/etc/rc5.d/S01bcld-init'
+    link_file "${CHINIT}/bcld-init" /etc/rc2.d/S01bcld-init
+    link_file "${CHINIT}/bcld-init" /etc/rc3.d/S01bcld-init
+    link_file "${CHINIT}/bcld-init" /etc/rc4.d/S01bcld-init
+    link_file "${CHINIT}/bcld-init" /etc/rc5.d/S01bcld-init
 }
 
 ## Function to check /usr/bin for installed packages or exit immediately if there is nothing there
