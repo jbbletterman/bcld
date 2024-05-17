@@ -26,8 +26,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-09dab6d0e5a82c9096712db1caef269c  ./config/bash/K01bcld
-466b6e0ba9f0870eb626144603f9e284  ./config/bash/bcld-init
+09dab6d0e5a82c9096712db1caef269c  ./config/bash/bcld-init
 3b1769a0886d95a3c7b151cd34b28fce  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg
