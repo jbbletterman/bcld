@@ -47,7 +47,6 @@
 # hardware settings.
 #
 #set -x
-BCLD_TEST='/usr/bin/bcld_test.sh'
 
 # Load TEST package OR trap inside RELEASE/DEBUG
 if [[ "${BCLD_MODEL}" == 'test' ]] \
@@ -614,17 +613,7 @@ if [[ ${BCLD_MODEL} != 'release' ]]; then
 
 fi
 
-## Allow password only for TEST, since only TEST has SSH
-if [[ "${BCLD_MODEL}" == 'test' ]] \
-    && [[ -f "${BCLD_TEST}" ]]; then
-    /usr/bin/sudo /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | openssl passwd -1 -stdin)" "${BCLD_USER}"
-fi
-
 ### Generic Configurations
-
-#### Set local time
-list_item "Setting RTC to local time..."
-/usr/bin/sudo /usr/bin/timedatectl set-local-rtc 1
 
 #### Darken XTerm output unless enabled
 if [[ ${BCLD_VERBOSE} -eq 1 ]]; then
