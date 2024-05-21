@@ -129,6 +129,7 @@ CHROOT_PKI_DIR="${CHROOT_DIR}/usr/share/ca-certificates"
 ### Chroot ETC
 CHROOT_CHROME_CERT_DIR="${CHETC}/chromium/policies/managed/"
 CHENV="${CHETC}/environment"
+CHINIT="${CHETC}/init.d"
 CHLOGIND="${CHETC}/systemd/logind.conf"
 CHNSSDB="${CHOME_DIR}/.pki/nssdb"
 CHSERVICE_DIR="${CHETC}/systemd/system"
@@ -329,6 +330,25 @@ function prep_dirs () {
     on_completion
 }
 
+## Function to generate BCLD-INIT links
+function bcld_init_links {
+    
+    cd "${CHROOT}" || exit
+    
+    ### K-levels
+    link_file "${CHINIT}/bcld-init" etc/rc0.d/K01bcld-init
+    link_file "${CHINIT}/bcld-init" etc/rc1.d/K01bcld-init
+    link_file "${CHINIT}/bcld-init" etc/rc6.d/K01bcld-init
+    
+    ### S-levels
+    link_file "${CHINIT}/bcld-init" etc/rc2.d/S01bcld-init
+    link_file "${CHINIT}/bcld-init" etc/rc3.d/S01bcld-init
+    link_file "${CHINIT}/bcld-init" etc/rc4.d/S01bcld-init
+    link_file "${CHINIT}/bcld-init" etc/rc5.d/S01bcld-init
+    
+    cd - || exit
+}
+
 ## Function to check /usr/bin for installed packages or exit immediately if there is nothing there
 # 1: Description
 function check_deb () {
@@ -372,7 +392,7 @@ function check_appimage () {
 }
 
 ## Function to check if ./config/packages/APP was installed
-check_app_pkg () {
+function check_app_pkg () {
 
     APP_PKG_CHECK="$(/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/dpkg -l | /usr/bin/awk '{ print $2 }' | grep "^${BCLD_RUN}$" | /usr/bin/wc -l)"
     
@@ -553,8 +573,7 @@ function copy_post_config_dirs () {
 ## Function to copy post-configuration files
 function copy_post_configs () {
 	list_header "Copying postconfiguration files..."
-	
-    copy_file "${CONFIG_DIR}/bash/K01bcld" "${CHROOT_DIR}/etc/rc1.d/K01bcld"
+
 	copy_file "${CONFIG_DIR}/modprobe/alsa-base.conf" "${CHROOT_DIR}/etc/modprobe.d/alsa-base.conf"
 	copy_file "${CONFIG_DIR}/modprobe/blacklist.conf" "${CHROOT_DIR}/etc/modprobe.d/blacklist.conf"
 	copy_file "${CONFIG_DIR}/network-manager/conf.d/default-wifi-powersave-on.conf" "${CHROOT_DIR}/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf"
@@ -795,6 +814,11 @@ subst_file "${CONFIG_DIR}/systemd/system/getty@tty1.service.d/override.conf" "${
 
 ## Current ENVs inside ./chroot
 get_chroot_env
+
+## BCLD INIT script
+copy_file "${CONFIG_DIR}/bash/bcld-init" "${CHINIT}/bcld-init"
+list_item 'Generating BCLD-INIT links...'
+bcld_init_links
 
 ## Change permissions for BCLD Big Mouse
 # BCLD Big Mouse has to overwrite this file when enabled

@@ -55,6 +55,19 @@ function prep_dir () {
     fi    
 }
 
+## Function to generate a soft link
+#   1: Target
+#   2: Link
+function link_file {
+    if [[ -f ${1} ]]; then
+	    list_item "Linking file $(basename "${1}") to: ${2}"
+	    /usr/bin/ln -s "${1}" "${2}"
+    else
+    	list_item "File does not exist!"
+    	exit 1
+    fi
+}
+
 ## Function to copy a configuration file
 function copy_file {
     if [[ -f ${1} ]]; then
