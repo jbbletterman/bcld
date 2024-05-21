@@ -333,18 +333,18 @@ function prep_dirs () {
 ## Function to generate BCLD-INIT links
 function bcld_init_links {
     
-    cd "${CHROOT}" || exit
+    cd "${CHETC}" || exit
     
     ### K-levels
-    link_file "${CHINIT}/bcld-init" etc/rc0.d/K01bcld-init
-    link_file "${CHINIT}/bcld-init" etc/rc1.d/K01bcld-init
-    link_file "${CHINIT}/bcld-init" etc/rc6.d/K01bcld-init
+    link_file "init.d/bcld-init" rc0.d/K01bcld-init
+    link_file "init.d/bcld-init" rc1.d/K01bcld-init
+    link_file "init.d/bcld-init" rc6.d/K01bcld-init
     
     ### S-levels
-    link_file "${CHINIT}/bcld-init" etc/rc2.d/S01bcld-init
-    link_file "${CHINIT}/bcld-init" etc/rc3.d/S01bcld-init
-    link_file "${CHINIT}/bcld-init" etc/rc4.d/S01bcld-init
-    link_file "${CHINIT}/bcld-init" etc/rc5.d/S01bcld-init
+    link_file "init.d/bcld-init" rc2.d/S01bcld-init
+    link_file "init.d/bcld-init" rc3.d/S01bcld-init
+    link_file "init.d/bcld-init" rc4.d/S01bcld-init
+    link_file "init.d/bcld-init" rc5.d/S01bcld-init
     
     cd - || exit
 }

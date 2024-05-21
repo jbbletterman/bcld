@@ -3,6 +3,9 @@
 ## 2024
 
 ## May
+* `2024-05-21 13:19:45` : 
+    - Moved some more sudo operations from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
+    - Moved some more ENVs from [Startup](./script/startup.sh) to [Environment](./bash/enviroment)
 * `2024-05-17 15:37:37` : [OAC-1068]
     - In Noble (24.04), `hostnamectl` can no longer be used without authorization
     - This means we need to migrate the hostname changes to a higher escalation than `./script/startup.sh`
