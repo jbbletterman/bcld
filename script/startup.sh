@@ -47,7 +47,6 @@
 # hardware settings.
 #
 #set -x
-BCLD_TEST='/usr/bin/bcld_test.sh'
 
 # Load TEST package OR trap inside RELEASE/DEBUG
 if [[ "${BCLD_MODEL}" == 'test' ]] \
@@ -118,74 +117,6 @@ function lf_umount () {
     fi    
 }
 
-## To set machine-id
-function set_machine_id () {
-    
-    ## Set only if empty
-    if [[ ! -f /etc/machine-id ]] || [[ "$(/usr/bin/cat /etc/machine-id | /usr/bin/wc -l)" -eq 0 ]]; then
-        print_item "MACHINE_ID not set! Setting: "
-        /usr/bin/systemd-machine-id-setup || exit 1
-
-        export BCLD_MACHINE_ID="$(/usr/bin/cat ${MACHINE_ID})"
-    fi
-}
-
-## Set hostname
-function bcld_set_hostname () {
-	list_item "Changing hostname to ${1}..."
-			
-	# New hostname
-	/usr/bin/hostnamectl set-hostname "${1}"
-	
-	/usr/bin/sudo sed -i "s/127.0.0.1 localhost/127.0.0.1 ${1}/" /etc/hosts &> /dev/null
-	/usr/bin/sudo sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
-	
-	# New hostname requires relog
-	last_item "Relogging with new hostname..." && logout
-}
-
-## To set hostname with BCLD_VENDOR
-function reset_bcld_hostname () {
-
-	# Set hostname using selected vendors
-	# A relog is needed for sudo's to proceed
-	# Only needs to relog if hostname is the default
-
-	# Do this only if the hostname is 'localhost.localdomain'
-	if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]]; then
-
-        list_item 'Configuring hostname...'
-
-		# First, find a random MAC address on the system, filter virtual interfaces
-		BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
-
-		# Change hostname only if a device is found
-		if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
-
-			# Pick hostname based on MAC
-			list_item "Physical interfaces detected..."
-
-			# ENVs
-			BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
-			BCLD_HOST="${BCLD_VENDOR}-${BCLD_HASH}"
-
-			bcld_set_hostname "${BCLD_HOST}"
-		else
-			# Pick different hostname if no MAC interface
-			list_item "No physical interfaces detected... Using machine-id."
-
-			# ENVs
-			BCLD_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
-			BCLD_HOST="${BCLD_VENDOR}-${BCLD_ID}"
-
-			bcld_set_hostname "${BCLD_HOST}"
-		fi
-	else
-		# If the default hostname is changed, keep it
-		list_item_pass "Hostname already appears to be changed: $(/usr/bin/hostname)"
-	fi
-}
-
 ## Function to take key/value from CMD_LINE, and change it to whatever we need.
 function readparam () {
     
@@ -201,33 +132,6 @@ function readparam () {
             break
         fi
     done
-}
-
-## Function to read BCLD_VENDOR Parameter
-function read_vendor_param() {
-
-	# Set BCLD_VENDOR with parameter
-	readparam "${VENDOR_PARAM}" "${VENDOR_ALIAS}"
-	
-	# Set BCLD_VENDOR if no parameter
-	if [[ -z "${BCLD_VENDOR}" ]]; then
-	    
-	    list_item 'BCLD_VENDOR not set...'
-		
-		# If BCLD App found, default to 'facet'
-		if [[ -x /opt/deb-app-afname ]]; then
-		    list_item 'Setting to default: FACET'
-		    export BCLD_VENDOR='facet'
-	    else
-	        # Without a Facet Chrome app, we are likely running Vendorless BCLD
-	        list_item 'BCLD App not found, setting to: VENDORLESS BCLD'
-		    export BCLD_VENDOR='vendorless'
-		fi
-	else
-		# Display used BCLD_VENDOR parameter
-		list_item_pass "Setting BCLD_VENDOR to ${BCLD_VENDOR^^}!"
-	fi
-	
 }
 
 ## Function to read every BCLD Boot Parameter
@@ -682,15 +586,6 @@ export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 ## Read BCLD_VERBOSE first
 readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
 
-## Read BCLD_VENDOR next
-read_vendor_param
-
-## Machine-id
-set_machine_id # Set machine-id
-
-## Set hostname using BCLD_VENDOR and relog (need machine-id)
-reset_bcld_hostname
-
 ## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
 source /usr/bin/bcld_vendor.sh
 
@@ -718,17 +613,7 @@ if [[ ${BCLD_MODEL} != 'release' ]]; then
 
 fi
 
-## Allow password only for TEST, since only TEST has SSH
-if [[ "${BCLD_MODEL}" == 'test' ]] \
-    && [[ -f "${BCLD_TEST}" ]]; then
-    /usr/bin/sudo /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | openssl passwd -1 -stdin)" "${BCLD_USER}"
-fi
-
 ### Generic Configurations
-
-#### Set local time
-list_item "Setting RTC to local time..."
-/usr/bin/sudo /usr/bin/timedatectl set-local-rtc 1
 
 #### Darken XTerm output unless enabled
 if [[ ${BCLD_VERBOSE} -eq 1 ]]; then

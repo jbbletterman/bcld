@@ -99,7 +99,7 @@ PKCS_PASS="$(uuidgen)"
 UBUNTU_BASE=$(basename "${UBUNTU_URL}")
 
 ## Config
-PROFILE_DIR="${CONFIG_DIR}/profile.d"
+PROFILE_DIR="${CONFIG_DIR}/bash/profile.d"
 PKGS_DIR="${CONFIG_DIR}/packages"
 SERVICE_DIR="${CONFIG_DIR}/systemd/system"
 
@@ -129,6 +129,7 @@ CHROOT_PKI_DIR="${CHROOT_DIR}/usr/share/ca-certificates"
 ### Chroot ETC
 CHROOT_CHROME_CERT_DIR="${CHETC}/chromium/policies/managed/"
 CHENV="${CHETC}/environment"
+CHINIT="${CHETC}/init.d"
 CHLOGIND="${CHETC}/systemd/logind.conf"
 CHNSSDB="${CHOME_DIR}/.pki/nssdb"
 CHSERVICE_DIR="${CHETC}/systemd/system"
@@ -329,6 +330,25 @@ function prep_dirs () {
     on_completion
 }
 
+## Function to generate BCLD-INIT links
+function bcld_init_links {
+    
+    cd "${CHETC}" || exit
+    
+    ### K-levels
+    link_file "init.d/bcld-init" rc0.d/K01bcld-init
+    link_file "init.d/bcld-init" rc1.d/K01bcld-init
+    link_file "init.d/bcld-init" rc6.d/K01bcld-init
+    
+    ### S-levels
+    link_file "init.d/bcld-init" rc2.d/S01bcld-init
+    link_file "init.d/bcld-init" rc3.d/S01bcld-init
+    link_file "init.d/bcld-init" rc4.d/S01bcld-init
+    link_file "init.d/bcld-init" rc5.d/S01bcld-init
+    
+    cd - || exit
+}
+
 ## Function to check /usr/bin for installed packages or exit immediately if there is nothing there
 # 1: Description
 function check_deb () {
@@ -372,7 +392,7 @@ function check_appimage () {
 }
 
 ## Function to check if ./config/packages/APP was installed
-check_app_pkg () {
+function check_app_pkg () {
 
     APP_PKG_CHECK="$(/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/dpkg -l | /usr/bin/awk '{ print $2 }' | grep "^${BCLD_RUN}$" | /usr/bin/wc -l)"
     
@@ -536,10 +556,24 @@ function copy_nvidia_configs () {
 
 }
 
+## Function to copy post-configuration directories
+function copy_post_config_dirs () {
+    list_header "Copying configuration directories"
+    #copy_directory "${CONFIG_DIR}/systemd/shm" "${CHROOT_DIR}/sys/block"
+
+    copy_directory "${CONFIG_DIR}/systemd/system/systemd-udevd.service.d" "${CHSERVICE_DIR}"
+    #copy_directory "${CONFIG_DIR}/systemd/system.conf.d/" "${CHROOT_DIR}/etc/systemd"
+    copy_directory "${CONFIG_DIR}/trap_shutdown" "${CHOME_DIR}"
+    copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
+    copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
+	
+	on_completion
+}
+
 ## Function to copy post-configuration files
 function copy_post_configs () {
 	list_header "Copying postconfiguration files..."
-	
+
 	copy_file "${CONFIG_DIR}/modprobe/alsa-base.conf" "${CHROOT_DIR}/etc/modprobe.d/alsa-base.conf"
 	copy_file "${CONFIG_DIR}/modprobe/blacklist.conf" "${CHROOT_DIR}/etc/modprobe.d/blacklist.conf"
 	copy_file "${CONFIG_DIR}/network-manager/conf.d/default-wifi-powersave-on.conf" "${CHROOT_DIR}/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf"
@@ -762,15 +796,7 @@ prep_dir "${CHROOT_DIR}/etc/sudoers.d"
 list_exit
 
 ## Copy configuration directories
-list_header "Copying configuration directories"
-#copy_directory "${CONFIG_DIR}/systemd/shm" "${CHROOT_DIR}/sys/block"
-
-copy_directory "${CONFIG_DIR}/systemd/system/systemd-udevd.service.d" "${CHSERVICE_DIR}"
-#copy_directory "${CONFIG_DIR}/systemd/system.conf.d/" "${CHROOT_DIR}/etc/systemd"
-copy_directory "${CONFIG_DIR}/trap_shutdown" "${CHOME_DIR}"
-copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
-copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
-list_exit
+copy_post_config_dirs
 
 ## Copy ISOLINUX
 copy_file '/usr/lib/ISOLINUX/isolinux.bin' "${ISOLINUX_DIR}"
@@ -788,6 +814,11 @@ subst_file "${CONFIG_DIR}/systemd/system/getty@tty1.service.d/override.conf" "${
 
 ## Current ENVs inside ./chroot
 get_chroot_env
+
+## BCLD INIT script
+copy_file "${CONFIG_DIR}/bash/bcld-init" "${CHINIT}/bcld-init"
+list_item 'Generating BCLD-INIT links...'
+bcld_init_links
 
 ## Change permissions for BCLD Big Mouse
 # BCLD Big Mouse has to overwrite this file when enabled

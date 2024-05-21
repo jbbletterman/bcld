@@ -200,7 +200,9 @@ function BCLD_MOUNT () {
 
 ## Function to display NSSDB status in TEST console
 function BCLD_NSSDB () {
-    if [[ -d "${NSSDB}" ]]; then
+    if [[ -f "${NSSDB}/cert9.db" ]] \
+        && [[ -f "${NSSDB}/key4.db" ]] \
+        && [[ -f "${NSSDB}/pkcs11.txt" ]]; then
         # Check NSSDB settings
 	    # ENVs
 	    FACET_DOM='facet.onl'

@@ -16,6 +16,7 @@ jobs:
         BCLD_CFG_EDIT: ${{ vars.BCLD_CFG_EDIT }}
         BCLD_MODEL: ${{ vars.BCLD_MODEL }}
         BCLD_PKG_EXTRA: ${{ vars.BCLD_PKG_EXTRA }}
+        BCLD_SECRET: ${{ vars.BCLD_SECRET }}
         BCLD_TAG_EXTRA: ${{ vars.BCLD_TAG_EXTRA }}
         CLEAN_BOOTSTRAP: ${{ vars.CLEAN_BOOTSTRAP }}
         NULLFIX: ${{ vars.NULLFIX }}

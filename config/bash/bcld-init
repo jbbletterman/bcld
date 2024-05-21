@@ -1,0 +1,152 @@
+#!/bin/bash
+#
+# Copyright © 2024 Quintor B.V.
+#
+# BCLD is gelicentieerd onder de EUPL, versie 1.2 of
+# – zodra ze zullen worden goedgekeurd door de Europese Commissie -
+# latere versies van de EUPL (de "Licentie");
+# U mag BCLD alleen gebruiken in overeenstemming met de licentie.
+# U kunt een kopie van de licentie verkrijgen op:
+#
+# https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+#
+# Tenzij vereist door de toepasselijke wetgeving of overeengekomen in
+# schrijven, wordt software onder deze licentie gedistribueerd
+# gedistribueerd op een "AS IS"-basis,
+# ZONDER ENIGE GARANTIES OF VOORWAARDEN, zowel
+# expliciet als impliciet.
+# Zie de licentie voor de specifieke taal die van toepassing is
+# en de beperkingen van de licentie.
+#
+#
+# Copyright © 2024 Quintor B.V.
+#
+# BCLD is licensed under the EUPL, Version 1.2 or 
+# – as soon they will be approved by the European Commission -
+# subsequent versions of the EUPL (the "Licence");
+# You may not use BCLD except in compliance with the Licence.
+# You may obtain a copy of the License at:
+#
+# https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+#
+# Unless required by applicable law or agreed to in
+# writing, software distributed under the License is
+# distributed on an "AS IS" basis,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied.
+# See the License for the specific language governing
+# permissions and limitations under the License.
+# 
+#
+# BCLD Startup
+# Very essential script for the BCLD client, which contains most of the
+# configurations necessary before booting the online webkiosk.
+#
+# This script is the heart of BCLD and where BCLD will boot the Chromium
+# Node webapp after configuring the network, audio, video and other
+# hardware settings.
+#
+#
+# Script for running root operations prior to launching BCLD Startup script
+## Set only if empty
+
+source /usr/bin/log_tools.sh
+
+BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
+CMD_LINE=$(/usr/bin/cat /proc/cmdline)
+TAG='BCLD-INIT'
+
+# Function to set hostname before running BCLD startup script
+function bcld_set_hostname () {
+	log_item "Changing hostname to ${1}..."
+			
+	# New hostname
+	/usr/bin/hostnamectl set-hostname "${1}"
+	
+	/usr/bin/sed -i "s/127.0.0.1 localhost/127.0.0.1 ${1}/" /etc/hosts &> /dev/null
+	/usr/bin/sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
+}
+
+#
+
+log_header 'Starting BCLD-INIT script'
+
+## First, set the machine-id
+if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
+    log_first "MACHINE_ID not set! Setting: "
+    /usr/bin/systemd-machine-id-setup || exit 1
+fi
+
+#### Set local time
+log_item "Setting RTC to local time..."
+/usr/bin/timedatectl set-local-rtc 1
+
+# Set BCLD_VENDOR with parameter
+# Loop through CMD_LINE.
+for KERNEL_PARAM in ${CMD_LINE}; do
+    
+    # Match only VENDOR_PARAM.
+    if [[ $KERNEL_PARAM == 'bcld.afname.vendor*' ]]; then
+        # Strip the BCLD_VENDOR and give it to a new export
+        KERNEL_PARAM=$(/usr/bin/echo "${KERNEL_PARAM}" | /usr/bin/sed 's/=/ /')
+        IFS=' ' read -r NAME VALUE <<< "${KERNEL_PARAM}"
+        export BCLD_VENDOR="${VALUE}"
+        break
+    fi
+done
+
+# If BCLD_VENDOR is still empty, autodetect
+if [[ -z "${BCLD_VENDOR}" ]]; then
+    
+    log_item 'BCLD_VENDOR not set...'
+	
+	# If BCLD App found, default to 'facet'
+	if [[ -x /opt/deb-app-afname ]]; then
+	    log_item 'Setting to default: FACET'
+	    export BCLD_VENDOR='facet'
+    else
+        # Without a Facet Chrome app, we are likely running Vendorless BCLD
+        log_item 'BCLD App not found, setting to: VENDORLESS BCLD'
+	    export BCLD_VENDOR='vendorless'
+	fi
+else
+	# Display used BCLD_VENDOR parameter
+	log_item "Setting BCLD_VENDOR to ${BCLD_VENDOR^^}!"
+fi
+
+# After setting the machine-id and BCLD_VENDOR, set the hostname
+# This must be done before entering usermode (only root can change hostname and there is no sudo here)
+if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]] || [[ -n "${BCLD_VENDOR}" ]]; then
+
+    log_item 'Configuring hostname...'
+
+	# First, find a random MAC address on the system, filter virtual interfaces
+	BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
+
+	# Change hostname only if a device is found
+	if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
+
+		# Pick hostname based on MAC
+		log_item "Physical interfaces detected..."
+
+		# ENVs
+		BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
+		BCLD_HOST="${BCLD_VENDOR}-${BCLD_HASH}"
+		bcld_set_hostname "${BCLD_HOST}"
+	else
+		# Pick different hostname if no MAC interface
+		log_item "No physical interfaces detected... Using machine-id."
+		BCLD_HOST="${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
+		bcld_set_hostname "${BCLD_HOST}"
+	fi
+else
+	# If the default hostname is changed, keep it
+	log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
+fi
+
+## Allow password only for TEST, since only TEST has SSH
+if [[ "${BCLD_MODEL}" == 'test' ]] \
+    && [[ -f "${BCLD_TEST}" ]]; then
+    log_last 'Setting BCLD remote SSH password...'
+    /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | /usr/bin/openssl passwd -1 -stdin)" "${BCLD_USER}"
+fi

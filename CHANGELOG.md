@@ -3,6 +3,18 @@
 ## 2024
 
 ## May
+* `2024-05-21 13:19:45` : 
+    - Moved some more sudo operations from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
+    - Moved some more ENVs from [Startup](./script/startup.sh) to [Environment](./bash/enviroment)
+* `2024-05-17 15:37:37` : [OAC-1068]
+    - In Noble (24.04), `hostnamectl` can no longer be used without authorization
+    - This means we need to migrate the hostname changes to a higher escalation than `./script/startup.sh`
+    - Grouped bash configuration scripts in `./config/bash`
+    - Added new [BCLD-INIT](./config/bash/bcld-init) root execution script for hostname changes
+    - Added license to [BCLD Bash profile](./config/bash/profile.d/10-BCLD.sh)
+    - Added `copy_post_config_dirs` to [ISO-builer](./ISO-builder.sh)
+    - Added `link_file` to [File Operations](./script/file_operations.sh)
+    - Added `bcld_init_links` to [ISO-builder](./ISO-builder.sh)
 * `2024-05-15 14:20:26` : [OAC-1068] Upgraded more packages
     - Removed `libcups2` (UNNECESSARY)
     - Removed `librpm9` (UNNECESSARY)
