@@ -50,7 +50,7 @@
 # Script for running root operations prior to launching BCLD Startup script
 ## Set only if empty
 
-source /usr/bin/echo_tools.sh
+source /usr/bin/log_tools.sh
 
 BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
@@ -73,7 +73,7 @@ log_header 'Starting BCLD-INIT script'
 
 ## First, set the machine-id
 if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
-    log_item "MACHINE_ID not set! Setting: "
+    log_first "MACHINE_ID not set! Setting: "
     /usr/bin/systemd-machine-id-setup || exit 1
 fi
 
@@ -147,8 +147,6 @@ fi
 ## Allow password only for TEST, since only TEST has SSH
 if [[ "${BCLD_MODEL}" == 'test' ]] \
     && [[ -f "${BCLD_TEST}" ]]; then
-    log_item 'Setting BCLD remote SSH password...'
+    log_last 'Setting BCLD remote SSH password...'
     /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | /usr/bin/openssl passwd -1 -stdin)" "${BCLD_USER}"
 fi
-
-on_completion
