@@ -100,7 +100,7 @@ c99677e6deb495fb2b90cbfb84ac7349  ./config/udev/rules.d/BCLD-USB.rules
 d82d30ac340520e022f88d6fd0326a13  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
-bc9c7594e7115f377c7b1e0b62c57eae  ./script/bcld_vendor.sh
+5cda7dfd88cffb7304a02347a6f1c29a  ./script/bcld_vendor.sh
 1d7a6ff3ed051e8eeaedca3b4a5c4451  ./script/chroot.sh
 8cbe061a180f3034b8e51dcaf1f03423  ./script/client_logger.sh
 525f0518876e4991769aca7d61e10e5a  ./script/crosdump_logger.sh

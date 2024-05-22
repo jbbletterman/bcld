@@ -47,13 +47,13 @@
 source '/usr/bin/log_tools.sh'
 
 # ENVs
-export NSSDB="${HOME}/.pki/nssdb"
-
+BCLD_HOME="/home/${BCLD_USER}"
 CA_CERT_NAME='ca.crt'
 CLIENT_CRT_NAME='bcld.crt'
 CLIENT_KEY_NAME='bcld.key'
 PUB_PKI_DIR='/usr/share/ca-certificates'
 
+export NSSDB="${BCLD_HOME}/.pki/nssdb"
 # FUNCTIONS
 
 ## To list BCLD_VENDOR
@@ -98,11 +98,11 @@ function set_bcld_nssdb () {
 	log_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
 	if [[ "${BCLD_VERBOSE}" -eq 1 ]]; then
 	    /usr/bin/mkdir -pv "${NSSDB}"
-	    /usr/bin/cp -v ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
+	    /usr/bin/cp -v ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
 	    /usr/bin/chown -Rv "${USER}:${USER}" "${NSSDB}"
     else
 	    /usr/bin/mkdir -p "${NSSDB}"
-	    /usr/bin/cp ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
+	    /usr/bin/cp ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
 	    /usr/bin/chown -R "${USER}:${USER}" "${NSSDB}"
 	    log_item 'NSSDB installation complete!'
 	fi
