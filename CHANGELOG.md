@@ -3,7 +3,9 @@
 ## 2024
 
 ## May
-* `2024-05-22 14:03:32` : [OAC-1068] Improved [BCLD-INIT](./config/bash/bcld-init) by adding BCLD_VENDOR to ENVIRONMENT instead of exporting in root scope
+* `2024-05-22 14:03:32` : [OAC-1068] 
+    - Improved [BCLD-INIT](./config/bash/bcld-init) by adding BCLD_VENDOR to ENVIRONMENT instead of exporting in root scope
+    - Migrated [BCLD Vendor](./script/bcld_vendor.sh) script from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
 * `2024-05-21 13:19:45` : [OAC-1068]
     - Moved some more sudo operations from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
     - Moved some more ENVs from [Startup](./script/startup.sh) to [Environment](./bash/enviroment)
