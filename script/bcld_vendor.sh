@@ -44,7 +44,10 @@
 # Enable Rsyslog service ONLY for Facet
 #
 # IMPORT
-source '/usr/bin/log_tools.sh'
+source /usr/bin/log_tools.sh
+
+# :) (I got nothing)
+source /etc/environment
 
 # ENVs
 BCLD_HOME="/home/${BCLD_USER}"
