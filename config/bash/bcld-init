@@ -52,11 +52,16 @@
 
 source /usr/bin/log_tools.sh
 
-BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
-CMD_LINE=$(/usr/bin/cat /proc/cmdline)
+# ENVs
 TAG='BCLD-INIT'
 
-# Function to set hostname before running BCLD startup script
+BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
+CMD_LINE=$(/usr/bin/cat /proc/cmdline)
+ENVIRONMENT='/etc/environment'
+
+# FUNCTIONS
+
+## Function to set hostname before running BCLD startup script
 function bcld_set_hostname () {
 	log_item "Changing hostname to ${1}..."
 			
@@ -67,7 +72,7 @@ function bcld_set_hostname () {
 	/usr/bin/sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
 }
 
-#
+# EXE
 
 log_header 'Starting BCLD-INIT script'
 
@@ -77,12 +82,17 @@ if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
     /usr/bin/systemd-machine-id-setup || exit 1
 fi
 
-#### Set local time
+## Set local time
 log_item "Setting RTC to local time..."
 /usr/bin/timedatectl set-local-rtc 1
 
-# Set BCLD_VENDOR with parameter
-# Loop through CMD_LINE.
+## Send BCLD_VENDOR to /etc/environment
+function vendor_env () {
+    /usr/bin/echo "BCLD_VENDOR=${1}" >> "${ENVIRONMENT}"
+}
+
+## Set BCLD_VENDOR with parameter
+## Loop through CMD_LINE.
 for KERNEL_PARAM in ${CMD_LINE}; do
     
     # Match only VENDOR_PARAM.
@@ -90,28 +100,28 @@ for KERNEL_PARAM in ${CMD_LINE}; do
         # Strip the BCLD_VENDOR and give it to a new export
         KERNEL_PARAM=$(/usr/bin/echo "${KERNEL_PARAM}" | /usr/bin/sed 's/=/ /')
         IFS=' ' read -r NAME VALUE <<< "${KERNEL_PARAM}"
-        export BCLD_VENDOR="${VALUE}"
+        vendor_env "${VALUE}"
         break
     fi
 done
 
 # If BCLD_VENDOR is still empty, autodetect
-if [[ -z "${BCLD_VENDOR}" ]]; then
+if [[ "$(/usr/bin/grep -c 'BCLD_VENDOR=' "${ENVIRONMENT}")" -eq 0 ]]; then
     
-    log_item 'BCLD_VENDOR not set...'
+    log_item "BCLD_VENDOR not set in ${ENVIRONMENT}..."
 	
 	# If BCLD App found, default to 'facet'
 	if [[ -x /opt/deb-app-afname ]]; then
 	    log_item 'Setting to default: FACET'
-	    export BCLD_VENDOR='facet'
+	    vendor_env 'facet'
     else
         # Without a Facet Chrome app, we are likely running Vendorless BCLD
         log_item 'BCLD App not found, setting to: VENDORLESS BCLD'
-	    export BCLD_VENDOR='vendorless'
+	    vendor_env 'vendorless'
 	fi
 else
-	# Display used BCLD_VENDOR parameter
-	log_item "Setting BCLD_VENDOR to ${BCLD_VENDOR^^}!"
+	# If already set, display
+	log_item "BCLD_VENDOR set to: $(/usr/bin/grep 'BCLD_VENDOR=' "${ENVIRONMENT}")"
 fi
 
 # After setting the machine-id and BCLD_VENDOR, set the hostname
