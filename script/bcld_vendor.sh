@@ -45,8 +45,6 @@
 #
 # IMPORT
 source /usr/bin/log_tools.sh
-
-# :) (I got nothing)
 source /etc/environment
 
 # ENVs
