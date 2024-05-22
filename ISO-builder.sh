@@ -549,6 +549,7 @@ function copy_post_configs () {
 	copy_file "${CONFIG_DIR}/plymouth/bcld-plymouth.png" "${CHPLY_DIR}/themes/spinner/watermark.png"
 	copy_file "${CONFIG_DIR}/plymouth/bcld-plymouth.png" "${CHPLY_DIR}/ubuntu-logo.png"
 	copy_file "${CONFIG_DIR}/rsyslog/60-BCLD-rsyslog.conf" "${CHOME_DIR}/60-BCLD-rsyslog.conf"
+    copy_file "${CONFIG_DIR}/rsyslog/70-bcld-log.conf" "${CHOME_DIR}/70-bcld-log.conf"
 	copy_file "${SCRIPT_DIR}/rsyslogger.sh" "${CHROOT_BIN}"
 	
 	on_completion
