@@ -95,6 +95,7 @@ function list_entry () {
 # Function to close section
 function list_exit () {
     /usr/bin/echo "    ╽"
+    /usr/bin/echo
 }
 
 # Function for white line
