@@ -3,6 +3,10 @@
 ## 2024
 
 ## May
+* `2024-05-23 12:25:59` : [OAC-1068]
+    - [BCLD Vendor](./script/bcld_vendor.sh) now runs with root permissions through [BCLD-INIT](./config/bash/bcld-init)
+    - Changes have been made to the BCLD Vendor script
+    - Output goes to journal instead of console
 * `2024-05-23 12:09:01` : [OAC-1043]
     - Added new [bcld-log](./config/rsyslog/70-bcld-log.conf) config
     - Added new BCLD parameter: [bcld.afname.logging](./config/bcld/bcld.cfg)
