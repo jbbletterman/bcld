@@ -48,8 +48,6 @@
 function last_item () {
     /usr/bin/echo "    └────╼ ${1}"
     /usr/bin/echo
-    # Sleep for 2s after each last item, so people can actually read output
-    /usr/bin/sleep 1s
 }
 
 # Function to echo as list item
