@@ -1172,7 +1172,7 @@ list_entry
         /EFI/efiboot.img=EFI/BOOT/efi.img \
         /boot/grub/bios.img=isolinux/bios.img \
         . \
-    && list_catch && last_item "ISO image created!"
+    && list_catch && on_completion
 
 safe_return
 
