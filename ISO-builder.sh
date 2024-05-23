@@ -230,7 +230,7 @@ clean_prebuild () {
 ## Function to validate if there are any apps going to be installed before building
 function init_pkgs () {
 
-    TAG="ISO-APP"
+    TAG='ISO-APP'
     
     list_header "Checking available packages in \"${APP_DIR}\" and \"${CONFIG_DIR}/packages/APP\"."
 
@@ -256,7 +256,7 @@ function init_pkgs () {
 ## Function to count and copy DEB files inside CHAPP_DIR
 function copy_chdeb () {
 
-    TAG="ISO-CHDEB"
+    TAG='ISO-CHDEB'
     
     # Find DEB file with BCLD_MODEL, using APP_DIR
     list_header "Copying DEB-file"
@@ -274,7 +274,7 @@ function copy_chdeb () {
 ## Function to count and copy AppImage files inside CHAPP_DIR
 function copy_chapp () {
 
-    TAG="ISO-CHAPP"
+    TAG='ISO-CHAPP'
     
     # AppImages don't require installation,
     # so we can shove em' straight into /opt
@@ -530,7 +530,7 @@ function copy_post_configs () {
 init_pkgs
 
 # Start Building
-TAG="ISO-PRECLEAN"
+TAG='ISO-PRECLEAN'
 list_header "Starting BCLD ISO Builder!"
 list_item "Date: $(date -Ru)"
 last_item "Version: ${BCLD_VERSION_STRING}"
@@ -553,13 +553,13 @@ on_completion
 
 # Generate necessary build directories
 
-TAG="ISO-PREP"
+TAG='ISO-PREP'
 
 prep_dirs
 
 # Debootstrap
 
-TAG="ISO-BOOTSTRAP"
+TAG='ISO-BOOTSTRAP'
 
 # This may only work if Debootstrap is installed
 if [[ -f /usr/sbin/debootstrap ]] && [[ ! -d "${BOOTSTRAP_DIR}" ]]; then
@@ -598,7 +598,7 @@ fi
 
 # Preconfigurations
 
-TAG="ISO-PRECONF"
+TAG='ISO-PRECONF'
 
 list_header "Preconfigurations"
 
@@ -661,7 +661,7 @@ copy_config_scripts
 
 # BCLD Services
 
-TAG="ISO-SVCS"
+TAG='ISO-SVCS'
 
 list_header "Copying BCLD Services"
 
@@ -696,13 +696,13 @@ on_completion
 # Set mounts
 # This is essential, so exit on failure
 #/usr/bin/mount --verbose --rbind devpts "${CHROOT_DIR}/dev/pts"
-TAG="ISO-MOUNT"
+TAG='ISO-MOUNT'
 list_header "Applying mounts"
 init_mount
 on_completion
 
 # Chroot installations
-TAG="ISO-CHROOT"
+TAG='ISO-CHROOT'
 list_header "Chrooting"
 
 ## Chroot
@@ -722,7 +722,7 @@ fi
 
 # Postconfigurations
 
-TAG="ISO-POSTCONF"
+TAG='ISO-POSTCONF'
 
 list_header "Postconfigurations"
 
@@ -941,7 +941,7 @@ fi
 on_completion
 
 ## Trigger update-initramfs before exporting artifacts
-TAG="ISO-INITRAMFS"
+TAG='ISO-INITRAMFS'
 list_header "Triggering update-initramfs"
 list_entry
 /usr/sbin/chroot "${CHROOT_DIR}" /usr/sbin/update-initramfs -u | /usr/bin/tee -a "${CHROOT_LOG}"
@@ -967,7 +967,7 @@ on_completion
 
 ### Generate package lists
 
-TAG="ISO-REPO"
+TAG='ISO-REPO'
 
 list_header "Scanning packages with DPKG"
 
@@ -993,7 +993,7 @@ on_completion
 
 # Generate SquashFS only if there are contents inside /opt.
 
-TAG="ISO-SQUASHFS"
+TAG='ISO-SQUASHFS'
 
 # This is where the app SHOULD be installed.
 # Generating SquashFS takes very long and is pointless without the app
@@ -1044,7 +1044,7 @@ else
 fi
 
 # Update Grub
-TAG="ISO-GRUB"
+TAG='ISO-GRUB'
 
 list_header "Generating GRUB images"
 
@@ -1121,7 +1121,7 @@ list_catch
 on_completion
 
 # Prepare ISO image
-TAG="ISO-GEN"
+TAG='ISO-GEN'
 
 ## Copy files
 list_header "Preparing stage: ${TAG}"
