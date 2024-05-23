@@ -148,6 +148,7 @@ if [[ -f ${REMOVE} ]]; then
     list_header "REMOVE file detected, excluding packages"
     list_entry
     /usr/bin/cat "${REMOVE}"
+    list_catch
     list_entry
     /usr/bin/apt-get remove -yq --purge $(/usr/bin/cat ${REMOVE}) | /usr/bin/tee -a "${LOG_FILE}"
 fi
@@ -158,8 +159,10 @@ list_header "Configurations"
 
 ## User/Run Level/Target, het is complex...
 list_item "Default Target: ${DEFAULT_TARGET}"
+list_entry
 /usr/bin/systemctl enable "${DEFAULT_TARGET}.target"
 /usr/bin/systemctl set-default "${DEFAULT_TARGET}.target"
+list_catch
 
 ## User Management
 list_item "User Management: \"${BCLD_USER}\""
@@ -175,18 +178,24 @@ fi
 list_item "Enable USB-logger by default"
 list_entry
 /usr/bin/mkdir -pv "${BCLD_MOUNT}"
+list_catch
 list_item "Enabling USB-logger service..."
+list_entry
 /usr/bin/systemctl enable BCLD-USB.service
+list_catch
 
 ## Chrome Dump
 list_item "Enable BCLD-crosdump.service to catch Chrome dumps"
 list_item "Enabling Chromium dump logger service..."
+list_entry
 /usr/bin/systemctl enable BCLD-crosdump.service
+list_catch
 
 ## Rsyslog
 list_item "Creating: ${CHROOT_RM} for Rsyslog"
 list_entry
 /usr/bin/mkdir -v "${CHROOT_RM}"
+list_catch
 
 ## Xauth
 # Broken
@@ -224,17 +233,20 @@ if [[ ${DEB_COUNT} -gt 0 ]]; then
     /usr/bin/find "${APP_DIR}" -type f -name '*.deb' -exec /usr/bin/apt-get install -fy {} \; -quit
 	
 	# Change ownership of /opt to the BCLD_USER
-    chown -R "${BCLD_USER}":"${BCLD_USER}" /opt
+    /usr/bin/chown -Rv "${BCLD_USER}":"${BCLD_USER}" /opt
 	
 	# Cleanup the DEB dir
     /usr/bin/rm -rfv "${APP_DIR}"
+    list_catch
 elif [[ -z "${APP_PKGS}" ]]; then
     list_item_fail "${APP_PKGS} cannot be empty!"
     on_failure
 else
     # If there are no DEBs, use APP packages instead
     list_item "No DEBs found in APP_DIR, using: ${APP_PKGS}"
+    list_entry
     /usr/bin/apt-get install -yq --no-install-recommends $(/usr/bin/cat "${APP_PKGS}")
+    list_catch
 fi
 
 ## Configure Avahi
@@ -284,7 +296,15 @@ clear_file ${REMOVE}
 clear_file ${SELECTIONS}
 
 ## Clean APT and history
-list_item "APT_CLEAN is set to ${1}, cleaning APT..."
+list_item "Cleaning APT..."
+list_entry
 /usr/bin/apt-get autoremove -yq | /usr/bin/tee -a "${LOG_FILE}"
 /usr/bin/apt-get clean
 history -c
+list_catch
+
+## Clear chroot logs
+list_item "Cleaning chroot logs..."
+list_entry
+/usr/bin/rm -fv ${CHROOT_DIR}/root/*.log
+list_exit
