@@ -150,7 +150,7 @@ if [[ -n "${BCLD_VENDOR}" ]]; then
 		    # ENVs
 		    BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
 		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
-	    elif [[ "$(/usr/bin/hostname)" != 'localhost.localdomain' ]]
+	    else
 		    # Pick different hostname if no MAC interface
 		    log_item "No physical interfaces detected... Using machine-id."
 		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
