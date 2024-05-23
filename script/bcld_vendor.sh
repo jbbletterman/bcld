@@ -44,7 +44,6 @@
 # Enable Rsyslog service ONLY for Facet
 #
 # IMPORT
-source /etc/environment
 source /usr/bin/log_tools.sh
 
 # ENVs

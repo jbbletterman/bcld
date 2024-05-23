@@ -26,7 +26,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-4fec83054c4e785b5e185ec7dde5b9a4  ./config/bash/bcld-init
+c1b963793b251d99b796f0983300e9c8  ./config/bash/bcld-init
 e124fbeec8ab3fff61126fb9c0f3c449  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg
@@ -100,7 +100,7 @@ c99677e6deb495fb2b90cbfb84ac7349  ./config/udev/rules.d/BCLD-USB.rules
 d82d30ac340520e022f88d6fd0326a13  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
-174a2777384015a6a8682b5450f034f5  ./script/bcld_vendor.sh
+eaebf4213b8a73ee8800b7c156e07188  ./script/bcld_vendor.sh
 1d7a6ff3ed051e8eeaedca3b4a5c4451  ./script/chroot.sh
 8cbe061a180f3034b8e51dcaf1f03423  ./script/client_logger.sh
 525f0518876e4991769aca7d61e10e5a  ./script/crosdump_logger.sh
