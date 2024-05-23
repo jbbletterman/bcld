@@ -88,6 +88,9 @@ log_item "Setting RTC to local time..."
 
 ## Send BCLD_VENDOR to /etc/environment
 function vendor_env () {
+
+    export BCLD_VENDOR="${1}"
+
     /usr/bin/echo "BCLD_VENDOR=${1}" >> "${ENVIRONMENT}"
 }
 
@@ -150,10 +153,10 @@ if [[ -n "${BCLD_VENDOR}" ]]; then
 	    elif [[ "$(/usr/bin/hostname)" != 'localhost.localdomain' ]]
 		    # Pick different hostname if no MAC interface
 		    log_item "No physical interfaces detected... Using machine-id."
-		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
+		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
 	    fi
 	    
-    elif [[ "$(/usr/bin/hostname)" != 'localhost.localdomain' ]]; then
+    else
 	
 	# If the default hostname is changed, keep it
 	log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
