@@ -6,7 +6,7 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 f71aa1cbfbac3b78d928b77178e63aef  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-1cdf1471b985b5237a10f733a1dfc793  ./CHANGELOG.md
+63eb2af0d472a2a42ea2b1da8128ba73  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b02e8316746a255b4576a9a822724af1  ./IMG-builder.sh
@@ -27,7 +27,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
 0b07e5020e3c53f034ef3cf867b7e96e  ./config/bash/bcld-init
-e124fbeec8ab3fff61126fb9c0f3c449  ./config/bash/environment
+269b41c4dd6a1bd08852114da6c20231  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 b28278802ee61aebb941b065b2322165  ./config/bcld/bcld.cfg
 1b98525005b32bb69b3ab90e213c6492  ./config/casper/casper.conf

@@ -21,6 +21,7 @@ XORG_USR_LOG="/home/${BCLD_USER}/.local/share/xorg/Xorg.0.log"
 # BCLD Parameters
 ## AFNAME
 AFNAME_PARAM='BCLD_URL'
+LOGGING_PARAM='BCLD_LOGGING'
 MOUSE_PARAM='BCLD_MOUSE'
 SHUTDOWN_PARAM='BCLD_SHUTDOWN'
 VENDOR_PARAM='BCLD_VENDOR'
@@ -66,6 +67,7 @@ WIFI_EAP_USER_PARAM='BCLD_EAP_USER'
 # BCLD Aliases
 ## AFNAME
 AFNAME_ALIAS='bcld.afname.url'
+LOGGING_ALIAS='bcld.afname.logging'
 MOUSE_ALIAS='bcld.afname.mouse'
 SHUTDOWN_ALIAS='bcld.afname.shutdown'
 VENDOR_ALIAS='bcld.afname.vendor'
