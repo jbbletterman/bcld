@@ -7,6 +7,16 @@
     - [BCLD Vendor](./script/bcld_vendor.sh) now runs with root permissions through [BCLD-INIT](./config/bash/bcld-init)
     - Changes have been made to the BCLD Vendor script
     - Output goes to journal instead of console
+    - Cleaned up build output with new headers and lists in [ISO-builder](./ISO-builder.sh) and [IMG-builder](./IMG-builder.sh)
+    - Removed unnecessary functions from [ISO-builder](./ISO-builder.sh)
+    - Added new [ISO-builder](./ISO-builder.sh) TAGs: 
+        1. `ISO-SVCS` : Build component installs BCLD services
+        2. `ISO-CERT` : Build component manages BCLD Certificate module
+        3. `ISO-TWEAKS` : Build component manages configuration tweaks for BCLD_MODELs
+        4. `ISO-CLEANUP` : Build component cleans up after SQUASHFS generation
+        5. `ISO-CLEAR` :  Build component cleans up after finishing build
+    - Added new [file operation](./script/file_operations.sh): `safe_return`
+    - General cleanup of build output
 * `2024-05-23 12:09:01` : [OAC-1043]
     - Added new [bcld-log](./config/rsyslog/70-bcld-log.conf) config
     - Added new BCLD parameter: [bcld.afname.logging](./config/bcld/bcld.cfg)
