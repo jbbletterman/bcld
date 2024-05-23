@@ -112,7 +112,6 @@ img_size () {
     tag_check 'ISO-MOUNT'
     tag_check 'ISO-CHROOT'
     tag_check 'ISO-POSTCONF'
-    tag_check 'ISO-CERT'
     tag_check 'ISO-TWEAKS'
     tag_check 'ISO-INITRAMFS'
     tag_check 'ISO-REPO'

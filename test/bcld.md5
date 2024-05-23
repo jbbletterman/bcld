@@ -112,7 +112,7 @@ eaebf4213b8a73ee8800b7c156e07188  ./script/bcld_vendor.sh
 5615ba273635885e12f2c97b32c6b4b4  ./script/rsyslogger.sh
 c3e0ce83bdf2d7ddf17002da8320b0b3  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
-475fbb196946809798513583f5317901  ./test/00_BCLD-BUILD.bats
+1c98709abb1b5a15a11c239dbe3f69f4  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
 05efb643572d1e799dea3af6021193e4  ./test/bcld_test.sh
