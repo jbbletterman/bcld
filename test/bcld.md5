@@ -6,13 +6,13 @@ f031b00700e24b12aaa9385a7aecbffc  ./.github/ISSUE_TEMPLATE/feature-request.md
 f71aa1cbfbac3b78d928b77178e63aef  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-74f45fbf6b5b2b595cc11a45a4171249  ./CHANGELOG.md
+8053d60803e781af4a1222773cdb28a5  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 b96f01e315891650bb62e848bc40c399  ./IMG-builder.sh
-18d9a6e90c002880c7764b24a4fd401b  ./ISO-builder.sh
+9c7e5fee9a4e4a1c058df1b10af839af  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-ab5b7ff3b6dfd2870be0cd751c59397f  ./README.md
+eaf9c666e6958ff59a6cd6608df4fbdf  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
@@ -112,7 +112,7 @@ eaebf4213b8a73ee8800b7c156e07188  ./script/bcld_vendor.sh
 5615ba273635885e12f2c97b32c6b4b4  ./script/rsyslogger.sh
 c3e0ce83bdf2d7ddf17002da8320b0b3  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
-ab93f20186c5a13a40a0e71ca6a71f78  ./test/00_BCLD-BUILD.bats
+475fbb196946809798513583f5317901  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
 05efb643572d1e799dea3af6021193e4  ./test/bcld_test.sh

@@ -17,6 +17,7 @@
         5. `ISO-CLEAR` :  Build component cleans up after finishing build
     - Added new [file operation](./script/file_operations.sh): `safe_return`
     - General cleanup of build output
+    - Updated [Tag Check](./test/00_BCLD-BUILD.bats)
 * `2024-05-23 12:09:01` : [OAC-1043]
     - Added new [bcld-log](./config/rsyslog/70-bcld-log.conf) config
     - Added new BCLD parameter: [bcld.afname.logging](./config/bcld/bcld.cfg)
