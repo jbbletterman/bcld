@@ -162,10 +162,6 @@ if [[ -n "${BCLD_VENDOR}" ]]; then
 	log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
     
     fi
-elif [[ -z "${BCLD_VENDOR}" ]]; then
-    log_item 'BCLD_VENDOR empty...'
-    log_item 'This is literally not possible.'
-    /usr/sbin/poweroff
 fi
 
 ## Allow password only for TEST, since only TEST has SSH
