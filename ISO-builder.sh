@@ -1172,10 +1172,11 @@ list_entry
         /EFI/efiboot.img=EFI/BOOT/efi.img \
         /boot/grub/bios.img=isolinux/bios.img \
         . \
-    && list_catch && on_completion
+    && list_catch && list_item "ISO image created!"
 
 safe_return
 
+on_completion
 
 # CLEANUP
 
