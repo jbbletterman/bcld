@@ -3,7 +3,19 @@
 ## 2024
 
 ## May
-* `2024-05-21 13:19:45` : 
+* `2024-05-23 12:25:59` : [OAC-1068]
+    - [BCLD Vendor](./script/bcld_vendor.sh) now runs with root permissions through [BCLD-INIT](./config/bash/bcld-init)
+    - Changes have been made to the BCLD Vendor script
+    - Output goes to journal instead of console
+* `2024-05-23 12:09:01` : [OAC-1043]
+    - Added new [bcld-log](./config/rsyslog/70-bcld-log.conf) config
+    - Added new BCLD parameter: [bcld.afname.logging](./config/bcld/bcld.cfg)
+    - Added new BCLD ENV: [BCLD_LOGGING](./config/bash/environment)
+    - Config will be utilized for advanced BCLD logging metrics using new parameter
+* `2024-05-22 14:03:32` : [OAC-1068] 
+    - Improved [BCLD-INIT](./config/bash/bcld-init) by adding BCLD_VENDOR to ENVIRONMENT instead of exporting in root scope
+    - Migrated [BCLD Vendor](./script/bcld_vendor.sh) script from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
+* `2024-05-21 13:19:45` : [OAC-1068]
     - Moved some more sudo operations from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
     - Moved some more ENVs from [Startup](./script/startup.sh) to [Environment](./bash/enviroment)
 * `2024-05-17 15:37:37` : [OAC-1068]

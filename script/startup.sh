@@ -587,9 +587,6 @@ export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 ## Read BCLD_VERBOSE first
 readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
 
-## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
-source /usr/bin/bcld_vendor.sh
-
 ## Read the rest of the parameters here.
 read_all_params
 

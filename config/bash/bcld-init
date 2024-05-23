@@ -49,14 +49,19 @@
 #
 # Script for running root operations prior to launching BCLD Startup script
 ## Set only if empty
-
+source /etc/environment
 source /usr/bin/log_tools.sh
+
+# ENVs
+TAG='BCLD-INIT'
 
 BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
-TAG='BCLD-INIT'
+ENVIRONMENT='/etc/environment'
 
-# Function to set hostname before running BCLD startup script
+# FUNCTIONS
+
+## Function to set hostname before running BCLD startup script
 function bcld_set_hostname () {
 	log_item "Changing hostname to ${1}..."
 			
@@ -67,7 +72,7 @@ function bcld_set_hostname () {
 	/usr/bin/sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
 }
 
-#
+# EXE
 
 log_header 'Starting BCLD-INIT script'
 
@@ -77,12 +82,20 @@ if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
     /usr/bin/systemd-machine-id-setup || exit 1
 fi
 
-#### Set local time
+## Set local time
 log_item "Setting RTC to local time..."
 /usr/bin/timedatectl set-local-rtc 1
 
-# Set BCLD_VENDOR with parameter
-# Loop through CMD_LINE.
+## Send BCLD_VENDOR to /etc/environment
+function vendor_env () {
+
+    export BCLD_VENDOR="${1}"
+
+    /usr/bin/echo "BCLD_VENDOR=${1}" >> "${ENVIRONMENT}"
+}
+
+## Set BCLD_VENDOR with parameter
+## Loop through CMD_LINE.
 for KERNEL_PARAM in ${CMD_LINE}; do
     
     # Match only VENDOR_PARAM.
@@ -90,58 +103,65 @@ for KERNEL_PARAM in ${CMD_LINE}; do
         # Strip the BCLD_VENDOR and give it to a new export
         KERNEL_PARAM=$(/usr/bin/echo "${KERNEL_PARAM}" | /usr/bin/sed 's/=/ /')
         IFS=' ' read -r NAME VALUE <<< "${KERNEL_PARAM}"
-        export BCLD_VENDOR="${VALUE}"
+        vendor_env "${VALUE}"
         break
     fi
 done
 
 # If BCLD_VENDOR is still empty, autodetect
-if [[ -z "${BCLD_VENDOR}" ]]; then
+if [[ "$(/usr/bin/grep -c 'BCLD_VENDOR=' "${ENVIRONMENT}")" -eq 0 ]]; then
     
-    log_item 'BCLD_VENDOR not set...'
+    log_item "BCLD_VENDOR not set in ${ENVIRONMENT}..."
 	
 	# If BCLD App found, default to 'facet'
+	## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
 	if [[ -x /opt/deb-app-afname ]]; then
 	    log_item 'Setting to default: FACET'
-	    export BCLD_VENDOR='facet'
+	    vendor_env 'facet'
+	    source /usr/bin/bcld_vendor.sh
     else
         # Without a Facet Chrome app, we are likely running Vendorless BCLD
         log_item 'BCLD App not found, setting to: VENDORLESS BCLD'
-	    export BCLD_VENDOR='vendorless'
+	    vendor_env 'vendorless'
+	    source /usr/bin/bcld_vendor.sh
 	fi
 else
-	# Display used BCLD_VENDOR parameter
-	log_item "Setting BCLD_VENDOR to ${BCLD_VENDOR^^}!"
+	# If already set, display
+	log_item "BCLD_VENDOR set to: $(/usr/bin/grep 'BCLD_VENDOR=' "${ENVIRONMENT}")"
 fi
 
 # After setting the machine-id and BCLD_VENDOR, set the hostname
 # This must be done before entering usermode (only root can change hostname and there is no sudo here)
-if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]] || [[ -n "${BCLD_VENDOR}" ]]; then
+if [[ -n "${BCLD_VENDOR}" ]]; then
+    
+    if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]]; then
 
-    log_item 'Configuring hostname...'
+        log_item 'Configuring hostname...'
 
-	# First, find a random MAC address on the system, filter virtual interfaces
-	BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
+	    # First, find a random MAC address on the system, filter virtual interfaces
+	    BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
 
-	# Change hostname only if a device is found
-	if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
+	    # Change hostname only if a device is found
+	    if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
 
-		# Pick hostname based on MAC
-		log_item "Physical interfaces detected..."
+		    # Pick hostname based on MAC
+		    log_item "Physical interfaces detected..."
 
-		# ENVs
-		BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
-		BCLD_HOST="${BCLD_VENDOR}-${BCLD_HASH}"
-		bcld_set_hostname "${BCLD_HOST}"
-	else
-		# Pick different hostname if no MAC interface
-		log_item "No physical interfaces detected... Using machine-id."
-		BCLD_HOST="${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
-		bcld_set_hostname "${BCLD_HOST}"
-	fi
-else
+		    # ENVs
+		    BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
+		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
+	    else
+		    # Pick different hostname if no MAC interface
+		    log_item "No physical interfaces detected... Using machine-id."
+		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
+	    fi
+	    
+    else
+	
 	# If the default hostname is changed, keep it
 	log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
+    
+    fi
 fi
 
 ## Allow password only for TEST, since only TEST has SSH
