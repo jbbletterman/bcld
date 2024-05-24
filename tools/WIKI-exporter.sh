@@ -39,44 +39,44 @@
 # permissions and limitations under the License.
 # 
 #
-# Docker tools
-# Script to run with ./Docker-builder.sh. Checks the 
-# environment and configures the container before running
-# both ISO-builder.sh and then IMG-builder.sh.
+# Script for exporting the BCLD Wiki into an artifact
 
 set -e
 
-source ./config/BUILD.conf
+source ./script/file_operations.sh
+source ./script/echo_tools.sh
 
-# Create zone information files for tzdata
-if [[ -n "${TZ}" ]]; then
-    /usr/bin/echo "Creating zone information files: ${TZ}"
-    /usr/bin/ln -snf "/usr/share/zoneinfo/${TZ}" /etc/localtime
-    /usr/bin/echo "${TZ}" > /etc/timezone
+# VARs
+TAG='WIKI-EXPORT'
+WIKI_NAME='bcld.wiki'
+
+MOD_PATH="./modules/${WIKI_NAME}"
+
+list_header "Starting Wiki Exporter"
+
+if [[ -x ./tools/WIKI-exporter.sh ]]; then
+    ART_DIR="${PWD}/artifacts"
+    prep_dir "${ART_DIR}"
 else
-    /usr/bin/echo '$TZ is NOT SET!'
-    exit
+    list_item_fail 'Please run this script from the project root directory!'
+    on_failure
 fi
 
-# Create a ./log directory if it does not exist
-if [[ ! -d ./log ]]; then
-    /usr/bin/echo 'Generating log directory...'
-    /usr/bin/mkdir -v ./log
+# EXE
+
+## Find the Wiki Homepage that should always exist
+#  On failure, it's either empty or doesn't exist
+if [[ -f "${MOD_PATH}/Home.md" ]]; then
+    cd ./modules
+        list_entry
+        /usr/bin/zip -r "${ART_DIR}/bcld.wiki.zip" "${WIKI_NAME}"
+    cd -
+    list_catch
+    on_completion
+elif [ -d "${MOD_PATH}" ]; then
+    list_item_fail 'Wiki directory seems empty!'
+    on_failure
+else
+    list_item_fail 'Wiki directory does not exist!'
+    on_failure
 fi
-
-/usr/bin/echo 'Updating build packages...'
-# Prepare the container by updating the package lists
-/usr/bin/apt-get update | /usr/bin/tee log/APT.log
-
-/usr/bin/echo 'Installing packages on build machine, this may take a while...'
-# Install all dependencies
-/usr/bin/apt-get install -y $(/usr/bin/cat /project/config/packages/BUILD) | /usr/bin/tee -a log/APT.log
-
-# Generate the ISO-artifact
-./ISO-builder.sh | /usr/bin/tee log/ISO-builder.log
-
-# Generate the IMG-artifact
-./IMG-builder.sh | /usr/bin/tee log/IMG-builder.log
-
-# Finish
-exit

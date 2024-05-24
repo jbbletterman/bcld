@@ -47,7 +47,6 @@
 # hardware settings.
 #
 #set -x
-BCLD_TEST='/usr/bin/bcld_test.sh'
 
 # Load TEST package OR trap inside RELEASE/DEBUG
 if [[ "${BCLD_MODEL}" == 'test' ]] \
@@ -118,74 +117,6 @@ function lf_umount () {
     fi    
 }
 
-## To set machine-id
-function set_machine_id () {
-    
-    ## Set only if empty
-    if [[ ! -f /etc/machine-id ]] || [[ "$(/usr/bin/cat /etc/machine-id | /usr/bin/wc -l)" -eq 0 ]]; then
-        print_item "MACHINE_ID not set! Setting: "
-        /usr/bin/systemd-machine-id-setup || exit 1
-
-        export BCLD_MACHINE_ID="$(/usr/bin/cat ${MACHINE_ID})"
-    fi
-}
-
-## Set hostname
-function bcld_set_hostname () {
-	list_item "Changing hostname to ${1}..."
-			
-	# New hostname
-	/usr/bin/hostnamectl set-hostname "${1}"
-	
-	/usr/bin/sudo sed -i "s/127.0.0.1 localhost/127.0.0.1 ${1}/" /etc/hosts &> /dev/null
-	/usr/bin/sudo sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
-	
-	# New hostname requires relog
-	last_item "Relogging with new hostname..." && logout
-}
-
-## To set hostname with BCLD_VENDOR
-function reset_bcld_hostname () {
-
-	# Set hostname using selected vendors
-	# A relog is needed for sudo's to proceed
-	# Only needs to relog if hostname is the default
-
-	# Do this only if the hostname is 'localhost.localdomain'
-	if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]]; then
-
-        list_item 'Configuring hostname...'
-
-		# First, find a random MAC address on the system, filter virtual interfaces
-		BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
-
-		# Change hostname only if a device is found
-		if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
-
-			# Pick hostname based on MAC
-			list_item "Physical interfaces detected..."
-
-			# ENVs
-			BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
-			BCLD_HOST="${BCLD_VENDOR}-${BCLD_HASH}"
-
-			bcld_set_hostname "${BCLD_HOST}"
-		else
-			# Pick different hostname if no MAC interface
-			list_item "No physical interfaces detected... Using machine-id."
-
-			# ENVs
-			BCLD_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
-			BCLD_HOST="${BCLD_VENDOR}-${BCLD_ID}"
-
-			bcld_set_hostname "${BCLD_HOST}"
-		fi
-	else
-		# If the default hostname is changed, keep it
-		list_item_pass "Hostname already appears to be changed: $(/usr/bin/hostname)"
-	fi
-}
-
 ## Function to take key/value from CMD_LINE, and change it to whatever we need.
 function readparam () {
     
@@ -203,32 +134,6 @@ function readparam () {
     done
 }
 
-## Function to read BCLD_VENDOR Parameter
-function read_vendor_param() {
-
-	# Set BCLD_VENDOR with parameter
-	readparam "${VENDOR_PARAM}" "${VENDOR_ALIAS}"
-	
-	# Set BCLD_VENDOR if no parameter
-	if [[ -z "${BCLD_VENDOR}" ]]; then
-	    
-	    list_item 'BCLD_VENDOR not set...'
-		
-		# If BCLD App found, default to 'facet'
-		if [[ -x /opt/deb-app-afname ]]; then
-		    list_item 'Setting to default: FACET'
-		    export BCLD_VENDOR='facet'
-	    else
-	        list_item 'BCLD App not found, setting to: VENDORLESS BCLD'
-		    export BCLD_VENDOR='vendorless'
-		fi
-	else
-		# Display used BCLD_VENDOR parameter
-		list_item_pass "Setting BCLD_VENDOR to ${BCLD_VENDOR^^}!"
-	fi
-	
-}
-
 ## Function to read every BCLD Boot Parameter
 function read_all_params() {
 
@@ -238,6 +143,7 @@ function read_all_params() {
 	readparam "${AFNAME_PARAM}" "${AFNAME_ALIAS}"
 	readparam "${MOUSE_PARAM}" "${MOUSE_ALIAS}"
 	readparam "${SHUTDOWN_PARAM}" "${SHUTDOWN_ALIAS}"
+	readparam "${LOGGING_PARAM}" "${LOGGING_ALIAS}"
 	readparam "${VENDOR_PARAM}" "${VENDOR_ALIAS}"
 	readparam "${ZOOM_PARAM}" "${ZOOM_ALIAS}"
 
@@ -364,6 +270,13 @@ function ip_link () {
 			    # Only perform network check on BCLD_URL (trusted)
 			    list_item_pass "Performing network check on: \"${BCLD_URL}\""
 			    export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' "${BCLD_URL}")"
+			    
+			    # If BCLD_URL is set, but network check fails, this network is unstable
+			    if [[ "${BCLD_DOWNLOAD}" -eq 0 ]]; then
+			        list_item_fail 'Network check failed!'
+			        trap_shutdown 'net'
+			    fi
+			    
 			fi
 			
 			export BCLD_IP="$(/usr/sbin/ip address | /usr/bin/grep "${BCLD_IF}" | /usr/bin/grep inet | /usr/bin/awk '{ print $2 }' | /usr/bin/cut -d '/' -f1 | /usr/bin/head -n 1)"
@@ -460,13 +373,15 @@ function connect_lan () {
 		
 		list_item "Attempting to establish wired connection on: ${1} (attempt: #${attempt})"
 		/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
-		((attempt++))
 		
 		# Break out after SCAN_TRIES
 		if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 			list_item_fail "Tried ${attempt} times... Giving up."
 			break
 		fi
+		
+		((attempt++))
+
 	done
 		
 }
@@ -499,13 +414,14 @@ function connect_wifi () {
 		while [[ ! -s "${DHCP_LEASE}" ]]; do
 			list_item "Attempting to establish WiFi connection on: ${1} (attempt: #${attempt})"
 			/usr/bin/sudo /usr/sbin/dhclient "${1}" &> /dev/null
-			((attempt++))
 			
 			# Break out after SCAN_TRIES
 			if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
 				list_item_fail "Tried ${attempt} times... Giving up."
 				break
     		fi
+
+			((attempt++))
 			
 		done
 	fi
@@ -616,7 +532,7 @@ function init_app () {
 	    	write_ENVs
 	    	
 	    	# Only TEST can escape the app and reset the terminal
-	    	launch
+	    	# launch
 	        reset_terminal
         else
             # If not TEST, launch the app normally but shutdown if it halts
@@ -671,18 +587,6 @@ export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 ## Read BCLD_VERBOSE first
 readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
 
-## Read BCLD_VENDOR next
-read_vendor_param
-
-## Machine-id
-set_machine_id # Set machine-id
-
-## Set hostname using BCLD_VENDOR and relog (need machine-id)
-reset_bcld_hostname
-
-## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
-source /usr/bin/bcld_vendor.sh
-
 ## Read the rest of the parameters here.
 read_all_params
 
@@ -707,17 +611,7 @@ if [[ ${BCLD_MODEL} != 'release' ]]; then
 
 fi
 
-## Allow password only for TEST, since only TEST has SSH
-if [[ "${BCLD_MODEL}" == 'test' ]] \
-    && [[ -f "${BCLD_TEST}" ]]; then
-    /usr/bin/sudo /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | openssl passwd -1 -stdin)" "${BCLD_USER}"
-fi
-
 ### Generic Configurations
-
-#### Set local time
-list_item "Setting RTC to local time..."
-/usr/bin/sudo /usr/bin/timedatectl set-local-rtc 1
 
 #### Darken XTerm output unless enabled
 if [[ ${BCLD_VERBOSE} -eq 1 ]]; then
@@ -775,6 +669,10 @@ else
 	    export BCLD_OPTS="${BCLD_OPTS} --shutdown-timer=${BCLD_SHUTDOWN}"
 	    list_item_pass "SHUTDOWN added to BCLD_OPTS"
     fi
+
+	if [[ "${BCLD_LOGGING}" -eq 1 ]]; then
+		export BCLD_OPTS="${BCLD_OPTS} --enableLogging --logfile=/opt/bcld_log.json"
+	fi
 fi
 
 ### Show BCLD_OPTS
@@ -904,13 +802,17 @@ if [[ -n ${BCLD_SSID} ]]; then
     while [[ "${conns}" -lt 1 ]]; do
         list_item "Checking wireless networks...(attempt: #${attempt})"
         conns=$(($(/usr/bin/nmcli device wifi list | /usr/bin/wc -l) - 1))
-        ((attempt++))
+        
+		# dhclient sometimes works erratically on slower connections
+		/usr/bin/sleep 3s
 
 		# Break out after SCAN_TRIES
         if [[ "${attempt}" -eq "${SCAN_TRIES}" ]]; then
         	list_item_fail "Tried ${attempt} times... Giving up."
         	break
     	fi
+        
+        ((attempt++))
 
     done
     

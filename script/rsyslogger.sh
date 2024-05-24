@@ -56,6 +56,10 @@ RSYS_CONF="/etc/rsyslog.d/${FILE_NAME}"
 RSYS_TEMPLATE="${HOME}/${FILE_NAME}"
 RSYS_TEMP_FILE="${RSYS_TEMPLATE}.tmp"
 
+BCLD_LOGFILE="/opt/bcld_log.json"
+BCLD_LOG_RSYSLOG_CONF="70-bcld-log.conf"
+BCLD_LOG_RSYSLOG_DEST="/etc/rsyslog.d/${BCLD_LOG_RSYSLOG_CONF}"
+BCLD_LOG_RSYSLOG_SRC="${HOME}/${BCLD_LOG_RSYSLOG_CONF}"
 
 /usr/bin/inotifywait --quiet "$(/usr/bin/dirname ${INPUT_FILE} )" -e create --include 'input.json' |
     while read dir action file; do
@@ -70,6 +74,10 @@ RSYS_TEMP_FILE="${RSYS_TEMPLATE}.tmp"
 		log_line "Checking port ${BCLD_SYSLOG_PORT} on ${BCLD_FAO} for encrypted Rsyslog"
 		/usr/bin/envsubst < "${RSYS_TEMPLATE}" > "${RSYS_TEMP_FILE}"
 		/usr/bin/sudo /usr/bin/cp "${RSYS_TEMP_FILE}" "${RSYS_CONF}"
+
+		if [ -e "$BCLD_LOGFILE" ]; then
+			/usr/bin/sudo /usr/bin/cp "$BCLD_LOG_RSYSLOG_SRC" "$BCLD_LOG_RSYSLOG_DEST"
+		fi
 
 		# Restart the service
 		/usr/bin/sudo /usr/bin/systemctl restart rsyslog

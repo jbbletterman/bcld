@@ -1,14 +1,16 @@
 # BCLD ENVs
 BCLD_APP="${BCLD_APP}"
 BCLD_CODE_NAME="${BCLD_CODE_NAME}"
+BCLD_DEFAULT_URL="${BCLD_DEFAULT_URL}"
 BCLD_LOG='/var/log/bcld.log'
 BCLD_MODEL="${BCLD_MODEL}"
 BCLD_PATCH="${BCLD_PATCH}"
 BCLD_RUN="${BCLD_RUN}"
 BCLD_STARTUP_SCRIPT='/bin/startup.sh'
 BCLD_USER="${BCLD_USER}"
+BCLD_TEST='/usr/bin/bcld_test.sh'
+
 BCLD_MD5CHECK="/home/${BCLD_USER}/casper_md5check.log"
-BCLD_DEFAULT_URL="${BCLD_DEFAULT_URL}"
 
 # PATH
 LANGUAGE='nl_NL'
@@ -19,6 +21,7 @@ XORG_USR_LOG="/home/${BCLD_USER}/.local/share/xorg/Xorg.0.log"
 # BCLD Parameters
 ## AFNAME
 AFNAME_PARAM='BCLD_URL'
+LOGGING_PARAM='BCLD_LOGGING'
 MOUSE_PARAM='BCLD_MOUSE'
 SHUTDOWN_PARAM='BCLD_SHUTDOWN'
 VENDOR_PARAM='BCLD_VENDOR'
@@ -64,11 +67,12 @@ WIFI_EAP_USER_PARAM='BCLD_EAP_USER'
 # BCLD Aliases
 ## AFNAME
 AFNAME_ALIAS='bcld.afname.url'
+LOGGING_ALIAS='bcld.afname.logging'
 MOUSE_ALIAS='bcld.afname.mouse'
-VENDOR_ALIAS='bcld.afname.vendor'
-ZOOM_ALIAS='bcld.afname.zoom'
-VERBOSE_ALIAS='bcld.afname.verbose'
 SHUTDOWN_ALIAS='bcld.afname.shutdown'
+VENDOR_ALIAS='bcld.afname.vendor'
+VERBOSE_ALIAS='bcld.afname.verbose'
+ZOOM_ALIAS='bcld.afname.zoom'
 
 ## AUDIO
 AUDIO_ALSA_PORT_ALIAS='bcld.audio.alsa_port'

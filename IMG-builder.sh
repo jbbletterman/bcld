@@ -91,8 +91,6 @@ if [[ -f "$(pwd)/IMG-builder.sh" ]]; then
 	## Calculations	
 	iso_size=$(/usr/bin/du "${ISO_ART}" | /usr/bin/awk '{print $1}')
 	img_size=$(( iso_size + RW_PART + EFI_PART ))
-#	ISO_DIR="${IMG_DIR}/ISO"
-
     
     # If BCLD_MODEL isn't sourced, it should be declared within the Bamboo agent.
     if [[ -z ${BCLD_MODEL} ]]; then
@@ -133,7 +131,9 @@ copy_file "${EFI_IMAGE_GRUB}" "${IMAGE_GRUB}"
 # Generate IMG
 list_item "Image size: ${img_size} bytes."
 list_item "Creating ${IMG_ART}..."
+list_entry
 /usr/bin/dd if=/dev/zero of="${IMG_ART}" bs=1024 count="${img_size}" status=progress
+list_catch
 
 ## Format partitions
 LOOP_DEV="$(/usr/sbin/losetup -f)"
@@ -151,6 +151,7 @@ list_item "Formatting loop device..."
 list_entry
 /usr/sbin/mkfs.vfat -n "EFI" "${LOOP_DEV}p1"
 /usr/sbin/mkfs.vfat -n "${FAT_LABEL}" "${LOOP_DEV}p2"
+list_catch
 
 ## Inject labels
 /usr/sbin/fatlabel "${LOOP_DEV}p1" "EFI"

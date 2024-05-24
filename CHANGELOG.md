@@ -2,7 +2,91 @@
 
 ## 2024
 
+## May
+* `2024-05-23 12:25:59` : [OAC-1068]
+    - [BCLD Vendor](./script/bcld_vendor.sh) now runs with root permissions through [BCLD-INIT](./config/bash/bcld-init)
+    - Changes have been made to the BCLD Vendor script
+    - Output goes to journal instead of console
+    - Cleaned up build output with new headers and lists in [ISO-builder](./ISO-builder.sh) and [IMG-builder](./IMG-builder.sh)
+    - Removed unnecessary functions from [ISO-builder](./ISO-builder.sh)
+    - Added new [ISO-builder](./ISO-builder.sh) TAGs: 
+        1. `ISO-SVCS` : Build component installs BCLD services
+        2. `ISO-CERT` : Build component manages BCLD Certificate module
+        3. `ISO-TWEAKS` : Build component manages configuration tweaks for BCLD_MODELs
+        4. `ISO-CLEANUP` : Build component cleans up after SQUASHFS generation
+        5. `ISO-CLEAR` :  Build component cleans up after finishing build
+    - Added new [file operation](./script/file_operations.sh): `safe_return`
+    - General cleanup of build output
+    - Updated [Tag Check](./test/00_BCLD-BUILD.bats)
+* `2024-05-23 12:09:01` : [OAC-1043]
+    - Added new [bcld-log](./config/rsyslog/70-bcld-log.conf) config
+    - Added new BCLD parameter: [bcld.afname.logging](./config/bcld/bcld.cfg)
+    - Added new BCLD ENV: [BCLD_LOGGING](./config/bash/environment)
+    - Config will be utilized for advanced BCLD logging metrics using new parameter
+* `2024-05-22 14:03:32` : [OAC-1068] 
+    - Improved [BCLD-INIT](./config/bash/bcld-init) by adding BCLD_VENDOR to ENVIRONMENT instead of exporting in root scope
+    - Migrated [BCLD Vendor](./script/bcld_vendor.sh) script from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
+* `2024-05-21 13:19:45` : [OAC-1068]
+    - Moved some more sudo operations from [Startup](./script/startup.sh) to [BCLD-INIT](./config/bash/bcld-init)
+    - Moved some more ENVs from [Startup](./script/startup.sh) to [Environment](./bash/enviroment)
+* `2024-05-17 15:37:37` : [OAC-1068]
+    - In Noble (24.04), `hostnamectl` can no longer be used without authorization
+    - This means we need to migrate the hostname changes to a higher escalation than `./script/startup.sh`
+    - Grouped bash configuration scripts in `./config/bash`
+    - Added new [BCLD-INIT](./config/bash/bcld-init) root execution script for hostname changes
+    - Added license to [BCLD Bash profile](./config/bash/profile.d/10-BCLD.sh)
+    - Added `copy_post_config_dirs` to [ISO-builer](./ISO-builder.sh)
+    - Added `link_file` to [File Operations](./script/file_operations.sh)
+    - Added `bcld_init_links` to [ISO-builder](./ISO-builder.sh)
+* `2024-05-15 14:20:26` : [OAC-1068] Upgraded more packages
+    - Removed `libcups2` (UNNECESSARY)
+    - Removed `librpm9` (UNNECESSARY)
+* `2024-05-15 11:46:33` : 
+    - Build log now displays failed packages
+    - Added new [BUILD](./config/BUILD.conf) env: `DEFAULT_APP="(/usr/bin/qutebrowser &) && /usr/bin/qutebrowser :tab-close"`
+    - `BCLD_APP` is now optional, but will override `DEFAULT_APP`
+    - Optimized [Echo Tools](./script/echo_tools.sh), improved conditionals and removed sleeps
+* `2024-05-14 16:06:51` : [OAC-1068] Upgrade [packages](./config/packages/REQUIRED)
+    - Many packages replaced/updated
+    - Python 3.10 > 3.12
+    - Perl 5.34 > 5.38
+    - Removed `libgsasl7` (DEPRECATED)
+    - Removed `libsnapd-glib` (DEPRECATED)
+    - Removed `lsb-core` (DEPRECATED)
+    - Removed `rtl8821ce-dkms` (OBSOLETE)
+    - Added `TZ` to [BUILD](./config/BUILD.conf) configuration
+* `2024-05-14 17:31:56` : Bootstrap process made visible in build logs
+
+## April
+* `2024-04-16 15:02:15` : [Network check](./script/startup.sh#L366)
+    - [OAC-1040] Now actually scans 3 times, instead of stopping after 2 tries
+    - [OAC-1038] Now waits 3 seconds after every wireless scan if the network is unstable
+    - [OAC-1039] Now shuts down the system on failure
+* `2024-04-16 12:37:52` : Remove duplicate package `keyboard-configuration` from [REQUIRED](./config/packages/REQUIRED) packages
+* `2024-04-11 16:35:55` : [OAC-905] Swapping mouse buttons 2 and 3 for Vendorless BCLD by default in [Xconfigure](./script/Xconfigure.sh#L99)
+    - Mouse button 2 does not work in Vendorless BCLD
+    - Swapping mouse buttons allows for usage of tabs on laptops
+* `2024-04-10 17:11:10` : [OAC-1031] Enhanced `BCLD_CERTs` and `BCLD_KEYs` methods in [BCLD TEST package](./test/bcld_test.sh) to also include checks for client certificate and key
+* `2024-04-04 17:24:11` : Migrated system requirements, USB configurations and tools from [README](./README.md) to [BCLD Wiki](https://www.github.com/jbbletterman/bcld/wiki)
+
 ## March
+* `2024-03-26 11:58:27` : [OAC-837] Attempting to update kernel with `Illium` release: [6.5.0-26](https://packages.ubuntu.com/jammy-updates/linux-image-6.5.0-26-generic)
+* `2024-03-25 14:10:46` : [OAC-486]
+    - The [Release workflow](./.github/workflows/release%20(r8168).yml) now contains a BCLD Wiki export for archiving purposes
+    - The [Extra workflow](./.github/workflows/extra%20(r8168).yml) now contains the SBOM generation for resource optimization
+* `2024-03-25 12:22:20` : [OAC-986] Added BCLD Wiki project as submodule in [Modules](./modules/bcld.wiki)
+    - Added [WIKI-exporter.sh](./tools/WIKI-exporter.sh)
+* `2024-03-20 13:02:53` : [OAC-480] Added reporting template and `Disclosure Policy` to [Security Policy](./SECURITY.md)
+* `2024-03-14 16:39:46` : [OAC-1003] Added `isolinux` package to [BUILD](./config/packages/BUILD) packages
+    - Now generating new [isolinux.bin](./image/ISO/isolinux/)
+* `2024-03-14 15:44:49` : [OAC-1005]
+    - Add `pci=noaer` to [BCLD Client config](./config/bcld/bcld.cfg)
+    - Change precommit to only commit changes if HashGen works
+* `2024-03-14 12:45:25` : [OAC-480] Added section on Vulnerability Reporting in [Security Policy](./SECURITY.md#reporting-a-vulnerability)
+* `2024-03-13 13:33:25` : [OAC-480] Updated [Security Policy](./SECURITY.md#reporting-a-bug)
+    - More detailed description of bug reporting
+* `2024-03-12 15:14:49` : [OAC-1000]
+    - Moved BCLD assets to [BCLD Wiki](https://www.github.com/jbbletterman/bcld.wiki#bcld-flow-charts) project
 * `2024-03-12 12:23:28` : [OAC-978] Updated all [license texts](./LICENSE.eupl) in scripts
 * `2024-03-07 14:22:23` : [OAC-938] Added new font packages to support third party apps:
     - [fonts-font-awesome](./config/packages/REQUIRED)

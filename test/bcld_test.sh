@@ -78,7 +78,42 @@ function BCLD_CMDs () {
 
 ## Function to display BCLD certificates
 function BCLD_CERTs () {
+    CA_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -hash)"
+	CA_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
+
+    CERT_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -hash)"
+	CERT_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
+	
+	list_header 'Checking BCLD certificates'
+	list_item "CA certificate: ${CA_HASH}"
+	list_item "EXPIRES: ${CA_DATE}"
+	list_entry
+	/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -subject
+	list_catch
+	list_item "Client certificate: ${CERT_HASH}"
+	list_item "EXPIRES: ${CERT_DATE}"
+	list_entry
+	/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -subject
+	list_catch
+	list_item 'Checking NSSDB certificates...'
+	list_entry
 	/usr/bin/certutil -d "sql:${NSSDB}" -L
+	list_catch
+	list_exit
+	/usr/bin/echo
+}
+
+## Function to display BCLD keys
+function BCLD_KEYs () {
+	KEY_STATE="$(/usr/bin/openssl rsa -in /etc/ssl/certs/bcld.key -noout -check)"
+	
+	list_header 'Checking BCLD keys'
+	list_item "Client key: ${KEY_STATE}"
+	list_entry
+	/usr/bin/certutil -d "sql:${NSSDB}" -K
+	list_catch
+	list_exit
+	/usr/bin/echo
 }
 
 ## Function to display BCLD variables
@@ -96,11 +131,6 @@ function BCLD_FAO () {
 ## Function to check default target
 function BCLD_JRN () {
 	/usr/bin/journalctl -f --no-pager
-}
-
-## Function to display BCLD keys
-function BCLD_KEYs () {
-	/usr/bin/certutil -d "sql:${NSSDB}" -K
 }
 
 ## Function to logout after a few seconds
@@ -170,9 +200,9 @@ function BCLD_MOUNT () {
 
 ## Function to display NSSDB status in TEST console
 function BCLD_NSSDB () {
-    if [[ $(/usr/bin/find "${NSSDB}" -type d -empty | /usr/bin/wc -l) -eq 1 ]]; then
-		list_item_fail "NSSDB not found! Are you running vendorless?"
-    else
+    if [[ -f "${NSSDB}/cert9.db" ]] \
+        && [[ -f "${NSSDB}/key4.db" ]] \
+        && [[ -f "${NSSDB}/pkcs11.txt" ]]; then
         # Check NSSDB settings
 	    # ENVs
 	    FACET_DOM='facet.onl'
@@ -195,6 +225,8 @@ function BCLD_NSSDB () {
 		else
 			list_item_fail 'KEY ERROR!'
 	    fi
+    else
+		list_item_fail "NSSDB not found! Are you running vendorless?"
     fi
 }
 

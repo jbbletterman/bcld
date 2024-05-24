@@ -48,8 +48,6 @@
 function last_item () {
     /usr/bin/echo "    └────╼ ${1}"
     /usr/bin/echo
-    # Sleep for 2s after each last item, so people can actually read output
-    /usr/bin/sleep 1s
 }
 
 # Function to echo as list item
@@ -95,6 +93,7 @@ function list_entry () {
 # Function to close section
 function list_exit () {
     /usr/bin/echo "    ╽"
+    /usr/bin/echo
 }
 
 # Function for white line
@@ -207,6 +206,7 @@ function on_completion () {
     /usr/bin/echo "    ├─────╢ █ █ █║ Environment: (${0})"
     /usr/bin/echo "    ├─────╢█ █ █ ║ Completed on: $(/usr/bin/date +'%Y-%m-%d %T')"
     /usr/bin/echo '    ╽'
+    /usr/bin/echo
 }
 
 # Function to trigger successful feedback
@@ -216,6 +216,7 @@ function on_failure () {
     /usr/bin/echo "    ├─[-]─╢ ░ ░ ░║ ${TAG} FAILED!!!"
     /usr/bin/echo "    ├─────╢░ ░ ░ ║ Date: $(/usr/bin/date +'%Y-%m-%d %T')"
     /usr/bin/echo '    ╽'
+    /usr/bin/echo
     exit 1
 }
 
@@ -228,12 +229,9 @@ function verify_ENV () {
 
 # Function to check ENV or fail
 function check_req_env () {
-    
-    REQ_ENV="$(/usr/bin/printenv "${1}" | /usr/bin/wc -l)"
 
-	if [[ "${REQ_ENV}" -eq 1 ]]; then
+    if [[  -v "${1}" ]] && [[ -n "$(/usr/bin/printenv "${1}")" ]]; then
 		list_item_pass "${1} is set."
-		/usr/bin/sleep 1s
 	else
 		list_item_fail "Please check ${1} before continuing!"
 		on_failure
@@ -243,13 +241,9 @@ function check_req_env () {
 # Function to check optional ENVs
 function check_opt_env () {
 
-	OPT_ENV="$(/usr/bin/printenv "${1}" | /usr/bin/wc -l)"
-
-	if [[ "${OPT_ENV}" -eq 1 ]]; then
+    if [[  -v "${1}" ]] && [[ -n "$(/usr/bin/printenv "${1}")" ]]; then
 		list_item_pass "${1} is set."
-		/usr/bin/sleep 1s
 	else
 		list_item "${1} is not set, but optional, skipping..."
-		/usr/bin/sleep 1s
 	fi
 }

@@ -45,14 +45,32 @@
 source './script/echo_tools.sh'
 source './config/BUILD.conf'
 
+# Return to previous directory safely
+function safe_return () {
+    cd - &> /dev/null || exit
+}
+
 # Prepare directory
 function prep_dir () {
     if [[ ! -d ${1} ]]; then
         list_item "${1} does not exist yet! Creating..."
         /usr/bin/mkdir -p "${1}"
-        else
+    else
         list_item "${1} already exists! Ignoring..."
     fi    
+}
+
+## Function to generate a soft link
+#   1: Target
+#   2: Link
+function link_file {
+    if [[ -f ${1} ]]; then
+	    list_item "Linking file $(basename "${1}") to: ${2}"
+	    /usr/bin/ln -s "${1}" "${2}"
+    else
+    	list_item "File does not exist!"
+    	exit 1
+    fi
 }
 
 ## Function to copy a configuration file
@@ -77,7 +95,7 @@ function copy_directory {
     fi
 }
 
-## Function to copy a configuration directory
+## Function to copy a directory recursively
 function copy_recursively {
     if [[ -d ${1} ]]; then
 		list_item "Copying recursively $(basename "${1}")..."
@@ -190,24 +208,26 @@ function check_img_size () {
     fi    
 }
 
-# Function to let Bamboo clean up ./chroot if possible, otherwise clean normally
-function chown_bamboo () {
-    # Only clean if Bamboo doesn't exist (trigger on error)
-    /usr/bin/chown --recursive bamboo:bamboo ./chroot &> /dev/null
-}
-
 # Function to remove old artifacts
 function clean_art () {
 
     list_item "Cleaning up old artifacts..."
     
-	art_count=$(/usr/bin/find "${ART_DIR}" -mindepth 1 -maxdepth 1 -type f | wc -l)
     
-    if [[ -d "$ART_DIR" ]] && [[ "${art_count}" -gt 0 ]]; then
-        # If the directory exists, and isn't empty, clear it.
-        list_item "Removing old artifacts from ${ART_DIR}..."
-        list_entry
-        /usr/bin/rm -fv ${ART_DIR}/*
+    # Can only work if directory exists...
+    if [[ -d "${ART_DIR}" ]]; then
+	    
+	    
+	    # Scan for files inside the ART_DIR
+	    art_count=$(/usr/bin/find "${ART_DIR}" -mindepth 1 -maxdepth 1 -type f | /usr/bin/wc -l)
+        
+        if [[ "${art_count}" -gt 0 ]]; then
+            # If the directory exists, and isn't empty, clear it.
+            list_item "Removing old artifacts from ${ART_DIR}..."
+            list_entry
+            /usr/bin/rm -fv ${ART_DIR}/*
+            list_catch
+        fi
     else
         # If there is no match, then it means there are no artifacts yet.
         list_item "No older artifacts detected."

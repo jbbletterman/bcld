@@ -1,0 +1,53 @@
+name: BCLD UNIT TEST
+
+on:
+  push:
+    branches:
+      - develop/*
+jobs:
+  vendorless-unit-test:
+    runs-on: ubuntu-22.04
+    environment: test
+    container:
+      image: ubuntu:jammy
+      options: --privileged
+      env:
+        BCLD_APP: ${{ vars.BCLD_APP }}
+        BCLD_CFG_EDIT: ${{ vars.BCLD_CFG_EDIT }}
+        BCLD_MODEL: ${{ vars.BCLD_MODEL }}
+        BCLD_PKG_EXTRA: ${{ vars.BCLD_PKG_EXTRA }}
+        BCLD_SECRET: ${{ vars.BCLD_SECRET }}
+        BCLD_TAG_EXTRA: ${{ vars.BCLD_TAG_EXTRA }}
+        CLEAN_BOOTSTRAP: ${{ vars.CLEAN_BOOTSTRAP }}
+        NULLFIX: ${{ vars.NULLFIX }}
+        POINTER_TYPE: ${{ vars.POINTER_TYPE }}
+      volumes:
+        - /dev:/dev:ro
+        - /run:/run:rw
+        - /var/docker.sock:/var/docker.sock:ro
+        - ${{ github.workspace }}:/project:rw
+    steps:
+    - name: Checkout local repository
+      uses: actions/checkout@v2
+    - name: Manually downloading submodules...
+      run: |
+        /usr/bin/apt-get update
+        /usr/bin/apt-get install -y git
+        /usr/bin/mkdir -pv modules
+        cd modules || exit
+        /usr/bin/git clone https://github.com/bats-core/bats-core.git
+        /usr/bin/git clone https://github.com/bats-core/bats-support.git
+        /usr/bin/git clone https://github.com/bats-core/bats-assert.git
+        cd - || exit
+    - name: Install dependencies
+      run: |
+        /usr/bin/apt-get update
+        /usr/bin/apt-get upgrade -y
+        /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
+    - name: Run ISO Builder
+      run: |
+        /usr/bin/bash -c './ISO-builder.sh'
+    - name: Run IMG Builder
+      run: |
+        /usr/bin/bash -c './IMG-builder.sh'
+

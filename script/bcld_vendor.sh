@@ -44,70 +44,67 @@
 # Enable Rsyslog service ONLY for Facet
 #
 # IMPORT
-source '/usr/bin/echo_tools.sh'
+source /usr/bin/log_tools.sh
 
 # ENVs
-export NSSDB="${HOME}/.pki/nssdb"
-
+BCLD_HOME="/home/${BCLD_USER}"
 CA_CERT_NAME='ca.crt'
 CLIENT_CRT_NAME='bcld.crt'
 CLIENT_KEY_NAME='bcld.key'
 PUB_PKI_DIR='/usr/share/ca-certificates'
-SSL_HASHES='/etc/ssl/certs'
 
+export NSSDB="${BCLD_HOME}/.pki/nssdb"
 # FUNCTIONS
 
 ## To list BCLD_VENDOR
 function get_vendor_opts () {
-	list_item "VENDOR added to BCLD_OPTS, currently: ${BCLD_OPTS}"
+	log_item "VENDOR added to BCLD_OPTS, currently: ${BCLD_OPTS}"
 }
 
 ## To set hashes
 function hash_bcld_cert () {
 	
-	## Move into SSL_HASHES and link the added CA as CERT_NAME
-	cd "${SSL_HASHES}"
+	## Move into '/etc/ssl/certs' and link the added CA as CERT_NAME
+	cd /etc/ssl/certs
 
 	# ENVs
 	CA_CRT="${PUB_PKI_DIR}/${BCLD_VENDOR}/${CA_CERT_NAME}"
 	CLIENT_CRT="${PUB_PKI_DIR}/${BCLD_VENDOR}/${CLIENT_CRT_NAME}"
 	CLIENT_KEY="${PUB_PKI_DIR}/${BCLD_VENDOR}/${CLIENT_KEY_NAME}"
 
-	list_item 'Generating OpenSSL hashes...'
+	log_item 'Generating OpenSSL hashes...'
 	CA_HASH="$(/usr/bin/openssl x509 -noout -hash -in "${CA_CRT}")"
 	CLIENT_HASH="$(/usr/bin/openssl x509 -noout -hash -in "${CLIENT_CRT}")"
 
-	list_item 'Generating SSL links...'
-	/usr/bin/sudo /usr/bin/ln -sf "${CA_CRT}" "${CA_CERT_NAME}"
-	/usr/bin/sudo /usr/bin/ln -sf "${CA_CERT_NAME}" "${CA_HASH}"
-	/usr/bin/sudo /usr/bin/ln -sf "${CLIENT_CRT}" "${CLIENT_CRT_NAME}"
-	/usr/bin/sudo /usr/bin/ln -sf "${CLIENT_CRT_NAME}" "${CLIENT_HASH}"
-	/usr/bin/sudo /usr/bin/ln -sf "${CLIENT_KEY}" "${CLIENT_KEY_NAME}"
+	log_item 'Generating SSL links...'
+	/usr/bin/ln -sf "${CA_CRT}" "${CA_CERT_NAME}"
+	/usr/bin/ln -sf "${CA_CERT_NAME}" "${CA_HASH}"
+	/usr/bin/ln -sf "${CLIENT_CRT}" "${CLIENT_CRT_NAME}"
+	/usr/bin/ln -sf "${CLIENT_CRT_NAME}" "${CLIENT_HASH}"
+	/usr/bin/ln -sf "${CLIENT_KEY}" "${CLIENT_KEY_NAME}"
 
 	cd - &> /dev/null
 }
 
 # Update certificate store
 function update_cert () {
-	list_item "Updating the certificate store..."
-	/usr/bin/sudo /usr/sbin/update-ca-certificates &> /dev/null
+	log_item "Updating the certificate store..."
+	/usr/sbin/update-ca-certificates &> /dev/null
 }
 
 
 ## To set NSSDB
 function set_bcld_nssdb () {
-	list_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
+	log_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
 	if [[ "${BCLD_VERBOSE}" -eq 1 ]]; then
-	    list_entry
-	    /usr/bin/sudo /usr/bin/mkdir -pv "${NSSDB}"
-	    /usr/bin/sudo /usr/bin/cp -v ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
-	    /usr/bin/sudo /usr/bin/chown -Rv "${USER}:${USER}" "${NSSDB}"
-	    list_catch
+	    /usr/bin/mkdir -pv "${NSSDB}"
+	    /usr/bin/cp -v ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
+	    /usr/bin/chown -Rv "${USER}:${USER}" "${NSSDB}"
     else
-	    /usr/bin/sudo /usr/bin/mkdir -p "${NSSDB}"
-	    /usr/bin/sudo /usr/bin/cp ${HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
-	    /usr/bin/sudo /usr/bin/chown -R "${USER}:${USER}" "${NSSDB}"
-	    list_item_pass 'NSSDB installation complete!'
+	    /usr/bin/mkdir -p "${NSSDB}"
+	    /usr/bin/cp ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
+	    /usr/bin/chown -R "${USER}:${USER}" "${NSSDB}"
+	    log_item 'NSSDB installation complete!'
 	fi
 }
 
@@ -116,22 +113,24 @@ function get_bcld_nssdb () {
 	
 	# Check for CRT
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
-		list_item_pass "${BCLD_VENDOR} certificate detected!"
+		log_item "${BCLD_VENDOR} certificate detected!"
 	fi
 
 	# Check for KEY
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
-		list_item_pass "${BCLD_VENDOR} key detected!"
+		log_item "${BCLD_VENDOR} key detected!"
 	fi
 }
 
 ## To fix permissions of selected certs
 function fix_bcld_perms () {
-	/usr/bin/sudo /usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
+	/usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
 }
 
 
 # EXE
+
+log_header 'Starting BCLD Vendor script'
 
 if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	# Use Rsyslogging for Facet

@@ -23,6 +23,7 @@ image/ISO/info
 image/ISO/isolinux/bios.img
 image/ISO/isolinux/core.img
 image/ISO/isolinux/grub.cfg
+image/ISO/isolinux/isolinux.bin
 image/ISO/md5_file
 image/ISO/md5sum.txt
 .ISO-builder.sh.swp

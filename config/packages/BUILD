@@ -19,6 +19,7 @@ gzip
 inetutils-ping
 libnss3-tools
 licensecheck
+isolinux
 mtools
 parted
 rsync
@@ -29,4 +30,5 @@ tar
 udev
 uuid-runtime
 xorriso
+zip
 zstd
