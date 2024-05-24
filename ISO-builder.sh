@@ -230,7 +230,9 @@ clean_prebuild () {
 ## Function to validate if there are any apps going to be installed before building
 function init_pkgs () {
 
-    TAG="ISO-APP"
+    TAG='ISO-APP'
+    
+    list_header "Checking available packages in \"${APP_DIR}\" and \"${CONFIG_DIR}/packages/APP\"."
 
     # If BCLD_MODEL isn't sourced, it should be declared within the build agent.
     if [[ $(/usr/bin/find ${APP_DIR} -type f -name '*.deb' | wc -l) -gt 0 ]]; then
@@ -254,7 +256,7 @@ function init_pkgs () {
 ## Function to count and copy DEB files inside CHAPP_DIR
 function copy_chdeb () {
 
-    TAG="ISO-CHDEB"
+    TAG='ISO-CHDEB'
     
     # Find DEB file with BCLD_MODEL, using APP_DIR
     list_header "Copying DEB-file"
@@ -272,7 +274,7 @@ function copy_chdeb () {
 ## Function to count and copy AppImage files inside CHAPP_DIR
 function copy_chapp () {
 
-    TAG="ISO-CHAPP"
+    TAG='ISO-CHAPP'
     
     # AppImages don't require installation,
     # so we can shove em' straight into /opt
@@ -313,6 +315,7 @@ function copy_bootstrap () {
 function prep_dirs () {
     list_header "Preparing directories"
 
+    prep_dir "${APP_DIR}"
     prep_dir "${ART_DIR}"
     prep_dir "${GRUB_DIR}"
     prep_dir "${CASPER_DIR}"
@@ -330,95 +333,60 @@ function prep_dirs () {
     on_completion
 }
 
-## Function to generate BCLD-INIT links
-function bcld_init_links {
-    
-    cd "${CHETC}" || exit
-    
-    ### K-levels
-    link_file "init.d/bcld-init" rc0.d/K01bcld-init
-    link_file "init.d/bcld-init" rc1.d/K01bcld-init
-    link_file "init.d/bcld-init" rc6.d/K01bcld-init
-    
-    ### S-levels
-    link_file "init.d/bcld-init" rc2.d/S01bcld-init
-    link_file "init.d/bcld-init" rc3.d/S01bcld-init
-    link_file "init.d/bcld-init" rc4.d/S01bcld-init
-    link_file "init.d/bcld-init" rc5.d/S01bcld-init
-    
-    cd - || exit
-}
-
-## Function to check /usr/bin for installed packages or exit immediately if there is nothing there
-# 1: Description
-function check_deb () {
-    
-    # Look for a binary resemling BCLD_RUN in CHROOT_OPT, single match
-    DEB_CHECK="$(/usr/bin/find "${CHROOT_OPT}" -type f -name "${BCLD_RUN}*" -print -quit)"
-    
-    list_header "Running Debian package check on ${BCLD_RUN}: ${DEB_CHECK}"
-    
-    if [[ -x ${DEB_CHECK} ]]; then
-        list_item_pass "Debian package found!"
-        on_completion
-    elif [[ -z ${BCLD_APP} ]]; then
-        list_item_fail "BCLD_APP cannot be empty!"
-        list_item_fail "EXITING IMMEDIATELY!: ${1}"
-        on_failure
-    else
-        list_item_fail "Debian package could not be found..."
-        list_item_fail "EXITING IMMEDIATELY!: ${1}"
-        on_failure
-    fi
-}
-
-## Function to check /opt for AppImages or exit immediately if there is nothing there
-# 1: Description
-function check_appimage () {
-    
-    
-    APP_IMG_CHECK="$(/usr/bin/find "${CHROOT_OPT}" -type f -name "${BCLD_RUN}*")"
-    
-    list_header "Running AppImage check on ${BCLD_RUN}: ${APP_IMG_CHECK}"
-    
-    if [[ -x ${APP_IMG_CHECK} ]]; then
-        list_item_pass "AppImage found!"
-        on_completion
-    else
-        list_item_fail "AppImage could not be found..."
-        list_item_fail "EXITING IMMEDIATELY!: ${1}"
-        on_failure
-    fi
-}
-
-## Function to check if ./config/packages/APP was installed
-function check_app_pkg () {
-
-    APP_PKG_CHECK="$(/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/dpkg -l | /usr/bin/awk '{ print $2 }' | grep "^${BCLD_RUN}$" | /usr/bin/wc -l)"
-    
-    list_header "Running App package check on ${BCLD_RUN}..."
-    
-    if [[ ${APP_PKG_CHECK} -eq 1 ]]; then
-        list_item_pass "Package found!"
-        on_completion
-    else
-        list_item_fail "Package could not be found..."
-        list_item_fail "EXITING IMMEDIATELY!: ${1}"
-        on_failure
-    fi
-}
-
 ## Function to check if app was installed correctly
 function check_apps () {
     if [[ ${BCLD_DEB} -gt 0 ]]; then
         # If DEBs found in ./APP, build default
-        check_deb "${1}"
+        # Look for a binary resemling BCLD_RUN in CHROOT_OPT, single match
+        DEB_CHECK="$(/usr/bin/find "${CHROOT_OPT}" -type f -name "${BCLD_RUN}*" -print -quit)"
+        
+        list_item "Running Debian package check on ${BCLD_RUN}: ${DEB_CHECK}"
+        
+        if [[ -x ${DEB_CHECK} ]]; then
+            list_item_pass "Debian package found!"
+            on_completion
+        elif [[ -z ${BCLD_APP} ]]; then
+            list_item_fail "BCLD_APP cannot be empty!"
+            list_item_fail "EXITING IMMEDIATELY!: ${1}"
+            on_failure
+        else
+            list_item_fail "Debian package could not be found..."
+            list_item_fail "EXITING IMMEDIATELY!: ${1}"
+            on_failure
+        fi
+
     elif [[ ${BCLD_APPIMAGE} -gt 0 ]]; then
         # If AppImage found, use AppImage
-        check_appimage "${1}"
+        # Check /opt for AppImages or exit immediately if there is nothing there
+
+        APP_IMG_CHECK="$(/usr/bin/find "${CHROOT_OPT}" -type f -name "${BCLD_RUN}*")"
+        
+        list_item "Running AppImage check on ${BCLD_RUN}: ${APP_IMG_CHECK}"
+        
+        if [[ -x ${APP_IMG_CHECK} ]]; then
+            list_item_pass "AppImage found!"
+            on_completion
+        else
+            list_item_fail "AppImage could not be found..."
+            list_item_fail "EXITING IMMEDIATELY!: ${1}"
+            on_failure
+        fi
+        
     else 
         # Use ./config/packages/APP in any other case
-        check_app_pkg "${1}"
+
+        APP_PKG_CHECK="$(/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/dpkg -l | /usr/bin/awk '{ print $2 }' | grep "^${BCLD_RUN}$" | /usr/bin/wc -l)"
+        
+        list_item "Running App package check on ${BCLD_RUN}..."
+        
+        if [[ ${APP_PKG_CHECK} -eq 1 ]]; then
+            list_item_pass "Package found!"
+            on_completion
+        else
+            list_item_fail "Package could not be found..."
+            list_item_fail "EXITING IMMEDIATELY!: ${1}"
+            on_failure
+        fi
     fi
 }
 
@@ -463,39 +431,7 @@ function init_mount () {
     /usr/bin/mount --verbose -t devpts /dev/pts "${CHROOT_DIR}/dev/pts"
     /usr/bin/mount --verbose -t proc /proc "${CHROOT_DIR}/proc"
     /usr/bin/mount --verbose --rbind /sys "${CHROOT_DIR}/sys"
-}
-
-## Function to clean chroot only when debs are installed
-function clean_chroot_safe () {
-
-	# Never ever clean chroot unless the devices are unmounted!
-	unmount_chroot
-	
-	du_export "${CHROOT_DIR}"
-	
-	FAILED_COUNT=0
-	
-	for pkg in $(cat ./artifacts/PKGS_ALL); do
-		PKG_COUNT="$(/usr/sbin/chroot ./chroot bash -c "/usr/bin/dpkg --get-selections ${pkg}" | /usr/bin/grep -cw 'install')"
-		
-		if [[ "${PKG_COUNT}" -eq 0 ]]; then
-			FAILED_COUNT="$(( FAILED_COUNT + 1 ))"
-			FAILED_PKGS+=" ${pkg}"
-		fi
-		
-	done
-	
-	if [[ "${FAILED_COUNT}" -gt 0 ]]; then
-		list_catch
-		list_item_fail "Missing packages detected:${FAILED_PKGS}"
-		list_item_fail "TOTAL: ${FAILED_COUNT}"
-		on_failure
-	else
-		list_catch
-		list_item_pass 'All packages successfully installed!'
-		chown_bamboo || clean_chroot
-		on_completion
-	fi
+    list_catch
 }
 
 ## Function to unmount systems
@@ -558,7 +494,7 @@ function copy_nvidia_configs () {
 
 ## Function to copy post-configuration directories
 function copy_post_config_dirs () {
-    list_header "Copying configuration directories"
+    list_item "Copying configuration directories"
     #copy_directory "${CONFIG_DIR}/systemd/shm" "${CHROOT_DIR}/sys/block"
 
     copy_directory "${CONFIG_DIR}/systemd/system/systemd-udevd.service.d" "${CHSERVICE_DIR}"
@@ -566,13 +502,11 @@ function copy_post_config_dirs () {
     copy_directory "${CONFIG_DIR}/trap_shutdown" "${CHOME_DIR}"
     copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
     copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
-	
-	on_completion
 }
 
 ## Function to copy post-configuration files
 function copy_post_configs () {
-	list_header "Copying postconfiguration files..."
+	list_item "Copying postconfiguration files..."
 
 	copy_file "${CONFIG_DIR}/modprobe/alsa-base.conf" "${CHROOT_DIR}/etc/modprobe.d/alsa-base.conf"
 	copy_file "${CONFIG_DIR}/modprobe/blacklist.conf" "${CHROOT_DIR}/etc/modprobe.d/blacklist.conf"
@@ -585,16 +519,18 @@ function copy_post_configs () {
 	copy_file "${CONFIG_DIR}/plymouth/bcld-plymouth.png" "${CHPLY_DIR}/themes/spinner/watermark.png"
 	copy_file "${CONFIG_DIR}/plymouth/bcld-plymouth.png" "${CHPLY_DIR}/ubuntu-logo.png"
 	copy_file "${CONFIG_DIR}/rsyslog/60-BCLD-rsyslog.conf" "${CHOME_DIR}/60-BCLD-rsyslog.conf"
+    copy_file "${CONFIG_DIR}/rsyslog/70-bcld-log.conf" "${CHOME_DIR}/70-bcld-log.conf"
 	copy_file "${SCRIPT_DIR}/rsyslogger.sh" "${CHROOT_BIN}"
 	
-	on_completion
+	## Copy ISOLINUX
+    copy_file /usr/lib/ISOLINUX/isolinux.bin "${ISOLINUX_DIR}/isolinux.bin"
 }
 
 # Before building, check if any DEBs, AppImages or APPs are present
 init_pkgs
 
 # Start Building
-TAG="ISO-PRECLEAN"
+TAG='ISO-PRECLEAN'
 list_header "Starting BCLD ISO Builder!"
 list_item "Date: $(date -Ru)"
 last_item "Version: ${BCLD_VERSION_STRING}"
@@ -616,11 +552,15 @@ clean_art
 on_completion
 
 # Generate necessary build directories
-TAG="ISO-PREP"
+
+TAG='ISO-PREP'
+
 prep_dirs
 
 # Debootstrap
-TAG="ISO-BOOTSTRAP"
+
+TAG='ISO-BOOTSTRAP'
+
 # This may only work if Debootstrap is installed
 if [[ -f /usr/sbin/debootstrap ]] && [[ ! -d "${BOOTSTRAP_DIR}" ]]; then
 
@@ -657,8 +597,11 @@ elif [[ ${BCLD_APPIMAGE} -gt 0 ]]; then
 fi
 
 # Preconfigurations
-TAG="ISO-PRECONF"
+
+TAG='ISO-PRECONF'
+
 list_header "Preconfigurations"
+
 copy_file "${BUILD_CONF}" "${CHROOT_ROOT}"
 subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
 
@@ -711,11 +654,15 @@ fi
 # Copy PKGS_ALL AFTER all the modifications to the list are finished
 list_header "Copying Package list artifact"
 copy_file "${PKG_ART}" "${CHROOT_DIR}/${BCLD_HOME}"
+list_exit
 
 ## Configuration scripts
 copy_config_scripts
 
 # BCLD Services
+
+TAG='ISO-SVCS'
+
 list_header "Copying BCLD Services"
 
 ## USB-logger
@@ -749,13 +696,13 @@ on_completion
 # Set mounts
 # This is essential, so exit on failure
 #/usr/bin/mount --verbose --rbind devpts "${CHROOT_DIR}/dev/pts"
-TAG="ISO-MOUNT"
+TAG='ISO-MOUNT'
 list_header "Applying mounts"
 init_mount
 on_completion
 
 # Chroot installations
-TAG="ISO-CHROOT"
+TAG='ISO-CHROOT'
 list_header "Chrooting"
 
 ## Chroot
@@ -772,13 +719,11 @@ else
     on_failure
 fi
 
-## Clear chroot logs
-list_header 'Clear chroot logs'
-delete_file "${CHROOT_DIR}"/root/*.log "Clearing Chroot logs..."
-on_completion
 
 # Postconfigurations
-TAG="ISO-POSTCONF"
+
+TAG='ISO-POSTCONF'
+
 list_header "Postconfigurations"
 
 ## dhclient timeout
@@ -795,13 +740,10 @@ prep_dir "${CHSERVICE_DIR}/getty@tty1.service.d"
 prep_dir "${CHROOT_DIR}/etc/sudoers.d"
 list_exit
 
-## Copy configuration directories
+## Copy post-configuration directories
 copy_post_config_dirs
 
-## Copy ISOLINUX
-copy_file '/usr/lib/ISOLINUX/isolinux.bin' "${ISOLINUX_DIR}"
-
-## Copy configuration files
+## Copy post-configuration files
 copy_post_configs
 
 ## Copy Nvidia configuration files for BCLD_NVIDIA builds
@@ -817,8 +759,23 @@ get_chroot_env
 
 ## BCLD INIT script
 copy_file "${CONFIG_DIR}/bash/bcld-init" "${CHINIT}/bcld-init"
+
 list_item 'Generating BCLD-INIT links...'
-bcld_init_links
+
+cd "${CHETC}" || exit
+
+### K-levels
+link_file "init.d/bcld-init" rc0.d/K01bcld-init
+link_file "init.d/bcld-init" rc1.d/K01bcld-init
+link_file "init.d/bcld-init" rc6.d/K01bcld-init
+
+### S-levels
+link_file "init.d/bcld-init" rc2.d/S01bcld-init
+link_file "init.d/bcld-init" rc3.d/S01bcld-init
+link_file "init.d/bcld-init" rc4.d/S01bcld-init
+link_file "init.d/bcld-init" rc5.d/S01bcld-init
+
+safe_return
 
 ## Change permissions for BCLD Big Mouse
 # BCLD Big Mouse has to overwrite this file when enabled
@@ -881,42 +838,55 @@ if [[ -f ${CHROOT_DIR}/etc/legal ]];then
     /usr/bin/rm "${CHROOT_DIR}/etc/legal"
 fi
 
-list_exit
+on_completion
 
 ## Certificate Management, perform only if CERT is present in /cert
+# Skip entirely if CERT_DIR does not exist
+if [[ -d "${CERT_DIR}" ]]; then
 
-list_header "Certificate Management"
+    TAG='ISO-CERT'
 
-if [[ $(/usr/bin/find "${CERT_DIR}" -type f -name '*crt' | /usr/bin/wc -l) -gt 0 ]]; then
+    list_header "Certificate Management"
 
-	list_item_pass "Certificates found in ${CERT_DIR}!"
+    # Skip if no CRTs found
+    if [[ $(/usr/bin/find "${CERT_DIR}" -type f -name '*crt' | /usr/bin/wc -l) -gt 0 ]]; then
+
+	    list_item_pass "Certificates found in ${CERT_DIR}!"
 
 
-	list_item "Checking directories..."
-	delete_dir "${CHNSSDB}" 'Clearing...'
-	prep_dir "${CHNSSDB}"
+	    list_item "Checking directories..."
+	    delete_dir "${CHNSSDB}" 'Clearing...'
+	    prep_dir "${CHNSSDB}"
 
-	## Copy all certificates to the client
-	list_item "Copying certificates..."
-	copy_directory ${CERT_DIR}/facet "${CHROOT_PKI_DIR}"
-	copy_directory ${CERT_DIR}/wft "${CHROOT_PKI_DIR}"
+	    ## Copy all certificates to the client
+	    list_item "Copying certificates..."
+	    copy_directory ${CERT_DIR}/facet "${CHROOT_PKI_DIR}"
+	    copy_directory ${CERT_DIR}/wft "${CHROOT_PKI_DIR}"
 
-	## KEY
-	list_item "Storing Facet key..."
-	/usr/bin/echo -e "${FACET_SECRET_1}\n${FACET_SECRET_2}\n${FACET_SECRET_3}\n${FACET_SECRET_4}" > "${CHROOT_PKI_DIR}/facet/${CLIENT_KEY_NAME}"
+	    ## KEY
+	    list_item "Storing Facet key..."
+	    /usr/bin/echo -e "${FACET_SECRET_1}\n${FACET_SECRET_2}\n${FACET_SECRET_3}\n${FACET_SECRET_4}" > "${CHROOT_PKI_DIR}/facet/${CLIENT_KEY_NAME}"
+	    
+	    list_item "Storing WFT key..."
+	    /usr/bin/echo -e "${WFT_SECRET_1}\n${WFT_SECRET_2}" > "${CHROOT_PKI_DIR}/wft/${CLIENT_KEY_NAME}"
+
+	    list_item "Copying NSSDBs..."
+	    copy_directory "${CLIENT_NSSDB}" "${CHOME_DIR}"
+    else
+	    list_item_fail "No certificates found in ${CERT_DIR}! Skipping..."
+	fi
 	
-	list_item "Storing WFT key..."
-	/usr/bin/echo -e "${WFT_SECRET_1}\n${WFT_SECRET_2}" > "${CHROOT_PKI_DIR}/wft/${CLIENT_KEY_NAME}"
-
-	list_item "Copying NSSDBs..."
-	copy_directory "${CLIENT_NSSDB}" "${CHOME_DIR}"
 else
-	list_item_fail "No certificates found in ${CERT_DIR}. Skipping..."
+	list_item_fail "${CERT_DIR} not found! Skipping..."
 fi
 
 on_completion
 
 ## BCLD TWEAKS
+# Tweaks are slight differences between the BCLD_MODELs
+
+TAG='ISO-TWEAKS'
+
 list_header 'BCLD tweaks'
 
 ### BCLD_MODEL TWEAKS
@@ -971,7 +941,7 @@ fi
 on_completion
 
 ## Trigger update-initramfs before exporting artifacts
-TAG="ISO-INITRAMFS"
+TAG='ISO-INITRAMFS'
 list_header "Triggering update-initramfs"
 list_entry
 /usr/sbin/chroot "${CHROOT_DIR}" /usr/sbin/update-initramfs -u | /usr/bin/tee -a "${CHROOT_LOG}"
@@ -996,25 +966,35 @@ copy_vmlinuz "${ART_DIR}"
 on_completion
 
 ### Generate package lists
-TAG="ISO-REPO"
+
+TAG='ISO-REPO'
+
 list_header "Scanning packages with DPKG"
+
+list_entry
 cd "${ISO_DIR}"
 dpkg-scanpackages --arch amd64 pool/ > "${DIST_DIR}/Packages"
+list_catch
+
 list_item "Compressing Packages.gz..."
-list_entry
+
 cat "${DIST_DIR}/Packages" | gzip -9 > "${DIST_DIR}/Packages.gz"
-cd -
+safe_return
 
 # Generate Release file
-cd "${REPO_DIR}"
 list_header "Generating Release file"
+
+cd "${REPO_DIR}"
 "${REPOMAN_DIR}/generate_release.sh" > Release
+safe_return
+
 list_item_pass "BCLD repository packages successfully scanned!"
-cd -
 on_completion
 
 # Generate SquashFS only if there are contents inside /opt.
-TAG="ISO-SQUASHFS"
+
+TAG='ISO-SQUASHFS'
+
 # This is where the app SHOULD be installed.
 # Generating SquashFS takes very long and is pointless without the app
 check_apps "Cannot build SquashFS..."
@@ -1030,11 +1010,44 @@ list_catch
 on_completion
 
 # After generating the SQUASHFS, it is safe to cleanup ./chroot
-clean_chroot_safe
+TAG='ISO-CLEANUP'
+
+list_header "Cleaning: ${CHROOT_DIR}"
+
+# Never, ever clean chroot unless the devices are unmounted!
+unmount_chroot
+
+du_export "${CHROOT_DIR}"
+
+FAILED_COUNT=0
+
+# Check for installed pkgs
+for pkg in $(cat ./artifacts/PKGS_ALL); do
+	PKG_COUNT="$(/usr/sbin/chroot ./chroot bash -c "/usr/bin/dpkg --get-selections ${pkg}" | /usr/bin/grep -cw 'install')"
+	
+	# Increase amount of FAILED_PKGS if a PKG install cannot be COUNT
+	if [[ "${PKG_COUNT}" -eq 0 ]]; then
+		FAILED_COUNT="$(( FAILED_COUNT + 1 ))"
+		FAILED_PKGS+=" ${pkg}"
+	fi
+	
+done
+
+if [[ "${FAILED_COUNT}" -gt 0 ]]; then
+	list_item_fail "Missing packages detected:${FAILED_PKGS}"
+	list_item_fail "TOTAL: ${FAILED_COUNT}"
+	on_failure
+else
+	list_item_pass 'All packages successfully installed!'
+	clean_chroot
+	on_completion
+fi
 
 # Update Grub
-TAG="ISO-GRUB"
+TAG='ISO-GRUB'
+
 list_header "Generating GRUB images"
+
 list_item "Generating GRUB BIOS..."
 
 cd "${ISO_DIR}"
@@ -1063,7 +1076,7 @@ cd "${ISO_DIR}"
 #	--fonts="" \
 #	"boot/grub/grub.cfg=EFI/BOOT/grub.cfg" # Interne ISO grub.cfg mapping (UEFI)
 
-cd -
+safe_return
 
 ## Copy signed binaries from host, since installation does not work
 list_item "Copy GRUB binaries..."
@@ -1102,13 +1115,13 @@ IMG_PART=$(/usr/bin/du -s --exclude='efi.img' | /usr/bin/awk '{ print $1 }')
 /usr/sbin/mkfs.vfat efi.img
 /usr/bin/mmd -i efi.img efi efi/boot
 /usr/bin/mcopy -vi "efi.img" {bootx64.efi,grubx64.efi,mmx64.efi,grub.cfg} ::efi/boot/
-cd -
+safe_return
 
 list_catch
 on_completion
 
 # Prepare ISO image
-TAG="ISO-GEN"
+TAG='ISO-GEN'
 
 ## Copy files
 list_header "Preparing stage: ${TAG}"
@@ -1117,7 +1130,8 @@ copy_directory "${CONFIG_DIR}/grub/.disk" "${ISO_DIR}"
 # Generate md5sum.txt for the ISO image
 # If any directories or the hash file itself are included, it will throw an error during boot.
 
-last_item "Generating ${ISO_MD5}"
+list_item "Generating ${ISO_MD5}"
+
 cd "${ISO_DIR}"
 
 while IFS= read -r FILE; do
@@ -1131,6 +1145,7 @@ while IFS= read -r FILE; do
 done <<< "$(/usr/bin/find . -type f)"
 
 copy_file "${ISO_MD5}" "${CHROOT_DIR}"
+list_exit
 
 # Generate ISO image
 list_header "Generating ISO image ${ART_DIR}/${ISO_NAME}"
@@ -1157,19 +1172,22 @@ list_entry
         /EFI/efiboot.img=EFI/BOOT/efi.img \
         /boot/grub/bios.img=isolinux/bios.img \
         . \
-    && list_catch && last_item "ISO image created!"
-cd -
+    && list_catch && list_item "ISO image created!"
 
+safe_return
+
+on_completion
 
 # CLEANUP
+
+TAG='ISO-CLEAR'
+
 # After generating the ISO, it is safe to cleanup SQUASHFS
 list_header 'Cleanup SQUASHFS'
 reset_file "${SQUASHFS}"
 
-
 ## Chroot mounts
-list_header 'Cleaning chroot mounts'
 unmount_chroot
 
-list_header "ISO-artifact created! Check ${ART_DIR}."
+list_item_pass "ISO-artifact created! Check ${ART_DIR}."
 on_completion

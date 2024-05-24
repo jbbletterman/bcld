@@ -103,19 +103,23 @@ img_size () {
 ## Test if ISO Builder can execute
 @test 'TagCheck' {
     run ./ISO-builder.sh
-    tag_check "ISO-INIT"
-    tag_check "ISO-PRECLEAN"
-    tag_check "ISO-PREP"
-    tag_check "ISO-BOOTSTRAP"
-    tag_check "ISO-PRECONF"
-    tag_check "ISO-MOUNT"
-    tag_check "ISO-CHROOT"
-    tag_check "ISO-POSTCONF"
-    tag_check "ISO-INITRAMFS"
-    tag_check "ISO-REPO"
-    tag_check "ISO-SQUASHFS"
-    tag_check "ISO-GRUB"
-    tag_check "ISO-GEN"
+    tag_check 'ISO-INIT'
+    tag_check 'ISO-PRECLEAN'
+    tag_check 'ISO-PREP'
+    tag_check 'ISO-BOOTSTRAP'
+    tag_check 'ISO-PRECONF'
+    tag_check 'ISO-SVCS'
+    tag_check 'ISO-MOUNT'
+    tag_check 'ISO-CHROOT'
+    tag_check 'ISO-POSTCONF'
+    tag_check 'ISO-TWEAKS'
+    tag_check 'ISO-INITRAMFS'
+    tag_check 'ISO-REPO'
+    tag_check 'ISO-SQUASHFS'
+    tag_check 'ISO-CLEANUP'
+    tag_check 'ISO-GRUB'
+    tag_check 'ISO-GEN'
+    tag_check 'ISO-CLEAR'
     
     assert_output --partial 'ISO image created!'
 }
@@ -127,9 +131,9 @@ img_size () {
     assert_output --partial 'Installation finished. No error reported.'
     assert_output --partial "Added 'EFI'-label: EFI"
     assert_output --partial "Added 'BCLD-USB'-label: BCLD-USB"
-    tag_check "IMAGE-INIT"
-    tag_check "IMAGE-GRUB"
-    tag_check "IMAGE-BUILD"
+    tag_check 'IMAGE-INIT'
+    tag_check 'IMAGE-GRUB'
+    tag_check 'IMAGE-BUILD'
 }
 
 ## Test for checking if all artifacts are generated

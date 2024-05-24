@@ -143,6 +143,7 @@ function read_all_params() {
 	readparam "${AFNAME_PARAM}" "${AFNAME_ALIAS}"
 	readparam "${MOUSE_PARAM}" "${MOUSE_ALIAS}"
 	readparam "${SHUTDOWN_PARAM}" "${SHUTDOWN_ALIAS}"
+	readparam "${LOGGING_PARAM}" "${LOGGING_ALIAS}"
 	readparam "${VENDOR_PARAM}" "${VENDOR_ALIAS}"
 	readparam "${ZOOM_PARAM}" "${ZOOM_ALIAS}"
 
@@ -586,9 +587,6 @@ export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 ## Read BCLD_VERBOSE first
 readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
 
-## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
-source /usr/bin/bcld_vendor.sh
-
 ## Read the rest of the parameters here.
 read_all_params
 
@@ -671,6 +669,10 @@ else
 	    export BCLD_OPTS="${BCLD_OPTS} --shutdown-timer=${BCLD_SHUTDOWN}"
 	    list_item_pass "SHUTDOWN added to BCLD_OPTS"
     fi
+
+	if [[ "${BCLD_LOGGING}" -eq 1 ]]; then
+		export BCLD_OPTS="${BCLD_OPTS} --enableLogging --logfile=/opt/bcld_log.json"
+	fi
 fi
 
 ### Show BCLD_OPTS
