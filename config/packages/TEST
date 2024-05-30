@@ -2,7 +2,7 @@ dosfstools
 efibootmgr
 inetutils-ping
 less
-openscap-scanner
+libopenscap8
 lshw
 lsof
 mesa-utils

@@ -12,11 +12,11 @@ ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
 b96f01e315891650bb62e848bc40c399  ./IMG-builder.sh
 fd1c286f9861ce8c9f68ebf8f7cb43ed  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-eaf9c666e6958ff59a6cd6608df4fbdf  ./README.md
+3991020b11d19d52184adb96cce78509  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-1a2bdf46d147491277da3be8f640317f  ./config/BUILD.conf
+f7b592f6517522fb2f50177ed4e91da9  ./config/BUILD.conf
 18bd9efd58884edb4e854c3a9f99e078  ./config/X11/Xbindkeys/.xbindkeysrc
 50dd37371765f9cc60f1ff44b21c7647  ./config/X11/Xmodmap/.Xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -54,8 +54,8 @@ d57cf84974e9a959d64a38710983a18d  ./config/packages/APP
 335cd24f955359c232ece20790776c3d  ./config/packages/KERNEL
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
 6c224b812083575965b9bf1aca105231  ./config/packages/REMOVE
-bd5ca4cd2bb1a1a298ad683ff6018fe1  ./config/packages/REQUIRED
-55f163a84fe275801f8058cffa324d92  ./config/packages/TEST
+a36505f8df9f1c549e106782d94d79e0  ./config/packages/REQUIRED
+626f50bfe4b5318ece35f2572e5e95af  ./config/packages/TEST
 c4194d2bde957994fa74aaa13bc8333e  ./config/packages/VIRTUAL
 e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf
 1540737da39ba1e9ca293b7b895c4ff9  ./config/pam/login
