@@ -3,6 +3,7 @@
 ## 2024
 
 ## May
+* `2024-05-30 09:57:04` : `BCLD_RSYSLOG` has been obsoleted; Rsyslogging is now enabled for Facet by default
 * `2024-05-23 12:25:59` : [OAC-1068]
     - [BCLD Vendor](./script/bcld_vendor.sh) now runs with root permissions through [BCLD-INIT](./config/bash/bcld-init)
     - Changes have been made to the BCLD Vendor script

@@ -133,8 +133,6 @@ function fix_bcld_perms () {
 log_header 'Starting BCLD Vendor script'
 
 if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
-	# Use Rsyslogging for Facet
-	export BCLD_RSYSLOG='true'
 	hash_bcld_cert
 	set_bcld_nssdb
 	fix_bcld_perms

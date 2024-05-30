@@ -76,11 +76,11 @@ BCLD_LOG_RSYSLOG_SRC="${HOME}/${BCLD_LOG_RSYSLOG_CONF}"
 		/usr/bin/sudo /usr/bin/cp "${RSYS_TEMP_FILE}" "${RSYS_CONF}"
 
 		if [ -e "$BCLD_LOGFILE" ]; then
-			/usr/bin/sudo /usr/bin/cp "$BCLD_LOG_RSYSLOG_SRC" "$BCLD_LOG_RSYSLOG_DEST"
+			/usr/bin/sudo /usr/bin/cp "${BCLD_LOG_RSYSLOG_SRC}" "${BCLD_LOG_RSYSLOG_DEST}"
 		fi
 
 		# Restart the service
-		/usr/bin/sudo /usr/bin/systemctl restart rsyslog
+		/usr/bin/sudo /usr/bin/systemctl restart rsyslog.service
 		# Wait for service to restart before pushing entries
 		/usr/bin/sleep 5s
 		/usr/bin/sudo /usr/bin/client_logger.sh 
