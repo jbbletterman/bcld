@@ -860,9 +860,9 @@ connect_establish
 
 ### Rsyslogger
 # TODO Start Rsyslogger before WOL, because it somehow disables it...
-# Enable by default
-if [[ "${BCLD_RSYSLOG}" == 'true' ]]; then
-	list_item_pass "BCLD_RSYSLOG set to \"${BCLD_RSYSLOG}\", enabling!"
+# Enable Rsyslog for Facet by default
+if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
+	list_item_pass "BCLD_VENDOR set to \"${BCLD_VENDOR}\", enabling!"
 	source /usr/bin/log_tools.sh
 	log_header 'Rsyslogging enabled!'
 	/usr/bin/rsyslogger.sh &
