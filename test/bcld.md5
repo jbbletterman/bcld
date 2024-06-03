@@ -26,7 +26,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-57a7956022380134de2147b92de5ca53  ./config/bash/bcld-init
+fc8071e1cef5e7a71ccd11f6b2b5e328  ./config/bash/bcld-init
 269b41c4dd6a1bd08852114da6c20231  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 38b2d90a39907e22a957ec0f6511e7d8  ./config/bcld/bcld.cfg
@@ -35,7 +35,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
 a79dbb95a5b6b488d23c4ff70fad25c5  ./config/grub/.disk/cd_type
 012691178b3f515cde6d073cff84b89c  ./config/grub/.disk/release_notes_url
-a7d0bc20de0643f53eb13f7245e627b5  ./config/grub/grub.cfg.img
+1ccafb3cae64bf8ade32884763cff1e0  ./config/grub/grub.cfg.img
 767f3efa0b728ddf93b81878e80ec8ee  ./config/grub/grub.cfg.iso
 c489c87b382083ef1d0c9d348b8d5f86  ./config/iptables/iptables.firewall.rules
 1c15609dca974842113ed8e3abea9e9f  ./config/iptables/iptables.firewall.rules.debug
