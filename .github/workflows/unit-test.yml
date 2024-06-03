@@ -6,7 +6,7 @@ on:
       - develop/*
 jobs:
   vendorless-unit-test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment: test
     container:
       image: ubuntu:jammy
@@ -50,4 +50,14 @@ jobs:
     - name: Run IMG Builder
       run: |
         /usr/bin/bash -c './IMG-builder.sh'
+    - name: Upload BCLD-ISO (TEST)
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-ISO-TEST
+        path: /project/artifacts/bcld.iso
+    - name: Upload BCLD-IMG (TEST)
+      uses: actions/upload-artifact@v2
+      with:
+        name: BCLD-IMG-TEST
+        path: /project/artifacts/*.img
 
