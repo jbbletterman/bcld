@@ -2,6 +2,11 @@
 
 ## 2024
 
+## June
+* `2024-06-03 14:07:04` : 
+    - Added `logout` to `bcld_set_hostname` method in [BCLD-INIT](./config/bash/bcld-init)
+    - Clean up grub output
+
 ## May
 * `2024-05-30 09:57:04` : `BCLD_RSYSLOG` has been obsoleted; Rsyslogging is now enabled for Facet by default
 * `2024-05-23 12:25:59` : [OAC-1068]
