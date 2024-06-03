@@ -12,7 +12,7 @@ ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
 b96f01e315891650bb62e848bc40c399  ./IMG-builder.sh
 fd1c286f9861ce8c9f68ebf8f7cb43ed  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-3991020b11d19d52184adb96cce78509  ./README.md
+a9d7204301596b057880bf65dabbffc3  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
@@ -26,7 +26,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-2d836bb918d813c703738c67a1c9ace0  ./config/bash/bcld-init
+57a7956022380134de2147b92de5ca53  ./config/bash/bcld-init
 269b41c4dd6a1bd08852114da6c20231  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 38b2d90a39907e22a957ec0f6511e7d8  ./config/bcld/bcld.cfg
