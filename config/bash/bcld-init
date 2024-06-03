@@ -70,6 +70,7 @@ function bcld_set_hostname () {
 	
 	/usr/bin/sed -i "s/127.0.0.1 localhost/127.0.0.1 ${1}/" /etc/hosts &> /dev/null
 	/usr/bin/sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
+	logout
 }
 
 # EXE
