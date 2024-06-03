@@ -7,10 +7,10 @@ on:
       - develop/BETA
 jobs:
   vendorless-regression-test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment: test
     container:
-      image: ubuntu:jammy
+      image: ubuntu:noble
       options: --privileged
       env:
         BCLD_APP: ${{ vars.BCLD_APP }}

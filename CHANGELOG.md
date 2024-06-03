@@ -3,6 +3,8 @@
 ## 2024
 
 ## June
+* `2024-06-03 16:25:44` : Upgrade GitHub container LTS (24.04) in Workflows
+    - Added `release/*` branch to `release` environment
 * `2024-06-03 14:07:04` : 
     - Added `logout` to `bcld_set_hostname` method in [BCLD-INIT](./config/bash/bcld-init)
     - Clean up grub output
