@@ -157,7 +157,7 @@ if [[ -n "${BCLD_VENDOR}" ]] && [[ "$(/usr/bin/hostname)" == 'localhost.localdom
 	    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
     fi
     
-elif [[ "$(/usr/bin/hostname)" != 'localhost.localdomain' ]]
+elif [[ "$(/usr/bin/hostname)" != 'localhost.localdomain' ]]; then
 
     # If the default hostname is changed, keep it
     log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
