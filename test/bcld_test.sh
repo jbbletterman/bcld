@@ -190,7 +190,7 @@ function BCLD_LOGGING () {
 	    INIT | init)
             /usr/bin/journalctl -xeu 'bcld-init'
 	    ;;
-	    X)
+	    X | x)
 	        /usr/bin/cat "${HOME}/.local/share/xorg/Xorg.0.log" | /usr/bin/grep -E 'EE|WW'
 	    ;;
 	    *)
