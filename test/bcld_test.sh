@@ -182,13 +182,19 @@ function BCLD_PARAM_SWITCH () {
 }
 
 ## Function to check BCLD logs
-function BCLD_LOGs () {
-	/usr/bin/pager /var/log/bcld.log
-}
-
-## Function to check Xorg logs
-function BCLD_X_LOGs () {
-	/usr/bin/cat ${HOME}/.local/share/xorg/Xorg.0.log | /usr/bin/grep -E 'EE|WW'
+function BCLD_LOGGING () {
+	
+	case ${1} in
+	    INIT | init)
+            /usr/bin/journalctl -xeu 'BCLD-INIT'
+	    ;;
+	    X)
+	        /usr/bin/cat "${HOME}/.local/share/xorg/Xorg.0.log" | /usr/bin/grep -E 'EE|WW'
+	    ;;
+	    *)
+	        /usr/bin/pager /var/log/bcld.log
+	    ;;
+    esac
 }
 
 ## Fast remount
