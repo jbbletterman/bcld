@@ -27,49 +27,47 @@ echo
 
 # Include bcld.cfg if it exists.
 if [ -s /bcld.cfg ]; then
-    echo ' * BCLD config found!'
     source /bcld.cfg
+    echo '   (1/5) BCLD configuration file detected!'
+else
+    echo '   (1/5) No BCLD configuration file found...'
 fi
 
 # Check for bcld.log.
 if [ -f /bcld.log ]; then
-    echo ' * BCLD log file detected!'
+    echo '   (2/5) BCLD log file detected!'
+else
+    echo '   (2/5) No BCLD log file found...'
 fi
-
-# Display PARAMS on screen. (DISABLED)
-#if [ -n ${bcldparameters} ]; then
-#    echo '   BCLD parameters:'
-#    echo "    ${bcldparameters}"
-#    echo
-#fi
 
 # Load ISO_FILE, kernel and RAMFS.
 loopback loop $ISO_FILE
 
+
+# Load the kernel (vmlinuz)
 if [ -s (loop)/casper/vmlinuz ]; then
-    echo ' * Loading kernel...'
     linux (loop)/casper/vmlinuz ${PARAMS} ${bcldparameters} ${PRIOMETERS} ---
-    echo '   - Kernel loaded!'
+    echo '   (3/5) Kernel loaded!'
 else
-    echo '   - Kernel (vmlinuz) cannot be loaded.'
-    echo '   - The system will not be able to function.'
-    echo '   - Shutting down now...'
+    echo '   (3/5) Kernel (vmlinuz) cannot be loaded.'
+    echo '   (3/5) The system will not be able to function.'
+    echo '   (3/5) Shutting down now...'
     sleep --verbose 10
     halt
 fi
 
+
 if [ -s (loop)/casper/initrd ]; then
-    echo ' * Loading file system...'
     initrd (loop)/casper/initrd
-    echo '   - File system loaded!'
+    echo '   (4/5) File system loaded!'
 else
-    echo '   - File system (initrd) cannot be loaded.' 
-    echo '   - The system will not be able to function.'
-    echo '   - Shutting down now...'
+    echo '   (4/5) File system (initrd) cannot be loaded.' 
+    echo '   (4/5) The system will not be able to function.'
+    echo '   (4/5) Shutting down now...'
     sleep --verbose 10
     halt
 fi
 
 # Apply all settings.
-echo ' * Starting BCLD...'
+echo '   (5/5) Launching Bootable Client Lockdown!'
 boot

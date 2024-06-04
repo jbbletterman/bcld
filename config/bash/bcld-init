@@ -59,10 +59,21 @@ BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
 ENVIRONMENT='/etc/environment'
 
+# Find a random MAC address on the system, filter virtual interfaces
+BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
+
+# Generate hash if found
+if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
+    BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
+fi
+
 # FUNCTIONS
 
 ## Function to set hostname before running BCLD startup script
 function bcld_set_hostname () {
+
+	log_item 'Configuring hostname...'
+
 	log_item "Changing hostname to ${1}..."
 			
 	# New hostname
@@ -70,6 +81,9 @@ function bcld_set_hostname () {
 	
 	/usr/bin/sed -i "s/127.0.0.1 localhost/127.0.0.1 ${1}/" /etc/hosts &> /dev/null
 	/usr/bin/sed -i "s/127.0.1.1 //" /etc/hosts &> /dev/null
+	
+	# Relog with new hostname
+	exit
 }
 
 # EXE
@@ -130,43 +144,32 @@ else
 	log_item "BCLD_VENDOR set to: $(/usr/bin/grep 'BCLD_VENDOR=' "${ENVIRONMENT}")"
 fi
 
-# After setting the machine-id and BCLD_VENDOR, set the hostname
-# This must be done before entering usermode (only root can change hostname and there is no sudo here)
-if [[ -n "${BCLD_VENDOR}" ]]; then
+# After setting the machine-id, BCLD_VENDOR, BCLD_MAC_RANDOM and BCLD_HASH, set the hostname
+if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]] || [[ "$(/usr/bin/hostname)" == 'localhost' ]]; then
     
-    if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]]; then
-
-        log_item 'Configuring hostname...'
-
-	    # First, find a random MAC address on the system, filter virtual interfaces
-	    BCLD_MAC_RANDOM="$(/usr/bin/find /sys/devices/* -type f -name 'address' | /usr/bin/grep 'net' | /usr/bin/grep -v -m1 'lo')"
-
-	    # Change hostname only if a device is found
-	    if [[ -f "${BCLD_MAC_RANDOM}" ]]; then
-
-		    # Pick hostname based on MAC
-		    log_item "Physical interfaces detected..."
-
-		    # ENVs
-		    BCLD_HASH="$(/usr/bin/sed "s/://g" "${BCLD_MAC_RANDOM}")"
-		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
-	    else
-		    # Pick different hostname if no MAC interface
-		    log_item "No physical interfaces detected... Using machine-id."
-		    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
-	    fi
-	    
+    if [[ -n "${BCLD_HASH}" ]]; then
+        # Pick hostname based on generated BCLD_HASH
+        log_item "Physical interfaces detected..."
+        bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
     else
-	
-	# If the default hostname is changed, keep it
-	log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
-    
+        # Pick hostname based on machine-id otherwise
+        log_item "No physical interfaces detected... Using machine-id."
+        bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
     fi
+
+else
+    # If the default hostname is changed, keep it
+    log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
 fi
 
 ## Allow password only for TEST, since only TEST has SSH
 if [[ "${BCLD_MODEL}" == 'test' ]] \
     && [[ -f "${BCLD_TEST}" ]]; then
     log_last 'Setting BCLD remote SSH password...'
-    /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | /usr/bin/openssl passwd -1 -stdin)" "${BCLD_USER}"
+    /usr/sbin/usermod \
+        --password "$(/usr/bin/echo ${BCLD_SECRET} | /usr/bin/openssl passwd -1 -stdin)" \
+        "${BCLD_USER}"
 fi
+
+# Exit and allow relog
+exit

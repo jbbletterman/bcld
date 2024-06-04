@@ -208,6 +208,25 @@ function check_opt_envs () {
     check_opt_env 'WFT_SECRET_2'
 }
 
+## Function to list detected build/run stages
+function check_tags () {
+    
+    TAG='ISO-TAGS'
+    
+    list_header 'Running BCLD tag detection...'
+    
+    TAGS=$(/usr/bin/grep -r "^[ /t]*TAG=" ./Docker-builder.sh ./ISO-builder.sh ./IMG-builder.sh ./script/* ./tools/* ./test/bcld_test.sh | /usr/bin/cut -d '=' -f2 | /usr/bin/tr -d '"' | /usr/bin/tr -d "'" )
+    count=1
+    total="$(/usr/bin/echo ${TAGS} | /usr/bin/wc -w)"
+    
+    for tag in ${TAGS}; do
+        list_item "(${count}/${total}): ${tag}"
+        ((count++))
+    done
+    
+    list_exit
+}
+
 ## Function to cleanup prior to building using mostly file_operations.sh
 clean_prebuild () {
     # Clean all mounts and loop devices
@@ -238,14 +257,17 @@ function init_pkgs () {
     if [[ $(/usr/bin/find ${APP_DIR} -type f -name '*.deb' | wc -l) -gt 0 ]]; then
         # Copy DEB files to CHDEB
         list_item_pass "DEB package found!"
+        list_exit
         (( BCLD_DEB++ ))
     elif [[ $(/usr/bin/find ${APP_DIR} -type f -name '*.AppImage' | wc -l) -gt 0 ]]; then
         # Otherwise copy AppImages
         list_item_pass "AppImage found!"
+        list_exit
         (( BCLD_APPIMAGE++ ))
     elif [[ $(/usr/bin/cat "${CONFIG_DIR}/packages/APP" | /usr/bin/wc -l) -gt 0 ]]; then 
         # Check for APP entries if there are no DEBs or AppImages
         list_item_pass "APP entries found!"
+        list_exit
     else
         # Fail immediately if there is no DEB-file, no AppImage and no APP entries
         list_item_fail "No DEBs or AppImages found in ${APP_DIR} and no APP entries found in ${CONFIG_DIR}/packages/APP!"
@@ -526,6 +548,8 @@ function copy_post_configs () {
     copy_file /usr/lib/ISOLINUX/isolinux.bin "${ISOLINUX_DIR}/isolinux.bin"
 }
 
+check_tags
+
 # Before building, check if any DEBs, AppImages or APPs are present
 init_pkgs
 
@@ -661,7 +685,7 @@ copy_config_scripts
 
 # BCLD Services
 
-TAG='ISO-SVCS'
+TAG='ISO-SERVICES'
 
 list_header "Copying BCLD Services"
 

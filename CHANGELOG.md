@@ -2,6 +2,19 @@
 
 ## 2024
 
+## June
+* `2024-06-04 17:43:10` : 
+    - Added `check_tags` method to [ISO-builder](./ISO-builder.sh)
+    - Improved GRUB output
+    - Improved BCLD test package logging output
+    - Changes some TAGs
+* `2024-06-04 14:26:23` : Improvements to [BCLD-INIT](./config/bash/bcld-init)
+* `2024-06-03 16:25:44` : Upgrade GitHub container LTS (24.04) in Workflows
+    - Added `release/*` branch to `release` environment
+* `2024-06-03 14:07:04` : 
+    - Added `logout` to `bcld_set_hostname` method in [BCLD-INIT](./config/bash/bcld-init)
+    - Clean up grub output
+
 ## May
 * `2024-05-30 09:57:04` : `BCLD_RSYSLOG` has been obsoleted; Rsyslogging is now enabled for Facet by default
 * `2024-05-23 12:25:59` : [OAC-1068]
