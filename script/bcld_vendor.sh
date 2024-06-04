@@ -58,7 +58,7 @@ export NSSDB="${BCLD_HOME}/.pki/nssdb"
 
 ## To list BCLD_VENDOR
 function get_vendor_opts () {
-	log_item "VENDOR added to BCLD_OPTS, currently: ${BCLD_OPTS}"
+	log_item "VENDOR added to BCLD_OPTS, current options: ${BCLD_OPTS}"
 }
 
 ## To set hashes

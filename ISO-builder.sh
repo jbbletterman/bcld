@@ -215,7 +215,7 @@ function check_tags () {
     
     list_header 'Running BCLD tag detection...'
     
-    TAGS=$(/usr/bin/grep -r "^[ /t]*TAG=" ./Docker-builder.sh ./ISO-builder.sh ./IMG-builder.sh ./script/* ./tools/* ./test/bcld_test.sh | /usr/bin/cut -d '=' -f2 | /usr/bin/tr -d '"' | /usr/bin/tr -d "'" )
+    TAGS=$(/usr/bin/grep -r "^[ /t]*TAG=" ./Docker-builder.sh ./ISO-builder.sh ./IMG-builder.sh ./script/* ./config/*/* ./tools/* ./test/bcld_test.sh | /usr/bin/cut -d '=' -f2 | /usr/bin/tr -d '"' | /usr/bin/tr -d "'" )
     count=1
     total="$(/usr/bin/echo ${TAGS} | /usr/bin/wc -w)"
     
