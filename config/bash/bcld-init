@@ -145,18 +145,21 @@ else
 fi
 
 # After setting the machine-id, BCLD_VENDOR, BCLD_MAC_RANDOM and BCLD_HASH, set the hostname
-if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]] && [[ -n "${BCLD_HASH}" ]]; then
-    # Pick hostname based on generated BCLD_HASH
-    log_item "Physical interfaces detected..."
-    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
+if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]] || [[ "$(/usr/bin/hostname)" == 'localhost' ]]; then
+    
+    if [[ -n "${BCLD_HASH}" ]]; then
+        # Pick hostname based on generated BCLD_HASH
+        log_item "Physical interfaces detected..."
+        bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HASH}"
+    else
+        # Pick hostname based on machine-id otherwise
+        log_item "No physical interfaces detected... Using machine-id."
+        bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
+    fi
 
-elif [[ "$(/usr/bin/hostname)" != 'localhost.localdomain' ]]; then
+else
     # If the default hostname is changed, keep it
     log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
-else
-    # Pick hostname based on machine-id otherwise
-    log_item "No physical interfaces detected... Using machine-id."
-    bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
 fi
 
 ## Allow password only for TEST, since only TEST has SSH

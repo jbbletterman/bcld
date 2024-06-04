@@ -46,6 +46,8 @@
 # because we're not running `startup.sh` (again)
 source '/usr/bin/echo_tools.sh'
 
+TAG='BCLD-TEST'
+
 # ENVs
 export BCLD_VERBOSE=1
 export NSSDB="${HOME}/.pki/nssdb"
@@ -182,13 +184,21 @@ function BCLD_PARAM_SWITCH () {
 }
 
 ## Function to check BCLD logs
-function BCLD_LOGs () {
-	/usr/bin/pager /var/log/bcld.log
-}
-
-## Function to check Xorg logs
-function BCLD_X_LOGs () {
-	/usr/bin/cat ${HOME}/.local/share/xorg/Xorg.0.log | /usr/bin/grep -E 'EE|WW'
+function BCLD_LOGGING () {
+	
+	case ${1} in
+	    INIT | init)
+            /usr/bin/journalctl -xeu 'bcld-init'
+	    ;;
+	    X)
+	        /usr/bin/cat "${HOME}/.local/share/xorg/Xorg.0.log" | /usr/bin/grep -E 'EE|WW'
+	    ;;
+	    *)
+	        list_header 'Running client logger...'
+	        /usr/bin/client_logger.sh
+	        /usr/bin/pager /var/log/bcld.log
+	    ;;
+    esac
 }
 
 ## Fast remount

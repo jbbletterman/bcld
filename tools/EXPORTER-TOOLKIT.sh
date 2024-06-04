@@ -41,7 +41,7 @@
 #
 # Exporter Toolkit
 # Collection of functions to work with BCLD files
-TAG='BEX-KIT'
+TAG='EXPORTER-KIT'
 
 PROJECT_DIR=$(/usr/bin/dirname "$(/usr/bin/dirname "$(/usr/bin/readlink -f ${BASH_SOURCE})")")
 
