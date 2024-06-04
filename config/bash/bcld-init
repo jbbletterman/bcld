@@ -121,12 +121,12 @@ if [[ "$(/usr/bin/grep -c 'BCLD_VENDOR=' "${ENVIRONMENT}")" -eq 0 ]]; then
 	if [[ -x /opt/deb-app-afname ]]; then
 	    log_item 'Setting to default: FACET'
 	    vendor_env 'facet'
-	    source /usr/bin/bcld_vendor.sh
+	    /usr/bin/bcld_vendor.sh
     else
         # Without a Facet Chrome app, we are likely running Vendorless BCLD
         log_item 'BCLD App not found, setting to: VENDORLESS BCLD'
 	    vendor_env 'vendorless'
-	    source /usr/bin/bcld_vendor.sh
+	    /usr/bin/bcld_vendor.sh
 	fi
 else
 	# If already set, display
@@ -170,3 +170,6 @@ if [[ "${BCLD_MODEL}" == 'test' ]] \
     log_last 'Setting BCLD remote SSH password...'
     /usr/sbin/usermod --password "$(/usr/bin/echo ${BCLD_SECRET} | /usr/bin/openssl passwd -1 -stdin)" "${BCLD_USER}"
 fi
+
+# Exit and allow relog
+exit
