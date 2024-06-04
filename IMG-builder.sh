@@ -52,7 +52,7 @@ if [[ -f "$(pwd)/IMG-builder.sh" ]]; then
 
 
     
-    TAG='IMAGE-INIT'
+    TAG='IMG-INIT'
     
     source './config/BUILD.conf'
     source './script/echo_tools.sh'
@@ -182,7 +182,7 @@ on_completion
 
 # Install GRUB
 
-TAG='IMAGE-GRUB'
+TAG='IMG-GRUB'
 
 list_header "Installing GRUB"
 
@@ -221,7 +221,7 @@ on_completion
 
 # Copy files
 
-TAG='IMAGE-BUILD'
+TAG='IMG-BUILD'
 
 list_header "Copying files to IMG"
 

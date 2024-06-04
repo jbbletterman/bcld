@@ -210,8 +210,12 @@ function check_opt_envs () {
 
 ## Function to list detected build/run stages
 function check_tags () {
+    
+    TAG='ISO-TAGS'
+    
     list_header 'Running BCLD tag detection...'
-    TAGS=$(/usr/bin/grep -r '^TAG=' | /usr/bin/cut -d '=' -f2 | /usr/bin/sort -u | /usr/bin/tr -d '"' | /usr/bin/tr -d "'" )
+    
+    TAGS=$(/usr/bin/grep -r "^[ /t]*TAG=" ./Docker-builder.sh ./ISO-builder.sh ./IMG-builder.sh ./script/* ./tools/* ./test/bcld_test.sh | /usr/bin/cut -d '=' -f2 | /usr/bin/tr -d '"' | /usr/bin/tr -d "'" )
     count=1
     total="$(/usr/bin/echo ${TAGS} | /usr/bin/wc -w)"
     
@@ -681,7 +685,7 @@ copy_config_scripts
 
 # BCLD Services
 
-TAG='ISO-SVCS'
+TAG='ISO-SERVICES'
 
 list_header "Copying BCLD Services"
 

@@ -108,7 +108,7 @@ img_size () {
     tag_check 'ISO-PREP'
     tag_check 'ISO-BOOTSTRAP'
     tag_check 'ISO-PRECONF'
-    tag_check 'ISO-SVCS'
+    tag_check 'ISO-SERVICES'
     tag_check 'ISO-MOUNT'
     tag_check 'ISO-CHROOT'
     tag_check 'ISO-POSTCONF'
@@ -131,9 +131,9 @@ img_size () {
     assert_output --partial 'Installation finished. No error reported.'
     assert_output --partial "Added 'EFI'-label: EFI"
     assert_output --partial "Added 'BCLD-USB'-label: BCLD-USB"
-    tag_check 'IMAGE-INIT'
-    tag_check 'IMAGE-GRUB'
-    tag_check 'IMAGE-BUILD'
+    tag_check 'IMG-INIT'
+    tag_check 'IMG-GRUB'
+    tag_check 'IMG-BUILD'
 }
 
 ## Test for checking if all artifacts are generated
