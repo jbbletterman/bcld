@@ -3,6 +3,7 @@
 ## 2024
 
 ## June
+* `2024-06-19 12:03:43` : [OAC-1100] Removed `BCLD_REALTEK` parameter from [BCLD ENVs](./config/bash/environment)
 * `2024-06-04 17:43:10` : 
     - Added `check_tags` method to [ISO-builder](./ISO-builder.sh)
     - Improved GRUB output

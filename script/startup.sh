@@ -590,7 +590,7 @@ readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
 ## Read the rest of the parameters here.
 read_all_params
 
-## Check Realtek modules, requires sudos and BCLD_REALTEK
+## Check Realtek modules
 realtek_modules
 
 ## Check if running BCLD Nvidia
