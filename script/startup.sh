@@ -576,6 +576,7 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
             trap_shutdown 'snd'
         else
             # Ignore sound devices on DEBUG and TEST, not without warning
+            /usr/bin/echo # We ended on a printf with no carriage return
             list_item_fail 'Unable to detect any sound cards!'
         fi
     else
