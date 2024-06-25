@@ -68,6 +68,7 @@ function list_item_pass () {
 # Function to echo a failed item
 function list_item_fail () {
     /usr/bin/echo "    ├─[-]╼ ${1}"
+    /usr/bin/logger -t "BCLD-ERROR" "${1}"
 }
 
 # Function to improve log readability

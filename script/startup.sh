@@ -565,11 +565,19 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
     # When started, we can now use Pulse Audio controls
     export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
     
-    # If no BCLD_SINKS can be found, or if PA sets it to (auto_)null, trap_shutdown with snd
+    # If no BCLD_SINKS can be found, or if PA sets it to (auto_)null, take action based on BCLD_MODEL
     if [[ -z "${BCLD_SINKS}" ]] \
         || [[ "${BCLD_SINKS}" == 'null' ]] \
         || [[ "${BCLD_SINKS}" == 'auto_null' ]]; then
-        trap_shutdown 'snd'
+        
+        # This means no outputs can be found
+        if [[ ${BCLD_MODEL} == 'release' ]]; then
+            # Do not allow boot without sound devices on RELEASE
+            trap_shutdown 'snd'
+        else
+            # Ignore sound devices on DEBUG and TEST, not without warning
+            list_item_fail 'Unable to detect any sound cards!'
+        fi
     else
         /usr/bin/echo
         list_item_pass "Sinks detected: ${BCLD_SINKS}"
@@ -580,9 +588,6 @@ else
     /usr/bin/echo
     list_item_fail "Virtual machine detected, skipping..."
 fi
-
-# This is allowed to detect 0 sinks when running inside VM
-export SINKS_NUM=$(/usr/bin/echo "${BCLD_SINKS}" | /usr/bin/wc -l)
 
 ## Read BCLD_VERBOSE first
 readparam "${VERBOSE_PARAM}" "${VERBOSE_ALIAS}"
