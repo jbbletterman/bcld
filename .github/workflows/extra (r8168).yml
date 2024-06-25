@@ -46,7 +46,7 @@ jobs:
         /usr/bin/apt-get install -y $(cat /project/config/packages/BUILD)
     - name: Run RepoMan SBOM
       run: |
-        ./tools/bcld-repo-manager/repository_manager.sh o
+        ./tools/bcld-repo-manager/repository_manager.sh
     - name: Upload RepoMan SBOM
       uses: actions/upload-artifact@v2
       with:
