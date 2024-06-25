@@ -3,6 +3,11 @@
 ## 2024
 
 ## June
+* `2024-06-25 13:51:24` : [OAC-1103] Disable sound card `trap_shutdown` for `DEBUG` and `TEST` images
+    - Will allow automatic tests to proceed without sound checks
+    - `trap_shutdown` will still work in `RELEASE` builds
+    - Added `logger` command to `list_item_fail` method (as `BCLD-ERROR`)
+    - Minor kernel patch: `6.8.0-31 --> 6.8.0-35`
 * `2024-06-19 12:03:43` : [OAC-1100] Removed `BCLD_REALTEK` parameter from [BCLD ENVs](./config/bash/environment)
 * `2024-06-04 17:43:10` : 
     - Added `check_tags` method to [ISO-builder](./ISO-builder.sh)
