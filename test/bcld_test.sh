@@ -48,6 +48,8 @@ source '/usr/bin/echo_tools.sh'
 
 TAG='BCLD-TEST'
 
+list_header "Enabling BCLD TEST package..."
+
 # ENVs
 export BCLD_VERBOSE=1
 export NSSDB="${HOME}/.pki/nssdb"
@@ -427,3 +429,9 @@ function write_ENVs () {
 		list_item "No new BCLD_ENVs..."
 	fi
 }
+
+# EXE
+## Allow password only for TEST, since only TEST has SSH
+/usr/bin/echo "${BCLD_USER}:${BCLD_SECRET}" | /usr/bin/sudo chpasswd
+list_item_pass "Changed password for ${BCLD_USER}:${BCLD_SECRET}"
+list_exit
