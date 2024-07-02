@@ -2,6 +2,11 @@
 
 ## 2024
 
+## Juli
+* `2024-07-02 16:37:41` : [OAC-1106]
+    - Updated user password method after LTS upgrade (for TEST)
+    - Improved `print_cert` and `print_key` TEST methods
+
 ## June
 * `2024-06-26 14:03:48` : [OAC-1106] Revert major release to sync with Facet 13
 * `2024-06-25 13:51:24` : [OAC-1103] Disable sound card `trap_shutdown` for `DEBUG` and `TEST` images
