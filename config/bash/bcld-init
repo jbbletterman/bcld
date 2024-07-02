@@ -103,6 +103,8 @@ log_item "Setting RTC to local time..."
 ## Send BCLD_VENDOR to /etc/environment
 function vendor_env () {
 
+    log_item "Setting BCLD_VENDOR: ${1}"
+
     export BCLD_VENDOR="${1}"
 
     /usr/bin/echo "BCLD_VENDOR=${1}" >> "${ENVIRONMENT}"
@@ -162,14 +164,7 @@ else
     log_item "Hostname already appears to be changed: $(/usr/bin/hostname)"
 fi
 
-## Allow password only for TEST, since only TEST has SSH
-if [[ "${BCLD_MODEL}" == 'test' ]] \
-    && [[ -f "${BCLD_TEST}" ]]; then
-    log_last 'Setting BCLD remote SSH password...'
-    /usr/sbin/usermod \
-        --password "$(/usr/bin/echo ${BCLD_SECRET} | /usr/bin/openssl passwd -1 -stdin)" \
-        "${BCLD_USER}"
-fi
+log_last 'Finished BCLD-INIT script...'
 
 # Exit and allow relog
 exit
