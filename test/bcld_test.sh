@@ -58,6 +58,16 @@ export NSSDB="${HOME}/.pki/nssdb"
 ENV_FILE="/etc/environment"
 BCLD_ENV="${HOME}/BCLD_ENVs"
 
+# Check the current BCLD_VENDOR
+print_item 'Setting BCLD_DOMAIN: '
+if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
+    BCLD_DOMAIN='facet.onl'
+elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
+    BCLD_DOMAIN='duo.nl'
+fi
+
+/usr/bin/echo "${BCLD_DOMAIN}"
+
 # FUNCTIONS
 
 ## Function to check audio devices
@@ -214,29 +224,13 @@ function BCLD_MOUNT () {
 function BCLD_NSSDB () {
     if [[ -f "${NSSDB}/cert9.db" ]] \
         && [[ -f "${NSSDB}/key4.db" ]] \
-        && [[ -f "${NSSDB}/pkcs11.txt" ]]; then
-        # Check NSSDB settings
-	    # ENVs
-	    FACET_DOM='facet.onl'
-	    WFT_DOM='duo.nl'
+        && [[ -f "${NSSDB}/pkcs11.txt" ]]; then	    
 		    
 		# Check certificate
-	    if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${FACET_DOM}")" -gt 0 ]]; then
-	    	print_cert "${FACET_DOM}"
-	    elif [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${WFT_DOM}")" -gt 0 ]]; then
-	    	print_cert "${WFT_DOM}"
-    	else
-			list_item_fail 'CERT ERROR!'
-		fi
+		print_cert
 		
 		# Check key        
-	    if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${FACET_DOM}")" -gt 0 ]]; then
-	    	print_key "${FACET_DOM}"
-	    elif [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${WFT_DOM}")" -gt 0 ]]; then
-	    	print_key "${WFT_DOM}"
-		else
-			list_item_fail 'KEY ERROR!'
-	    fi
+	    print_key
     else
 		list_item_fail "NSSDB not found! Are you running vendorless?"
     fi
@@ -300,12 +294,24 @@ function BCLD_WOL () {
 
 # Output certificate
 function print_cert () {
-	list_item_pass "Certificate OK: ${1}"
+	
+	# Based on the selected BCLD_DOMAIN, scan the certificates
+	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${BCLD_DOMAIN}")" -gt 0 ]]; then
+	    list_item_pass "Certificate OK: ${BCLD_DOMAIN}"
+    else
+	    list_item_fail 'CERTIFICATE ERROR!'
+    fi
 }
 
 # Output key
 function print_key () {
-	list_item_pass "Key OK: ${1}"
+	
+	# Based on the selected BCLD_DOMAIN, scan the keys
+	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${BCLD_DOMAIN}")" -gt 0 ]]; then
+	    list_item_pass "Key OK: ${BCLD_DOMAIN}"
+    else
+	    list_item_fail 'KEY ERROR!'
+    fi
 }
 
 ## Function to check Secure Boot
