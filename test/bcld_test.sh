@@ -257,7 +257,7 @@ function check_cert () {
 	    list_param "${CERT_DATE}" 'Expires'
 	    list_param "${CERT_HASH}" 'Hash'
     else
-        list_item_fail 'CERTIFICATE ERROR: could not be found!'
+        list_param 'could not be found!' 'CERTIFICATE ERROR'
     fi
 
     
@@ -276,7 +276,7 @@ function BCLD_KEY () {
         # Check the Key
         list_item "$(/usr/bin/openssl rsa -in "${CLIENT_KEY}" -noout -check)"
     else
-        list_item_fail 'KEY ERROR: could not be found!'
+        list_param 'could not be found!' 'KEY ERROR'
     fi
 }
 
@@ -316,7 +316,7 @@ function BCLD_NSSDB () {
 		# Check key        
 	    print_nssdb_key
     else
-		list_item_fail "NSSDB not found! Are you running vendorless?"
+		list_param 'Are you running vendorless?' 'NSSDB not found!'
     fi
 }
 
