@@ -3,7 +3,10 @@
 ## 2024
 
 ## Juli
-* `2024-07-03 15:54:30` : [OAC-1106] Improved console output readability for TEST images
+* `2024-07-03 15:54:30` : [OAC-1106] 
+    - Improved console output readability for TEST images
+    - Remove all `BCLD_OPTS` configuration from [BCLD-INIT](./config/bash/bcld-init) and [BCLD_VENDOR](./script/bcld_vendor.sh)
+    - Migrate all `BCLD_OPTS` configurations to [STARTUP](./script/startup.sh)
 * `2024-07-03 11:18:40` : Unquote conditional to fix `KERNEL_PARAM` in [BCLD-INIT](./config/bash/bcld-init)
 * `2024-07-02 16:37:41` : [OAC-1106]
     - Updated user password method after LTS upgrade (for TEST)

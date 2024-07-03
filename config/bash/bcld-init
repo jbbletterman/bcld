@@ -131,7 +131,7 @@ if [[ "$(/usr/bin/grep -c 'BCLD_VENDOR=' "${ENVIRONMENT}")" -eq 0 ]]; then
     log_item "BCLD_VENDOR not set in ${ENVIRONMENT}..."
 	
 	# If BCLD App found, default to 'facet'
-	## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
+	## Source bcld_vendor.sh script and set BCLD_VENDOR
 	if [[ -x /opt/deb-app-afname ]]; then
 	    log_item 'Setting to default: FACET'
 	    vendor_env 'facet'

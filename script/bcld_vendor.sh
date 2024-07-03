@@ -56,12 +56,8 @@ CLIENT_KEY_NAME='bcld.key'
 PUB_PKI_DIR='/usr/share/ca-certificates'
 
 export NSSDB="${BCLD_HOME}/.pki/nssdb"
-# FUNCTIONS
 
-## To list BCLD_VENDOR
-function get_vendor_opts () {
-	log_item "VENDOR added to BCLD_OPTS, current options: ${BCLD_OPTS}"
-}
+# FUNCTIONS
 
 ## To set hashes
 function hash_bcld_cert () {
@@ -144,16 +140,10 @@ if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	update_cert
 elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	
-	export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
-	get_vendor_opts
-	
 	# Configure certificates for WFT, but disable remote logging
 	hash_bcld_cert
 	set_bcld_nssdb
 	fix_bcld_perms
 	get_bcld_nssdb 'duo.nl'
 	update_cert
-elif [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
-	# Vendorless does not need extra certificates and does not work well with regular BCLD_OPTS
-	get_vendor_opts
 fi
