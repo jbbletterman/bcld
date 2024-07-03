@@ -172,9 +172,9 @@ function header_param () {
 # Function to list important parameter, if present
 function list_param () {
 	if [[ -n ${1} ]]; then
-		list_item "${2}: ${1}"
+		/usr/bin/printf "%-50s %-50s\n" "    ├─(+)╼ ${2}:" "${1}"
 	else
-		list_item "${2} is NOT set!"
+		/usr/bin/printf "%-50s %-50s\n" "    ├─(-)╼ ${2}" "NOT AVAILABLE"
 	fi
 }
 

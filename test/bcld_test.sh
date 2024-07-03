@@ -48,6 +48,12 @@ source '/usr/bin/echo_tools.sh'
 
 TAG='BCLD-TEST'
 
+CERT_LINKS='/etc/ssl/certs'
+
+CA_CRT="${CERT_LINKS}/ca.crt"
+CLIENT_CRT="${CERT_LINKS}/bcld.crt"
+CLIENT_KEY="${CERT_LINKS}/bcld.key"
+
 list_header "Enabling BCLD TEST package..."
 
 # ENVs
@@ -81,53 +87,13 @@ function BCLD_AUDIO () {
 function BCLD_BAT () {
         # Check laptop battery, if present
 		if [[ -d /sys/class/power_supply/BAT0 ]]; then
-			list_item_pass "Laptop battery: $(/usr/bin/cat /sys/class/power_supply/BAT0/capacity)"
+			list_param "$(/usr/bin/cat /sys/class/power_supply/BAT0/capacity)" 'Laptop battery'
 		fi
 }
 
 ## Function to check this script
 function BCLD_CMDs () {
 	declare -F | /usr/bin/grep -v 'command_not_found_handle' | /usr/bin/awk '{ print $3 }'
-}
-
-## Function to display BCLD certificates
-function BCLD_CERTs () {
-    CA_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -hash)"
-	CA_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
-
-    CERT_HASH="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -hash)"
-	CERT_DATE="$(/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -enddate | /usr/bin/cut -d '=' -f2)"
-	
-	list_header 'Checking BCLD certificates'
-	list_item "CA certificate: ${CA_HASH}"
-	list_item "EXPIRES: ${CA_DATE}"
-	list_entry
-	/usr/bin/openssl x509 -in /etc/ssl/certs/ca.crt -noout -subject
-	list_catch
-	list_item "Client certificate: ${CERT_HASH}"
-	list_item "EXPIRES: ${CERT_DATE}"
-	list_entry
-	/usr/bin/openssl x509 -in /etc/ssl/certs/bcld.crt -noout -subject
-	list_catch
-	list_item 'Checking NSSDB certificates...'
-	list_entry
-	/usr/bin/certutil -d "sql:${NSSDB}" -L
-	list_catch
-	list_exit
-	/usr/bin/echo
-}
-
-## Function to display BCLD keys
-function BCLD_KEYs () {
-	KEY_STATE="$(/usr/bin/openssl rsa -in /etc/ssl/certs/bcld.key -noout -check)"
-	
-	list_header 'Checking BCLD keys'
-	list_item "Client key: ${KEY_STATE}"
-	list_entry
-	/usr/bin/certutil -d "sql:${NSSDB}" -K
-	list_catch
-	list_exit
-	/usr/bin/echo
 }
 
 ## Function to display BCLD variables
@@ -220,22 +186,6 @@ function BCLD_MOUNT () {
 	/usr/bin/ls
 }
 
-## Function to display NSSDB status in TEST console
-function BCLD_NSSDB () {
-    if [[ -f "${NSSDB}/cert9.db" ]] \
-        && [[ -f "${NSSDB}/key4.db" ]] \
-        && [[ -f "${NSSDB}/pkcs11.txt" ]]; then	    
-		    
-		# Check certificate
-		print_cert
-		
-		# Check key        
-	    print_key
-    else
-		list_item_fail "NSSDB not found! Are you running vendorless?"
-    fi
-}
-
 ## Function to get or set BCLD recording level
 function BCLD_REC () {
 	if [[ ${1} ]]; then
@@ -247,7 +197,7 @@ function BCLD_REC () {
 
 ## Function to check broken services
 function BCLD_SERVICES () {
-	list_item 'Listing broken services:'
+	list_header 'Listing broken services:'
 	list_entry
 	/usr/bin/systemctl list-units --type=service --state=failed --no-pager --legend=no
 }
@@ -292,25 +242,81 @@ function BCLD_WOL () {
 	fi
 }
 
-# Output certificate
-function print_cert () {
+## Function to display a certificate
+function check_cert () {
+    
+    if [[ -f ${1} ]]; then    
+        
+        list_param "${1}" 'Certificate'
+        
+        CERT_NAME="$(/usr/bin/openssl x509 -in "${1}" -subject -noout -nameopt multiline | /usr/bin/grep commonName | /usr/bin/awk '{ print $3 }' )"
+	    CERT_DATE="$(/usr/bin/openssl x509 -in "${1}" -noout -enddate | /usr/bin/cut -d '=' -f2)"
+        CERT_HASH="$(/usr/bin/openssl x509 -in "${1}" -noout -hash)"
+	    
+	    list_param "${CERT_NAME}" 'Name'
+	    list_param "${CERT_DATE}" 'Expires'
+	    list_param "${CERT_HASH}" 'Hash'
+    else
+        list_item_fail 'CERTIFICATE ERROR: could not be found!'
+    fi
+
+    
+}
+
+## Function to display BCLD certificates
+function BCLD_CERTs () {
+    check_cert "${CA_CRT}"
+    check_cert "${CLIENT_CRT}"
+}
+
+# Output regular certificates (links)
+function BCLD_KEY () {
+
+    if [[ -f "${CLIENT_KEY}" ]]; then
+        # Check the Key
+        list_item "$(/usr/bin/openssl rsa -in "${CLIENT_KEY}" -noout -check)"
+    else
+        list_item_fail 'KEY ERROR: could not be found!'
+    fi
+}
+
+# Output database certificate
+function print_nssdb_cert () {
 	
 	# Based on the selected BCLD_DOMAIN, scan the certificates
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${BCLD_DOMAIN}")" -gt 0 ]]; then
-	    list_item_pass "Certificate OK: ${BCLD_DOMAIN}"
+	    list_param "OK: ${BCLD_DOMAIN}" 'NSSDB Certificate'
     else
-	    list_item_fail 'CERTIFICATE ERROR!'
+	    list_param 'ERROR!' 'NSSDB CERTIFICATE'
     fi
 }
 
 # Output key
-function print_key () {
+function print_nssdb_key () {
 	
 	# Based on the selected BCLD_DOMAIN, scan the keys
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${BCLD_DOMAIN}")" -gt 0 ]]; then
-	    list_item_pass "Key OK: ${BCLD_DOMAIN}"
+	    list_param "OK: ${BCLD_DOMAIN}" 'NSSDB Key'
     else
-	    list_item_fail 'KEY ERROR!'
+	    list_param 'ERROR!' 'NSSDB KEY'
+    fi
+}
+
+## Function to display NSSDB status in TEST console
+function BCLD_NSSDB () {
+    if [[ -f "${NSSDB}/cert9.db" ]] \
+        && [[ -f "${NSSDB}/key4.db" ]] \
+        && [[ -f "${NSSDB}/pkcs11.txt" ]]; then	    
+		    
+		list_param "${NSSDB}" 'NSSDB'
+		
+		# Check certificate
+		print_nssdb_cert
+		
+		# Check key        
+	    print_nssdb_key
+    else
+		list_item_fail "NSSDB not found! Are you running vendorless?"
     fi
 }
 
@@ -369,20 +375,28 @@ function reset_terminal () {
     
     list_header "Resetting terminal"
 
+    list_param "${BCLD_VENDOR}" 'Vendor'
     list_param "${BCLD_APP_VERSION}" 'App Version'
     list_param "${BCLD_KERNEL_VERSION}" 'Kernel Version'
     list_param "${BCLD_LAUNCH_COMMAND}" 'Launch Command'
     list_param "${BCLD_URL}" 'BCLD Afname URL'
     list_param "${BCLD_OPTS}" 'BCLD options'
-    BCLD_NSSDB
-    BCLD_BAT
     list_param "${BCLD_IF}" 'Default interface'
     list_param "${BCLD_IP}" 'IP address'
     list_param "${BCLD_MAC}" 'Link address'
     list_param "${BCLD_SPEED}" 'Link speed (Megabytes/s)'
     list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${PACKET_LOSS}" 'Packets dropped (so far)'
-    
+    BCLD_BAT
+    list_exit
+
+    # List certificate information
+    list_header 'Certificate information'
+    BCLD_CERTs
+    BCLD_KEY
+    BCLD_NSSDB
+    list_exit
+
     # List broken services
     BCLD_SERVICES
     

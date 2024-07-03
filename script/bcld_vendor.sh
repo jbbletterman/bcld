@@ -46,6 +46,8 @@
 # IMPORT
 source /usr/bin/log_tools.sh
 
+TAG='BCLD-VENDOR'
+
 # ENVs
 BCLD_HOME="/home/${BCLD_USER}"
 CA_CERT_NAME='ca.crt'
@@ -95,7 +97,9 @@ function update_cert () {
 
 ## To set NSSDB
 function set_bcld_nssdb () {
+	
 	log_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
+	
 	if [[ "${BCLD_VERBOSE}" -eq 1 ]]; then
 	    /usr/bin/mkdir -pv "${NSSDB}"
 	    /usr/bin/cp -v ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
