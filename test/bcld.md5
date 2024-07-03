@@ -110,7 +110,7 @@ f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
 89ad264eb4e9fd62d5194ebcfd0043e9  ./script/file_operations.sh
 07de693b053c97f6f8d44c43d0ab202b  ./script/log_tools.sh
 c654fc690b0600c48719f7cb3803f142  ./script/rsyslogger.sh
-cd85ffc16746406eccc908749c8b2b52  ./script/startup.sh
+a8cd253126449722ffd50339f37c2a29  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 47c636dd3dc7191d173062dbf8324844  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh

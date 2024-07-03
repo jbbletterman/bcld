@@ -262,7 +262,7 @@ function nvidia_modules () {
 
 ## To list BCLD_OPTS
 function get_vendor_opts () {
-	list_item "VENDOR added to BCLD_OPTS, current options: ${BCLD_OPTS}"
+	list_item "Currently set BCLD_OPTS: ${BCLD_OPTS}"
 }
 
 ## Function to detect MAC and IP after BCLD_IF has been set and connection has been made
