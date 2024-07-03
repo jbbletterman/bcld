@@ -135,12 +135,10 @@ if [[ "$(/usr/bin/grep -c 'BCLD_VENDOR=' "${ENVIRONMENT}")" -eq 0 ]]; then
 	if [[ -x /opt/deb-app-afname ]]; then
 	    log_item 'Setting to default: FACET'
 	    vendor_env 'facet'
-	    /usr/bin/bcld_vendor.sh
     else
         # Without a Facet Chrome app, we are likely running Vendorless BCLD
         log_item 'BCLD App not found, setting to: VENDORLESS BCLD'
 	    vendor_env 'vendorless'
-	    /usr/bin/bcld_vendor.sh
 	fi
 else
 	# If already set, display

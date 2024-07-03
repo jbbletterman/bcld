@@ -663,6 +663,10 @@ if [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
         fi
     fi
 else
+
+    # Always execute BCLD VENDOR script if not Vendorless    
+    /usr/bin/bcld_vendor.sh
+
     # Configure BCLD Overwrite URL
     if [[ -n "${BCLD_URL}" ]]; then
 	    export BCLD_OPTS="${BCLD_OPTS} --facet-overwrite-url=${BCLD_URL}"
