@@ -249,7 +249,7 @@ function BCLD_REC () {
 function BCLD_SERVICES () {
 	list_item 'Listing broken services:'
 	list_entry
-	/usr/bin/systemctl list-units --type=service --state=failed
+	/usr/bin/systemctl list-units --type=service --state=failed --no-pager --legend=no
 }
 
 ## Function to check default target
