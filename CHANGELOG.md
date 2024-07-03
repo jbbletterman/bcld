@@ -3,6 +3,7 @@
 ## 2024
 
 ## Juli
+* `2024-07-03 11:18:40` : Unquote conditional to fix `KERNEL_PARAM` in [BCLD-INIT](./config/bash/bcld-init)
 * `2024-07-02 16:37:41` : [OAC-1106]
     - Updated user password method after LTS upgrade (for TEST)
     - Improved `print_cert` and `print_key` TEST methods

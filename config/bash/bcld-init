@@ -115,10 +115,11 @@ function vendor_env () {
 for KERNEL_PARAM in ${CMD_LINE}; do
     
     # Match only VENDOR_PARAM.
-    if [[ $KERNEL_PARAM == 'bcld.afname.vendor*' ]]; then
+    if [[ $KERNEL_PARAM == bcld.afname.vendor* ]]; then
         # Strip the BCLD_VENDOR and give it to a new export
         KERNEL_PARAM=$(/usr/bin/echo "${KERNEL_PARAM}" | /usr/bin/sed 's/=/ /')
         IFS=' ' read -r NAME VALUE <<< "${KERNEL_PARAM}"
+        log_item "Set BCLD_VENDOR using BCLD_PARAM: ${VALUE}"
         vendor_env "${VALUE}"
         break
     fi
