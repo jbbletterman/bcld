@@ -260,6 +260,11 @@ function nvidia_modules () {
     fi
 }
 
+## To list BCLD_OPTS
+function get_vendor_opts () {
+	list_item "Currently set BCLD_OPTS: ${BCLD_OPTS}"
+}
+
 ## Function to detect MAC and IP after BCLD_IF has been set and connection has been made
 function ip_link () {
         if [[ -n "${BCLD_IF}" ]]; then
@@ -638,7 +643,7 @@ fi
 
 
 ### Vendor Configurations
-if [[ ${BCLD_VENDOR} == 'vendorless' ]]; then
+if [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
     # Vendor features don't work without the BCLD app
     # Unset BCLD_OPTS if running Vendorless BCLD    
     unset 'BCLD_OPTS'
@@ -658,6 +663,15 @@ if [[ ${BCLD_VENDOR} == 'vendorless' ]]; then
         fi
     fi
 else
+
+    # Always execute BCLD VENDOR script if not Vendorless    
+    /usr/bin/sudo /usr/bin/bcld_vendor.sh
+
+    # Add VENDOR PARAM if 'wft'
+    if [[ "${BCLD_VENDOR}" == 'wft' ]]; then
+        export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
+    fi
+
     # Configure BCLD Overwrite URL
     if [[ -n "${BCLD_URL}" ]]; then
 	    export BCLD_OPTS="${BCLD_OPTS} --facet-overwrite-url=${BCLD_URL}"
@@ -682,7 +696,7 @@ else
 fi
 
 ### Show BCLD_OPTS
-list_item "Current BCLD_OPTS: ${BCLD_OPTS}"
+get_vendor_opts
 
 ## Audio settings
 

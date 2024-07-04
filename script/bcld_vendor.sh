@@ -44,7 +44,9 @@
 # Enable Rsyslog service ONLY for Facet
 #
 # IMPORT
-source /usr/bin/log_tools.sh
+source /usr/bin/echo_tools.sh
+
+TAG='BCLD-VENDOR'
 
 # ENVs
 BCLD_HOME="/home/${BCLD_USER}"
@@ -54,12 +56,8 @@ CLIENT_KEY_NAME='bcld.key'
 PUB_PKI_DIR='/usr/share/ca-certificates'
 
 export NSSDB="${BCLD_HOME}/.pki/nssdb"
-# FUNCTIONS
 
-## To list BCLD_VENDOR
-function get_vendor_opts () {
-	log_item "VENDOR added to BCLD_OPTS, current options: ${BCLD_OPTS}"
-}
+# FUNCTIONS
 
 ## To set hashes
 function hash_bcld_cert () {
@@ -72,11 +70,11 @@ function hash_bcld_cert () {
 	CLIENT_CRT="${PUB_PKI_DIR}/${BCLD_VENDOR}/${CLIENT_CRT_NAME}"
 	CLIENT_KEY="${PUB_PKI_DIR}/${BCLD_VENDOR}/${CLIENT_KEY_NAME}"
 
-	log_item 'Generating OpenSSL hashes...'
+	list_item 'Generating OpenSSL hashes...'
 	CA_HASH="$(/usr/bin/openssl x509 -noout -hash -in "${CA_CRT}")"
 	CLIENT_HASH="$(/usr/bin/openssl x509 -noout -hash -in "${CLIENT_CRT}")"
 
-	log_item 'Generating SSL links...'
+	list_item 'Generating SSL links...'
 	/usr/bin/ln -sf "${CA_CRT}" "${CA_CERT_NAME}"
 	/usr/bin/ln -sf "${CA_CERT_NAME}" "${CA_HASH}"
 	/usr/bin/ln -sf "${CLIENT_CRT}" "${CLIENT_CRT_NAME}"
@@ -88,23 +86,27 @@ function hash_bcld_cert () {
 
 # Update certificate store
 function update_cert () {
-	log_item "Updating the certificate store..."
+	list_item "Updating the certificate store..."
 	/usr/sbin/update-ca-certificates &> /dev/null
 }
 
 
 ## To set NSSDB
 function set_bcld_nssdb () {
-	log_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
+	
+	list_item "Configuring certificate database for: ${BCLD_VENDOR^^}"
+	
 	if [[ "${BCLD_VERBOSE}" -eq 1 ]]; then
+	    list_entry
 	    /usr/bin/mkdir -pv "${NSSDB}"
 	    /usr/bin/cp -v ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
 	    /usr/bin/chown -Rv "${USER}:${USER}" "${NSSDB}"
+	    list_catch
     else
 	    /usr/bin/mkdir -p "${NSSDB}"
 	    /usr/bin/cp ${BCLD_HOME}/nssdb/${BCLD_VENDOR}/{cert9.db,key4.db,pkcs11.txt} "${NSSDB}"
 	    /usr/bin/chown -R "${USER}:${USER}" "${NSSDB}"
-	    log_item 'NSSDB installation complete!'
+	    list_item_pass 'NSSDB installation complete!'
 	fi
 }
 
@@ -113,24 +115,25 @@ function get_bcld_nssdb () {
 	
 	# Check for CRT
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -L | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
-		log_item "${BCLD_VENDOR} certificate detected!"
+		list_item_pass "${BCLD_VENDOR} certificate detected!"
 	fi
 
 	# Check for KEY
 	if [[ "$(/usr/bin/certutil -d "sql:${NSSDB}" -K | /usr/bin/grep -c "${1}")" -gt 0 ]]; then
-		log_item "${BCLD_VENDOR} key detected!"
+		list_item_pass "${BCLD_VENDOR} key detected!"
 	fi
 }
 
 ## To fix permissions of selected certs
 function fix_bcld_perms () {
+    list_item "Fixing NSSDB permissions..."
 	/usr/bin/chown -R "${BCLD_USER}:${BCLD_USER}" "${NSSDB}" || exit 1
 }
 
 
 # EXE
 
-log_header 'Starting BCLD Vendor script'
+list_item 'Starting BCLD Vendor script...'
 
 if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	hash_bcld_cert
@@ -140,16 +143,10 @@ if [[ "${BCLD_VENDOR}" == 'facet' ]]; then
 	update_cert
 elif [[ "${BCLD_VENDOR}" == 'wft' ]]; then
 	
-	export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
-	get_vendor_opts
-	
 	# Configure certificates for WFT, but disable remote logging
 	hash_bcld_cert
 	set_bcld_nssdb
 	fix_bcld_perms
 	get_bcld_nssdb 'duo.nl'
 	update_cert
-elif [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
-	# Vendorless does not need extra certificates and does not work well with regular BCLD_OPTS
-	get_vendor_opts
 fi
