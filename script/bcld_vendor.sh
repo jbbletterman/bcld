@@ -44,7 +44,7 @@
 # Enable Rsyslog service ONLY for Facet
 #
 # IMPORT
-source /usr/bin/list_tools.sh
+source /usr/bin/log_tools.sh
 
 TAG='BCLD-VENDOR'
 
