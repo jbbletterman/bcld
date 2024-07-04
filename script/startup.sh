@@ -667,6 +667,11 @@ else
     # Always execute BCLD VENDOR script if not Vendorless    
     /usr/bin/sudo /usr/bin/bcld_vendor.sh
 
+    # Add VENDOR PARAM if 'wft'
+    if [[ "${BCLD_VENDOR}" == 'wft' ]]; then
+        export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
+    fi
+
     # Configure BCLD Overwrite URL
     if [[ -n "${BCLD_URL}" ]]; then
 	    export BCLD_OPTS="${BCLD_OPTS} --facet-overwrite-url=${BCLD_URL}"
@@ -688,11 +693,6 @@ else
 	if [[ "${BCLD_LOGGING}" -eq 1 ]]; then
 		export BCLD_OPTS="${BCLD_OPTS} --enableLogging --logfile=/opt/bcld_log.json"
 	fi
-fi
-
-if [[ "${BCLD_VENDOR}" == 'wft' ]]; then
-    # WFT has an extra VENDOR PARAM
-    export BCLD_OPTS="${BCLD_OPTS} --vendor=wftbsb"
 fi
 
 ### Show BCLD_OPTS
