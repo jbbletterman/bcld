@@ -115,10 +115,11 @@ function vendor_env () {
 for KERNEL_PARAM in ${CMD_LINE}; do
     
     # Match only VENDOR_PARAM.
-    if [[ $KERNEL_PARAM == 'bcld.afname.vendor*' ]]; then
+    if [[ $KERNEL_PARAM == bcld.afname.vendor* ]]; then
         # Strip the BCLD_VENDOR and give it to a new export
         KERNEL_PARAM=$(/usr/bin/echo "${KERNEL_PARAM}" | /usr/bin/sed 's/=/ /')
         IFS=' ' read -r NAME VALUE <<< "${KERNEL_PARAM}"
+        log_item "Set BCLD_VENDOR using BCLD_PARAM: ${VALUE}"
         vendor_env "${VALUE}"
         break
     fi
@@ -130,16 +131,14 @@ if [[ "$(/usr/bin/grep -c 'BCLD_VENDOR=' "${ENVIRONMENT}")" -eq 0 ]]; then
     log_item "BCLD_VENDOR not set in ${ENVIRONMENT}..."
 	
 	# If BCLD App found, default to 'facet'
-	## Source bcld_vendor.sh script for BCLD_OPTS and NSSDB exports using BCLD_VENDOR
+	## Source bcld_vendor.sh script and set BCLD_VENDOR
 	if [[ -x /opt/deb-app-afname ]]; then
 	    log_item 'Setting to default: FACET'
 	    vendor_env 'facet'
-	    source /usr/bin/bcld_vendor.sh
     else
         # Without a Facet Chrome app, we are likely running Vendorless BCLD
         log_item 'BCLD App not found, setting to: VENDORLESS BCLD'
 	    vendor_env 'vendorless'
-	    source /usr/bin/bcld_vendor.sh
 	fi
 else
 	# If already set, display
