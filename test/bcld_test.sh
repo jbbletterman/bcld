@@ -274,7 +274,7 @@ function BCLD_KEY () {
 
     if [[ -f "${CLIENT_KEY}" ]]; then
         # Check the Key
-        list_item "$(/usr/bin/openssl rsa -in "${CLIENT_KEY}" -noout -check)"
+        list_param "$(/usr/bin/openssl rsa -in "${CLIENT_KEY}" -noout -check)" 'RSA key'
     else
         list_param 'could not be found!' 'KEY ERROR'
     fi
