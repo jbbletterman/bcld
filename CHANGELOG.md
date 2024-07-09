@@ -2,7 +2,9 @@
 
 ## 2024
 
-## Juli
+## July
+* `2024-07-09 12:09:36` : [OAC-1118] Replace echos after printing during the sound checks
+* `2024-07-08 14:06:28` : [OAC-1118] Restrict sound card `trap_shutdown` to Facet `BCLD_VENDOR`
 * `2024-07-03 15:54:30` : [OAC-1106] 
     - Improved console output readability for TEST images
     - Remove all `BCLD_OPTS` configuration from [BCLD-INIT](./config/bash/bcld-init) and [BCLD_VENDOR](./script/bcld_vendor.sh)

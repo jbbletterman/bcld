@@ -566,6 +566,8 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
         /usr/bin/pactl get-default-sink | /usr/bin/grep -qv null && break
         /usr/bin/printf "." && /usr/bin/sleep 1s
     done
+    
+    /usr/bin/echo
 
     # When started, we can now use Pulse Audio controls
     export BCLD_SINKS="$(/usr/bin/pactl list short sinks  | /usr/bin/awk '{ print $2 }' )"
@@ -576,22 +578,20 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
         || [[ "${BCLD_SINKS}" == 'auto_null' ]]; then
         
         # This means no outputs can be found
-        if [[ ${BCLD_MODEL} == 'release' ]]; then
-            # Do not allow boot without sound devices on RELEASE
+        # Do not allow boot without sound devices
+        # Only do this for FACET (RELEASE)
+        if [[ "${BCLD_VENDOR}" == 'facet' ]] && [[ "${BCLD_MODEL}" == 'release' ]]; then
             trap_shutdown 'snd'
         else
             # Ignore sound devices on DEBUG and TEST, not without warning
-            /usr/bin/echo # We ended on a printf with no carriage return
             list_item_fail 'Unable to detect any sound cards!'
         fi
     else
-        /usr/bin/echo
         list_item_pass "Sinks detected: ${BCLD_SINKS}"
     fi
     # SINKS found with pactl and output in JSON. Used throughout code
     SINKS_JSON="$(/usr/bin/pactl --format json list sinks)"
 else
-    /usr/bin/echo
     list_item_fail "Virtual machine detected, skipping..."
 fi
 
