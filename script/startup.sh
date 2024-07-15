@@ -592,6 +592,7 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
     # SINKS found with pactl and output in JSON. Used throughout code
     SINKS_JSON="$(/usr/bin/pactl --format json list sinks)"
 else
+    /usr/bin/echo
     list_item_fail "Virtual machine detected, skipping..."
 fi
 

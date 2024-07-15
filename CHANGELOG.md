@@ -3,6 +3,9 @@
 ## 2024
 
 ## July
+* `2024-07-15 14:03:58` : 
+    - Improve console readability
+    - [Client Logger](./script/client_logger.sh) was missing `NSSDB_KEYS` variable
 * `2024-07-09 12:09:36` : [OAC-1118] Replace echos after printing during the sound checks
 * `2024-07-08 14:06:28` : [OAC-1118] Restrict sound card `trap_shutdown` to Facet `BCLD_VENDOR`
 * `2024-07-03 15:54:30` : [OAC-1106] 
