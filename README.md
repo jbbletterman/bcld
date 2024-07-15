@@ -6,7 +6,7 @@
 
 **BCLD Version**: 13.10-5 BCLD (Kaiju)
 
-**BCLD Kernel**: 6.8.0-35-generic
+**BCLD Kernel**: 6.8.0-38-generic
 
 # Index
 
