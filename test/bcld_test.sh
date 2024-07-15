@@ -165,6 +165,9 @@ function BCLD_PARAM_SWITCH () {
 function BCLD_LOGGING () {
 	
 	case ${1} in
+	    ERROR | ERRORS | error | errors)
+            /usr/bin/journalctl -p 4..0 --no-pager
+	    ;;
 	    INIT | init)
             /usr/bin/journalctl -xeu 'bcld-init'
 	    ;;
