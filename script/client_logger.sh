@@ -76,6 +76,7 @@ TOP_MEM="$(/usr/bin/top -b -d 0 -n 1 -o %MEM | /usr/bin/head -n 30)"
 
 ## NSSDB
 NSSDB_CERTS="$(/usr/bin/certutil -d "sql:/home/${BCLD_USER}/.pki/nssdb" -L)"
+NSSDB_KEYS="$(/usr/bin/certutil -d "sql:/home/${BCLD_USER}/.pki/nssdb" -K)"
 
 ## Files
 ASOUND_CARDS="/proc/asound/cards"
