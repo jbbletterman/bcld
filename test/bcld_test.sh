@@ -384,6 +384,7 @@ function reset_terminal () {
     list_param "${BCLD_LAUNCH_COMMAND}" 'Launch Command'
     list_param "${BCLD_URL}" 'BCLD Afname URL'
     list_param "${BCLD_OPTS}" 'BCLD options'
+    list_param "$(/usr/bin/pactl get-default-sink)" 'Default output'
     list_param "${BCLD_IF}" 'Default interface'
     list_param "${BCLD_IP}" 'IP address'
     list_param "${BCLD_MAC}" 'Link address'
