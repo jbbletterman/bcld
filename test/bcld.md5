@@ -6,7 +6,7 @@ d429549d5156b16abb697c14d05173d5  ./.github/workflows/extra (r8168).yml
 eaa94c14473a334ef6c8adedf825dc60  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-266a031730f7c4d05e13dbd1ac8708f1  ./CHANGELOG.md
+c80c6e801530e68b37dc640277809744  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
@@ -115,7 +115,7 @@ d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 47c636dd3dc7191d173062dbf8324844  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
-9b5eae3a57a1f74522b7e749f08bf7bd  ./test/bcld_test.sh
+5fd870167e3b177ee7d5684047685e3d  ./test/bcld_test.sh
 3923f9371b39761f5903a2c9a6f1eb59  ./test/common-setup
 6a4f851f7c95a345938ea4a517043191  ./tools/DOCKER-install.sh
 d00647dac97863f3592f6cccb5a72c46  ./tools/EXPORTER-TOOLKIT.sh
