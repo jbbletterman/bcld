@@ -3,6 +3,9 @@
 ## 2024
 
 ## July
+* `2024-07-16 14:57:00` : Added new [BCLD Parameters](./config/bcld/bcld.cfg):
+    - [OAC-1120] `bcld.network.check`: BCLD parameter to disable the netwerk check that downloads the BCLD_URL index page to test network speed
+    - [OAC-1126] `dis_ucode_ldr`: Kernel parameter that disabled CPU microcode updates during boot and may help running BCLD on older systems
 * `2024-07-15 14:03:58` : 
     - Improve console readability
     - [Client Logger](./script/client_logger.sh) was missing `NSSDB_KEYS` variable

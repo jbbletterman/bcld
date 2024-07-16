@@ -166,7 +166,7 @@ function read_all_params() {
 
 	### Network
 	readparam "${DEFAULT_INTERFACE_PARAM}" "${DEFAULT_INTERFACE_ALIAS}"
-	#readparam "${DNSSEC_PARAM}" "${DNSSEC_ALIAS}"
+	readparam "${NETWORK_CHECK_PARAM}" "${NETWORK_CHECK_ALIAS}"
 	readparam "${WIFI_PSK_PARAM}" "${WIFI_PSK_ALIAS}"
 	readparam "${WIFI_SSID_PARAM}" "${WIFI_SSID_ALIAS}"
 	readparam "${WOL_DISABLED_PARAM}" "${WOL_DISABLED_ALIAS}"
@@ -271,8 +271,12 @@ function ip_link () {
         	
         	list_item 'Fetching MAC and IP addresses...'
 			
-			if [[ -n "${BCLD_URL}" ]]; then
-			    # Only perform network check on BCLD_URL (trusted)
+			if [[ "${BCLD_CHECK}" -eq 0 ]]; then
+			    list_item_pass "BCLD_CHECK is set to: ${BCLD_CHECK}"
+			    list_item 'Skipping network check...'
+			
+		    # Only perform network check on BCLD_URL (trusted) if present
+			elif [[ -n "${BCLD_URL}" ]]; then
 			    list_item_pass "Performing network check on: \"${BCLD_URL}\""
 			    export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' "${BCLD_URL}")"
 			    
