@@ -7,6 +7,7 @@
     - [OAC-1120] `bcld.network.check`: BCLD parameter to disable the netwerk check that downloads the BCLD_URL index page to test network speed
     - [OAC-1124] `Super_L + Tab` removed from [xBindKeys configuration](./config/X11/xbindkeys/.xbindkeysrc)
     - [OAC-1126] `dis_ucode_ldr`: Kernel parameter that disabled CPU microcode updates during boot and may help running BCLD on older systems
+    - Removed outdated parameters and aliases from [BCLD ENVs](./config/bcld/environment) and [BCLD Startup](./script/startup.sh#network)
 * `2024-07-15 14:03:58` : 
     - Improve console readability
     - [Client Logger](./script/client_logger.sh) was missing `NSSDB_KEYS` variable
