@@ -271,7 +271,7 @@ function ip_link () {
         	
         	list_item 'Fetching MAC and IP addresses...'
 			
-			if [[ "${BCLD_CHECK}" -eq 0 ]]; then
+			if [[ "${BCLD_CHECK}" == 0 ]]; then
 			    list_item_pass "BCLD_CHECK is set to: ${BCLD_CHECK}"
 			    list_item 'Skipping network check...'
 			
