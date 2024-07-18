@@ -3,6 +3,7 @@
 ## 2024
 
 ## July
+* `2024-07-18 14:42:31` : [OAC-1120] Enabled locating redirects for [BCLD_CHECK](./script/startup.sh)
 * `2024-07-16 14:57:00` : Added new [BCLD Parameters](./config/bcld/bcld.cfg):
     - [OAC-1120] `bcld.network.check`: BCLD parameter to disable the netwerk check that downloads the BCLD_URL index page to test network speed
     - [OAC-1124] `Super_L + Tab` removed from [xBindKeys configuration](./config/X11/Xbindkeys/.xbindkeysrc)
