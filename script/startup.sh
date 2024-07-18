@@ -278,7 +278,7 @@ function ip_link () {
 		    # Only perform network check on BCLD_URL (trusted) if present
 			elif [[ -n "${BCLD_URL}" ]]; then
 			    list_item_pass "Performing network check on: \"${BCLD_URL}\""
-			    export BCLD_DOWNLOAD="$(/usr/bin/curl -s -o /dev/null -w '%{speed_download}' "${BCLD_URL}")"
+			    export BCLD_DOWNLOAD="$(/usr/bin/curl -L -s -o /dev/null -w '%{speed_download}' --max-time 10 "${BCLD_URL}")"
 			    
 			    # If BCLD_URL is set, but network check fails, this network is unstable
 			    if [[ "${BCLD_DOWNLOAD}" -eq 0 ]]; then
