@@ -2,6 +2,9 @@
 
 ## 2024
 
+## August
+* `2024-09-05 15:51:37` : [OAC-1147] Minor kernel patch: `6.8.0-38` --> `6.8.0-41`
+
 ## July
 * `2024-07-18 14:42:31` : [OAC-1120] Enabled redirect location for [BCLD_CHECK](./script/startup.sh)
     - BCLD will now follow redirects with BCLD_CHECK
