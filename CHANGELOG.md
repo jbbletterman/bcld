@@ -10,7 +10,8 @@
         - Using `actions/upload-artifact@v4` now
         - [actions/checkout@v2](https://github.blog/changelog/2023-06-13-github-actions-all-actions-will-run-on-node16-instead-of-node12-by-default/) is deprecated
         - Using actions/checkout@v4 now
-
+    - Moving Xbindkeys and Xmodmap configurations from RELEASE-tweaks to general (for testing)
+        - These daemons must be triggered manually, therefore will not activate in TEST by default
 ## August
 * `2024-09-05 15:51:37` : [OAC-1147] Minor kernel patch: `6.8.0-38` --> `6.8.0-41`
 
