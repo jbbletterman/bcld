@@ -2,6 +2,15 @@
 
 ## 2024
 
+## Oktober
+* `2024-10-08 11:07:12` : [OAC-1159] Updated [Xbindkeys](./config/X11/Xbindkeys/.xbindkeysrc) configuration
+    - Kernel update: `6.8.0-41` --> `6.8.0-45`
+    - Updated GitHub workflows
+        - [actions/upload-artifact@v2](https://github.blog/changelog/2024-02-13-deprecation-notice-v1-and-v2-of-the-artifact-actions/) is deprecated
+        - Using `actions/upload-artifact@v4` now
+        - [actions/checkout@v2](https://github.blog/changelog/2023-06-13-github-actions-all-actions-will-run-on-node16-instead-of-node12-by-default/) is deprecated
+        - Using actions/checkout@v4 now
+
 ## August
 * `2024-09-05 15:51:37` : [OAC-1147] Minor kernel patch: `6.8.0-38` --> `6.8.0-41`
 
