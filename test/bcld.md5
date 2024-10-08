@@ -6,7 +6,7 @@ bb9cd8f6b404dc391601d1610b3518b2  ./.github/workflows/release.yml
 0f9bc2b595325394e775dcdb2f0164da  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-4d8c8a208a0055aa82bc39f8c3105af0  ./CHANGELOG.md
+db4ab9a8bf768375bbf0febd6679b00a  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
