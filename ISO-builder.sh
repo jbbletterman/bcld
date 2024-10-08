@@ -543,6 +543,8 @@ function copy_post_configs () {
 	copy_file "${CONFIG_DIR}/rsyslog/60-BCLD-rsyslog.conf" "${CHOME_DIR}/60-BCLD-rsyslog.conf"
     copy_file "${CONFIG_DIR}/rsyslog/70-bcld-log.conf" "${CHOME_DIR}/70-bcld-log.conf"
 	copy_file "${SCRIPT_DIR}/rsyslogger.sh" "${CHROOT_BIN}"
+    copy_file "${CONFIG_DIR}/X11/Xmodmap/.Xmodmap" "${CHOME_DIR}"
+	copy_file "${CONFIG_DIR}/X11/Xbindkeys/.xbindkeysrc" "${CHOME_DIR}"
 	
 	## Copy ISOLINUX
     copy_file /usr/lib/ISOLINUX/isolinux.bin "${ISOLINUX_DIR}/isolinux.bin"
@@ -920,12 +922,6 @@ if [[ ${BCLD_MODEL} = 'release' ]]; then
 
 	# Configure Openbox for RELEASE
 	copy_file "${CONFIG_DIR}/openbox/rc.xml" "${CHROOT_DIR}/etc/xdg/openbox/rc.xml"
-
-	# Configure Xmodmap for RELEASE 
-    copy_file "${CONFIG_DIR}/X11/Xmodmap/.Xmodmap" "${CHOME_DIR}"
-
-	# Configure Xbindkeys for RELEASE 
-	copy_file "${CONFIG_DIR}/X11/Xbindkeys/.xbindkeysrc" "${CHOME_DIR}"
 
 elif [[ ${BCLD_MODEL} = 'debug' ]]; then
 
