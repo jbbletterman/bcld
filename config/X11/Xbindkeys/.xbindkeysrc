@@ -40,40 +40,43 @@
 # xbindkeys configuration file for custom keymappings
 # Do not allow user to escape the session
 ""
-   Control + Q
+   control + Q
 
 ""
-   Control + W
+   control + W
 
 ""
-   Control + T
+   control + T
 
 ""
-   Control + Shift + Tab
+   control + shift + Tab
 
 ""
-   Control + Alt + Shift + Tab
+   control + Mod1 + shift + Tab
 
 ""
-   Control + Alt + Shift + Escape
+   control + Mod1 + shift + Escape
 
 ""
-   Shift + Escape
+   Mod4 + Tab
+
+""
+   shift + Escape
   
 ""
-   Alt + F4
+   Mod1 + F4
 
 ""
-   Alt + Tab
+   Mod1 + Tab
 
 ""
-   Alt + Escape
+   Mod1 + Escape
 
 ""
-   Alt + Space
+   Mod1 + space
 
 ""
-   Alt + Space + Tab
+   Mod1 + space + Tab
 
 ""
-   Alt + Space + F4
+   Mod1 + space + F4
