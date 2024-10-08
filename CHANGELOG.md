@@ -2,6 +2,10 @@
 
 ## 2024
 
+## Oktober
+* `2024-10-08 11:07:12` : [OAC-1159] Updated [Xbindkeys](./config/X11/Xbindkeys/.xbindkeysrc) configuration
+    - Kernel update: `6.8.0-41` --> `6.8.0-45`
+
 ## August
 * `2024-09-05 15:51:37` : [OAC-1147] Minor kernel patch: `6.8.0-38` --> `6.8.0-41`
 
