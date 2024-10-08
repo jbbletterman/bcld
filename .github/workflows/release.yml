@@ -47,7 +47,7 @@ jobs:
       run: |
         /usr/bin/bash -c './tools/WIKI-exporter.sh'
     - name: Upload BCLD Wiki
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BCLD WIKI
         path: /project/artifacts/bcld.wiki.zip
@@ -55,38 +55,38 @@ jobs:
       run: |
         /usr/bin/bash -c './test/BCLD-BATS.sh'
     - name: Upload LICENSE-REPORT
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: LICENSE-REPORT
         path: /project/test/LICENSE-REPORT.txt
 
     - name: Upload SHELL-REPORT
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: SHELL-REPORT
         path: /project/test/SHELL-REPORT.md
     - name: Upload BATS-REPORT
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BATS-REPORT
         path: /project/test/BATS-REPORT.txt
     - name: Upload kernel image
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BCLD Kernel
         path: /project/artifacts/vmlinuz
     - name: Upload BCLD Ramdisk
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BCLD-RAMFS
         path: /project/artifacts/initrd
     - name: Upload BCLD-ISO
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BCLD-ISO
         path: /project/artifacts/bcld.iso
     - name: Upload BCLD-IMG
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BCLD-IMG
         path: /project/artifacts/*.img
