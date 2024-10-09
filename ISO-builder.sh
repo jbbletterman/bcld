@@ -847,6 +847,9 @@ else
     copy_file "${CONFIG_DIR}/iptables/iptables.firewall.rules.test" "${CHROOT_DIR}/etc/iptables/rules.v4"
 fi
 
+# Create noauto file for xbindkeys, load manually (only RELEASE)
+/usr/bin/touch "${CHOME_DIR}/.xbindkeys.noauto"
+
 # Delete necessary files
 delete_file "${CHROOT_DIR}/etc/machine-id" 'Generalizing distro...'
 delete_file "${CHROOT_DIR}/etc/resolv.conf" 'Clearing resolv.conf...'
