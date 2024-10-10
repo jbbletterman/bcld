@@ -3,6 +3,7 @@
 ## 2024
 
 ## Oktober
+* `2024-10-10 17:14:01` : Fix typo in [Xconfigure](./script/Xconfigure.sh) that broke the entire script and disabled kiosk mode
 * `2024-10-08 11:07:12` : [OAC-1159] Updated [Xbindkeys](./config/X11/Xbindkeys/.xbindkeysrc) configuration
     - Kernel update: `6.8.0-41` --> `6.8.0-45`
     - Updated GitHub workflows

@@ -85,7 +85,7 @@ log_first 'Checking BCLD boot parameters...'
 # Bindings
 
 ## Escaping
-if [[ "${BCLD_MODEL}" = 'release' ]]; then
+if [[ "${BCLD_MODEL}" == 'release' ]]; then
     # Terminate escaping in RELEASE
     /usr/bin/setxkbmap -option srvrkeys:none
     # Always load Xmodmap and Xbindkeys for RELEASE
