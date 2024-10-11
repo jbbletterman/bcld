@@ -26,11 +26,11 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
-ddfce02fb842a711c0dd107dbf2ab7d7  ./config/bash/bcld-init
+b7639e4fc5894bb8f36869a867a04f31  ./config/bash/bcld-init
 c03b0822dea38ce6301ccf390d0e1b38  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 a5122fe4d0cc4a68696a4067353ec9f5  ./config/bcld/bcld.cfg
-1b98525005b32bb69b3ab90e213c6492  ./config/casper/casper.conf
+8d04f83561f0967d3fd37e0416793641  ./config/casper/casper.conf
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
 a79dbb95a5b6b488d23c4ff70fad25c5  ./config/grub/.disk/cd_type
@@ -106,7 +106,7 @@ caeaba6f3ea103a2d0ee5a68b44baa93  ./script/bcld_vendor.sh
 9994eab653aa84aa52971937c8167d7a  ./script/client_logger.sh
 525f0518876e4991769aca7d61e10e5a  ./script/crosdump_logger.sh
 5ebd438fa719e208ff99f02d0894fcae  ./script/docker_run.sh
-607a1d9b34e1e1a9c735f7c8112e65a7  ./script/echo_tools.sh
+4b70a342546917e44f33cd484fac8cb6  ./script/echo_tools.sh
 89ad264eb4e9fd62d5194ebcfd0043e9  ./script/file_operations.sh
 07de693b053c97f6f8d44c43d0ab202b  ./script/log_tools.sh
 c654fc690b0600c48719f7cb3803f142  ./script/rsyslogger.sh
@@ -115,7 +115,7 @@ d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 47c636dd3dc7191d173062dbf8324844  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
-7e4d57dc203511bdda417d2e8696967e  ./test/bcld_test.sh
+acd7b58119e0f5e85454d36e0e975d67  ./test/bcld_test.sh
 3923f9371b39761f5903a2c9a6f1eb59  ./test/common-setup
 6a4f851f7c95a345938ea4a517043191  ./tools/DOCKER-install.sh
 d00647dac97863f3592f6cccb5a72c46  ./tools/EXPORTER-TOOLKIT.sh
