@@ -55,7 +55,7 @@ source /usr/bin/log_tools.sh
 # ENVs
 TAG='BCLD-INIT'
 
-export BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
+BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
 
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
 ENVIRONMENT='/etc/environment'
@@ -95,6 +95,7 @@ log_header 'Starting BCLD-INIT script'
 if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
     log_first "MACHINE_ID not set! Setting: "
     /usr/bin/systemd-machine-id-setup || exit 1
+    /usr/bin/echo "BCLD_MACHINE_ID=${BCLD_MACHINE_ID}" >> "${ENVIRONMENT}"
 fi
 
 ## Set local time
@@ -105,8 +106,6 @@ log_item "Setting RTC to local time..."
 function vendor_env () {
 
     log_item "Setting BCLD_VENDOR: ${1}"
-
-    export BCLD_VENDOR="${1}"
 
     /usr/bin/echo "BCLD_VENDOR=${1}" >> "${ENVIRONMENT}"
 }

@@ -3,6 +3,7 @@
 ## 2024
 
 ## Oktober
+* `2024-10-11 17:21:26` : [OAC-1159] Removing exports from [bcld-init](./config/bash/bcld-init) since they do not work
 * `2024-10-11 15:05:44` : [OAC-1159]
     - Added Super key to `xmodmap` configuration
     - Applied name corrections in repository for capitalization errors...
