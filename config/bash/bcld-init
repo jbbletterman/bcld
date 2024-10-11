@@ -55,8 +55,6 @@ source /usr/bin/log_tools.sh
 # ENVs
 TAG='BCLD-INIT'
 
-BCLD_HOST_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
-
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
 ENVIRONMENT='/etc/environment'
 
@@ -95,7 +93,7 @@ log_header 'Starting BCLD-INIT script'
 if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_HOST_ID}" ]]; then
     log_first "MACHINE_ID not set! Setting: "
     /usr/bin/systemd-machine-id-setup || exit 1
-    export BCLD_HOST_ID
+    BCLD_HOST_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
     /usr/bin/echo "BCLD_HOST_ID=${BCLD_HOST_ID}" >> "${ENVIRONMENT}"
 fi
 
