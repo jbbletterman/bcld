@@ -3,9 +3,7 @@
 ## 2024
 
 ## Oktober
-* `2024-10-11 17:21:26` : [OAC-1159] 
-    - Removing exports from [bcld-init](./config/bash/bcld-init) since they do not work
-    - Changed `BCLD_MACHINE_ID` to `BCLD_HOST_ID`, since the actual machine id is longer
+* `2024-10-11 17:21:26` : [OAC-1159] Changed `BCLD_MACHINE_ID` to `BCLD_HOST`, since the actual machine id is longer
 * `2024-10-11 15:05:44` : [OAC-1159]
     - Added Super key to `xmodmap` configuration
     - Applied name corrections in repository for capitalization errors...
