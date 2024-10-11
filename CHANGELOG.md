@@ -3,14 +3,28 @@
 ## 2024
 
 ## Oktober
-* `2024-10-08 11:07:12` : [OAC-1159] Updated [Xbindkeys](./config/X11/Xbindkeys/.xbindkeysrc) configuration
+* `2024-10-11 17:21:26` : [OAC-1159] 
+    - Removing exports from [bcld-init](./config/bash/bcld-init) since they do not work
+    - Changed `BCLD_MACHINE_ID` to `BCLD_HOST_ID`, since the actual machine id is longer
+* `2024-10-11 15:05:44` : [OAC-1159]
+    - Added Super key to `xmodmap` configuration
+    - Applied name corrections in repository for capitalization errors...
+    - Added new `BCLD_KEYMAPs` function in [bcld_test](./test/bcld_test.sh) for quick analysis of key map status
+    - Added new output in [Xconfigure](./script/Xconfigure.sh) for `BCLD_VERBOSE`
+    - Shorten [BCLD_KEYMAPs](./test/bcld_test.sh)
+* `2024-10-11 13:36:42` : [OAC-1159] Found conflicts between `Xkbmap`, `xmodmap` and `xbindkeys` configurations
+    - `xkbmap` : Will be used to disable system keys, (like TTY switching)
+    - [xmodmap](./config/X11/xmodmap/.xmodmap) : Will be used to disable entire keys (like Alt and Meta)
+    - [xbindkeys](./config/X11/xbindkeys/.xbindkeysrc) : Will be used to disable custom shortcuts (like closing browser tabs in web browsers)
+* `2024-10-10 17:14:01` : [OAC-1159] Fix typo in [Xconfigure](./script/Xconfigure.sh) that broke the entire script and disabled kiosk mode
+* `2024-10-08 11:07:12` : [OAC-1159] Updated [xbindkeys](./config/X11/xbindkeys/.xbindkeysrc) configuration
     - Kernel update: `6.8.0-41` --> `6.8.0-45`
     - Updated GitHub workflows
         - [actions/upload-artifact@v2](https://github.blog/changelog/2024-02-13-deprecation-notice-v1-and-v2-of-the-artifact-actions/) is deprecated
         - Using `actions/upload-artifact@v4` now
         - [actions/checkout@v2](https://github.blog/changelog/2023-06-13-github-actions-all-actions-will-run-on-node16-instead-of-node12-by-default/) is deprecated
         - Using actions/checkout@v4 now
-    - Moving Xbindkeys and Xmodmap configurations from RELEASE-tweaks to general (for testing)
+    - Moving xbindkeys and xmodmap configurations from RELEASE-tweaks to general (for testing)
         - These daemons must be triggered manually, therefore will not activate in TEST by default
 ## August
 * `2024-09-05 15:51:37` : [OAC-1147] Minor kernel patch: `6.8.0-38` --> `6.8.0-41`
@@ -21,7 +35,7 @@
     - Will proceed with `trap_shutdown` after 10s
 * `2024-07-16 14:57:00` : Added new [BCLD Parameters](./config/bcld/bcld.cfg):
     - [OAC-1120] `bcld.network.check`: BCLD parameter to disable the netwerk check that downloads the BCLD_URL index page to test network speed
-    - [OAC-1124] `Super_L + Tab` removed from [xBindKeys configuration](./config/X11/Xbindkeys/.xbindkeysrc)
+    - [OAC-1124] `Super_L + Tab` removed from [xBindKeys configuration](./config/X11/xbindkeys/.xbindkeysrc)
     - [OAC-1126] `dis_ucode_ldr`: Kernel parameter that disabled CPU microcode updates during boot and may help running BCLD on older systems
     - Removed outdated parameters and aliases from [BCLD ENVs](./config/bash/environment) and [BCLD Startup](./script/startup.sh)
     - Adding `Default output` to [BCLD TEST](./test/bcld_test.sh)
@@ -243,8 +257,8 @@
     - [OAC-806] `BCLD_VENDORLESS_URL` renamed to `BCLD_DEFAULT_URL`
 * `2023-12-06 15:43:41`: `HashGen` now creates optional hashes and will no longer fail if directories are missing (like `./cert`)
 * `2023-12-06 13:28:28`: [OAC-806] Removed `vendorless` parameter, is now a different build image
-* `2023-12-05 14:43:24`: Adding `xbindkeys` and `./config/X11/Xbindkeys` to disable extra key bindings in other apps
-    - Adding `.Xmodmap` in `./config/X11/Xmodmap` for extra bindings
+* `2023-12-05 14:43:24`: Adding `xbindkeys` and `./config/X11/xbindkeys` to disable extra key bindings in other apps
+    - Adding `.xmodmap` in `./config/X11/xmodmap` for extra bindings
 * `2023-12-04 14:13:20`: Added `F11`-key to `config/openbox/rc.xml` and sorted keybinds
 * `2023-12-04 19:01:56`: Fixed `check_app` in `./ISO-builder.sh`
 

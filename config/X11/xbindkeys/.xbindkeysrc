@@ -37,7 +37,7 @@
 # permissions and limitations under the License.
 # 
 #
-# xbindkeys configuration file for custom keymappings
+# xbindkeys configuration file for disabling custom keymappings
 # Do not allow user to escape the session
 ""
    control + Q
@@ -52,31 +52,4 @@
    control + shift + Tab
 
 ""
-   control + Mod1 + shift + Tab
-
-""
-   control + Mod1 + shift + Escape
-
-""
-   Mod4 + Tab
-
-""
    shift + Escape
-  
-""
-   Mod1 + F4
-
-""
-   Mod1 + Tab
-
-""
-   Mod1 + Escape
-
-""
-   Mod1 + space
-
-""
-   Mod1 + space + Tab
-
-""
-   Mod1 + space + F4

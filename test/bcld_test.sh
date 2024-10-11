@@ -83,6 +83,31 @@ function BCLD_AUDIO () {
 	/usr/bin/aplay --list-devices
 }
 
+## Function to display keyboard mapping status for kioskmode
+function BCLD_KEYMAPs () {
+
+    # Check config and show version for xmodmap
+    if [[ -f "${HOME}/.xmodmap" ]]; then
+        xmodmap_version="$(/usr/bin/xmodmap -version | /usr/bin/awk 'NR==1 { print $2 }')"
+    fi
+
+    # Check config and show version for xbindkeys
+    if [[ -f "${HOME}/.xbindkeysrc" ]]; then
+        xbindkeys_version="$(/usr/bin/dpkg -s xbindkeys | /usr/bin/grep 'Version:' | /usr/bin/awk 'NR==1 { print $2 }')"
+    fi
+
+    # Show version for setxkbmap
+    if /usr/bin/dpkg -s x11-xkb-utils &> /dev/null; then
+        setxkbmap_version="$(/usr/bin/setxkbmap -version | /usr/bin/awk 'NR==1 { print $2 }')"
+    fi
+
+    
+    # Check if keyboard mapping files are present
+    list_param "${xmodmap_version}" 'xmodmap version'
+    list_param "${xbindkeys_version}" 'xbindkeys version'
+    list_param "${setxkbmap_version}" 'setxkbmap version'
+}
+
 ## Function to display battery in TEST console
 function BCLD_BAT () {
         # Check laptop battery, if present
@@ -369,28 +394,29 @@ function BCLD_OVAL () {
 ## Function to reset TEST sessions, RELEASE and DEBUG can never escape the app
 function reset_terminal () {
 
-    /usr/bin/reset
-    # Show ascii logo
-    ascii_logo
-
-    # List Secure Boot state
-    check_sb_state
+    source /etc/environment     # Update (new) ENVs
+    /usr/bin/reset              # Clear terminal
+    ascii_logo                  # Show ascii logo
+    check_sb_state              # List Secure Boot state
     
     list_header "Resetting terminal"
 
+    list_param "${BCLD_USER}" 'User'
+    list_param "${BCLD_HOST}" 'Host ID'
     list_param "${BCLD_VENDOR}" 'Vendor'
     list_param "${BCLD_APP_VERSION}" 'App Version'
     list_param "${BCLD_KERNEL_VERSION}" 'Kernel version'
     list_param "${BCLD_LAUNCH_COMMAND}" 'Launch command'
     list_param "${BCLD_URL}" 'BCLD afname URL'
+    list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${BCLD_OPTS}" 'BCLD options'
     list_param "$(/usr/bin/pactl get-default-sink)" 'Audio adapter'
     list_param "${BCLD_IF}" 'Network interface'
     list_param "${BCLD_IP}" 'IP address'
     list_param "${BCLD_MAC}" 'Link address'
     list_param "${BCLD_SPEED}" 'Link speed (Megabytes/s)'
-    list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${PACKET_LOSS}" 'Packets dropped (so far)'
+    BCLD_KEYMAPs
     BCLD_BAT
     list_exit
 

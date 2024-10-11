@@ -47,15 +47,25 @@
 # This script takes important BCLD video parameters from bcld.cfg and
 # utilizes these to configure the graphical X system.
 #
+# X configurations, this script starts with Openbox (autostart).
 source "/bin/log_tools.sh"
-
 
 # ENVs
 TAG='RUN-GRAPHICS'
 
-
+/usr/bin/echo -e '\nStarting Xconfigure...\nOutput should not be visible in RELEASE!\n\n'
 
 # Functions
+## Function to wait for xbindkeys to start
+function wait_xbindkeys () {
+     if /usr/bin/pgrep -f 'xbindkeys' > /dev/null; then
+        /usr/bin/echo 'xbindkeys started!'
+    else
+        /usr/bin/echo 'Waiting for xbindkeys...'
+        /usr/bin/sleep 1s
+    fi
+}
+
 ## Set BCLD_RESOLUTION and BCLD_TRUE_SCALING based on BCLD_PRESET
 function import_preset (){
 	if [[ $(/usr/bin/xrandr -q | /usr/bin/grep -ci "${1}") -gt 0 ]]; then
@@ -79,35 +89,53 @@ function true_scaling (){
 
 # Logging
 log_whitespace
+
 log_header "Configuring X settings"
-log_first 'Checking BCLD boot parameters...'
+
+log_first 'Checking keyboard settings...'
 
 # Bindings
 
 ## Escaping
-if [[ "${BCLD_MODEL}" = 'release' ]]; then
-    # Terminate escaping in RELEASE
+if [[ "${BCLD_MODEL}" == 'release' ]]; then
+    # Xkbmap for disabling TTY switching in RELEASE
     /usr/bin/setxkbmap -option srvrkeys:none
-    # Always load Xmodmap and Xbindkeys for RELEASE
-    /usr/bin/xmodmap ${HOME}/.Xmodmap   # config file
-    /usr/bin/xbindkeys                  # daemon
+    # Always load xmodmap and xbindkeys for RELEASE
+    /usr/bin/xmodmap "${HOME}/.xmodmap"   # config file for disabling key mappings
+    /usr/bin/xbindkeys -f "${HOME}/.xbindkeysrc"   # daemon with config file for disabling custom key combinations
+    
+    # Check if xbindkeys was started, take 10s max
+    for n in $(/usr/bin/seq 1 10); do
+
+        wait_xbindkeys # Output status or wait 1s
+
+        # If started, break out immediately
+        if /usr/bin/pgrep -f 'xbindkeys' > /dev/null; then
+            break
+        fi
+    done
+    
+    if ! /usr/bin/pgrep -f 'xbindkeys' > /dev/null; then
+        /usr/bin/echo 'xbindkeys could not be started!'
+        log_item 'xbindkeys could not be started!'
+    fi
+
 else
-    # Allow escaping otherwise
+    # Xkbmap for allowing escape in DEBUG and TEST
     /usr/bin/setxkbmap -option terminate:ctrl_alt_bksp
 fi
+
+log_item 'Checking BCLD boot parameters...'
 
 ## Mouse button swap
 if [[ "${BCLD_VENDOR}" == 'vendorless' ]]; then
     # Since M2 is already disabled in Vendorless BCLD, always swap M2 and M3
     # This allows for the usage of tabs on laptops
-    # Xmodmap will automatically detect the current mouse and only change the appropriate buttons
+    # xmodmap will automatically detect the current mouse and only change the appropriate buttons
     /usr/bin/echo -e "\nVendorless BCLD detected!" 
     /usr/bin/echo "Swapping mouse buttons 2 and 3..." 
     /usr/bin/xmodmap -e "pointer = 1 3 2"
 fi
-
-
-# X configurations, this script starts with Openbox (autostart).
 
 ## Check if DISPLAY is set
 if [[ -z ${DISPLAY} ]]; then
@@ -195,3 +223,5 @@ log_whitespace
 log_line "── XRandR properties:"
 log_line "$(/usr/bin/xrandr --props)"
 log_whitespace
+
+/usr/bin/echo 'Xconfigure complete!'
