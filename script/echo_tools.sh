@@ -76,9 +76,9 @@ function list_header () {
     /usr/bin/echo -e "\n    ┌──┤ [${BCLD_CODE_NAME} ${BCLD_PATCH}:${BCLD_MODEL:-${0}}] ${BCLD_VERSION_STRING}"
 
     # If the MACHINE_ID is known and accessible, use it in the header
-    if [[ -n "${BCLD_MACHINE_ID}" ]]; then
+    if [[ -n "${BCLD_HOST_ID}" ]]; then
         /usr/bin/echo "    ├──┤ [${TAG}] ${1}"
-        /usr/bin/echo "    ├──┤ [MACHINE_ID] ${BCLD_MACHINE_ID}"
+        /usr/bin/echo "    ├──┤ [HOST_ID] ${BCLD_HOST_ID}"
         /usr/bin/echo "    │"
     else
         /usr/bin/echo "    ├──┤ [${TAG}] ${1}"

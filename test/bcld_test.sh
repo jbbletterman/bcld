@@ -402,7 +402,7 @@ function reset_terminal () {
     list_header "Resetting terminal"
 
     list_param "${BCLD_USER}" 'User'
-    list_param "${BCLD_MACHINE_ID}" 'Host ID'
+    list_param "${BCLD_HOST_ID}" 'Host ID'
     list_param "${BCLD_VENDOR}" 'Vendor'
     list_param "${BCLD_APP_VERSION}" 'App Version'
     list_param "${BCLD_KERNEL_VERSION}" 'Kernel version'

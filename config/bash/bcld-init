@@ -55,7 +55,7 @@ source /usr/bin/log_tools.sh
 # ENVs
 TAG='BCLD-INIT'
 
-BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
+BCLD_HOST_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
 
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
 ENVIRONMENT='/etc/environment'
@@ -92,10 +92,10 @@ function bcld_set_hostname () {
 log_header 'Starting BCLD-INIT script'
 
 ## First, set the machine-id
-if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_MACHINE_ID}" ]]; then
+if [[ ! -f /etc/machine-id ]] || [[ -z "${BCLD_HOST_ID}" ]]; then
     log_first "MACHINE_ID not set! Setting: "
     /usr/bin/systemd-machine-id-setup || exit 1
-    /usr/bin/echo "BCLD_MACHINE_ID=${BCLD_MACHINE_ID}" >> "${ENVIRONMENT}"
+    /usr/bin/echo "BCLD_HOST_ID=${BCLD_HOST_ID}" >> "${ENVIRONMENT}"
 fi
 
 ## Set local time
@@ -155,7 +155,7 @@ if [[ "$(/usr/bin/hostname)" == 'localhost.localdomain' ]] || [[ "$(/usr/bin/hos
     else
         # Pick hostname based on machine-id otherwise
         log_item "No physical interfaces detected... Using machine-id."
-        bcld_set_hostname "${BCLD_VENDOR}-${BCLD_MACHINE_ID}"
+        bcld_set_hostname "${BCLD_VENDOR}-${BCLD_HOST_ID}"
     fi
 
 else
