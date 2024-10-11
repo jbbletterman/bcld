@@ -8,6 +8,7 @@
     - Applied name corrections in repository for capitalization errors...
     - Added new `BCLD_KEYMAPs` function in [bcld_test](./test/bcld_test.sh) for quick analysis of key map status
     - Added new output in [Xconfigure](./script/Xconfigure.sh) for `BCLD_VERBOSE`
+    - Shorten [BCLD_KEYMAPs](./test/bcld_test.sh)
 * `2024-10-11 13:36:42` : [OAC-1159] Found conflicts between `Xkbmap`, `xmodmap` and `xbindkeys` configurations
     - `xkbmap` : Will be used to disable system keys, (like TTY switching)
     - [xmodmap](./config/X11/xmodmap/.xmodmap) : Will be used to disable entire keys (like Alt and Meta)

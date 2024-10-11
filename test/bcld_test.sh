@@ -83,36 +83,22 @@ function BCLD_AUDIO () {
 	/usr/bin/aplay --list-devices
 }
 
-## Function to display battery in TEST console
-function BCLD_BAT () {
-        # Check laptop battery, if present
-		if [[ -d /sys/class/power_supply/BAT0 ]]; then
-			list_param "$(/usr/bin/cat /sys/class/power_supply/BAT0/capacity)" 'Laptop battery'
-		fi
-}
-
 ## Function to display keyboard mapping status for kioskmode
 function BCLD_KEYMAPs () {
 
     # Check config and show version for xmodmap
     if [[ -f "${HOME}/.xmodmap" ]]; then
         xmodmap_version="$(/usr/bin/xmodmap -version | /usr/bin/awk 'NR==1 { print $2 }')"
-    else
-        xmodmap_version='XMODMAP CONFIG MISSING!'
     fi
 
     # Check config and show version for xbindkeys
     if [[ -f "${HOME}/.xbindkeysrc" ]]; then
         xbindkeys_version="$(/usr/bin/dpkg -s xbindkeys | /usr/bin/grep 'Version:' | /usr/bin/awk 'NR==1 { print $2 }')"
-    else
-        xbindkeys_version='XBINDKEYS CONFIG MISSING!'
     fi
 
     # Show version for setxkbmap
     if /usr/bin/dpkg -s x11-xkb-utils &> /dev/null; then
         setxkbmap_version="$(/usr/bin/setxkbmap -version | /usr/bin/awk 'NR==1 { print $2 }')"
-    else
-        setxkbmap_version='SETXKBMAP NOT INSTALLED!'
     fi
 
     
@@ -120,6 +106,14 @@ function BCLD_KEYMAPs () {
     list_param "${xmodmap_version}" 'xmodmap version'
     list_param "${xbindkeys_version}" 'xbindkeys version'
     list_param "${setxkbmap_version}" 'setxkbmap version'
+}
+
+## Function to display battery in TEST console
+function BCLD_BAT () {
+        # Check laptop battery, if present
+		if [[ -d /sys/class/power_supply/BAT0 ]]; then
+			list_param "$(/usr/bin/cat /sys/class/power_supply/BAT0/capacity)" 'Laptop battery'
+		fi
 }
 
 ## Function to check this script
@@ -422,8 +416,8 @@ function reset_terminal () {
     list_param "${BCLD_SPEED}" 'Link speed (Megabytes/s)'
     list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${PACKET_LOSS}" 'Packets dropped (so far)'
-    BCLD_BAT
     BCLD_KEYMAPs
+    BCLD_BAT
     list_exit
 
     # List certificate information
