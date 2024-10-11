@@ -30,7 +30,7 @@ b7639e4fc5894bb8f36869a867a04f31  ./config/bash/bcld-init
 c03b0822dea38ce6301ccf390d0e1b38  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 a5122fe4d0cc4a68696a4067353ec9f5  ./config/bcld/bcld.cfg
-4cd3dd6d74627a6e62258777a0715a49  ./config/casper/casper.conf
+8dcba8855b11be055986745e01161b21  ./config/casper/casper.conf
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
 a79dbb95a5b6b488d23c4ff70fad25c5  ./config/grub/.disk/cd_type
