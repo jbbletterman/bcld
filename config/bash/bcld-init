@@ -55,7 +55,8 @@ source /usr/bin/log_tools.sh
 # ENVs
 TAG='BCLD-INIT'
 
-BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
+export BCLD_MACHINE_ID="$(/usr/bin/cat /etc/machine-id | /usr/bin/cut -c 1-12)"
+
 CMD_LINE=$(/usr/bin/cat /proc/cmdline)
 ENVIRONMENT='/etc/environment'
 

@@ -394,27 +394,27 @@ function BCLD_OVAL () {
 ## Function to reset TEST sessions, RELEASE and DEBUG can never escape the app
 function reset_terminal () {
 
-    /usr/bin/reset
-    # Show ascii logo
-    ascii_logo
-
-    # List Secure Boot state
-    check_sb_state
+    source /etc/environment     # Update (new) ENVs
+    /usr/bin/reset              # Clear terminal
+    ascii_logo                  # Show ascii logo
+    check_sb_state              # List Secure Boot state
     
     list_header "Resetting terminal"
 
+    list_param "${BCLD_USER}" 'User'
+    list_param "${BCLD_MACHINE_ID}" 'Host ID'
     list_param "${BCLD_VENDOR}" 'Vendor'
     list_param "${BCLD_APP_VERSION}" 'App Version'
     list_param "${BCLD_KERNEL_VERSION}" 'Kernel version'
     list_param "${BCLD_LAUNCH_COMMAND}" 'Launch command'
     list_param "${BCLD_URL}" 'BCLD afname URL'
+    list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${BCLD_OPTS}" 'BCLD options'
     list_param "$(/usr/bin/pactl get-default-sink)" 'Audio adapter'
     list_param "${BCLD_IF}" 'Network interface'
     list_param "${BCLD_IP}" 'IP address'
     list_param "${BCLD_MAC}" 'Link address'
     list_param "${BCLD_SPEED}" 'Link speed (Megabytes/s)'
-    list_param "${BCLD_DOWNLOAD}" 'Link download (Bytes/s)'
     list_param "${PACKET_LOSS}" 'Packets dropped (so far)'
     BCLD_KEYMAPs
     BCLD_BAT
