@@ -1,4 +1,4 @@
-! Xmodmap config for disabling all F-keys
+! xmodmap config for disabling entire key mappings
 ! Disable F1
 keycode 67 = NoSymbol
 
@@ -34,3 +34,17 @@ keycode 95 = NoSymbol
 
 ! Disable F12
 keycode 96 = NoSymbol
+
+! Disable Alt (Meta)
+keycode 64 = NoSymbol
+keycode 205 = NoSymbol
+
+! Disable AltGr
+keycode 108 = NoSymbol
+
+! Disable Super_L
+keycode 133 = NoSymbol
+keycode 206 = NoSymbol
+
+! Disable Super_R
+keycode 134 = NoSymbol
