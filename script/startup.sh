@@ -153,7 +153,6 @@ function read_all_params() {
 	readparam "${AUDIO_COMBINE_PARAM}" "${AUDIO_COMBINED_SINK_ALIAS}"
 	readparam "${AUDIO_RECORD_PARAM}" "${AUDIO_RECORDING_ALIAS}"
 	readparam "${AUDIO_RESTORE_PARAM}" "${AUDIO_RESTORE_ALIAS}"
-	readparam "${AUDIO_SOUNDCHECK_PARAM}" "${AUDIO_SOUNDCHECK_ALIAS}"
 	readparam "${AUDIO_SINK_PARAM}" "${AUDIO_DEFAULT_SINK_ALIAS}"
 	readparam "${AUDIO_SOURCE_PARAM}" "${AUDIO_DEFAULT_SOURCE_ALIAS}"
 	readparam "${AUDIO_VOLUME_PARAM}" "${AUDIO_DEFAULT_PLAYBACK_ALIAS}"
@@ -562,6 +561,14 @@ list_header "Configuring BCLD"
 
 ## PACTL
 list_item "Waiting for Pulse daemon to start"
+
+### Read BCLD Sound Check parameter early
+readparam "${AUDIO_SOUNDCHECK_PARAM}" "${AUDIO_SOUNDCHECK_ALIAS}"
+
+if [[ "${BCLD_SOUNDCHECK}" -eq 1 ]]; then
+    list_item_pass 'BCLD Sound Check enabled!'
+fi
+
 print_item "Scanning sound cards (please wait)"
 
 # pactl does not work inside a VM
