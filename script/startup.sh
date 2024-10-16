@@ -583,8 +583,8 @@ if [[ $(/usr/bin/systemd-detect-virt) == 'none' ]]; then
         
         # This means no outputs can be found
         # Do not allow boot without sound devices
-        # Only do this for FACET (RELEASE)
-        if [[ "${BCLD_VENDOR}" == 'facet' ]] && [[ "${BCLD_MODEL}" == 'release' ]]; then
+        # Only do this for BCLD_SOUNDCHECK
+        if [[ "${BCLD_SOUNDCHECK}" -eq 1 ]]; then
             trap_shutdown 'snd'
         else
             # Ignore sound devices on DEBUG and TEST, not without warning
