@@ -3,6 +3,8 @@
 ## 2024
 
 ## Oktober
+* `2024-10-16 15:08:57` : [OAC-1163] Added new parameter to make the BCLD sound check optional: [bcld.audio.sound_check](./config/bcld/bcld.cfg)
+    - Minor kernel patch `6.8.0-45` --> `6.8.0-47`
 * `2024-10-11 17:21:26` : [OAC-1159] Changed `BCLD_MACHINE_ID` to `BCLD_HOST`, since the actual machine id is longer
 * `2024-10-11 15:05:44` : [OAC-1159]
     - Added Super key to `xmodmap` configuration
