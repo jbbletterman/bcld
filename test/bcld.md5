@@ -12,7 +12,7 @@ ff4e5489ddc706b38a4d74cf4dca3a5d  ./CHANGELOG.md
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
 5c97c8577fa7ba92a49e9473f9177fd9  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-831500da8ee290a2b43e9ed8b709716f  ./README.md
+00ddf7401ddb71e913b4745faf4b1e8e  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
@@ -27,7 +27,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
 3b817e042342ec45513275941356c821  ./config/apt/sources.list
 b7639e4fc5894bb8f36869a867a04f31  ./config/bash/bcld-init
-18b3e28f55f223f391a9322cbc4003ca  ./config/bash/environment
+99f5cc55473c44d3a41f9a8a2212e1fe  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
 74a0f36a4e0df8202ec445e06d32b139  ./config/bcld/bcld.cfg
 1de846a4704142ca17abda1433e8d0d8  ./config/casper/casper.conf
@@ -110,7 +110,7 @@ caeaba6f3ea103a2d0ee5a68b44baa93  ./script/bcld_vendor.sh
 89ad264eb4e9fd62d5194ebcfd0043e9  ./script/file_operations.sh
 07de693b053c97f6f8d44c43d0ab202b  ./script/log_tools.sh
 c654fc690b0600c48719f7cb3803f142  ./script/rsyslogger.sh
-8a7666937da5068b01e65263ec1c09bc  ./script/startup.sh
+285f60b3bf0f465c215e07f0396ae473  ./script/startup.sh
 d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 47c636dd3dc7191d173062dbf8324844  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
