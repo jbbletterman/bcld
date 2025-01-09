@@ -1,5 +1,12 @@
 # Release Information
 
+## 2025
+
+## January
+
+* `2025-01-09 12:41:47` : [OAC-1158] Set DHCP Client Identifier back to MAC address in [ISO-builder](./ISO-builder.sh)
+    - Minor kernel patch `6.8.0-47` --> `6.8.0-51`
+
 ## 2024
 
 ## Oktober
