@@ -121,6 +121,7 @@ CHAPP_DIR="${CHROOT_DIR}/app/${BCLD_MODEL^^}"
 CHOME_DIR="${CHROOT_DIR}/home/${BCLD_USER}"
 CHPLY_DIR="${CHROOT_DIR}/usr/share/plymouth"
 CHROOT_BIN="${CHROOT_DIR}/usr/bin"
+CHROOT_DHCP="${CHROOT_DIR}/etc/dhcp/dhclient.conf"
 CHROOT_OPT="${CHROOT_DIR}/opt"
 CHROOT_ROOT="${CHROOT_DIR}/root"
 CHROOT_TMP="${CHROOT_DIR}/tmp"
@@ -753,10 +754,14 @@ TAG='ISO-POSTCONF'
 list_header "Postconfigurations"
 
 ## dhclient timeout
-/usr/bin/sed -i 's/timeout 300/timeout 20/' "${CHROOT_DIR}/etc/dhcp/dhclient.conf"
+list_item 'Adjusting DHCP timeout'
+/usr/bin/sed -i 's/timeout 300/timeout 20/' "${CHROOT_DHCP}"
+
+list_item 'Setting DHCP IP Identifier'
+/usr/bin/echo 'send dhcp-client-identifier = hardware;' >> "${CHROOT_DHCP}" 2> /dev/null
 
 ## dhclient retry (reset to default)
-#/usr/bin/sed -i 's/#retry 60/retry 3600/' "${CHROOT_DIR}/etc/dhcp/dhclient.conf"
+#/usr/bin/sed -i 's/#retry 60/retry 3600/' "${CHROOT_DHCP}"
 
 ## Generate configuration directories
 # Agetty
@@ -764,7 +769,6 @@ prep_dir "${CHSERVICE_DIR}/getty@tty1.service.d"
 
 # Sudo
 prep_dir "${CHROOT_DIR}/etc/sudoers.d"
-list_exit
 
 ## Copy post-configuration directories
 copy_post_config_dirs
@@ -779,6 +783,7 @@ copy_nvidia_configs
 subst_file "${CONFIG_DIR}/bash/environment" "${CHENV}"
 subst_file "${CONFIG_DIR}/casper/casper.conf" "${CHROOT_DIR}/etc/casper.conf"
 subst_file "${CONFIG_DIR}/systemd/system/getty@tty1.service.d/override.conf" "${CHSERVICE_DIR}/getty@tty1.service.d/override.conf"
+list_exit
 
 ## Current ENVs inside ./chroot
 get_chroot_env
