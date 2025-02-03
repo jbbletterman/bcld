@@ -12,11 +12,11 @@ ae9fc7289f5643ab86cfd7f138a25b36  ./CHANGELOG.md
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
 908e8737d2470d631e00571695c6396c  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-326fb86158b845bf2924105231e1ad0f  ./README.md
+e4f45048f0d2f273178045352182c47a  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-53e455018266f09cd8333320216d2d3f  ./config/BUILD.conf
+0185c2cfefe406fba3b4319f23376b4a  ./config/BUILD.conf
 f9308ddcf62532c70ae0b4970c39b082  ./config/X11/xbindkeys/.xbindkeysrc
 7bd9630940ecaabfb8e22c6560fbf2c0  ./config/X11/xmodmap/.xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
