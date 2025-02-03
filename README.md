@@ -6,7 +6,7 @@
 
 **BCLD Version**: 13.12-1 BCLD (Mjolnir)
 
-**BCLD Kernel**: 6.11.0-17-generic
+**BCLD Kernel**: 6.8.0-51-generic
 
 # Index
 
