@@ -124,7 +124,7 @@ list_entry
 /usr/bin/apt-get upgrade -y
 
 # Configure dpkg first for auto keyboard
-list_header "Configuring DPKG"
+list_header "Configuring DPKG (essentials)"
 list_entry
 /usr/bin/apt-get install -yq --no-install-recommends $(/usr/bin/cat ${CHROOT_PKGS}) | /usr/bin/tee -a "${LOG_FILE}"
 debconf-set-selections < "${SELECTIONS}"
@@ -292,6 +292,7 @@ fi
 list_header "Cleanup"
 
 ## Remove all the package lists...
+clear_file ${CHROOT_PKGS}
 clear_file ${PKGS_ALL}
 clear_file ${REMOVE}
 clear_file ${SELECTIONS}
