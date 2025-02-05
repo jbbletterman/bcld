@@ -67,6 +67,7 @@ SUDOERS="/etc/sudoers"
 BCLD_HOME="/home/${BCLD_USER}"
 NSSDB="${BCLD_HOME}/.pki/nssdb"
 APP_PKGS="${BCLD_ROOT}/APP"
+CHROOT_PKGS="${BCLD_ROOT}/CHROOT"
 PKGS_ALL="${BCLD_ROOT}/PKGS_ALL"
 LOG_FILE="${BCLD_ROOT}/APT_LOG.log"
 REMOVE="${BCLD_ROOT}/REMOVE"
@@ -123,9 +124,9 @@ list_entry
 /usr/bin/apt-get upgrade -y
 
 # Configure dpkg first for auto keyboard
-list_header "Configuring DPKG"
+list_header "Configuring DPKG (essentials)"
 list_entry
-/usr/bin/apt-get install -yq debconf-utils
+/usr/bin/apt-get install -yq --no-install-recommends $(/usr/bin/cat ${CHROOT_PKGS}) | /usr/bin/tee -a "${LOG_FILE}"
 debconf-set-selections < "${SELECTIONS}"
 
 # Start installing
@@ -291,6 +292,7 @@ fi
 list_header "Cleanup"
 
 ## Remove all the package lists...
+clear_file ${CHROOT_PKGS}
 clear_file ${PKGS_ALL}
 clear_file ${REMOVE}
 clear_file ${SELECTIONS}

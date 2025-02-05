@@ -265,7 +265,7 @@ function init_pkgs () {
         list_item_pass "AppImage found!"
         list_exit
         (( BCLD_APPIMAGE++ ))
-    elif [[ $(/usr/bin/cat "${CONFIG_DIR}/packages/APP" | /usr/bin/wc -l) -gt 0 ]]; then 
+    elif [[ $(/usr/bin/cat "${CONFIG_DIR}/packages/APP" | /usr/bin/wc -l) -gt 0 ]]; then
         # Check for APP entries if there are no DEBs or AppImages
         list_item_pass "APP entries found!"
         list_exit
@@ -354,6 +354,19 @@ function prep_dirs () {
     prep_dir "${EFI_BOOT_DIR}"
 
     on_completion
+}
+
+## Function to import package lists
+function import_pkg_list () {
+
+    if [[ -n $(cat "${PKGS_DIR}/${1}") ]]; then
+        list_item_pass "Adding package list: ${1}"
+        list_entry
+        /usr/bin/cat "${PKGS_DIR}/${1}"
+        list_catch
+
+        copy_file "${PKGS_DIR}/${1}" "${CHROOT_ROOT}"
+    fi
 }
 
 ## Function to check if app was installed correctly
@@ -698,25 +711,14 @@ copy_file "${CONFIG_DIR}/systemd/system/BCLD-USB.service" "${CHSERVICE_DIR}/BCLD
 ## Chromium dump
 copy_file "${CONFIG_DIR}/systemd/system/BCLD-crosdump.service" "${CHSERVICE_DIR}/BCLD-crosdump.service"
 
-# REMOVE can exclude packages from a build
-if [[ -n $(cat "${PKGS_DIR}/REMOVE") ]]; then
-    list_item_pass "Packages marked for removal:"
-    list_entry
-    /usr/bin/cat "${PKGS_DIR}/REMOVE"
-    list_catch
+# CHROOT packages are needed for initialization
+import_pkg_list 'CHROOT'
 
-    copy_file "${PKGS_DIR}/REMOVE" "${CHROOT_ROOT}"
-fi
+# REMOVE packages can exclude packages from a build
+import_pkg_list 'REMOVE'
 
-# APP can include packages for Vendorless BCLD
-if [[ -n $(cat "${PKGS_DIR}/APP") ]]; then
-    list_item_pass "Adding APP packages:"
-    list_entry
-    /usr/bin/cat "${PKGS_DIR}/APP"
-    list_catch
-
-    copy_file "${PKGS_DIR}/APP" "${CHROOT_ROOT}"
-fi
+# APP packages can include packages for Vendorless BCLD
+import_pkg_list 'APP'
 
 on_completion
 
