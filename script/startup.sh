@@ -439,6 +439,10 @@ function connect_wifi () {
 ## Function to display established connection
 function connect_establish () {
 
+	### DHCP fix
+	/usr/bin/sudo dhclient -r &>/dev/null
+	/usr/bin/sudo dhclient
+
 	# Set BCLD_IF if it exists
 	export BCLD_IF="$(/usr/sbin/ip route | /usr/bin/grep -v 'linkdown' | /usr/bin/grep -m1 'default' | /usr/bin/awk '{ print $5 }')"
 
