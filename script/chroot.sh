@@ -292,10 +292,11 @@ fi
 list_header "Cleanup"
 
 ## Remove all the package lists...
-clear_file ${CHROOT_PKGS}
-clear_file ${PKGS_ALL}
-clear_file ${REMOVE}
-clear_file ${SELECTIONS}
+clear_file "${CHROOT_PKGS}"
+clear_file "${APP_PKGS}"
+clear_file "${PKGS_ALL}"
+clear_file "${REMOVE}"
+clear_file "${SELECTIONS}"
 
 ## Clean APT and history
 list_item "Cleaning APT..."
