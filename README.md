@@ -6,7 +6,7 @@
 
 **BCLD Version**: 13.13-0 BCLD (Nemesis)
 
-**BCLD Kernel**: 6.11.0-18-generic
+**BCLD Kernel**: 6.11.0-17-generic
 
 # Index
 
