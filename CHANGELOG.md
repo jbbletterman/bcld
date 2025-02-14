@@ -2,10 +2,13 @@
 
 ## 2025
 
-## January
+## Februari
+* `2025-02-14 12:06:56` : [OAC-1192] Kernel update `6.8.0-52` --> `6.11.0-18`
 * `2025-02-06 16:48:16` : [OAC-1158] Added APP packages to cleanup in [chroot.sh](./script/chroot.sh)
 * `2025-02-05 14:24:52` : [OAC-1158] Minor kernel patch: `6.8.0-51` --> `6.8.0-52`
 * `2025-02-03 16:52:30` : [OAC-1158] Added new `import_pkg_list` method in [ISO-builder](./ISO-builder.sh) to add CHROOT packages
+
+## January
 * `2025-01-30 12:14:22` : [OAC-1158] Added DHCP fix to check lease right before app start in [startup](./script/startup.sh)
 * `2025-01-09 12:41:47` : [OAC-1158] Set DHCP Client Identifier back to MAC address in [ISO-builder](./ISO-builder.sh)
     - Minor kernel patch `6.8.0-47` --> `6.8.0-51`
