@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 /usr/bin/echo -e "\nStarting BCLD PXE-deployment script..."
 
 # Send all necessary files to the PXE server
@@ -23,6 +25,8 @@ if [[ -n "${PXE_SERVER}" ]]; then
     /usr/bin/curl \
         --upload-file "./artifacts/vmlinuz" \
         --url "${PXE_SERVER}/vmlinuz"
+
+    cd -
 
     /usr/bin/echo -e 'PXE deployment complete!\n'
 else
