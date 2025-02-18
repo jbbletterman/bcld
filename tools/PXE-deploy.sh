@@ -1,11 +1,13 @@
 #!/bin/bash
 
+/usr/bin/echo -e "\nStarting BCLD PXE-deployment script..."
+
 # Send all necessary files to the PXE server
 PXE_SERVER="${1}"
 
-if [[ -z "${PXE_SERVER}" ]]; then
+if [[ -n "${PXE_SERVER}" ]]; then
 
-    /usr/bin/echo -e "\nUsing URL: ${PXE_SERVER}\n"
+    /usr/bin/echo "Using URL: ${PXE_SERVER}"
 
     ## ISO
     /usr/bin/curl \
@@ -22,6 +24,7 @@ if [[ -z "${PXE_SERVER}" ]]; then
         --upload-file "./artifacts/vmlinuz" \
         --url "${PXE_SERVER}/vmlinuz"
 
+    /usr/bin/echo -e 'PXE deployment complete!\n'
 else
-    /usr/bin/echo -e '\nPlease supply a URL...\n'
+    /usr/bin/echo -e 'Please supply a URL...\n'
 fi
