@@ -3,6 +3,8 @@
 ## 2025
 
 ## February
+* `2025-02-18 15:24:41` : [OAC-1170] Added new [PXE-deploy](./tools/PXE-deploy.sh) script
+* `2025-02-14 12:06:56` : [OAC-1192] Kernel update `6.8.0-52` --> `6.11.0-18`
 * `2025-02-07 10:28:51` : [OAC-1239] Fix network check
 * `2025-02-06 16:48:16` : [OAC-1158] Added APP packages to cleanup in [chroot.sh](./script/chroot.sh)
 * `2025-02-05 14:24:52` : [OAC-1158] Minor kernel patch: `6.8.0-51` --> `6.8.0-52`
