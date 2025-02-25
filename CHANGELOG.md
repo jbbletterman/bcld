@@ -3,6 +3,7 @@
 ## 2025
 
 ## February
+* `2025-02-25 15:35:05` : [OAC-1170] Added [xdotool](./config/packages/DEBUG) to DEBUG packages
 * `2025-02-19 16:30:45` : [OAC-1170] Added [VERSION](./config/BUILD.conf) file to artifacts for PXE testing
 * `2025-02-18 15:24:41` : [OAC-1170] Added new [PXE-deploy](./tools/PXE-deploy.sh) script
 * `2025-02-14 12:06:56` : [OAC-1192] Kernel update `6.8.0-52` --> `6.11.0-18`
