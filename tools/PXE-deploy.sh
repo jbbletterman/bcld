@@ -11,6 +11,7 @@ ART_DIR='./artifacts'
 ISO="${ART_DIR}/bcld.iso"
 RAMFS="${ART_DIR}/initrd"
 KERNEL="${ART_DIR}/vmlinuz"
+VERSION="${ART_DIR}/VERSION"
 
 # Message before uploading
 function upload_msg () {
@@ -41,6 +42,12 @@ if [[ -n "${PXE_SERVER}" ]] \
     /usr/bin/curl \
         --upload-file "${KERNEL}" \
         --url "${PXE_SERVER}/vmlinuz"
+
+    ## VERSION
+    upload_msg "${KERNEL}"
+    /usr/bin/curl \
+        --upload-file "${VERSION}" \
+        --url "${PXE_SERVER}/VERSION"
 
     /usr/bin/echo -e 'PXE deployment complete!\n'
 elif [[ -z "${PXE_SERVER}" ]]; then
