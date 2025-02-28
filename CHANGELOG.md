@@ -3,6 +3,9 @@
 ## 2025
 
 ## February
+* `2025-02-28 17:24:42` : [OAC-1247] BCLD TEST will now automatically start the app for testing purposes
+    - Kiosk mode will also be disabled after 10 seconds, to test escape combinations
+    - New system tests will run over SSH before switching to Chrome debugger
 * `2025-02-25 15:35:05` : [OAC-1170] Added [xdotool](./config/packages/DEBUG) to DEBUG packages
 * `2025-02-19 16:30:45` : [OAC-1170] Added [VERSION](./config/BUILD.conf) file to artifacts for PXE testing
 * `2025-02-18 15:24:41` : [OAC-1170] Added new [PXE-deploy](./tools/PXE-deploy.sh) script

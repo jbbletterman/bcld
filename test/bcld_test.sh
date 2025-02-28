@@ -156,9 +156,11 @@ function BCLD_PARAMs () {
 	 BCLD_ENVs
 }
 
-## Function to quickly swap out URL
-function BCLD_URL () {
-	 BCLD_PARAM BCLD_URL "${1}"
+## Function to quickly swap out URL to AC2 without needing to relog
+function BCLD_URL_AC2 () {
+	/usr/bin/sudo sed -i 's/${BCLD_OPTS}/--facet-overwrite-url=${BCLD_URL} ${BCLD_OPTS}/' /usr/bin/bcld_app.sh
+	/usr/bin/echo "BCLD_URL=${1-'https://ac2-afname.test-facet.onl/facet-player-assessment'}" | /usr/bin/sudo /usr/bin/tee -a "${ENV_FILE}"
+	source "${ENV_FILE}"
 }
 
 ## Function for switching parameters on or off during session
@@ -436,8 +438,25 @@ function reset_terminal () {
     fi
 
     list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
-    list_item "To start the app locally, type: \"$BCLD_LAUNCH_COMMAND\""
-    last_param "${BCLD_SECRET}" 'Password'
+    list_param "${BCLD_SECRET}" 'Password'
+    list_item "To start the app locally, type: \"${BCLD_LAUNCH_COMMAND}\""
+    list_line
+    last_item 'WARNING PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
+    /usr/bin/printf '10'
+
+    # Give manual user warning and opportunity to escape for manual testing in terminal
+    for sec in {9..1}; do
+            # KIOSKMODE IS NOT ENABLED
+            /usr/bin/printf ", ${sec}"
+            /usr/bin/sleep 1s
+    done
+
+    /usr/bin/echo ', entering kiosk mode...' && /usr/bin/sleep 1s
+
+    # Enable kiosk mode by deleting the file, for automated escape tests
+    sudo /usr/bin/rm -f '/etc/X11/xorg.conf.test/99-bcld-disable-kiosk.conf'
+
+	${BCLD_LAUNCH_COMMAND}
 }
 
 ## Function to write BCLD_ENVs and update environment
