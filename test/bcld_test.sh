@@ -48,22 +48,23 @@ source '/usr/bin/echo_tools.sh'
 
 TAG='BCLD-TEST'
 
-CERT_LINKS='/etc/ssl/certs'
-TTY="$(/usr/bin/tty)"
-
-CA_CRT="${CERT_LINKS}/ca.crt"
-CLIENT_CRT="${CERT_LINKS}/bcld.crt"
-CLIENT_KEY="${CERT_LINKS}/bcld.key"
-
-list_header "Enabling BCLD TEST package..."
-
 # ENVs
 export BCLD_VERBOSE=1
 export NSSDB="${HOME}/.pki/nssdb"
 
 # VARs
-ENV_FILE="/etc/environment"
+AC2_URL='https://ac2-afname.test-facet.onl/facet-player-assessment'
+APP_FILE='/usr/bin/bcld_app.sh'
+CERT_LINKS='/etc/ssl/certs'
+
 BCLD_ENV="${HOME}/BCLD_ENVs"
+CA_CRT="${CERT_LINKS}/ca.crt"
+CLIENT_CRT="${CERT_LINKS}/bcld.crt"
+CLIENT_KEY="${CERT_LINKS}/bcld.key"
+ENV_FILE="/etc/environment"
+TTY="$(/usr/bin/tty)"
+
+list_header "Enabling BCLD TEST package..."
 
 # Check the current BCLD_VENDOR
 print_item 'Setting BCLD_DOMAIN: '
@@ -158,10 +159,24 @@ function BCLD_PARAMs () {
 }
 
 ## Function to quickly swap out URL to AC2 without needing to relog
-function BCLD_URL_AC2 () {
-	/usr/bin/sudo sed -i 's/${BCLD_OPTS}/--facet-overwrite-url=${BCLD_URL} ${BCLD_OPTS}/' /usr/bin/bcld_app.sh
-	/usr/bin/echo "BCLD_URL=${1-'https://ac2-afname.test-facet.onl/facet-player-assessment'}" | /usr/bin/sudo /usr/bin/tee -a "${ENV_FILE}"
-	source "${ENV_FILE}"
+function BCLD_URL () {
+
+    overwrite_count="$(/usr/bin/grep -c 'facet-overwrite-url' "${APP_FILE}")"
+    url_count="$(/usr/bin/grep -c 'BCLD_URL' "${ENV_FILE}")"
+
+    # Only do this once
+    if [[ "${overwrite_count}" -eq 0 ]]; then
+        /usr/bin/sudo /usr/binsed -i 's/${BCLD_OPTS}/--facet-overwrite-url=${BCLD_URL} ${BCLD_OPTS}/' "${APP_FILE}"
+    fi
+
+    # Echo once, otherwise SED
+    if [[ "${url_count}" -eq 0 ]]; then
+        /usr/bin/echo "BCLD_URL=${1:-"${AC2_URL}"}" | /usr/bin/sudo /usr/bin/tee -a "${ENV_FILE}"
+    else
+        /usr/bin/sudo /usr/bin/sed -i "s|^BCLD_URL=.*|BCLD_URL=${1:-"${AC2_URL}"}|" "${ENV_FILE}"
+    fi
+
+    source "${ENV_FILE}"
 }
 
 ## Function for switching parameters on or off during session
