@@ -49,6 +49,7 @@ source '/usr/bin/echo_tools.sh'
 TAG='BCLD-TEST'
 
 CERT_LINKS='/etc/ssl/certs'
+TTY="$(/usr/bin/tty)"
 
 CA_CRT="${CERT_LINKS}/ca.crt"
 CLIENT_CRT="${CERT_LINKS}/bcld.crt"
@@ -440,23 +441,29 @@ function reset_terminal () {
     list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
     list_param "${BCLD_SECRET}" 'Password'
     list_item "To start the app locally, type: \"${BCLD_LAUNCH_COMMAND}\""
-    list_line
-    last_item 'WARNING PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
-    /usr/bin/printf '10'
 
-    # Give manual user warning and opportunity to escape for manual testing in terminal
-    for sec in {9..1}; do
-            # KIOSKMODE IS NOT ENABLED
-            /usr/bin/printf ", ${sec}"
-            /usr/bin/sleep 1s
-    done
+    # Make sure escape messages only appear on local terminal
+    if [[ "${TTY}" == /dev/tty* ]]; then
+        list_line
+        last_item 'WARNING PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
+        /usr/bin/printf '10'
 
-    /usr/bin/echo ', entering kiosk mode...' && /usr/bin/sleep 1s
+        # Give manual user warning and opportunity to escape for manual testing in terminal
+        for sec in {9..1}; do
+                # KIOSKMODE IS NOT ENABLED
+                /usr/bin/printf ", ${sec}"
+                /usr/bin/sleep 1s
+        done
 
-    # Enable kiosk mode by deleting the file, for automated escape tests
-    sudo /usr/bin/rm -f '/etc/X11/xorg.conf.test/99-bcld-disable-kiosk.conf'
+        /usr/bin/echo ', entering kiosk mode...' && /usr/bin/sleep 1s
 
-	${BCLD_LAUNCH_COMMAND}
+        # Enable kiosk mode by deleting the file, for automated escape tests
+        sudo /usr/bin/rm -f '/etc/X11/xorg.conf.d/99-bcld-disable-kiosk.conf'
+
+        ${BCLD_LAUNCH_COMMAND}
+    else
+        list_exit
+    fi
 }
 
 ## Function to write BCLD_ENVs and update environment

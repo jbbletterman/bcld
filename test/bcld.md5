@@ -12,7 +12,7 @@ ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
 b0748a54109c4f01ffaa11c26081db2b  ./ISO-builder.sh
 437666ae479d092b4340fe3c5481bcbc  ./LICENSE.eupl
-a507ea406d03470c5b27a4acaf9eccb2  ./README.md
+2fab5abf9698b77efc19a801b39aee16  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
@@ -116,7 +116,7 @@ d267254e779d5f15b28f8f79442f707d  ./script/usb_logger.sh
 47c636dd3dc7191d173062dbf8324844  ./test/00_BCLD-BUILD.bats
 0b1d119254ad08f0c28a1975b28bbc2a  ./test/BCLD-BATS.sh
 1348c09b472f193682790b0fe9ae6792  ./test/SHELL-CHECK.sh
-89986b5b614cffb6c0c49fa593b6c038  ./test/bcld_test.sh
+82608d0ae53b94926e6f16577b8ad28d  ./test/bcld_test.sh
 3923f9371b39761f5903a2c9a6f1eb59  ./test/common-setup
 6a4f851f7c95a345938ea4a517043191  ./tools/DOCKER-install.sh
 d00647dac97863f3592f6cccb5a72c46  ./tools/EXPORTER-TOOLKIT.sh
