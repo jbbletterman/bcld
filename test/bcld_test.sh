@@ -446,12 +446,11 @@ function reset_terminal () {
     if [[ "${TTY}" == /dev/tty* ]]; then
         list_line
         last_item 'WARNING PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
-        /usr/bin/printf '10'
 
         # Give manual user warning and opportunity to escape for manual testing in terminal
-        for sec in {9..1}; do
+        for sec in {10..1}; do
                 # KIOSKMODE IS NOT ENABLED
-                /usr/bin/printf ", ${sec}"
+                /usr/bin/printf "\r%2d" "${sec}"
                 /usr/bin/sleep 1s
         done
 
