@@ -2,6 +2,10 @@
 
 ## 2025
 
+## March
+* `2025-03-05 14:48:08` : Added license to [PXE-deploy](./tools/PXE-deploy.sh) script
+    - Mindor kernel patch: `6.11.0-17` --> `6.11.0-19`
+
 ## February
 * `2025-02-28 17:24:42` : [OAC-1247] BCLD TEST will now automatically start the app for testing purposes
     - Kiosk mode will also be disabled after 10 seconds, to test escape combinations
