@@ -166,7 +166,7 @@ function BCLD_URL () {
 
     # Only do this once
     if [[ "${overwrite_count}" -eq 0 ]]; then
-        /usr/bin/sudo /usr/binsed -i 's/${BCLD_OPTS}/--facet-overwrite-url=${BCLD_URL} ${BCLD_OPTS}/' "${APP_FILE}"
+        /usr/bin/sudo /usr/bin/sed -i 's/${BCLD_OPTS}/--facet-overwrite-url=${BCLD_URL} ${BCLD_OPTS}/' "${APP_FILE}"
     fi
 
     # Echo once, otherwise SED
