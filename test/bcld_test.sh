@@ -455,6 +455,7 @@ function reset_terminal () {
 
     list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
     list_param "${BCLD_SECRET}" 'Password'
+    list_item_pass "$(BCLD_URL)"
     list_item "To start the app locally, type: \"${BCLD_LAUNCH_COMMAND}\""
 
     # Make sure escape messages only appear on local terminal
