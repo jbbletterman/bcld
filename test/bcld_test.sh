@@ -48,21 +48,23 @@ source '/usr/bin/echo_tools.sh'
 
 TAG='BCLD-TEST'
 
-CERT_LINKS='/etc/ssl/certs'
-
-CA_CRT="${CERT_LINKS}/ca.crt"
-CLIENT_CRT="${CERT_LINKS}/bcld.crt"
-CLIENT_KEY="${CERT_LINKS}/bcld.key"
-
-list_header "Enabling BCLD TEST package..."
-
 # ENVs
 export BCLD_VERBOSE=1
 export NSSDB="${HOME}/.pki/nssdb"
 
 # VARs
-ENV_FILE="/etc/environment"
+AC2_URL='https://ac2-afname.test-facet.onl/facet-player-assessment'
+APP_FILE='/usr/bin/bcld_app.sh'
+CERT_LINKS='/etc/ssl/certs'
+
 BCLD_ENV="${HOME}/BCLD_ENVs"
+CA_CRT="${CERT_LINKS}/ca.crt"
+CLIENT_CRT="${CERT_LINKS}/bcld.crt"
+CLIENT_KEY="${CERT_LINKS}/bcld.key"
+ENV_FILE="/etc/environment"
+TTY="$(/usr/bin/tty)"
+
+list_header "Enabling BCLD TEST package..."
 
 # Check the current BCLD_VENDOR
 print_item 'Setting BCLD_DOMAIN: '
@@ -156,9 +158,25 @@ function BCLD_PARAMs () {
 	 BCLD_ENVs
 }
 
-## Function to quickly swap out URL
+## Function to quickly swap out URL to AC2 without needing to relog
 function BCLD_URL () {
-	 BCLD_PARAM BCLD_URL "${1}"
+
+    overwrite_count="$(/usr/bin/grep -c 'facet-overwrite-url' "${APP_FILE}")"
+    url_count="$(/usr/bin/grep -c 'BCLD_URL' "${ENV_FILE}")"
+
+    # Only do this once
+    if [[ "${overwrite_count}" -eq 0 ]]; then
+        /usr/bin/sudo /usr/binsed -i 's/${BCLD_OPTS}/--facet-overwrite-url=${BCLD_URL} ${BCLD_OPTS}/' "${APP_FILE}"
+    fi
+
+    # Echo once, otherwise SED
+    if [[ "${url_count}" -eq 0 ]]; then
+        /usr/bin/echo "BCLD_URL=${1:-"${AC2_URL}"}" | /usr/bin/sudo /usr/bin/tee -a "${ENV_FILE}"
+    else
+        /usr/bin/sudo /usr/bin/sed -i "s|^BCLD_URL=.*|BCLD_URL=${1:-"${AC2_URL}"}|" "${ENV_FILE}"
+    fi
+
+    source "${ENV_FILE}"
 }
 
 ## Function for switching parameters on or off during session
@@ -436,8 +454,30 @@ function reset_terminal () {
     fi
 
     list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
-    list_item "To start the app locally, type: \"$BCLD_LAUNCH_COMMAND\""
-    last_param "${BCLD_SECRET}" 'Password'
+    list_param "${BCLD_SECRET}" 'Password'
+    list_item "To start the app locally, type: \"${BCLD_LAUNCH_COMMAND}\""
+
+    # Make sure escape messages only appear on local terminal
+    if [[ "${TTY}" == /dev/tty* ]]; then
+        list_line
+        last_item 'WARNING PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
+
+        # Give manual user warning and opportunity to escape for manual testing in terminal
+        for sec in {10..1}; do
+                # KIOSKMODE IS NOT ENABLED
+                /usr/bin/printf "\r%2d" "${sec}"
+                /usr/bin/sleep 1s
+        done
+
+        /usr/bin/echo ', entering kiosk mode...' && /usr/bin/sleep 1s
+
+        # Enable kiosk mode by deleting the file, for automated escape tests
+        sudo /usr/bin/rm -f '/etc/X11/xorg.conf.d/99-bcld-disable-kiosk.conf'
+
+        ${BCLD_LAUNCH_COMMAND}
+    else
+        list_exit
+    fi
 }
 
 ## Function to write BCLD_ENVs and update environment
