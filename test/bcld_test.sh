@@ -53,7 +53,6 @@ export BCLD_VERBOSE=1
 export NSSDB="${HOME}/.pki/nssdb"
 
 # VARs
-AC2_URL='https://ac2-afname.test-facet.onl/facet-player-assessment'
 APP_FILE='/usr/bin/bcld_app.sh'
 CERT_LINKS='/etc/ssl/certs'
 
@@ -158,11 +157,11 @@ function BCLD_PARAMs () {
 	 BCLD_ENVs
 }
 
-## Function to quickly swap out URL to AC2 without needing to relog
+## Function to quickly swap out URL without needing to relog
 function BCLD_URL () {
 
     overwrite_count="$(/usr/bin/grep -c 'facet-overwrite-url' "${APP_FILE}")"
-    url_count="$(/usr/bin/grep -c 'BCLD_URL' "${ENV_FILE}")"
+    url_count="$(/usr/bin/grep -c 'BCLD_URL=' "${ENV_FILE}")"
 
     # Only do this once
     if [[ "${overwrite_count}" -eq 0 ]]; then
@@ -171,9 +170,9 @@ function BCLD_URL () {
 
     # Echo once, otherwise SED
     if [[ "${url_count}" -eq 0 ]]; then
-        /usr/bin/echo "BCLD_URL=${1:-"${AC2_URL}"}" | /usr/bin/sudo /usr/bin/tee -a "${ENV_FILE}"
+        /usr/bin/echo "BCLD_URL=${1}" | /usr/bin/sudo /usr/bin/tee -a "${ENV_FILE}"
     else
-        /usr/bin/sudo /usr/bin/sed -i "s|^BCLD_URL=.*|BCLD_URL=${1:-"${AC2_URL}"}|" "${ENV_FILE}"
+        /usr/bin/sudo /usr/bin/sed -i "s|^BCLD_URL=.*|BCLD_URL=${1}|" "${ENV_FILE}"
     fi
 
     source "${ENV_FILE}"
@@ -455,7 +454,6 @@ function reset_terminal () {
 
     list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
     list_param "${BCLD_SECRET}" 'Password'
-    list_item_pass "$(BCLD_URL)"
     list_item "To start the app locally, type: \"${BCLD_LAUNCH_COMMAND}\""
 
     # Make sure escape messages only appear on local terminal
