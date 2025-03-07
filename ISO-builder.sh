@@ -946,7 +946,7 @@ else
 
     # Add user password for TEST
     set_chroot_env "BCLD_SECRET" "${BCLD_SECRET}"
-
+    
     # Disable kioskmode if test
     list_item "Disabling kioskmode..."
     copy_file "${CONFIG_DIR}/X11/xorg.conf.test/99-bcld-disable-kiosk.conf" "${CHROOT_DIR}/etc/X11/xorg.conf.d/"
