@@ -459,7 +459,7 @@ function reset_terminal () {
     # Make sure escape messages only appear on local terminal
     if [[ "${TTY}" == /dev/tty* ]]; then
         list_line
-        last_item 'WARNING PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
+        last_item 'WARNING!: PRESS CTRL+C TO CANCEL: BCLD WILL ENTER KIOSK MODE IN 10 SECONDS!!!'
 
         # Give manual user warning and opportunity to escape for manual testing in terminal
         for sec in {10..1}; do
