@@ -96,11 +96,12 @@ log_first 'Checking keyboard settings...'
 
 # Bindings
 
+## Xkbmap for disabling TTY switching
+/usr/bin/setxkbmap -option srvrkeys:none
+
 ## Escaping
-if [[ "${BCLD_MODEL}" == 'release' ]]; then
-    # Xkbmap for disabling TTY switching in RELEASE
-    /usr/bin/setxkbmap -option srvrkeys:none
-    # Always load xmodmap and xbindkeys for RELEASE
+if [[ "${BCLD_MODEL}" != 'debug' ]]; then
+    # Always load xmodmap and xbindkeys for RELEASE and TEST
     /usr/bin/xmodmap "${HOME}/.xmodmap"   # config file for disabling key mappings
     /usr/bin/xbindkeys -f "${HOME}/.xbindkeysrc"   # daemon with config file for disabling custom key combinations
     
@@ -121,7 +122,7 @@ if [[ "${BCLD_MODEL}" == 'release' ]]; then
     fi
 
 else
-    # Xkbmap for allowing escape in DEBUG and TEST
+    # Xkbmap for allowing escape in DEBUG
     /usr/bin/setxkbmap -option terminate:ctrl_alt_bksp
 fi
 
