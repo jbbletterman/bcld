@@ -3,6 +3,8 @@
 ## 2025
 
 ## March
+* `2025-03-07 17:45:21` : Enabled xmodmap and xbindkeys configurations for TEST
+    - Disabled server keys globally
 * `2025-03-05 14:48:08` : Added license to [PXE-deploy](./tools/PXE-deploy.sh) script
     - Mindor kernel patch: `6.11.0-17` --> `6.11.0-19`
 
