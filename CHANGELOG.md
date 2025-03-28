@@ -3,6 +3,7 @@
 ## 2025
 
 ## March
+* `2025-03-28 12:13:14` : Minor kernel patch: `6.11.0-19` --> `6.11.0-21`
 * `2025-03-25 12:27:39` : Added `firmware-sof-signed` to [REQUIRED](./config/packages/REQUIRED) packages
     - System should now have SOF audio support, may require additional configuration
 * `2025-03-07 17:45:21` : Enabled xmodmap and xbindkeys configurations for TEST
