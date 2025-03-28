@@ -3,6 +3,8 @@
 ## 2025
 
 ## March
+* `2025-03-25 12:27:39` : Added `firmware-sof-signed` to [REQUIRED](./config/packages/REQUIRED) packages
+    - System should now have SOF audio support, may require additional configuration
 * `2025-03-07 17:45:21` : Enabled xmodmap and xbindkeys configurations for TEST
     - Disabled server keys globally
 * `2025-03-05 14:48:08` : Added license to [PXE-deploy](./tools/PXE-deploy.sh) script

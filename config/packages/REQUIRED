@@ -47,6 +47,7 @@ eject
 ethtool
 feh
 file
+firmware-sof-signed
 fontconfig
 fontconfig-config
 fonts-dejavu
