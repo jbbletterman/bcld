@@ -3,7 +3,7 @@
 ## 2025
 
 ## April
-* `2025-04-01 12:25:54` : Added `snd_intel_dspcfg.dsp_driver=1` to [BCLD config file](./config/bcld/bcld.cfg)
+* `2025-04-01 12:25:54` : [OAC-1257] Added `snd_intel_dspcfg.dsp_driver=1` to [BCLD config file](./config/bcld/bcld.cfg)
     - Deprecated `snd_hda_intel.dmic_detect=0`
 
 ## March
