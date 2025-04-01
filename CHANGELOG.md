@@ -2,6 +2,10 @@
 
 ## 2025
 
+## April
+* `2025-04-01 12:25:54` : Added `snd_intel_dspcfg.dsp_driver=1` to [BCLD config file](./config/bcld/bcld.cfg)
+    - Deprecated `snd_hda_intel.dmic_detect=0`
+
 ## March
 * `2025-03-28 12:13:14` : Minor kernel patch: `6.11.0-19` --> `6.11.0-21`
 * `2025-03-25 12:27:39` : Added `firmware-sof-signed` to [REQUIRED](./config/packages/REQUIRED) packages
