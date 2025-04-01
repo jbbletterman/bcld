@@ -6,13 +6,13 @@ bb9cd8f6b404dc391601d1610b3518b2  ./.github/workflows/release.yml
 0f9bc2b595325394e775dcdb2f0164da  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-e03e97ca50e1be8c437b874b613e1974  ./CHANGELOG.md
+f4c53c05e6382168461e4d1d1596df8e  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 445e79b801abc6d9f0b1b5f78e8f8e88  ./Docker-builder.sh
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
 b0748a54109c4f01ffaa11c26081db2b  ./ISO-builder.sh
 524b704f7687543521a4f126f3b50422  ./LICENSE.eupl
-16afe067c03eda04011b9d3f0a0a1820  ./README.md
+a4b40d462ab78d1ad337de204d3c696f  ./README.md
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
@@ -29,7 +29,7 @@ cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-ki
 b7639e4fc5894bb8f36869a867a04f31  ./config/bash/bcld-init
 99f5cc55473c44d3a41f9a8a2212e1fe  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
-a081a7e2a4404eb38b157a66833f67b5  ./config/bcld/bcld.cfg
+0b2f54f8464ca64d5d043716b3556c52  ./config/bcld/bcld.cfg
 1de846a4704142ca17abda1433e8d0d8  ./config/casper/casper.conf
 d41d8cd98f00b204e9800998ecf8427e  ./config/grub/.disk/base_installable
 7744f57495e19ee51aa0d9ec66e3fb2d  ./config/grub/.disk/casper-uuid-generic
