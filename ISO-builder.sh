@@ -126,6 +126,7 @@ CHROOT_OPT="${CHROOT_DIR}/opt"
 CHROOT_ROOT="${CHROOT_DIR}/root"
 CHROOT_TMP="${CHROOT_DIR}/tmp"
 CHROOT_PKI_DIR="${CHROOT_DIR}/usr/share/ca-certificates"
+CHROOT_SSH="${CHROOT_DIR}/etc/ssh/sshd_config.d/10-BCLD.sh"
 
 ### Chroot ETC
 CHROOT_CHROME_CERT_DIR="${CHETC}/chromium/policies/managed/"
@@ -928,6 +929,7 @@ list_header 'BCLD tweaks'
 
 ### BCLD_MODEL TWEAKS
 list_item 'BCLD_MODEL tweaks'
+list_item "BCLD_MODEL set to: ${BCLD_MODEL}"
 
 if [[ ${BCLD_MODEL} = 'release' ]]; then
 
@@ -954,6 +956,12 @@ else
     # Add extra TEST tools
     list_item 'Adding test tools...'
     copy_file "./test/bcld_test.sh" "${CHROOT_BIN}"
+
+    # Configure SSH
+    list_item 'Configuring OpenSSH Server...'
+    /usr/bin/echo 'PasswordAuthentication yes' >> "${CHROOT_SSH}"
+    /usr/bin/echo 'X11Forwarding yes' >> "${CHROOT_SSH}"
+    /usr/sbin/chroot "${CHROOT_DIR}" "/usr/bin/systemctl enable ssh.service" | /usr/bin/tee -a "${CHROOT_LOG}"
 
 fi
 

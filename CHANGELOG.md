@@ -3,6 +3,13 @@
 ## 2025
 
 ## April
+* `2025-04-14 16:59:13` : Ported SSH configuration to [ISO-TWEAKS](./ISO-builder.sh)
+* `2025-04-14 16:57:40` : [OAC-1190] Changed following packages from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
+  * iptables
+  * netfilter-persistent
+  * plymouth-theme-spinner
+  * unattended-upgrades
+  * zstd
 * `2025-04-11 16:51:22` : [OAC-1190] Added new packages for Intel Arc and OpenCL support:
   * libze-intel-gpu1
   * libze1

@@ -65,7 +65,6 @@ intel-microcode
 intel-opencl-icd
 intltool-debian
 iproute2
-iptables
 iptables-persistent
 isc-dhcp-client
 jq
@@ -192,7 +191,6 @@ passwd
 pciutils
 perl
 perl-base
-plymouth-theme-spinner
 po-debconf
 procps
 psmisc
@@ -228,7 +226,6 @@ time
 tlp
 ubuntu-release-upgrader-core
 udev
-unattended-upgrades
 upower
 usbutils
 util-linux
@@ -262,4 +259,3 @@ xserver-xorg-video-intel
 xserver-xorg-video-openchrome
 xterm
 zlib1g
-zstd
