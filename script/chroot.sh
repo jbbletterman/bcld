@@ -60,7 +60,7 @@ source "${BUILD_CONF}" \
 BCLD_ROOT='/root'
 BCLD_MOUNT='/media/BCLD-USB'
 CHROOT_RM='/opt/remotelogging'
-#SSHD="/etc/ssh/sshd_config.d/10-BCLD.sh"
+SSHD="/etc/ssh/sshd_config.d/10-BCLD.sh"
 SUDOERS="/etc/sudoers"
 
 # VARs
@@ -280,13 +280,13 @@ list_entry
 list_catch
 
 # MODEL packs
-# if [[ ${BCLD_MODEL} = 'test' ]]; then
-#     list_item "BCLD_MODEL set to: ${BCLD_MODEL}"
-#     last_item 'Configuring OpenSSH Server...'
-#     /usr/bin/echo 'PasswordAuthentication yes' >> "${SSHD}"
-#     /usr/bin/echo 'X11Forwarding yes' >> "${SSHD}"
-#     /usr/bin/systemctl enable ssh.service
-# fi
+if [[ ${BCLD_MODEL} = 'test' ]]; then
+    list_item "BCLD_MODEL set to: ${BCLD_MODEL}"
+    last_item 'Configuring OpenSSH Server...'
+    /usr/bin/echo 'PasswordAuthentication yes' >> "${SSHD}"
+    /usr/bin/echo 'X11Forwarding yes' >> "${SSHD}"
+    /usr/bin/systemctl enable ssh.service
+fi
 
 # Cleanup
 list_header "Cleanup"

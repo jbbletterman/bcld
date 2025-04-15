@@ -3,7 +3,6 @@
 ## 2025
 
 ## April
-* `2025-04-14 16:59:13` : Ported SSH configuration to [ISO-TWEAKS](./ISO-builder.sh)
 * `2025-04-14 16:57:40` : [OAC-1190] Changed following packages from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
   * iptables
   * netfilter-persistent
@@ -14,7 +13,6 @@
   * libze-intel-gpu1
   * libze1
   * intel-opencl-icd
-  * Mintor kernel patch: `6.11.0-21 --> 6.11.0-24`
 * `2025-04-01 12:25:54` : [OAC-1257] Added `snd_intel_dspcfg.dsp_driver=1` to [BCLD config file](./config/bcld/bcld.cfg)
   * Deprecated `snd_hda_intel.dmic_detect=0`
 
