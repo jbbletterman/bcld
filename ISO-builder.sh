@@ -374,7 +374,7 @@ function check_apps () {
     if [[ ${BCLD_DEB} -gt 0 ]]; then
         # If DEBs found in ./APP, build default
         # Look for a binary resemling BCLD_RUN in CHROOT_OPT, single match
-        DEB_CHECK="$(/usr/bin/find "${CHROOT_OPT}" -type f -name "${BCLD_RUN}*" -print -quit)"
+        DEB_CHECK="$(/usr/bin/find "${CHROOT_OPT}" -type f -name "${BCLD_RUN}" -print -quit)"
         
         list_item "Running Debian package check on ${BCLD_RUN}: ${DEB_CHECK}"
         
@@ -928,6 +928,7 @@ list_header 'BCLD tweaks'
 
 ### BCLD_MODEL TWEAKS
 list_item 'BCLD_MODEL tweaks'
+list_item "BCLD_MODEL set to: ${BCLD_MODEL}"
 
 if [[ ${BCLD_MODEL} = 'release' ]]; then
 

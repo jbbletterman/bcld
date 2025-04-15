@@ -3,8 +3,18 @@
 ## 2025
 
 ## April
-* `2025-04-01 12:25:54` : Added `snd_intel_dspcfg.dsp_driver=1` to [BCLD config file](./config/bcld/bcld.cfg)
-    - Deprecated `snd_hda_intel.dmic_detect=0`
+* `2025-04-14 16:57:40` : [OAC-1190] Changed following packages from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
+  * iptables
+  * netfilter-persistent
+  * plymouth-theme-spinner
+  * unattended-upgrades
+  * zstd
+* `2025-04-11 16:51:22` : [OAC-1190] Added new packages for Intel Arc and OpenCL support:
+  * libze-intel-gpu1
+  * libze1
+  * intel-opencl-icd
+* `2025-04-01 12:25:54` : [OAC-1257] Added `snd_intel_dspcfg.dsp_driver=1` to [BCLD config file](./config/bcld/bcld.cfg)
+  * Deprecated `snd_hda_intel.dmic_detect=0`
 
 ## March
 * `2025-03-28 12:13:14` : Minor kernel patch: `6.11.0-19` --> `6.11.0-21`

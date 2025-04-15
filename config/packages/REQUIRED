@@ -62,9 +62,9 @@ initramfs-tools
 initramfs-tools-core
 inotify-tools
 intel-microcode
+intel-opencl-icd
 intltool-debian
 iproute2
-iptables
 iptables-persistent
 isc-dhcp-client
 jq
@@ -82,14 +82,14 @@ libaudit1
 libavahi-client3
 libavahi-common3
 libbt0
+libc-dev-bin
 libc6
 libc6-dev
 libcairo2
-libcanberra-gtk3-module
 libcanberra-gtk-module
+libcanberra-gtk3-module
 libcap2
 libcap2-bin
-libc-dev-bin
 libcolord2
 libcrypt1
 libcryptsetup12
@@ -113,8 +113,8 @@ libice6
 libicu74
 libimlib2t64
 libimobiledevice6
-libinput10
 libinput-bin
+libinput10
 libjack-jackd2-0
 libjpeg8
 libjson-glib-1.0-0
@@ -124,9 +124,9 @@ libmagic1t64
 libmysqlclient21
 libncurses6
 libnewt0.52
+libnss-mdns
 libnss3
 libnss3-tools
-libnss-mdns
 libobrender32v5
 libobt2v5
 libpam-systemd
@@ -136,8 +136,8 @@ libpangoft2-1.0-0
 libpci3
 libperl5.38t64
 libpulse0
-libpython3.12-stdlib
 libpython3-stdlib
+libpython3.12-stdlib
 libreadline8t64
 librest-1.0-0
 librsvg2-2
@@ -169,6 +169,8 @@ libxss1
 libxt6t64
 libxtst6
 libxvmc1
+libze-intel-gpu1
+libze1
 linux-firmware
 linux-libc-dev
 localechooser-data
@@ -180,8 +182,8 @@ m4
 mailutils
 mailutils-mda
 man-db
-netplan.io
 net-tools
+netplan.io
 network-manager
 openbox
 openssl
@@ -189,15 +191,12 @@ passwd
 pciutils
 perl
 perl-base
-plymouth-theme-spinner
 po-debconf
 procps
 psmisc
 pulseaudio
 pulseaudio-utils
 python3
-python3.12
-python3.12-minimal
 python3-apport
 python3-apt
 python3-cffi-backend
@@ -213,6 +212,8 @@ python3-requests-unixsocket
 python3-secretstorage
 python3-wadllib
 python3-xdg
+python3.12
+python3.12-minimal
 rsyslog
 rsyslog-gnutls
 shared-mime-info
@@ -225,7 +226,6 @@ time
 tlp
 ubuntu-release-upgrader-core
 udev
-unattended-upgrades
 upower
 usbutils
 util-linux
@@ -259,4 +259,3 @@ xserver-xorg-video-intel
 xserver-xorg-video-openchrome
 xterm
 zlib1g
-zstd
