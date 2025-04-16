@@ -53,6 +53,7 @@ CERT_LINKS='/etc/ssl/certs'
 CA_CRT="${CERT_LINKS}/ca.crt"
 CLIENT_CRT="${CERT_LINKS}/bcld.crt"
 CLIENT_KEY="${CERT_LINKS}/bcld.key"
+TTY="$(/usr/bin/tty)"
 
 list_header "Enabling BCLD TEST package..."
 
