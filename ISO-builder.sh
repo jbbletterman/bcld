@@ -634,6 +634,7 @@ subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
 ## Build VERSION
 list_item "Generating ${CHROOT_DIR}/VERSION..."
 /usr/bin/echo "${BCLD_VERSION_STRING}" > "${CHROOT_DIR}/VERSION"
+/usr/bin/echo "${BCLD_VERSION_STRING}" > "${ART_DIR}/VERSION"
 
 ## Package management
 
