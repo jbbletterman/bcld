@@ -56,7 +56,7 @@ TAG="RUN-APP"
 /usr/bin/autocert.sh
 
 # Afname debug params:
-PID="$!"
+PID="$$"
 NW_LOG_FILE="/home/${BCLD_USER}/logfile.${PID}.log"
 NW_NET_LOGFILE="/home/${BCLD_USER}/net-log.${PID}.json"
 
