@@ -55,6 +55,13 @@ TAG="RUN-APP"
 # For automatic certificate selection
 /usr/bin/autocert.sh
 
+# Replace %PID% from NW_PRE_ARGS to real PID
+if [[ -v "NW_PRE_ARGS" ]]
+then
+  PID="$!"
+  NW_PRE_ARGS="$(echo "$NW_PRE_ARGS" | sed 's/%PID%/${PID}/g')"
+fi
+
 # Launch app with BCLD_OPTS
 /usr/bin/bash -c "${BCLD_APP} ${BCLD_OPTS}" &> "${OPENBOX_LOG}" &
 
