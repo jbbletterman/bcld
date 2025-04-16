@@ -435,9 +435,10 @@ function reset_terminal () {
         /usr/bin/nvidia-smi
     fi
 
-    list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
-    list_item "To start the app locally, type: \"$BCLD_LAUNCH_COMMAND\""
-    last_param "${BCLD_SECRET}" 'Password'
+    #list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
+    #list_item "To start the app locally, type: \"$BCLD_LAUNCH_COMMAND\""
+    #last_param "${BCLD_SECRET}" 'Password'
+    ${BCLD_LAUNCH_COMMAND}
 }
 
 ## Function to write BCLD_ENVs and update environment
