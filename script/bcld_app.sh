@@ -55,12 +55,13 @@ TAG="RUN-APP"
 # For automatic certificate selection
 /usr/bin/autocert.sh
 
-# Replace %PID% from NW_PRE_ARGS to real PID
-if [[ -v "NW_PRE_ARGS" ]]
-then
-  PID="$!"
-  NW_PRE_ARGS="$(echo "$NW_PRE_ARGS" | sed 's/%PID%/${PID}/g')"
-fi
+# Afname debug params:
+PID="$!"
+NW_LOG_FILE="/home/${BCLD_USER}/logfile.${PID}.log"
+NW_NET_LOGFILE="/home/${BCLD_USER}/net-log.${PID}.json"
+
+export NW_PRE_ARGS
+NW_PRE_ARGS="--lang=nl --disable-gpu --enable-logging --log-file=${NW_LOG_FILE} --v=9 --log-net-log=${NW_NET_LOGFILE}"
 
 # Launch app with BCLD_OPTS
 /usr/bin/bash -c "${BCLD_APP} ${BCLD_OPTS}" &> "${OPENBOX_LOG}" &
