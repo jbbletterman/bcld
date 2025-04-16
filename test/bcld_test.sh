@@ -435,10 +435,17 @@ function reset_terminal () {
         /usr/bin/nvidia-smi
     fi
 
-    #list_header "Connect remotely through SSH!: \"ssh -X ${BCLD_USER}@${BCLD_IP}\""
-    #list_item "To start the app locally, type: \"$BCLD_LAUNCH_COMMAND\""
-    #last_param "${BCLD_SECRET}" 'Password'
-    ${BCLD_LAUNCH_COMMAND}
+    # Make sure escape messages only appear on local terminal
+    if [[ "${TTY}" == /dev/tty* ]]; then
+        
+        # Enable kiosk mode by deleting the file, for automated escape tests
+        sudo /usr/bin/rm -f '/etc/X11/xorg.conf.d/99-bcld-disable-kiosk.conf'
+
+        ${BCLD_LAUNCH_COMMAND}
+    else
+        list_exit
+    fi
+
 }
 
 ## Function to write BCLD_ENVs and update environment
