@@ -3,6 +3,7 @@
 ## 2025
 
 ## April
+* `2025-04-16 15:27:38` : [OAC-1190] Added *https://pkg.surfacelinux.com/debian* to [repositories](./config/apt/sources.list)
 * `2025-04-14 16:57:40` : [OAC-1190] Changed following packages from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
   * iptables
   * netfilter-persistent
