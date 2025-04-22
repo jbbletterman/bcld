@@ -647,7 +647,7 @@ subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
 list_item 'Retrieving Linux Surface GPG key...'
 
 /usr/bin/curl https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
-    | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHETC}/etc/apt/trusted.gpg.d/linux-surface.gpg"
+    | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHETC}/apt/trusted.gpg.d/linux-surface.gpg"
 
 ## Build VERSION
 list_item "Generating ${CHROOT_DIR}/VERSION..."
