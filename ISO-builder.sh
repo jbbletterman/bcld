@@ -649,6 +649,9 @@ list_item 'Retrieving Linux Surface GPG key...'
 /usr/bin/curl https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
     | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHETC}/apt/trusted.gpg.d/linux-surface.gpg"
 
+list_item 'Checking Linux Surface GPG key...'
+/usr/bin/test -f "${CHETC}/apt/trusted.gpg.d/linux-surface.gpg" || exit
+
 ## Build VERSION
 list_item "Generating ${CHROOT_DIR}/VERSION..."
 /usr/bin/echo "${BCLD_VERSION_STRING}" > "${CHROOT_DIR}/VERSION"
