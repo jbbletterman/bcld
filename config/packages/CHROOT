@@ -1,5 +1,4 @@
 binutils
-ca-certificates
 debconf-utils
 iptables
 netfilter-persistent
