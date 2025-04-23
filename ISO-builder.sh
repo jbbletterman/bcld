@@ -654,6 +654,9 @@ list_item 'Checking Linux Surface GPG key...'
 if [[ -f ${CHSURFACE_KEY} ]] \
     && [[  "$(/usr/bin/wc -l < ${CHSURFACE_KEY})" -gt 0 ]]; then
     list_item_pass 'Linux Surface GPG key found!'
+
+    /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}" || exit 1
+    /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}" || exit 1
 else
     list_item_fail 'Linux Surface GPG key NOT found!'
     exit 1
