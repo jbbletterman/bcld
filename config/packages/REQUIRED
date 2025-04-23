@@ -16,7 +16,6 @@ binutils
 binutils-x86-64-linux-gnu
 blackbox
 bsdutils
-ca-certificates
 casper
 cifs-utils
 console-data
