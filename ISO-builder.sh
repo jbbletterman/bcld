@@ -646,7 +646,7 @@ copy_file "${BUILD_CONF}" "${CHROOT_ROOT}"
 subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
 list_item 'Retrieving Linux Surface GPG key...'
 
-/usr/bin/curl https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
+/usr/bin/curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
     | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHETC}/apt/trusted.gpg.d/linux-surface.gpg"
 
 list_item 'Checking Linux Surface GPG key...'
