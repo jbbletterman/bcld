@@ -112,6 +112,23 @@ function set_passwd () {
 
 
 ### Install packages ###
+CHSURFACE_KEY="/etc/apt/trusted.gpg.d/linux-surface.gpg"
+
+/usr/bin/curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
+    | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHSURFACE_KEY}"
+
+list_item 'Checking Linux Surface GPG key...'
+if [[ -f ${CHSURFACE_KEY} ]] \
+    && [[  "$(/usr/bin/wc -l < ${CHSURFACE_KEY})" -gt 0 ]]; then
+    list_item_pass "Linux Surface GPG key found! $(/usr/bin/md5sum ${CHSURFACE_KEY} | awk '{ print $1 }')"
+    list_entry
+    /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}" || exit 1
+    /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}" || exit 1
+    list_catch
+else
+    list_item_fail 'Linux Surface GPG key NOT found!'
+    exit 1
+fi
 
 # Update using the selected mirror
 list_header "Updating packages"

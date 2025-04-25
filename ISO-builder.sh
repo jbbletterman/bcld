@@ -134,7 +134,6 @@ CHINIT="${CHETC}/init.d"
 CHLOGIND="${CHETC}/systemd/logind.conf"
 CHNSSDB="${CHOME_DIR}/.pki/nssdb"
 CHSERVICE_DIR="${CHETC}/systemd/system"
-CHSURFACE_KEY="${CHETC}/apt/trusted.gpg.d/linux-surface.gpg"
 
 ## IMG DIRs
 GRUB_DIR="${IMG_DIR}/boot/grub"
@@ -696,25 +695,27 @@ subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
 list_item 'Retrieving Linux Surface GPG key...'
 
 ### Linux Surface key
-/usr/bin/curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
-    | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHSURFACE_KEY}"
+# CHSURFACE_KEY="${CHETC}/apt/trusted.gpg.d/linux-surface.gpg"
 
-list_item 'Checking Linux Surface GPG key...'
-if [[ -f ${CHSURFACE_KEY} ]] \
-    && [[  "$(/usr/bin/wc -l < ${CHSURFACE_KEY})" -gt 0 ]]; then
-    list_item_pass "Linux Surface GPG key found! $(/usr/bin/md5sum ${CHSURFACE_KEY} | awk '{ print $1 }')"
-    list_entry
-    /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}" || exit 1
-    /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}" || exit 1
+# /usr/bin/curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
+#     | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHSURFACE_KEY}"
 
-    # DEBUGGING
-    /usr/bin/apt-get update || exit
+# list_item 'Checking Linux Surface GPG key...'
+# if [[ -f ${CHSURFACE_KEY} ]] \
+#     && [[  "$(/usr/bin/wc -l < ${CHSURFACE_KEY})" -gt 0 ]]; then
+#     list_item_pass "Linux Surface GPG key found! $(/usr/bin/md5sum ${CHSURFACE_KEY} | awk '{ print $1 }')"
+#     list_entry
+#     /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}" || exit 1
+#     /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}" || exit 1
 
-    list_catch
-else
-    list_item_fail 'Linux Surface GPG key NOT found!'
-    exit 1
-fi
+#     # DEBUGGING
+#     /usr/bin/apt-get update || exit
+
+#     list_catch
+# else
+#     list_item_fail 'Linux Surface GPG key NOT found!'
+#     exit 1
+# fi
 
 ### Substitute KERNEL lines
 subst_file "${PKGS_DIR}/KERNEL" "${PKG_ART}"
