@@ -129,6 +129,9 @@ list_entry
 /usr/bin/apt-get install -yq --no-install-recommends $(/usr/bin/cat ${CHROOT_PKGS}) | /usr/bin/tee -a "${LOG_FILE}"
 debconf-set-selections < "${SELECTIONS}"
 
+## Refresh repositories and check certificates
+/usr/sbin/update-ca-certificates || exit 1
+
 # Start installing
 list_header "APT installations"
 list_entry
