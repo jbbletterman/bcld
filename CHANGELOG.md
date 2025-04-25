@@ -5,6 +5,7 @@
 ## April
 * `2025-04-25 11:51:11` : [OAC-1190] Move Certificate Management before APT installations in [chroot.sh](./script/chroot.sh)
     - Trying to download Surface kernel causes certificate errors
+    - Fixed bug in [Docker-builder](./Docker-builder.sh), do not need to explicitly read only (is default)
 * `2025-04-23 16:08:40` : [OAC-1190] Move package `ca-certficates` from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
 * `2025-04-16 15:27:38` : [OAC-1190] Added *https://pkg.surfacelinux.com/debian* to [repositories](./config/apt/sources.list)
 * `2025-04-14 16:57:40` : [OAC-1190] Changed following packages from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
