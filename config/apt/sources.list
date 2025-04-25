@@ -2,6 +2,3 @@
 deb [arch=amd64] ${UBUNTU_REPO} ${CODE_NAME} main restricted universe multiverse
 deb [arch=amd64] ${UBUNTU_REPO} ${CODE_NAME}-updates main restricted universe multiverse
 deb [arch=amd64] ${UBUNTU_REPO} ${CODE_NAME}-security main restricted universe multiverse
-
-# Linux Surface repo
-deb [arch=amd64] https://pkg.surfacelinux.com/debian release main

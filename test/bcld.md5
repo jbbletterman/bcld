@@ -25,7 +25,7 @@ f9308ddcf62532c70ae0b4970c39b082  ./config/X11/xbindkeys/.xbindkeysrc
 cfc9284e73df9db03f57d490adfa71a2  ./config/X11/xorg.conf.test/99-bcld-disable-kiosk.conf
 8b637a6c1eb44c49740a1a2d569fe4ad  ./config/X11/xterm/XTerm.black
 9f5fd90d71fcba2be63627e80f5f7392  ./config/X11/xterm/XTerm.white
-de3cd8ba7d05e3e19c235a8d805e09ac  ./config/apt/sources.list
+fb432fece1031f6ae105d1b5f20652a3  ./config/apt/sources.list
 b7639e4fc5894bb8f36869a867a04f31  ./config/bash/bcld-init
 99f5cc55473c44d3a41f9a8a2212e1fe  ./config/bash/environment
 25085e77b1d6fcca2e1064fedf8c7a01  ./config/bash/profile.d/10-BCLD.sh
@@ -103,7 +103,7 @@ e13ef6429867f4c212988f795f0d6d68  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
 caeaba6f3ea103a2d0ee5a68b44baa93  ./script/bcld_vendor.sh
-9ad37e2b7321526b89d77770f28b1451  ./script/chroot.sh
+49db25564a3715730f7ec9f9f181ef7f  ./script/chroot.sh
 9994eab653aa84aa52971937c8167d7a  ./script/client_logger.sh
 525f0518876e4991769aca7d61e10e5a  ./script/crosdump_logger.sh
 5ebd438fa719e208ff99f02d0894fcae  ./script/docker_run.sh
