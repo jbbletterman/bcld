@@ -115,6 +115,9 @@ function set_passwd () {
 
 ### Install packages ###
 
+# Add critical packages to bootstrapped image
+/usr/bin/apt-get update && /usr/bin/apt-get install -y curl gpg
+
 # Linux Surface repo
 /usr/bin/curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
     | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHSURFACE_KEY}"
@@ -126,8 +129,8 @@ if [[ -f ${CHSURFACE_KEY} ]] \
     && [[  "$(/usr/bin/wc -l < "${CHSURFACE_KEY}")" -gt 0 ]]; then
     list_item_pass "Linux Surface GPG key found! $(/usr/bin/md5sum "${CHSURFACE_KEY}" | /usr/bin/awk '{ print $1 }')"
     list_entry
-    /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}" || exit 1
-    /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}" || exit 1
+    /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}"
+    /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}"
     list_catch
 else
     list_item_fail 'Linux Surface GPG key NOT found!'
@@ -151,7 +154,7 @@ list_entry
 debconf-set-selections < "${SELECTIONS}"
 
 ## Refresh repositories and check certificates
-/usr/sbin/update-ca-certificates || exit 1
+/usr/sbin/update-ca-certificates
 
 # Start installing
 list_header "APT installations"
