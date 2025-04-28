@@ -103,7 +103,7 @@ e13ef6429867f4c212988f795f0d6d68  ./script/Xconfigure.sh
 3f0e4d55a962e4dd009c1ae8c4db7739  ./script/autocert.sh
 f6604ec06c9aa1b19247785ed0f280a2  ./script/bcld_app.sh
 caeaba6f3ea103a2d0ee5a68b44baa93  ./script/bcld_vendor.sh
-aaf4f3ff2328ac950ddb0c4239fdfb8a  ./script/chroot.sh
+91b672dc16022ea25408c2e6ff578beb  ./script/chroot.sh
 9994eab653aa84aa52971937c8167d7a  ./script/client_logger.sh
 525f0518876e4991769aca7d61e10e5a  ./script/crosdump_logger.sh
 5ebd438fa719e208ff99f02d0894fcae  ./script/docker_run.sh

@@ -165,7 +165,7 @@ list_entry
 if [[ -n "${BCLD_PKG_EXTRA}" ]]; then
 	list_header "Found extra packages: ${BCLD_PKG_EXTRA}"
 	list_entry
-	/usr/bin/apt-get install -yq --no-install-recommends "${BCLD_PKG_EXTRA}" | /usr/bin/tee -a "${LOG_FILE}"
+	/usr/bin/apt-get install -yq --no-install-recommends ${BCLD_PKG_EXTRA} | /usr/bin/tee -a "${LOG_FILE}"
 fi
 
 
