@@ -115,6 +115,10 @@ function set_passwd () {
 
 ### Install packages ###
 
+# Only works if /tmp is accessible
+/usr/bin/mkdir -v /tmp
+/usr/bin/chmod -v 1777 /tmp
+
 # Add critical packages to bootstrapped image
 /usr/bin/apt-get update && /usr/bin/apt-get install -y curl gpg
 
@@ -139,9 +143,6 @@ fi
 
 # Update using the selected mirror
 list_header "Updating packages"
-
-## Only works if /tmp is accessible
-/usr/bin/chmod 1777 /tmp
 
 list_entry
 /usr/bin/apt-get update -y
