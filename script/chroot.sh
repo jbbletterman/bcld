@@ -116,7 +116,6 @@ function set_passwd () {
 ### Install packages ###
 
 # Only works if /tmp is accessible
-/usr/bin/mkdir -v /tmp
 /usr/bin/chmod -v 1777 /tmp
 
 # Add critical packages to bootstrapped image
