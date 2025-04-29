@@ -6,7 +6,7 @@ bb9cd8f6b404dc391601d1610b3518b2  ./.github/workflows/release.yml
 0f9bc2b595325394e775dcdb2f0164da  ./.github/workflows/unit-test.yml
 fe04418f518751b34909a21f6bd44c94  ./.gitignore
 ce2d9b29f5e16b1023375f232369f7ff  ./.gitmodules
-80384ad4ddff51a4b1a17666f31277dc  ./CHANGELOG.md
+22e23d40c4dbe55e91c0425cb305951a  ./CHANGELOG.md
 04aff3cce210e9c2a8f21df593f07b19  ./COPYING
 8b8022ccbc7e2bc33c9cb36b5d5897ce  ./Docker-builder.sh
 ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
@@ -16,7 +16,7 @@ ef29c64bd35fec47b154096be5a4c7d0  ./IMG-builder.sh
 f6c4276a99ee9de5b0bc0e385f7f4b57  ./RepoMan.sh
 b1447f0cf092dc2f9c8770aaedd8fb5f  ./SECURITY.md
 5ee37144e15f8bf49e7f683935a27f15  ./assets/bcld-logo.png
-42410f4c8dd8e5f65f05d27996814e1d  ./config/BUILD.conf
+b684f310a4c12f1b32d161822ad1ef3a  ./config/BUILD.conf
 f9308ddcf62532c70ae0b4970c39b082  ./config/X11/xbindkeys/.xbindkeysrc
 7bd9630940ecaabfb8e22c6560fbf2c0  ./config/X11/xmodmap/.xmodmap
 5bd6e2b4f3d441147adffa8bb288b1ea  ./config/X11/xorg.conf.d/20-intel.conf
@@ -52,10 +52,10 @@ d57cf84974e9a959d64a38710983a18d  ./config/packages/APP
 077a8a5014546daf883328e708b9dfbd  ./config/packages/BUILD
 acb938f50e2aa3ac3e0b082c320a1439  ./config/packages/CHROOT
 86d2f4b86e0a87d5ad05fab55ec33ba9  ./config/packages/DEBUG
-335cd24f955359c232ece20790776c3d  ./config/packages/KERNEL
+1fb3d6b8b654704bcd9bfb79dd7acca5  ./config/packages/KERNEL
 dc9ce4b257ebd2d13ef23c9b74d5d197  ./config/packages/NVIDIA
 6c224b812083575965b9bf1aca105231  ./config/packages/REMOVE
-1692141bce44505aebba868e9f5c8075  ./config/packages/REQUIRED
+35a38c0ad9fa25e0cd7db67fb22d48f8  ./config/packages/REQUIRED
 55f163a84fe275801f8058cffa324d92  ./config/packages/TEST
 c4194d2bde957994fa74aaa13bc8333e  ./config/packages/VIRTUAL
 e7c3341206da6e77bfed1923d6a11883  ./config/packages/selections.conf

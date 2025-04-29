@@ -3,6 +3,8 @@
 ## 2025
 
 ## April
+* `2025-04-29 17:14:22` : [OAC-1190] Moved `libwacom9` to [KERNEL](./config/packages/KERNEL) packages
+    - Surface uses `libwacom9-surface`
 * `2025-04-25 11:51:11` : [OAC-1190] Move Certificate Management before APT installations in [chroot.sh](./script/chroot.sh)
     - Trying to download Surface kernel causes certificate errors
     - Fixed bug in [Docker-builder](./Docker-builder.sh), do not need to explicitly read only (is default)
