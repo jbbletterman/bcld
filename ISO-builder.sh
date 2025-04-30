@@ -178,8 +178,8 @@ ISO_ART="${ART_DIR}/${ISO_NAME}"
 PKG_ART="${ART_DIR}/PKGS_ALL"
 
 ### Vars ###
-chinitrd="${CHROOT_DIR}/boot/initrd.img-${KERNEL_VERSION}"
-chvmlinuz="$CHROOT_DIR/boot/vmlinuz-${KERNEL_VERSION}"
+chinitrd="${CHROOT_DIR}/boot/initrd.img-*"
+chvmlinuz="${CHROOT_DIR}/boot/vmlinuz-*"
 dummy_repo_string="Bootable Client Lockdown (BCLD) ${BCLD_VERSION_STRING} \"${CODE_NAME}\" ${BCLD_ARCH} ($(date))"
 
 
