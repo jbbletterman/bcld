@@ -999,7 +999,7 @@ on_completion
 TAG='ISO-INITRAMFS'
 list_header "Triggering update-initramfs"
 list_entry
-/usr/sbin/chroot "${CHROOT_DIR}" /usr/sbin/update-initramfs -u | /usr/bin/tee -a "${CHROOT_LOG}"
+/usr/sbin/chroot "${CHROOT_DIR}" /usr/sbin/update-initramfs -c -k all | /usr/bin/tee -a "${CHROOT_LOG}"
 
 ### Lazy force unmounts after last chroot command
 list_header "Forcing unmounts"
