@@ -426,12 +426,12 @@ function check_apps () {
 
 ## Function to copy initrd
 function copy_initrd () {
-    copy_file "${CHROOT_DIR}/boot/initrd.img-[0-9]*" "${1}/initrd" && list_item_pass "initrd copied!"
+    copy_file ${CHROOT_DIR}/boot/initrd.img-[0-9]* "${1}/initrd" && list_item_pass "initrd copied!"
 }
 
 ## Function to copy vmlinuz
 function copy_vmlinuz () {
-    copy_file "${CHROOT_DIR}/boot/vmlinuz-[0-9]*" "${1}/vmlinuz" && list_item_pass "vmlinuz copied!"
+    copy_file ${CHROOT_DIR}/boot/vmlinuz-[0-9]* "${1}/vmlinuz" && list_item_pass "vmlinuz copied!"
 }
 
 ## Function to set ENVs inside ./chroot
