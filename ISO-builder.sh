@@ -1009,10 +1009,12 @@ list_exit
 list_header "Copying initrd and vmlinuz"
 
 # Casper
+list_item 'Casper files (ISO):'
 copy_initrd "${CASPER_DIR}"
 copy_vmlinuz "${CASPER_DIR}"
 
 # Artifacts
+list_item 'Artifacts:'
 copy_initrd "${ART_DIR}"
 copy_vmlinuz "${ART_DIR}"
 

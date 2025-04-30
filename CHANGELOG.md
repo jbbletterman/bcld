@@ -3,6 +3,7 @@
 ## 2025
 
 ## April
+* `2025-04-30 17:44:54` : [OAC-1190] Fix ISO artifacts for alternative kernels
 * `2025-04-29 17:14:22` : [OAC-1190] Moved `libwacom9` to [KERNEL](./config/packages/KERNEL) packages
     - Surface uses `libwacom9-surface`
 * `2025-04-25 11:51:11` : [OAC-1190] Move Certificate Management before APT installations in [chroot.sh](./script/chroot.sh)
