@@ -178,8 +178,6 @@ ISO_ART="${ART_DIR}/${ISO_NAME}"
 PKG_ART="${ART_DIR}/PKGS_ALL"
 
 ### Vars ###
-chinitrd="${CHROOT_DIR}/boot/initrd.img-*"
-chvmlinuz="${CHROOT_DIR}/boot/vmlinuz-*"
 dummy_repo_string="Bootable Client Lockdown (BCLD) ${BCLD_VERSION_STRING} \"${CODE_NAME}\" ${BCLD_ARCH} ($(date))"
 
 
@@ -428,12 +426,12 @@ function check_apps () {
 
 ## Function to copy initrd
 function copy_initrd () {
-    copy_file "${chinitrd}" "${1}/initrd" && list_item_pass "initrd copied!"
+    copy_file "${CHROOT_DIR}/boot/initrd.img-*" "${1}/initrd" && list_item_pass "initrd copied!"
 }
 
 ## Function to copy vmlinuz
 function copy_vmlinuz () {
-    copy_file "${chvmlinuz}" "${1}/vmlinuz" && list_item_pass "vmlinuz copied!"
+    copy_file "${CHROOT_DIR}/boot/vmlinuz-*" "${1}/vmlinuz" && list_item_pass "vmlinuz copied!"
 }
 
 ## Function to set ENVs inside ./chroot
