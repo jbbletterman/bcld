@@ -939,7 +939,7 @@ if [[ -f ${CHROOT_DIR}/etc/legal ]];then
 fi
 
 ## Fix permissions on all copied files in /home
-/usr/sbin/chroot "${CHROOT_DIR}" "/usr/bin/chown -R ${BCLD_USER}:${BCLD_USER}" "/home/${BCLD_USER}" | /usr/bin/tee -a "${CHROOT_LOG}"
+/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/bash -c "/usr/bin/chown -R ${BCLD_USER}:${BCLD_USER} /home/${BCLD_USER}" | /usr/bin/tee -a "${CHROOT_LOG}"
 
 on_completion
 
