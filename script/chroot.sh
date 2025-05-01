@@ -287,6 +287,14 @@ if [[ ${BCLD_MODEL} = 'test' ]]; then
     /usr/bin/systemctl enable ssh.service
 fi
 
+list_item "Set dummy input device in pulseaudio"
+list_entry
+echo "load-module module-null-source" >> /etc/pulse/default.pa.d/add-null-source.pa
+
+# Kopieer ook nog naar system settings (niet zeker of de user of system wide setting gebruikt wordt):
+cp /etc/pulse/default.pa.d/add-null-source.pa /etc/pulse/system.pa.d/add-null-source.pa
+list_catch
+
 # Cleanup
 list_header "Cleanup"
 
