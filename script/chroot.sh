@@ -289,6 +289,12 @@ fi
 
 list_item "Set dummy input device in pulseaudio"
 list_entry
+virtual_sink_file=/tmp/.virtual_sink_file
+cat << EOT > /etc/pulse/default.pa.d/add-virtual-mic.pa
+load-module module-pipe-source source_name=virtual file="$virtual_sink_file" format=s16le rate=30000 channels=2
+set-default-source virtual
+default-source = virtual
+EOT
 echo "load-module module-null-source" >> /etc/pulse/default.pa.d/add-null-source.pa
 
 # Kopieer ook nog naar system settings (niet zeker of de user of system wide setting gebruikt wordt):
