@@ -3,6 +3,8 @@
 ## 2025
 
 ## May
+* `2025-05-09 17:11:36` : Set Debian repo arch to AMD64 (64-bit packages only)
+  * Imrpoved [file operations](./script/file_operations.sh)
 * `2025-05-09 14:30:14` : [OAC-1190] Removing legacy Intel driver from X11 configs
   * Is needed to support Surface laptops
 
