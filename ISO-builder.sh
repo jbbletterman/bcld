@@ -178,8 +178,6 @@ ISO_ART="${ART_DIR}/${ISO_NAME}"
 PKG_ART="${ART_DIR}/PKGS_ALL"
 
 ### Vars ###
-chinitrd="${CHROOT_DIR}/boot/initrd.img-${KERNEL_VERSION}"
-chvmlinuz="$CHROOT_DIR/boot/vmlinuz-${KERNEL_VERSION}"
 dummy_repo_string="Bootable Client Lockdown (BCLD) ${BCLD_VERSION_STRING} \"${CODE_NAME}\" ${BCLD_ARCH} ($(date))"
 
 
@@ -428,12 +426,12 @@ function check_apps () {
 
 ## Function to copy initrd
 function copy_initrd () {
-    copy_file "${chinitrd}" "${1}/initrd" && list_item_pass "initrd copied!"
+    copy_file ${CHROOT_DIR}/boot/initrd.img-[0-9]* "${1}/initrd" && list_item_pass "initrd copied!"
 }
 
 ## Function to copy vmlinuz
 function copy_vmlinuz () {
-    copy_file "${chvmlinuz}" "${1}/vmlinuz" && list_item_pass "vmlinuz copied!"
+    copy_file ${CHROOT_DIR}/boot/vmlinuz-[0-9]* "${1}/vmlinuz" && list_item_pass "vmlinuz copied!"
 }
 
 ## Function to set ENVs inside ./chroot
@@ -516,7 +514,7 @@ function copy_nvidia_configs () {
             
             # X11 config
             copy_file "${CONFIG_DIR}/X11/xorg.conf.nvidia/30-nvidia.conf" "${CHROOT_DIR}/etc/X11/xorg.conf.d/30-nvidia.conf"
-            
+
             /usr/bin/chmod +x "${CHROOT_BIN}/nvidia-xrun"
             
             /usr/bin/echo 'openbox' > "${CHOME_DIR}/.xinitrc"
@@ -642,8 +640,47 @@ TAG='ISO-PRECONF'
 
 list_header "Preconfigurations"
 
-copy_file "${BUILD_CONF}" "${CHROOT_ROOT}"
-subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
+## Certificate Management, perform only if CERT is present in /cert
+# Skip entirely if CERT_DIR does not exist
+if [[ -d "${CERT_DIR}" ]]; then
+
+    TAG='ISO-CERT'
+
+    list_header "Certificate Management"
+
+    # Skip if no CRTs found
+    if [[ $(/usr/bin/find "${CERT_DIR}" -type f -name '*crt' | /usr/bin/wc -l) -gt 0 ]]; then
+
+	    list_item_pass "Certificates found in ${CERT_DIR}!"
+
+
+	    list_item "Checking directories..."
+	    delete_dir "${CHNSSDB}" 'Clearing...'
+	    prep_dir "${CHNSSDB}"
+
+	    ## Copy all certificates to the client
+	    list_item "Copying certificates..."
+	    copy_directory ${CERT_DIR}/facet "${CHROOT_PKI_DIR}"
+	    copy_directory ${CERT_DIR}/wft "${CHROOT_PKI_DIR}"
+
+	    ## KEY
+	    list_item "Storing Facet key..."
+	    /usr/bin/echo -e "${FACET_SECRET_1}\n${FACET_SECRET_2}\n${FACET_SECRET_3}\n${FACET_SECRET_4}" > "${CHROOT_PKI_DIR}/facet/${CLIENT_KEY_NAME}"
+	    
+	    list_item "Storing WFT key..."
+	    /usr/bin/echo -e "${WFT_SECRET_1}\n${WFT_SECRET_2}" > "${CHROOT_PKI_DIR}/wft/${CLIENT_KEY_NAME}"
+
+	    list_item "Copying NSSDBs..."
+	    copy_directory "${CLIENT_NSSDB}" "${CHOME_DIR}"
+    else
+	    list_item_fail "No certificates found in ${CERT_DIR}! Skipping..."
+	fi
+	
+else
+	list_item_fail "${CERT_DIR} not found! Skipping..."
+fi
+
+on_completion
 
 ## Build VERSION
 list_item "Generating ${CHROOT_DIR}/VERSION..."
@@ -651,6 +688,32 @@ list_item "Generating ${CHROOT_DIR}/VERSION..."
 /usr/bin/echo "${BCLD_VERSION_STRING}" > "${ART_DIR}/VERSION"
 
 ## Package management
+copy_file "${BUILD_CONF}" "${CHROOT_ROOT}"
+subst_file "${CONFIG_DIR}/apt/sources.list" "${CHROOT_DIR}/etc/apt/sources.list"
+list_item 'Retrieving Linux Surface GPG key...'
+
+### Linux Surface key
+# CHSURFACE_KEY="${CHETC}/apt/trusted.gpg.d/linux-surface.gpg"
+
+# /usr/bin/curl -s https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc \
+#     | /usr/bin/gpg --dearmor | /usr/bin/dd of="${CHSURFACE_KEY}"
+
+# list_item 'Checking Linux Surface GPG key...'
+# if [[ -f ${CHSURFACE_KEY} ]] \
+#     && [[  "$(/usr/bin/wc -l < ${CHSURFACE_KEY})" -gt 0 ]]; then
+#     list_item_pass "Linux Surface GPG key found! $(/usr/bin/md5sum ${CHSURFACE_KEY} | awk '{ print $1 }')"
+#     list_entry
+#     /usr/bin/gpg --list-keys --keyring "${CHSURFACE_KEY}" || exit 1
+#     /usr/bin/gpg --fingerprint --keyring "${CHSURFACE_KEY}" || exit 1
+
+#     # DEBUGGING
+#     /usr/bin/apt-get update || exit
+
+#     list_catch
+# else
+#     list_item_fail 'Linux Surface GPG key NOT found!'
+#     exit 1
+# fi
 
 ### Substitute KERNEL lines
 subst_file "${PKGS_DIR}/KERNEL" "${PKG_ART}"
@@ -682,7 +745,7 @@ if [[ ${BCLD_MODEL} = 'test' ]]; then
     pkgs_line
 fi
 
-# Display all packages, if there are no packages we cannot continue!
+### Display all packages, if there are no packages we cannot continue!
 if [[ -f ${PKG_ART} ]]; then
     list_item "Full list of packages:"
     list_entry
@@ -692,12 +755,12 @@ else
     on_failure
 fi
 
-# Copy PKGS_ALL AFTER all the modifications to the list are finished
+### Copy PKGS_ALL AFTER all the modifications to the list are finished
 list_header "Copying Package list artifact"
 copy_file "${PKG_ART}" "${CHROOT_DIR}/${BCLD_HOME}"
 list_exit
 
-## Configuration scripts
+### Configuration scripts
 copy_config_scripts
 
 # BCLD Services
@@ -875,47 +938,8 @@ if [[ -f ${CHROOT_DIR}/etc/legal ]];then
     /usr/bin/rm "${CHROOT_DIR}/etc/legal"
 fi
 
-on_completion
-
-## Certificate Management, perform only if CERT is present in /cert
-# Skip entirely if CERT_DIR does not exist
-if [[ -d "${CERT_DIR}" ]]; then
-
-    TAG='ISO-CERT'
-
-    list_header "Certificate Management"
-
-    # Skip if no CRTs found
-    if [[ $(/usr/bin/find "${CERT_DIR}" -type f -name '*crt' | /usr/bin/wc -l) -gt 0 ]]; then
-
-	    list_item_pass "Certificates found in ${CERT_DIR}!"
-
-
-	    list_item "Checking directories..."
-	    delete_dir "${CHNSSDB}" 'Clearing...'
-	    prep_dir "${CHNSSDB}"
-
-	    ## Copy all certificates to the client
-	    list_item "Copying certificates..."
-	    copy_directory ${CERT_DIR}/facet "${CHROOT_PKI_DIR}"
-	    copy_directory ${CERT_DIR}/wft "${CHROOT_PKI_DIR}"
-
-	    ## KEY
-	    list_item "Storing Facet key..."
-	    /usr/bin/echo -e "${FACET_SECRET_1}\n${FACET_SECRET_2}\n${FACET_SECRET_3}\n${FACET_SECRET_4}" > "${CHROOT_PKI_DIR}/facet/${CLIENT_KEY_NAME}"
-	    
-	    list_item "Storing WFT key..."
-	    /usr/bin/echo -e "${WFT_SECRET_1}\n${WFT_SECRET_2}" > "${CHROOT_PKI_DIR}/wft/${CLIENT_KEY_NAME}"
-
-	    list_item "Copying NSSDBs..."
-	    copy_directory "${CLIENT_NSSDB}" "${CHOME_DIR}"
-    else
-	    list_item_fail "No certificates found in ${CERT_DIR}! Skipping..."
-	fi
-	
-else
-	list_item_fail "${CERT_DIR} not found! Skipping..."
-fi
+## Fix permissions on all copied files in /home
+/usr/sbin/chroot "${CHROOT_DIR}" /usr/bin/bash -c "/usr/bin/chown -R ${BCLD_USER}:${BCLD_USER} /home/${BCLD_USER}" | /usr/bin/tee -a "${CHROOT_LOG}"
 
 on_completion
 
@@ -976,7 +1000,7 @@ on_completion
 TAG='ISO-INITRAMFS'
 list_header "Triggering update-initramfs"
 list_entry
-/usr/sbin/chroot "${CHROOT_DIR}" /usr/sbin/update-initramfs -u | /usr/bin/tee -a "${CHROOT_LOG}"
+/usr/sbin/chroot "${CHROOT_DIR}" /usr/sbin/update-initramfs -c -k all | /usr/bin/tee -a "${CHROOT_LOG}"
 
 ### Lazy force unmounts after last chroot command
 list_header "Forcing unmounts"
@@ -988,10 +1012,12 @@ list_exit
 list_header "Copying initrd and vmlinuz"
 
 # Casper
+list_item 'Casper files (ISO):'
 copy_initrd "${CASPER_DIR}"
 copy_vmlinuz "${CASPER_DIR}"
 
 # Artifacts
+list_item 'Artifacts:'
 copy_initrd "${ART_DIR}"
 copy_vmlinuz "${ART_DIR}"
 

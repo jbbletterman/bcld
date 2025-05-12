@@ -76,10 +76,14 @@ function link_file {
 ## Function to copy a configuration file
 function copy_file {
     if [[ -f ${1} ]]; then
-	    list_item "Copying file $(basename "${1}")..."
+	    list_item "Copying file $(/usr/bin/basename "${1}")..."
 	    /usr/bin/cp ${1} ${2}
     else
     	list_item "File does not exist!"
+        list_entry
+        /usr/bin/ls -alh "$(/usr/bin/dirname "${1}" )"
+        list_catch
+        list_exit
     	exit 1
     fi
 }

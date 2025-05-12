@@ -113,11 +113,14 @@ function set_passwd () {
 
 ### Install packages ###
 
+# Only works if /tmp is accessible
+/usr/bin/chmod -v 1777 /tmp
+
+# Add critical packages to bootstrapped image
+/usr/bin/apt-get update && /usr/bin/apt-get install -y curl gpg
+
 # Update using the selected mirror
 list_header "Updating packages"
-
-## Only works if /tmp is accessible
-/usr/bin/chmod 1777 /tmp
 
 list_entry
 /usr/bin/apt-get update -y
@@ -129,6 +132,9 @@ list_entry
 /usr/bin/apt-get install -yq --no-install-recommends $(/usr/bin/cat ${CHROOT_PKGS}) | /usr/bin/tee -a "${LOG_FILE}"
 debconf-set-selections < "${SELECTIONS}"
 
+## Refresh repositories and check certificates
+/usr/sbin/update-ca-certificates
+
 # Start installing
 list_header "APT installations"
 list_entry
@@ -138,7 +144,7 @@ list_entry
 if [[ -n "${BCLD_PKG_EXTRA}" ]]; then
 	list_header "Found extra packages: ${BCLD_PKG_EXTRA}"
 	list_entry
-	/usr/bin/apt-get install -yq --no-install-recommends "${BCLD_PKG_EXTRA}" | /usr/bin/tee -a "${LOG_FILE}"
+	/usr/bin/apt-get install -yq --no-install-recommends ${BCLD_PKG_EXTRA} | /usr/bin/tee -a "${LOG_FILE}"
 fi
 
 
