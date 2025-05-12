@@ -2,7 +2,22 @@
 
 ## 2025
 
+## May
+* `2025-05-12 11:49:04` : Removed [Intel X11 config](config/X11/xorg.conf.d/20-intel.conf)
+* `2025-05-09 17:11:36` : Set Debian repo arch to AMD64 (64-bit packages only)
+  * Imrpoved [file operations](./script/file_operations.sh)
+* `2025-05-09 14:30:14` : [OAC-1190] Removing legacy Intel driver from X11 configs
+  * Is needed to support Surface laptops
+
 ## April
+* `2025-04-30 17:44:54` : [OAC-1190] Fix ISO artifacts for alternative kernels
+* `2025-04-29 17:14:22` : [OAC-1190] Moved `libwacom9` to [KERNEL](./config/packages/KERNEL) packages
+  * Surface uses `libwacom9-surface`
+* `2025-04-25 11:51:11` : [OAC-1190] Move Certificate Management before APT installations in [chroot.sh](./script/chroot.sh)
+  * Trying to download Surface kernel causes certificate errors
+  * Fixed bug in [Docker-builder](./Docker-builder.sh), do not need to explicitly read only (is default)
+* `2025-04-23 16:08:40` : [OAC-1190] Move package `ca-certficates` from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
+* `2025-04-16 15:27:38` : [OAC-1190] Added *https://pkg.surfacelinux.com/debian* to [repositories](./config/apt/sources.list)
 * `2025-04-14 16:57:40` : [OAC-1190] Changed following packages from [REQUIRED](./config/packages/REQUIRED) to [CHROOT](./config/packages/CHROOT)
   * iptables
   * netfilter-persistent

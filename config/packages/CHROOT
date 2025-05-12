@@ -1,5 +1,7 @@
 binutils
+ca-certificates
 debconf-utils
+gpg
 iptables
 netfilter-persistent
 plymouth-theme-spinner

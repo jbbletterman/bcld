@@ -2,6 +2,7 @@ apt-utils
 aptitude
 bind9-dnsutils
 coreutils
+ca-certificates
 curl
 debootstrap
 dosfstools

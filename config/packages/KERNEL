@@ -2,3 +2,4 @@ linux-headers-${KERNEL_VERSION}
 linux-image-${KERNEL_VERSION}
 linux-modules-${KERNEL_VERSION}
 linux-modules-extra-${KERNEL_VERSION}
+libwacom9

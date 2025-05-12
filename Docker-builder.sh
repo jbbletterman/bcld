@@ -93,14 +93,13 @@ if [[ -s /usr/bin/docker ]]; then
 	-e BCLD_PKG_EXTRA="${BCLD_PKG_EXTRA}" \
 	-e BCLD_TAG_EXTRA="${BCLD_TAG_EXTRA}" \
 	-e BCLD_SECRET="${BCLD_SECRET}" \
-    -v /dev:/dev:ro \
-    -v /run:/run:rw \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v ${BCLD_DIR}:/project:rw \
-    -w /project \
-    ubuntu:${CODE_NAME} bash -c \
-    	'/project/script/docker_run.sh'
-
+	-v /dev:/dev \
+	-v /run:/run:rw \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	-v ${BCLD_DIR}:/project:rw \
+	-w /project \
+	ubuntu:${CODE_NAME} bash -c \
+		'/project/script/docker_run.sh'
 else
     list_item "Please run ${0} with Docker installed!"
     list_entry
