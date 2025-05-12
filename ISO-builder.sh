@@ -534,7 +534,7 @@ function copy_post_config_dirs () {
     copy_directory "${CONFIG_DIR}/systemd/system/systemd-udevd.service.d" "${CHSERVICE_DIR}"
     #copy_directory "${CONFIG_DIR}/systemd/system.conf.d/" "${CHROOT_DIR}/etc/systemd"
     copy_directory "${CONFIG_DIR}/trap_shutdown" "${CHOME_DIR}"
-    #copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
+    copy_directory "${CONFIG_DIR}/X11/xorg.conf.d" "${CHROOT_DIR}/etc/X11/"
     copy_directory "${PROFILE_DIR}" "${CHROOT_DIR}/etc/"
 }
 
