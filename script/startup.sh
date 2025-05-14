@@ -146,6 +146,7 @@ function read_all_params() {
 	readparam "${LOGGING_PARAM}" "${LOGGING_ALIAS}"
 	readparam "${VENDOR_PARAM}" "${VENDOR_ALIAS}"
 	readparam "${ZOOM_PARAM}" "${ZOOM_ALIAS}"
+	readparam "${AFNAME_ENV_PARAM}" "${AFNAME_ENV_ALIAS}"
 
 	### Audio
 	readparam "${AUDIO_ALSA_SINK_PARAM}" "${AUDIO_ALSA_SINK_ALIAS}"
