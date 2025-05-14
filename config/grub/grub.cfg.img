@@ -14,8 +14,9 @@ set gfxmode="1280x1024x32"
 # VARs
 set ISO_FILE="/bcld.iso"
 set PLYMOUTH="quiet splash"
+set SURFACE_FIX='pci=hpiosize=0' # Fixes issue of Surface laptops not shutting down
 
-set PARAMS="iso-scan/filename=$ISO_FILE boot=casper noprompt noeject toram apparmor=0 $PLYMOUTH"
+set PARAMS="iso-scan/filename=$ISO_FILE boot=casper noprompt noeject toram apparmor=0 $SURFACE_FIX $PLYMOUTH"
 set PRIOMETERS="systemd.unit=graphical.target 5"
 
 set default=0
